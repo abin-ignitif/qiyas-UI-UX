@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light" data-preview-locale="ar" data-dashboard-state="working">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Qiyas Screen 06 — Student Dashboard">
+  <title>Screen 06 — Student Dashboard · Qiyas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primitive-green-500: #0D662C; --primitive-green-400: #1A8C43; --primitive-green-200: #66B385; --primitive-green-100: #B3D9C1; --primitive-green-50: #E6F2EA; --primitive-green-700: #09481F; --primitive-green-900: #04230F;
+      --primitive-gold-500: #CE940F; --primitive-gold-400: #DBA724; --primitive-gold-200: #EDC866; --primitive-gold-100: #F9E8B3; --primitive-gold-50: #FFFDF0; --primitive-gold-700: #91680A; --primitive-gold-900: #4A3505;
+      --primitive-ink: #11120F; --primitive-paper: #FEFEFE; --primitive-neutral-50: #F8F9F7; --primitive-neutral-100: #E1E3DF; --primitive-neutral-200: #C4C7C0; --primitive-neutral-400: #878C82; --primitive-neutral-500: #61665C; --primitive-neutral-700: #32352E; --primitive-terracotta-500: #C84B15; --primitive-terracotta-50: #FFF2F0; --primitive-terracotta-700: #96320B;
+      --surface-page: var(--primitive-paper); --surface-raised: var(--primitive-neutral-50); --surface-sunken: var(--primitive-neutral-100); --surface-overlay: var(--primitive-paper); --surface-inverse: var(--primitive-ink);
+      --text-primary: var(--primitive-ink); --text-secondary: var(--primitive-neutral-700); --text-tertiary: var(--primitive-neutral-500); --text-disabled: var(--primitive-neutral-400); --text-inverse: var(--primitive-paper); --text-on-brand: var(--primitive-paper);
+      --border-subtle: var(--primitive-neutral-100); --border-default: var(--primitive-neutral-200); --border-strong: var(--primitive-ink); --border-focus: var(--primitive-green-400);
+      --action-primary-bg: var(--primitive-ink); --action-primary-fg: var(--primitive-paper); --action-secondary-bg: var(--surface-page); --action-secondary-fg: var(--text-primary); --action-destructive-bg: var(--primitive-terracotta-700); --action-destructive-fg: var(--primitive-paper);
+      --state-correct-bg: var(--primitive-green-50); --state-correct-border: var(--primitive-green-500); --state-correct-fg: var(--primitive-green-700); --state-incorrect-bg: var(--primitive-terracotta-50); --state-incorrect-border: var(--primitive-terracotta-500); --state-incorrect-fg: var(--primitive-terracotta-700); --state-selected-bg: var(--primitive-neutral-50); --state-selected-border: var(--primitive-ink); --state-gold-bg: var(--primitive-gold-50); --state-gold-border: var(--primitive-gold-500); --state-cooldown-bg: var(--primitive-terracotta-50); --state-cooldown-border: var(--primitive-terracotta-500); --state-info-bg: var(--primitive-green-50); --state-info-border: var(--primitive-green-200); --focus-ring: var(--primitive-green-400);
+      --font-display: "IBM Plex Sans", system-ui, sans-serif; --font-body: "IBM Plex Sans", system-ui, sans-serif; --font-arabic: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, sans-serif; --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+      --logo-ink: #11120F; --logo-green: #0D662C; --logo-gold: #CE940F;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px;
+      --radius-card: 4px; --radius-control: 4px; --radius-accent: 0; --border-width-hairline: 1px; --border-width-default: 1.5px; --border-width-emphasis: 2px; --border-width-selected: 3px; --content: 1180px; --control-compact: 40px; --control-default: 48px; --control-large: 56px;
+      --progress-track: var(--surface-sunken); --progress-fill: var(--primitive-green-500); --timer-low-fill: var(--primitive-terracotta-500); --timer-low-fg: var(--primitive-terracotta-700); --timer-critical-fill: var(--primitive-ink); --timer-critical-fg: var(--primitive-ink);
+      --focus-offset: 3px; --motion-instant: 0ms; --motion-quick: 120ms; --motion-base: 180ms; --motion-deliberate: 280ms; --motion-signature-min: 600ms; --ease-enter: cubic-bezier(.2,.7,.3,1);
+    }
+    html[data-theme="dark"] {
+      --surface-page: #11120F; --surface-raised: #181A16; --surface-sunken: #0B0C0A; --surface-overlay: #20231E; --surface-inverse: #FEFEFE;
+      --text-primary: #FEFEFE; --text-secondary: #C4C7C0; --text-tertiary: #A8ADA2; --text-disabled: #72786E; --text-inverse: #11120F; --text-on-brand: #FEFEFE;
+      --border-subtle: #2A2E28; --border-default: #4A5046; --border-strong: #FEFEFE; --border-focus: #66B385; --action-primary-bg: #FEFEFE; --action-primary-fg: #11120F; --action-secondary-bg: #181A16; --action-secondary-fg: #FEFEFE;
+      --action-destructive-bg: #96320B; --action-destructive-fg: #FEFEFE; --state-correct-bg: #173D25; --state-correct-border: #66B385; --state-correct-fg: #B3D9C1; --state-incorrect-bg: #4A1B0A; --state-incorrect-border: #E07843; --state-incorrect-fg: #FFD0BD; --state-selected-bg: #20231E; --state-selected-border: #FEFEFE; --state-gold-bg: #3C3217; --state-gold-border: #DBA724; --state-cooldown-bg: #4A1B0A; --state-cooldown-border: #E07843; --state-info-bg: #173D25; --state-info-border: #66B385; --focus-ring: #66B385; --logo-ink: #FEFEFE; --logo-green: #66B385; --logo-gold: #DBA724;
+      --timer-low-fill: var(--state-incorrect-border); --timer-low-fg: var(--state-incorrect-fg); --timer-critical-fill: var(--primitive-paper); --timer-critical-fg: var(--primitive-paper);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--surface-page); }
+    body { margin: 0; color: var(--text-primary); background: var(--surface-page); font-family: var(--font-body); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    body, button { font-size: 16px; }
+    button { font: inherit; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4, p, dl, dd { margin: 0; }
+    h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.12; letter-spacing: -.02em; }
+    [lang="ar"], [dir="rtl"] { font-family: var(--font-arabic); }
+    :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: var(--focus-offset); }
+    .container { max-inline-size: var(--content); margin-inline: auto; padding-inline: clamp(16px, 4vw, 32px); }
+    .topnav { position: sticky; inset-block-start: 0; z-index: 20; background: color-mix(in srgb, var(--surface-page) 94%, transparent); border-block-end: var(--border-width-hairline) solid var(--border-subtle); backdrop-filter: blur(12px); }
+    .topnav-inner { min-block-size: 64px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); padding-block: var(--space-2); }
+    .document-title { font-weight: 600; }
+    .document-title small { display: block; color: var(--text-tertiary); font: 11px/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .document-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--space-2); }
+    .control-label { color: var(--text-tertiary); font: 700 10px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+    .toggle-group { display: inline-flex; max-inline-size: 100%; overflow-x: auto; border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-control); }
+    .toggle-button { min-block-size: 44px; padding-inline: 10px; border: 0; border-inline-start: var(--border-width-hairline) solid var(--border-default); color: var(--text-tertiary); background: transparent; white-space: nowrap; font-size: 12px; font-weight: 600; }
+    .toggle-button:first-child { border-inline-start: 0; }
+    .toggle-button:hover, .toggle-button[aria-pressed="true"] { color: var(--text-primary); background: var(--surface-raised); }
+    .toggle-button[aria-pressed="true"] { box-shadow: inset 0 -2px 0 var(--primitive-green-500); }
+    .hero { padding-block: clamp(48px, 8vw, 88px); }
+    .hero-heading, .section-heading { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(240px, .9fr); gap: var(--space-7); align-items: end; margin-block-end: var(--space-6); }
+    .eyebrow, .overline { color: var(--primitive-green-500); font: 700 11px/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+    .hero-heading h1 { max-inline-size: 700px; font-size: clamp(36px, 5vw, 64px); }
+    .hero-heading p { max-inline-size: 58ch; color: var(--text-secondary); font-size: 18px; }
+    .preview-board { display: grid; grid-template-columns: minmax(0, 390px) minmax(0, 1fr); gap: var(--space-6); align-items: start; }
+    .preview-frame { overflow: hidden; border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .preview-phone { inline-size: min(100%, 390px); }
+    .preview-desktop { grid-column: 1 / -1; inline-size: 100%; }
+    .screen-canvas { position: relative; overflow: auto; color: var(--text-primary); background: var(--surface-page); }
+    .preview-phone .screen-canvas { min-block-size: 844px; }
+    .preview-desktop .screen-canvas { min-block-size: 760px; }
+    .preview-caption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-block-start: var(--border-width-hairline) solid var(--border-default); color: var(--text-tertiary); font-size: 12px; }
+    .preview-caption strong { color: var(--text-primary); font-size: 14px; }
+    .screen-inner { max-inline-size: 1180px; margin-inline: auto; padding: var(--space-6) clamp(16px, 4vw, 48px) var(--space-7); }
+    .preview-phone .locale-switch { position: absolute; inset-block-start: var(--space-4); inset-inline-end: var(--space-4); z-index: 5; display: grid; place-items: center; inline-size: 44px; block-size: 44px; min-inline-size: 44px; min-block-size: 44px; padding: 0; appearance: none; -webkit-appearance: none; border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-control); color: var(--text-primary); background: var(--surface-page); box-shadow: none; font: 700 12px/1 var(--font-mono); letter-spacing: .06em; }
+    .preview-phone .locale-switch > span { display: inline; }
+    .locale-switch:hover { color: var(--text-primary); background: var(--surface-raised); border-color: var(--border-strong); }
+    .dashboard-topbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); min-block-size: 48px; margin-block-end: var(--space-6); padding-block-end: var(--space-3); border-block-end: var(--border-width-hairline) solid var(--border-subtle); }
+    .dashboard-brand { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--text-primary); font-weight: 600; }
+    .dashboard-brand svg { inline-size: 112px; block-size: auto; }
+    .dashboard-user { display: flex; align-items: center; gap: var(--space-2); }
+    .avatar { display: grid; place-items: center; inline-size: 36px; block-size: 36px; border: var(--border-width-emphasis) solid var(--border-strong); border-radius: var(--radius-accent); font: 700 13px/1 var(--font-mono); }
+    .dashboard-layout { display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: var(--space-6); align-items: start; }
+    .dashboard-nav { display: grid; align-content: start; gap: 4px; padding-block-start: var(--space-2); }
+    .dashboard-nav a { display: flex; align-items: center; min-block-size: 44px; padding-inline: var(--space-3); color: var(--text-tertiary); border-block-end: var(--border-width-hairline) solid transparent; font-size: 13px; }
+    .dashboard-nav a:hover, .dashboard-nav a[aria-current="page"] { color: var(--text-primary); background: var(--surface-raised); border-block-end-color: var(--primitive-green-500); }
+    .dashboard-main { min-inline-size: 0; display: grid; gap: var(--space-4); }
+    .dashboard-welcome { display: flex; align-items: end; justify-content: space-between; gap: var(--space-4); }
+    .dashboard-welcome h2 { margin-block-start: var(--space-2); font-size: clamp(24px, 4vw, 36px); }
+    .sync-note { color: var(--text-tertiary); font: 11px/1.4 var(--font-mono); text-align: end; }
+    .next-action { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-5); align-items: end; padding: var(--space-5); border: var(--border-width-emphasis) solid var(--border-strong); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .next-action h1 { max-inline-size: 620px; margin-block-start: var(--space-2); font-size: clamp(24px, 4vw, 40px); }
+    .next-action p { max-inline-size: 62ch; margin-block-start: var(--space-3); color: var(--text-secondary); }
+    .next-action-meta { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-block-start: var(--space-4); color: var(--text-tertiary); font: 12px/1.4 var(--font-mono); }
+    .next-action-meta span { padding-inline-end: var(--space-2); border-inline-end: var(--border-width-hairline) solid var(--border-default); }
+    .next-action-meta span:last-child { border-inline-end: 0; }
+    .next-action .button { min-inline-size: 160px; }
+    .next-action[data-tone="ready"] { border-color: var(--state-correct-border); background: var(--state-correct-bg); }
+    .next-action[data-tone="earned"] { border-color: var(--state-gold-border); background: var(--state-gold-bg); }
+    .dashboard-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr); gap: var(--space-4); align-items: start; }
+    .panel { min-inline-size: 0; padding: var(--space-4); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .panel h3 { margin-block-end: var(--space-3); font-size: 20px; }
+    .panel-heading { display: flex; justify-content: space-between; gap: var(--space-3); align-items: baseline; margin-block-end: var(--space-3); }
+    .panel-heading small { color: var(--text-tertiary); font-size: 12px; }
+    .progress-linear { display: grid; gap: var(--space-2); }
+    .progress-summary { display: flex; justify-content: space-between; gap: var(--space-3); align-items: baseline; }
+    .progress-summary strong { font: 700 24px/1 var(--font-mono); font-variant-numeric: tabular-nums lining-nums; }
+    .progress-track { inline-size: 100%; block-size: 8px; overflow: hidden; background: var(--progress-track); }
+    .progress-track span { display: block; block-size: 100%; background: var(--progress-fill); }
+    .progress-segmented { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 4px; }
+    .progress-segmented span { min-block-size: 10px; border: var(--border-width-hairline) solid var(--border-default); background: var(--surface-sunken); }
+    .progress-segmented span.done { border-color: var(--primitive-green-500); background: var(--primitive-green-500); }
+    .progress-segmented span.current { border-color: var(--border-strong); background: var(--surface-page); }
+    .ladder { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+    .badge-tile { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: var(--space-3); align-items: center; min-block-size: 72px; padding: var(--space-2); color: var(--text-primary); text-align: start; border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-accent); background: var(--surface-page); overflow: hidden; transition: border-color var(--motion-quick) ease-out, background-color var(--motion-quick) ease-out, transform var(--motion-quick) ease-out; }
+    .badge-tile:hover { border-color: var(--border-strong); background: var(--surface-raised); transform: translateY(-1px); }
+    .badge-mark { display: grid; place-items: center; inline-size: 40px; block-size: 40px; border: var(--border-width-emphasis) solid var(--border-strong); border-radius: var(--radius-accent); font: 700 12px/1 var(--font-mono); font-variant-numeric: tabular-nums; }
+    .badge-tile strong { display: block; font-size: 14px; }
+    .badge-tile small { display: block; margin-block-start: 2px; color: var(--text-tertiary); font-size: 11px; }
+    .badge-tile.locked { color: var(--text-tertiary); border-style: dashed; background: var(--surface-sunken); }
+    .badge-tile.next { border-color: var(--border-strong); }
+    .badge-tile.eligible { color: var(--state-correct-fg); border-color: var(--state-correct-border); background: var(--state-correct-bg); }
+    .badge-tile.cooldown { color: var(--state-incorrect-fg); border-color: var(--state-cooldown-border); background: var(--state-cooldown-bg); }
+    .badge-tile.earned { color: var(--primitive-gold-700); border-color: var(--state-gold-border); background: var(--state-gold-bg); }
+    html[data-theme="dark"] .badge-tile.earned { color: var(--primitive-gold-200); }
+    .badge-tile.capped { color: var(--text-secondary); border-color: var(--border-strong); background: var(--surface-raised); }
+    .badge-tile.capped .badge-mark { border-style: double; }
+    html[data-theme="dark"] .badge-tile { color: var(--text-primary); }
+    .dashboard-screen[data-dashboard-state="earned"] .badge-tile[data-badge-number="10"]::after { content: ""; position: absolute; inset-inline-end: -22px; inset-block-start: 42px; inline-size: 120px; block-size: 3px; background: var(--state-gold-border); transform: rotate(-45deg); }
+    .badge-progress { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-block-start: var(--space-3); }
+    .badge-progress span { color: var(--text-tertiary); font: 11px/1.4 var(--font-mono); }
+    .metric-list { display: grid; gap: 0; }
+    .metric-row { display: flex; justify-content: space-between; gap: var(--space-3); padding-block: 10px; border-block-end: var(--border-width-hairline) solid var(--border-subtle); }
+    .metric-row:last-child { border-block-end: 0; }
+    .metric-row dt { color: var(--text-tertiary); }
+    .metric-row dd { margin: 0; color: var(--text-primary); font-weight: 600; text-align: end; }
+    .feedback { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: var(--space-3); align-items: start; padding: var(--space-4); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .feedback-icon { display: grid; place-items: center; inline-size: 24px; block-size: 24px; border: var(--border-width-emphasis) solid currentColor; font: 700 13px/1 var(--font-mono); }
+    .feedback strong { display: block; margin-block-end: var(--space-1); }
+    .feedback p { margin: 0; color: inherit; font-size: 13px; }
+    .feedback.info { color: var(--text-primary); }
+    .feedback.success { color: var(--state-correct-fg); border-color: var(--state-correct-border); background: var(--state-correct-bg); }
+    .feedback.warning, .feedback.error { color: var(--state-incorrect-fg); border-color: var(--state-incorrect-border); background: var(--state-incorrect-bg); }
+    .dashboard-async { display: none; }
+    .dashboard-screen[data-dashboard-state="loading"] .dashboard-stateful, .dashboard-screen[data-dashboard-state="empty"] .dashboard-stateful, .dashboard-screen[data-dashboard-state="error"] .dashboard-stateful { display: none; }
+    .dashboard-screen[data-dashboard-state="loading"] .dashboard-async.loading, .dashboard-screen[data-dashboard-state="empty"] .dashboard-async.empty, .dashboard-screen[data-dashboard-state="error"] .dashboard-async.error { display: grid; }
+    .skeleton { display: grid; gap: var(--space-3); padding: var(--space-5); border: var(--border-width-default) solid var(--border-default); background: var(--surface-raised); }
+    .skeleton span { display: block; block-size: 14px; background: var(--surface-sunken); }
+    .skeleton span:first-child { inline-size: 42%; block-size: 26px; }
+    .skeleton span:nth-child(3) { inline-size: 78%; }
+    .empty-state, .state-error, .offline-state, .stale-state { display: grid; gap: var(--space-2); padding: var(--space-5); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .empty-mark { inline-size: 32px; block-size: 32px; border: var(--border-width-emphasis) solid var(--border-strong); }
+    .offline-state { color: var(--state-incorrect-fg); border-color: var(--state-incorrect-border); background: var(--state-incorrect-bg); }
+    .stale-state { border-style: dashed; }
+    .state-note { display: none; }
+    .dashboard-screen[data-dashboard-state="offline"] .state-note.offline { display: grid; }
+    .dashboard-screen[data-dashboard-state="cooldown"] .state-note.cooldown, .dashboard-screen[data-dashboard-state="capped"] .state-note.capped, .dashboard-screen[data-dashboard-state="lapse"] .state-note.lapse { display: grid; }
+    .dashboard-screen[data-dashboard-state="offline"] .next-action .button { color: var(--text-disabled); background: var(--surface-sunken); border-color: var(--border-default); cursor: not-allowed; }
+    .dashboard-screen[data-dashboard-state="offline"] .next-action .button:hover { transform: none; }
+    .dashboard-screen[data-dashboard-state="new"] .badge-tile[data-badge-number="01"] .badge-mark, .dashboard-screen[data-dashboard-state="working"] .badge-tile[data-badge-number="02"] .badge-mark, .dashboard-screen[data-dashboard-state="ready"] .badge-tile[data-badge-number="02"] .badge-mark { border-color: var(--border-strong); }
+    .dashboard-nav-mobile { display: none; }
+    /* The phone specimen is a fixed 390px canvas inside a wide handoff document.
+       Keep its responsive composition tied to the specimen, not the outer viewport. */
+    .preview-phone .screen-canvas { inline-size: 100%; overflow-x: hidden; }
+    .preview-phone .screen-inner { padding-inline: var(--space-4); }
+    .preview-phone .dashboard-layout { display: block; }
+    .preview-phone .dashboard-nav { display: none; }
+    .preview-phone .dashboard-nav-mobile { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-block-start: var(--space-4); padding: 4px; border-block-start: var(--border-width-default) solid var(--border-default); background: var(--surface-raised); }
+    .preview-phone .dashboard-nav-mobile a { display: grid; place-items: center; min-block-size: 44px; color: var(--text-tertiary); font-size: 11px; }
+    .preview-phone .dashboard-nav-mobile a[aria-current="page"] { color: var(--text-primary); border-block-end: var(--border-width-emphasis) solid var(--primitive-green-500); font-weight: 700; }
+    .preview-phone .dashboard-welcome { align-items: start; flex-direction: column; }
+    .preview-phone .sync-note { text-align: start; }
+    .preview-phone .next-action { grid-template-columns: 1fr; gap: var(--space-4); padding: var(--space-4); }
+    .preview-phone .next-action h1 { font-size: 28px; }
+    .preview-phone .next-action .button { inline-size: 100%; }
+    .preview-phone .dashboard-grid { grid-template-columns: 1fr; }
+    .preview-phone .ladder { grid-template-columns: 1fr; }
+    .preview-phone .panel { padding: var(--space-4); }
+    .section { padding-block: var(--space-8); border-block-start: var(--border-width-hairline) solid var(--border-subtle); }
+    .section-heading { display: grid; grid-template-columns: minmax(180px, .3fr) minmax(0, .7fr); gap: var(--space-6); align-items: start; margin-block-end: var(--space-5); }
+    .section-heading p { color: var(--text-secondary); }
+    .card { min-inline-size: 0; padding: var(--space-5); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .card p { color: var(--text-secondary); }
+    .decision-grid, .state-grid, .flow-grid { display: grid; gap: var(--space-4); }
+    .decision-grid, .state-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .flow-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .state-card { display: grid; align-content: start; gap: var(--space-3); min-block-size: 188px; padding: var(--space-4); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-page); }
+    .state-card h3 { font-size: 18px; }
+    .mapping-table { min-inline-size: 860px; }
+    .mapping-table .map-row { display: grid; grid-template-columns: 1.1fr 1fr 1.1fr 1.7fr; gap: var(--space-3); padding-block: var(--space-3); border-block-end: var(--border-width-hairline) solid var(--border-subtle); font-size: 13px; }
+    .mapping-table .map-head { color: var(--text-tertiary); font: 700 11px/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .mobile-build-sheet { margin-block-start: var(--space-5); padding: var(--space-5); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .build-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+    .table-wrap { max-inline-size: 100%; overflow-x: auto; }
+    table { inline-size: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 10px 8px; border-block-end: var(--border-width-hairline) solid var(--border-subtle); text-align: start; vertical-align: top; }
+    th { color: var(--text-tertiary); font: 700 11px/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums lining-nums; }
+    .gap-list { display: grid; gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
+    .gap-list li { display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: var(--space-2); }
+    .gap-dot { inline-size: 8px; block-size: 8px; margin-block-start: 7px; background: var(--primitive-gold-500); }
+    .locale-ar { display: inline; }
+    .locale-en { display: none; }
+    html[data-preview-locale="en"] .locale-ar { display: none; }
+    html[data-preview-locale="en"] .locale-en { display: inline; }
+    [data-product-canvas][data-locale="en"] .locale-ar { display: none; }
+    [data-product-canvas][data-locale="en"] .locale-en { display: inline; }
+    @media (max-width: 920px) {
+      .hero-heading, .section-heading { grid-template-columns: 1fr; gap: var(--space-4); }
+      .dashboard-grid, .decision-grid, .state-grid, .flow-grid, .build-grid { grid-template-columns: 1fr; }
+      .preview-board { grid-template-columns: 1fr; }
+      .preview-desktop { grid-column: auto; }
+    }
+    @media (max-width: 680px) {
+      .topnav-inner { align-items: flex-start; }
+      .document-controls { inline-size: 100%; justify-content: flex-start; }
+      .control-label { display: none; }
+      .preview-board { gap: var(--space-4); }
+      .preview-phone { inline-size: 100%; }
+      .screen-inner { padding-inline: var(--space-4); }
+      .dashboard-topbar { margin-block-end: var(--space-4); }
+      .dashboard-layout { display: block; }
+      .dashboard-nav { display: none; }
+      .dashboard-nav-mobile { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-block-start: var(--space-4); padding: 4px; border-block-start: var(--border-width-default) solid var(--border-default); background: var(--surface-raised); }
+      .dashboard-nav-mobile a { display: grid; place-items: center; min-block-size: 44px; color: var(--text-tertiary); font-size: 11px; }
+      .dashboard-nav-mobile a[aria-current="page"] { color: var(--text-primary); border-block-end: var(--border-width-emphasis) solid var(--primitive-green-500); font-weight: 700; }
+      .dashboard-welcome { align-items: start; flex-direction: column; }
+      .sync-note { text-align: start; }
+      .next-action { grid-template-columns: 1fr; gap: var(--space-4); padding: var(--space-4); }
+      .next-action h1 { font-size: 28px; }
+      .next-action .button { inline-size: 100%; }
+      .ladder { grid-template-columns: 1fr; }
+      .panel, .card { padding: var(--space-4); }
+      .mapping-table { min-inline-size: 0; }
+      .mapping-table .map-head { display: none; }
+      .mapping-table .map-row { grid-template-columns: 1fr; gap: 4px; }
+      .mapping-table .map-row > div::before { display: block; margin-block-end: 2px; color: var(--text-tertiary); font: 700 10px/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+      .mapping-table .map-row > div:nth-child(1)::before { content: "Element"; }
+      .mapping-table .map-row > div:nth-child(2)::before { content: "Component"; }
+      .mapping-table .map-row > div:nth-child(3)::before { content: "Variant"; }
+      .mapping-table .map-row > div:nth-child(4)::before { content: "Notes"; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 1ms !important; transition-duration: 1ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <svg hidden="" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="qiyas-logo-en" viewBox="0 0 1201 349"><path d="M 343.0 96.0 L 343.0 293.0 L 377.0 293.0 L 377.0 96.0 Z M 1014.0 93.0 L 1013.0 205.0 L 1146.0 206.0 L 1147.0 262.0 L 1014.0 263.0 L 1013.0 294.0 L 1180.0 294.0 L 1179.0 175.0 L 1046.0 174.0 L 1047.0 124.0 L 1180.0 124.0 L 1180.0 94.0 Z M 751.0 93.0 L 751.0 294.0 L 784.0 293.0 L 785.0 205.0 L 896.0 205.0 L 897.0 294.0 L 930.0 294.0 L 930.0 93.0 Z M 783.0 125.0 L 896.0 124.0 L 897.0 174.0 L 785.0 174.0 Z M 471.0 91.0 L 471.0 204.0 L 552.0 204.0 L 554.0 206.0 L 554.0 298.0 L 589.0 298.0 L 589.0 205.0 L 671.0 204.0 L 671.0 92.0 L 637.0 92.0 L 636.0 174.0 L 506.0 174.0 L 505.0 92.0 Z" fill="var(--logo-ink)" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M 21.0 88.0 L 21.0 293.0 L 195.0 293.0 L 230.0 328.0 L 250.0 309.0 L 244.0 299.0 L 143.0 192.0 L 138.0 193.0 L 121.0 212.0 L 164.0 261.0 L 54.0 262.0 L 52.0 258.0 L 54.0 121.0 L 209.0 120.0 L 211.0 122.0 L 211.0 244.0 L 242.0 276.0 L 242.0 89.0 Z" fill="var(--logo-green)" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M 341.0 74.0 L 343.0 76.0 L 379.0 76.0 L 360.0 44.0 Z M 145.0 20.0 L 145.0 51.0 L 176.0 52.0 L 176.0 21.0 Z M 80.0 20.0 L 78.0 41.0 L 80.0 52.0 L 109.0 52.0 L 110.0 20.0 Z" fill="var(--logo-gold)" fill-rule="evenodd" clip-rule="evenodd"></path></symbol>
+    <symbol id="qiyas-logo-ar" viewBox="0 0 1202 299"><path d="M 343.0 104.0 L 314.0 104.0 L 313.0 200.0 L 271.0 199.0 L 271.0 103.0 L 243.0 103.0 L 242.0 200.0 L 199.0 199.0 L 198.0 123.0 L 171.0 123.0 L 169.0 239.0 L 50.0 239.0 L 49.0 176.0 L 21.0 175.0 L 20.0 265.0 L 198.0 266.0 L 199.0 228.0 L 341.0 228.0 Z M 400.0 72.0 L 401.0 228.0 L 983.0 228.0 L 983.0 200.0 L 852.0 200.0 L 851.0 103.0 L 823.0 103.0 L 822.0 200.0 L 430.0 200.0 L 429.0 72.0 Z" fill="var(--logo-ink)" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M 1173.0 75.0 L 1158.0 73.0 L 1146.0 75.0 L 985.0 75.0 L 984.0 227.0 L 1118.0 228.0 L 1157.0 271.0 L 1165.0 272.0 L 1179.0 258.0 L 1181.0 254.0 L 1081.0 147.0 L 1077.0 147.0 L 1060.0 166.0 L 1087.0 195.0 L 1088.0 199.0 L 1016.0 200.0 L 1014.0 198.0 L 1013.0 106.0 L 1015.0 103.0 L 1144.0 103.0 L 1144.0 196.0 L 1173.0 224.0 Z" fill="var(--logo-green)" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M 646.0 249.0 L 646.0 273.0 L 648.0 278.0 L 677.0 277.0 L 677.0 249.0 Z M 703.0 249.0 L 704.0 278.0 L 733.0 278.0 L 733.0 249.0 Z M 412.0 23.0 L 398.0 47.0 L 398.0 52.0 L 431.0 52.0 L 427.0 41.0 L 415.0 22.0 Z M 1096.0 20.0 L 1096.0 49.0 L 1125.0 49.0 L 1125.0 20.0 Z M 1045.0 20.0 L 1042.0 25.0 L 1043.0 49.0 L 1072.0 50.0 L 1073.0 21.0 Z" fill="var(--logo-gold)" fill-rule="evenodd" clip-rule="evenodd"></path></symbol>
+  </defs></svg>
+  <header class="topnav" data-od-id="student-dashboard-document-header">
+    <div class="container topnav-inner">
+      <div class="document-title"><span>Qiyas · Screen 06</span><small>Student dashboard / preview</small></div>
+      <div class="document-controls" data-od-id="student-dashboard-preview-controls">
+        <span class="control-label">Preview</span>
+        <div class="toggle-group" role="group" aria-label="Preview language">
+          <button class="toggle-button" type="button" data-preview-locale="ar" aria-pressed="true"><span>العربية</span></button>
+          <button class="toggle-button" type="button" data-preview-locale="en" aria-pressed="false"><span>English</span></button>
+        </div>
+        <span class="control-label">Theme</span>
+        <div class="toggle-group" role="group" aria-label="Preview theme">
+          <button class="toggle-button" type="button" data-preview-theme="light" aria-pressed="true"><span>Light</span></button>
+          <button class="toggle-button" type="button" data-preview-theme="dark" aria-pressed="false"><span>Dark</span></button>
+        </div>
+        <span class="control-label">State</span>
+        <div class="toggle-group state-controls" role="group" aria-label="Dashboard state">
+          <button class="toggle-button" type="button" data-dashboard-state-button="working" aria-pressed="true"><span class="locale-ar">يعمل نحو الهدف</span><span class="locale-en">Working</span></button>
+          <button class="toggle-button" type="button" data-dashboard-state-button="new" aria-pressed="false"><span class="locale-ar">جديد</span><span class="locale-en">New</span></button>
+          <button class="toggle-button" type="button" data-dashboard-state-button="ready" aria-pressed="false"><span class="locale-ar">جاهز</span><span class="locale-en">Ready</span></button>
+          <button class="toggle-button" type="button" data-dashboard-state-button="cooldown" aria-pressed="false"><span class="locale-ar">انتظار</span><span class="locale-en">Cooldown</span></button>
+          <button class="toggle-button" type="button" data-dashboard-state-button="capped" aria-pressed="false"><span class="locale-ar">حد الحساب</span><span class="locale-en">Capped</span></button>
+          <button class="toggle-button" type="button" data-dashboard-state-button="lapse" aria-pressed="false"><span class="locale-ar">عودة</span><span class="locale-en">Lapse</span></button>
+          <button class="toggle-button" type="button" data-dashboard-state-button="earned" aria-pressed="false"><span class="locale-ar">كلها مكتسبة</span><span class="locale-en">All earned</span></button>
+          <button class="toggle-button" type="button" data-dashboard-state-button="loading" aria-pressed="false"><span class="locale-ar">تحميل</span><span class="locale-en">Loading</span></button>
+          <button class="toggle-button" type="button" data-dashboard-state-button="empty" aria-pressed="false"><span class="locale-ar">فارغ</span><span class="locale-en">Empty</span></button>
+          <button class="toggle-button" type="button" data-dashboard-state-button="error" aria-pressed="false"><span class="locale-ar">خطأ</span><span class="locale-en">Error</span></button>
+          <button class="toggle-button" type="button" data-dashboard-state-button="offline" aria-pressed="false"><span class="locale-ar">دون اتصال</span><span class="locale-en">Offline</span></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" data-od-id="student-dashboard-hero">
+      <div class="container">
+        <div class="hero-heading">
+          <div><p class="eyebrow">Screen 06 · student dashboard</p><h1 data-od-id="student-dashboard-title">The climb stays visible. Tonight’s work comes first.</h1></div>
+          <p class="hero-lead">Recommended resolution: one specific next action at the top, the ten-badge ladder immediately below. The ladder answers “where am I?”; the action answers “what do I do now?”</p>
+        </div>
+
+        <div class="preview-board" data-od-id="student-dashboard-previews">
+          <article class="preview-frame preview-phone" data-od-id="student-dashboard-mobile-preview">
+            <div class="screen-canvas dashboard-screen" data-product-canvas data-locale="ar" dir="rtl" lang="ar" data-dashboard-state="working">
+              <button class="locale-switch" type="button" data-locale-switch aria-label="Switch to English"><span data-locale-label>EN</span></button>
+              <div class="screen-inner">
+                <div class="dashboard-topbar">
+                  <div class="dashboard-brand"><svg viewBox="0 0 1202 299" role="img" aria-label="Qiyas / قياس"><use href="#qiyas-logo-ar" class="locale-ar"></use><use href="#qiyas-logo-en" class="locale-en"></use></svg></div>
+                </div>
+                <div class="dashboard-layout">
+                  <nav class="dashboard-nav" aria-label="Student navigation">
+                    <a href="#dashboard-learn" aria-current="page" data-copy-ar="تعلّم" data-copy-en="Learn" data-copy-key="navLearn">Learn</a>
+                    <a href="#dashboard-ladder" data-copy-ar="السلّم" data-copy-en="Ladder" data-copy-key="navLadder">Ladder</a>
+                    <a href="#dashboard-profile" data-copy-ar="الملف" data-copy-en="Profile" data-copy-key="navProfile">Profile</a>
+                  </nav>
+                  <div class="dashboard-main">
+                    <div class="dashboard-welcome">
+                      <div><p class="overline" data-copy-ar="مساء الخير، عائشة" data-copy-en="Good evening, Aisha" data-copy-key="welcome">Good evening, Aisha</p><h2 data-copy-ar="إلى أين نذهب الليلة؟" data-copy-en="Where are we going tonight?" data-copy-key="welcomeTitle">Where are we going tonight?</h2></div>
+                      <p class="sync-note" data-copy-ar="محدّث الآن" data-copy-en="Updated just now" data-copy-key="sync">Updated just now</p>
+                    </div>
+                    <section class="next-action" data-od-id="student-dashboard-next-thing" data-tone="default" aria-live="polite">
+                      <div>
+                        <p class="overline" data-copy-ar="الخطوة التالية" data-copy-en="Next thing" data-copy-key="nextEyebrow">Next thing</p>
+                        <h1 data-copy-key="nextTitle">Algebra, level 3 — eligibility test</h1>
+                        <p data-copy-key="nextDescription">20 questions. About 25 minutes. Your next required piece before Badge 2.</p>
+                        <div class="next-action-meta"><span data-copy-key="nextMetaOne">20 questions</span><span data-copy-key="nextMetaTwo">About 25 minutes</span><span data-copy-key="nextMetaThree">Badge 2</span></div>
+                      </div>
+                      <button class="button button-primary" type="button" data-od-id="student-dashboard-primary-action" data-copy-key="nextCta">Start eligibility test</button>
+                    </section>
+                    <div class="state-note feedback info cooldown" data-state-note="cooldown"><span class="feedback-icon" aria-hidden="true">i</span><div><strong data-copy-key="cooldownTitle">Badge exam cooldown</strong><p data-copy-key="cooldownDescription">Your next attempt opens in 3 days. Practice the concepts you missed; learning stays open.</p></div></div>
+                    <div class="state-note feedback info capped" data-state-note="capped"><span class="feedback-icon" aria-hidden="true">i</span><div><strong data-copy-key="cappedTitle">This account has reached its current badge limit</strong><p data-copy-key="cappedDescription">This is an account limit, not a measure of your ability. Open practice and learning remain available.</p></div></div>
+                    <div class="state-note feedback info lapse" data-state-note="lapse"><span class="feedback-icon" aria-hidden="true">i</span><div><strong data-copy-key="lapseTitle">A quiet way back in</strong><p data-copy-key="lapseDescription">There is no missed-day count. Start with the suggested refresher when you are ready.</p></div></div>
+                    <div class="state-note offline-state offline" data-state-note="offline" role="status"><span class="feedback-icon" aria-hidden="true">!</span><div><strong data-copy-key="offlineTitle">You are offline</strong><p data-copy-key="offlineDescription">Your climb is saved on this device. Starting new work will be available when the connection returns.</p></div></div>
+
+                    <div class="dashboard-stateful">
+                      <div class="dashboard-grid">
+                        <section class="panel" data-od-id="student-dashboard-climb">
+                          <div class="panel-heading"><h3 data-copy-ar="السلّم" data-copy-en="The climb" data-copy-key="climbTitle">The climb</h3><small data-copy-key="climbSummary">Badge 2 of 10</small></div>
+                          <div class="progress-linear" data-od-id="student-dashboard-progress">
+                            <div class="progress-summary"><strong data-copy-key="progressNumber">1 / 10</strong><span data-copy-key="progressLabel">badges earned</span></div>
+                            <div class="progress-track" aria-label="Badge progress"><span data-progress-fill style="inline-size:10%"></span></div>
+                            <div class="progress-summary"><span data-copy-key="currentGoal">Working toward Badge 2</span><span class="mono" data-copy-key="progressPercent">10%</span></div>
+                            <div class="progress-segmented" aria-hidden="true"><span data-segment="1"></span><span data-segment="2"></span><span data-segment="3"></span><span data-segment="4"></span><span data-segment="5"></span><span data-segment="6"></span><span data-segment="7"></span><span data-segment="8"></span><span data-segment="9"></span><span data-segment="10"></span></div>
+                          </div>
+                          <div class="ladder" data-od-id="student-dashboard-badge-ladder" aria-label="Ten badge ladder">
+                            <button class="badge-tile earned" type="button" data-badge-number="01" data-od-id="student-badge-01"><span class="badge-mark">01</span><span><strong data-copy-ar="أساسيات الجبر" data-copy-en="Algebra foundations">Algebra foundations</strong><small data-badge-status>Earned</small></span></button>
+                            <button class="badge-tile next" type="button" data-badge-number="02" data-od-id="student-badge-02"><span class="badge-mark">02</span><span><strong data-copy-ar="المعادلات الخطية" data-copy-en="Linear equations">Linear equations</strong><small data-badge-status>Next up</small></span></button>
+                            <button class="badge-tile locked" type="button" data-badge-number="03" data-od-id="student-badge-03"><span class="badge-mark">03</span><span><strong data-copy-ar="المعادلات التربيعية" data-copy-en="Quadratics">Quadratics</strong><small data-badge-status>Not yet</small></span></button>
+                            <button class="badge-tile locked" type="button" data-badge-number="04" data-od-id="student-badge-04"><span class="badge-mark">04</span><span><strong data-copy-ar="الدوال" data-copy-en="Functions">Functions</strong><small data-badge-status>Not yet</small></span></button>
+                            <button class="badge-tile locked" type="button" data-badge-number="05" data-od-id="student-badge-05"><span class="badge-mark">05</span><span><strong data-copy-ar="المتتاليات" data-copy-en="Sequences">Sequences</strong><small data-badge-status>Not yet</small></span></button>
+                            <button class="badge-tile locked" type="button" data-badge-number="06" data-od-id="student-badge-06"><span class="badge-mark">06</span><span><strong data-copy-ar="الهندسة التحليلية" data-copy-en="Analytic geometry">Analytic geometry</strong><small data-badge-status>Not yet</small></span></button>
+                            <button class="badge-tile locked" type="button" data-badge-number="07" data-od-id="student-badge-07"><span class="badge-mark">07</span><span><strong data-copy-ar="الاحتمالات" data-copy-en="Probability">Probability</strong><small data-badge-status>Not yet</small></span></button>
+                            <button class="badge-tile locked" type="button" data-badge-number="08" data-od-id="student-badge-08"><span class="badge-mark">08</span><span><strong data-copy-ar="المتجهات" data-copy-en="Vectors">Vectors</strong><small data-badge-status>Not yet</small></span></button>
+                            <button class="badge-tile locked" type="button" data-badge-number="09" data-od-id="student-badge-09"><span class="badge-mark">09</span><span><strong data-copy-ar="التفاضل" data-copy-en="Calculus">Calculus</strong><small data-badge-status>Not yet</small></span></button>
+                            <button class="badge-tile locked" type="button" data-badge-number="10" data-od-id="student-badge-10"><span class="badge-mark">10</span><span><strong data-copy-ar="الاستعداد الهندسي" data-copy-en="Engineering entrance">Engineering entrance</strong><small data-badge-status>Not yet</small></span></button>
+                          </div>
+                        </section>
+                        <aside class="panel" data-od-id="student-dashboard-recent-work">
+                          <div class="panel-heading"><h3 data-copy-ar="ما تغيّر" data-copy-en="What changed" data-copy-key="changedTitle">What changed</h3><small data-copy-key="changedTimestamp">20 minutes ago</small></div>
+                          <dl class="metric-list"><div class="metric-row"><dt data-copy-ar="آخر جلسة" data-copy-en="Last session">Last session</dt><dd data-copy-key="lastSession">Algebra L3</dd></div><div class="metric-row"><dt data-copy-ar="الدقة" data-copy-en="Accuracy">Accuracy</dt><dd class="mono" data-copy-key="accuracy">8 / 12</dd></div><div class="metric-row"><dt data-copy-ar="الخطوة التالية" data-copy-en="Next step">Next step</dt><dd data-copy-key="nextMetric">Eligibility test</dd></div></dl>
+                          <div class="badge-progress"><span data-copy-key="quietProgress">You are 2 concepts from the next check.</span></div>
+                        </aside>
+                      </div>
+                    </div>
+                    <div class="dashboard-async loading" aria-live="polite"><div class="skeleton"><span></span><span></span><span></span><span></span><span></span></div></div>
+                    <div class="dashboard-async empty" aria-live="polite"><div class="empty-state"><span class="empty-mark" aria-hidden="true"></span><strong data-copy-ar="لا يوجد نشاط بعد" data-copy-en="No activity yet">No activity yet</strong><p data-copy-ar="ابدأ بدرس قصير. ستظهر رحلتك هنا بعد أول جلسة." data-copy-en="Start with a short lesson. Your climb will appear here after the first session.">Start with a short lesson. Your climb will appear here after the first session.</p><button class="button button-primary" type="button" data-copy-ar="ابدأ التعلّم" data-copy-en="Start learning">Start learning</button></div></div>
+                    <div class="dashboard-async error" aria-live="assertive"><div class="state-error"><span class="feedback-icon" aria-hidden="true">×</span><strong data-copy-ar="تعذّر تحميل تقدّمك" data-copy-en="Progress could not load">Progress could not load</strong><p data-copy-ar="المشكلة مؤقتة. أعد المحاولة؛ سيبقى ما حفظته كما هو." data-copy-en="This is temporary. Try again; anything saved remains safe.">This is temporary. Try again; anything saved remains safe.</p><button class="button button-secondary" type="button" data-copy-ar="أعد المحاولة" data-copy-en="Try again">Try again</button></div></div>
+                  </div>
+                </div>
+                <nav class="dashboard-nav-mobile" aria-label="Student navigation mobile">
+                  <a href="#dashboard-learn" aria-current="page" data-copy-ar="تعلّم" data-copy-en="Learn">Learn</a><a href="#dashboard-ladder" data-copy-ar="السلّم" data-copy-en="Ladder">Ladder</a><a href="#dashboard-profile" data-copy-ar="الملف" data-copy-en="Profile">Profile</a>
+                </nav>
+              </div>
+            </div>
+            <div class="preview-caption"><strong>Mobile · 390 × 844</strong><span class="mono">Arabic · 16px inset · 48px primary</span></div>
+          </article>
+
+          <article class="preview-frame preview-desktop" data-od-id="student-dashboard-desktop-preview">
+            <div class="screen-canvas dashboard-screen" data-product-canvas data-locale="ar" dir="rtl" lang="ar" data-dashboard-state="working">
+              <button class="locale-switch" type="button" data-locale-switch aria-label="Switch to English"><span class="locale-ar">EN</span><span class="locale-en" lang="ar" dir="rtl">عر</span></button>
+              <div class="screen-inner">
+                <div class="dashboard-topbar">
+                  <div class="dashboard-brand"><svg viewBox="0 0 1202 299" role="img" aria-label="Qiyas / قياس"><use href="#qiyas-logo-ar" class="locale-ar"></use><use href="#qiyas-logo-en" class="locale-en"></use></svg><span class="overline" data-copy-ar="لوحة الطالب" data-copy-en="Student dashboard">Student dashboard</span></div>
+                  <div class="dashboard-user"><span class="sync-note" data-copy-ar="مرحبًا بعودتك، عائشة" data-copy-en="Welcome back, Aisha">Welcome back, Aisha</span><span class="avatar" aria-label="Aisha">A</span></div>
+                </div>
+                <div class="dashboard-layout">
+                  <nav class="dashboard-nav" aria-label="Student navigation">
+                    <a href="#dashboard-learn" aria-current="page" data-copy-ar="تعلّم" data-copy-en="Learn">Learn</a><a href="#dashboard-ladder" data-copy-ar="السلّم" data-copy-en="Ladder">Ladder</a><a href="#dashboard-profile" data-copy-ar="الملف" data-copy-en="Profile">Profile</a>
+                  </nav>
+                  <div class="dashboard-main">
+                    <div class="dashboard-welcome"><div><p class="overline" data-copy-ar="مساء الخير، عائشة" data-copy-en="Good evening, Aisha" data-copy-key="welcome">Good evening, Aisha</p><h2 data-copy-ar="إلى أين نذهب الليلة؟" data-copy-en="Where are we going tonight?" data-copy-key="welcomeTitle">Where are we going tonight?</h2></div><p class="sync-note" data-copy-ar="محدّث الآن" data-copy-en="Updated just now" data-copy-key="sync">Updated just now</p></div>
+                    <section class="next-action" data-od-id="student-dashboard-next-thing" data-tone="default" aria-live="polite"><div><p class="overline" data-copy-ar="الخطوة التالية" data-copy-en="Next thing" data-copy-key="nextEyebrow">Next thing</p><h1 data-copy-key="nextTitle">Algebra, level 3 — eligibility test</h1><p data-copy-key="nextDescription">20 questions. About 25 minutes. Your next required piece before Badge 2.</p><div class="next-action-meta"><span data-copy-key="nextMetaOne">20 questions</span><span data-copy-key="nextMetaTwo">About 25 minutes</span><span data-copy-key="nextMetaThree">Badge 2</span></div></div><button class="button button-primary" type="button" data-od-id="student-dashboard-primary-action" data-copy-key="nextCta">Start eligibility test</button></section>
+                    <div class="state-note feedback info cooldown" data-state-note="cooldown" data-od-id="student-dashboard-cooldown-note"><span class="feedback-icon" aria-hidden="true">i</span><div><strong data-copy-key="cooldownTitle">Badge exam cooldown</strong><p data-copy-key="cooldownDescription">Your next attempt opens in 3 days. Practice the concepts you missed; learning stays open.</p></div></div>
+                    <div class="state-note feedback info capped" data-state-note="capped" data-od-id="student-dashboard-cap-note"><span class="feedback-icon" aria-hidden="true">i</span><div><strong data-copy-key="cappedTitle">This account has reached its current badge limit</strong><p data-copy-key="cappedDescription">This is an account limit, not a measure of your ability. Open practice and learning remain available.</p></div></div>
+                    <div class="state-note feedback info lapse" data-state-note="lapse" data-od-id="student-dashboard-lapse-note"><span class="feedback-icon" aria-hidden="true">i</span><div><strong data-copy-key="lapseTitle">A quiet way back in</strong><p data-copy-key="lapseDescription">There is no missed-day count. Start with the suggested refresher when you are ready.</p></div></div>
+                    <div class="state-note offline-state offline" data-state-note="offline" data-od-id="student-dashboard-offline-note" role="status"><span class="feedback-icon" aria-hidden="true">!</span><div><strong data-copy-key="offlineTitle">You are offline</strong><p data-copy-key="offlineDescription">Your climb is saved on this device. Starting new work will be available when the connection returns.</p></div></div>
+                    <div class="dashboard-stateful"><div class="dashboard-grid">
+                      <section class="panel" data-od-id="student-dashboard-climb"><div class="panel-heading"><h3 data-copy-ar="السلّم" data-copy-en="The climb" data-copy-key="climbTitle">The climb</h3><small data-copy-key="climbSummary">Badge 2 of 10</small></div><div class="progress-linear" data-od-id="student-dashboard-progress"><div class="progress-summary"><strong data-copy-key="progressNumber">1 / 10</strong><span data-copy-key="progressLabel">badges earned</span></div><div class="progress-track" aria-label="Badge progress"><span data-progress-fill style="inline-size:10%"></span></div><div class="progress-summary"><span data-copy-key="currentGoal">Working toward Badge 2</span><span class="mono" data-copy-key="progressPercent">10%</span></div><div class="progress-segmented" aria-hidden="true"><span data-segment="1"></span><span data-segment="2"></span><span data-segment="3"></span><span data-segment="4"></span><span data-segment="5"></span><span data-segment="6"></span><span data-segment="7"></span><span data-segment="8"></span><span data-segment="9"></span><span data-segment="10"></span></div></div><div class="ladder" data-od-id="student-dashboard-badge-ladder" aria-label="Ten badge ladder"><button class="badge-tile earned" type="button" data-badge-number="01" data-od-id="student-badge-01"><span class="badge-mark">01</span><span><strong data-copy-ar="أساسيات الجبر" data-copy-en="Algebra foundations">Algebra foundations</strong><small data-badge-status>Earned</small></span></button><button class="badge-tile next" type="button" data-badge-number="02" data-od-id="student-badge-02"><span class="badge-mark">02</span><span><strong data-copy-ar="المعادلات الخطية" data-copy-en="Linear equations">Linear equations</strong><small data-badge-status>Next up</small></span></button><button class="badge-tile locked" type="button" data-badge-number="03" data-od-id="student-badge-03"><span class="badge-mark">03</span><span><strong data-copy-ar="المعادلات التربيعية" data-copy-en="Quadratics">Quadratics</strong><small data-badge-status>Not yet</small></span></button><button class="badge-tile locked" type="button" data-badge-number="04" data-od-id="student-badge-04"><span class="badge-mark">04</span><span><strong data-copy-ar="الدوال" data-copy-en="Functions">Functions</strong><small data-badge-status>Not yet</small></span></button><button class="badge-tile locked" type="button" data-badge-number="05" data-od-id="student-badge-05"><span class="badge-mark">05</span><span><strong data-copy-ar="المتتاليات" data-copy-en="Sequences">Sequences</strong><small data-badge-status>Not yet</small></span></button><button class="badge-tile locked" type="button" data-badge-number="06" data-od-id="student-badge-06"><span class="badge-mark">06</span><span><strong data-copy-ar="الهندسة التحليلية" data-copy-en="Analytic geometry">Analytic geometry</strong><small data-badge-status>Not yet</small></span></button><button class="badge-tile locked" type="button" data-badge-number="07" data-od-id="student-badge-07"><span class="badge-mark">07</span><span><strong data-copy-ar="الاحتمالات" data-copy-en="Probability">Probability</strong><small data-badge-status>Not yet</small></span></button><button class="badge-tile locked" type="button" data-badge-number="08" data-od-id="student-badge-08"><span class="badge-mark">08</span><span><strong data-copy-ar="المتجهات" data-copy-en="Vectors">Vectors</strong><small data-badge-status>Not yet</small></span></button><button class="badge-tile locked" type="button" data-badge-number="09" data-od-id="student-badge-09"><span class="badge-mark">09</span><span><strong data-copy-ar="التفاضل" data-copy-en="Calculus">Calculus</strong><small data-badge-status>Not yet</small></span></button><button class="badge-tile locked" type="button" data-badge-number="10" data-od-id="student-badge-10"><span class="badge-mark">10</span><span><strong data-copy-ar="الاستعداد الهندسي" data-copy-en="Engineering entrance">Engineering entrance</strong><small data-badge-status>Not yet</small></span></button></div></section>
+                      <aside class="panel" data-od-id="student-dashboard-recent-work"><div class="panel-heading"><h3 data-copy-ar="ما تغيّر" data-copy-en="What changed" data-copy-key="changedTitle">What changed</h3><small data-copy-key="changedTimestamp">20 minutes ago</small></div><dl class="metric-list"><div class="metric-row"><dt data-copy-ar="آخر جلسة" data-copy-en="Last session">Last session</dt><dd data-copy-key="lastSession">Algebra L3</dd></div><div class="metric-row"><dt data-copy-ar="الدقة" data-copy-en="Accuracy">Accuracy</dt><dd class="mono" data-copy-key="accuracy">8 / 12</dd></div><div class="metric-row"><dt data-copy-ar="الخطوة التالية" data-copy-en="Next step">Next step</dt><dd data-copy-key="nextMetric">Eligibility test</dd></div></dl><div class="badge-progress"><span data-copy-key="quietProgress">You are 2 concepts from the next check.</span></div></aside>
+                    </div></div>
+                    <div class="dashboard-async loading" aria-live="polite"><div class="skeleton"><span></span><span></span><span></span><span></span><span></span></div></div>
+                    <div class="dashboard-async empty" aria-live="polite"><div class="empty-state"><span class="empty-mark" aria-hidden="true"></span><strong data-copy-ar="لا يوجد نشاط بعد" data-copy-en="No activity yet">No activity yet</strong><p data-copy-ar="ابدأ بدرس قصير. ستظهر رحلتك هنا بعد أول جلسة." data-copy-en="Start with a short lesson. Your climb will appear here after the first session.">Start with a short lesson. Your climb will appear here after the first session.</p><button class="button button-primary" type="button" data-copy-ar="ابدأ التعلّم" data-copy-en="Start learning">Start learning</button></div></div>
+                    <div class="dashboard-async error" aria-live="assertive"><div class="state-error"><span class="feedback-icon" aria-hidden="true">×</span><strong data-copy-ar="تعذّر تحميل تقدّمك" data-copy-en="Progress could not load">Progress could not load</strong><p data-copy-ar="المشكلة مؤقتة. أعد المحاولة؛ سيبقى ما حفظته كما هو." data-copy-en="This is temporary. Try again; anything saved remains safe.">This is temporary. Try again; anything saved remains safe.</p><button class="button button-secondary" type="button" data-copy-ar="أعد المحاولة" data-copy-en="Try again">Try again</button></div></div>
+                  </div>
+                </div>
+                <nav class="dashboard-nav-mobile" aria-label="Student navigation mobile"><a href="#dashboard-learn" aria-current="page" data-copy-ar="تعلّم" data-copy-en="Learn">Learn</a><a href="#dashboard-ladder" data-copy-ar="السلّم" data-copy-en="Ladder">Ladder</a><a href="#dashboard-profile" data-copy-ar="الملف" data-copy-en="Profile">Profile</a></nav>
+              </div>
+            </div>
+            <div class="preview-caption"><strong>Desktop · 1440 wide</strong><span class="mono">Arabic · 1180px max · two-column shell</span></div>
+          </article>
+        </div>
+
+        <section class="mobile-build-sheet" data-od-id="student-dashboard-mobile-build-sheet">
+          <div class="section-heading"><div><p class="eyebrow">Flutter handoff</p><h2>Dimensions the mobile team can build from.</h2></div><p>CSS pixels at 1× for the 390 × 844 specimen. Flutter should consume the Qiyas semantic tokens and use these values to validate the composition.</p></div>
+          <div class="build-grid">
+            <div class="card" data-od-id="student-dashboard-frame-spec"><h3>Frame and rhythm</h3><div class="table-wrap"><table><thead><tr><th>Element</th><th>Mobile spec</th><th>Flutter mapping</th></tr></thead><tbody><tr><td>Canvas</td><td class="mono">390 × 844 px</td><td>SafeArea + SizedBox.expand</td></tr><tr><td>Inline inset</td><td class="mono">16 px logical</td><td>Padding EdgeInsetsDirectional</td></tr><tr><td>Top safe area</td><td class="mono">SafeArea + 32 px visual</td><td>SafeArea, then SizedBox height 32</td></tr><tr><td>Primary action</td><td class="mono">48 px min · full width</td><td>SizedBox(width: infinity, height: 48)</td></tr><tr><td>Section gap</td><td class="mono">16 / 24 / 32 px</td><td>SizedBox from --space-4 / 5 / 6</td></tr></tbody></table></div></div>
+            <div class="card" data-od-id="student-dashboard-component-spec"><h3>Dashboard components</h3><div class="table-wrap"><table><thead><tr><th>Component</th><th>Mobile spec</th><th>Flutter mapping</th></tr></thead><tbody><tr><td>Next thing</td><td class="mono">full width · 16 px padding</td><td>Card / Column / buttonPrimary</td></tr><tr><td>Badge tile</td><td class="mono">min 72 px · 40 px square mark</td><td>ConstrainedBox minHeight 72</td></tr><tr><td>Progress track</td><td class="mono">8 px height</td><td>LinearProgressIndicator tokenized</td></tr><tr><td>Bottom nav</td><td class="mono">44 px targets · 3 destinations</td><td>NavigationBar with Learn active</td></tr><tr><td>Scroll</td><td class="mono">vertical only</td><td>CustomScrollView; no horizontal page scroll</td></tr></tbody></table></div></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section" id="resolution" data-od-id="student-dashboard-resolution">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">Resolution</p><h2>The climb explains the return. The next thing earns the tap.</h2></div><p>Recommended: keep the ladder visible but subordinate it to one specific, time-bounded action. Reject leading with ten equal badge tiles: it asks a tired student to decide before showing what matters tonight.</p></div>
+        <div class="decision-grid">
+          <article class="card state-card"><h3>Recommended · two-level hierarchy</h3><p><strong>First:</strong> one actionable next thing with topic, difficulty, question count, time, and a single primary action.</p><p><strong>Second:</strong> the ten-rung ladder with current position and finite progress. It remains visible enough to make the work feel connected to a larger climb.</p></article>
+          <article class="card state-card"><h3>Rejected · trophy-first dashboard</h3><p>Making the ladder the hero creates a trophy case. The nightly student must scan ten badges to discover what to do, so “open the app” becomes a decision burden.</p><p>Also rejected: a generic “Continue learning” CTA. It is too vague to be actionable.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ceiling" data-od-id="student-dashboard-ceiling">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">The ceiling</p><h2>Show the height without making it a verdict.</h2></div><p>All ten badges remain present from day one. The solution is not to hide the ceiling; it is to make distance legible without turning locked into forbidden.</p></div>
+        <div class="decision-grid">
+          <article class="card state-card"><h3>Treatment A · full ladder, calm lock</h3><p>Show all ten with compact square frames, honest locked labels, and no repeated “not available” alarm. The first available rung gets the strongest outline; the upper rungs recede tonally.</p><p><strong>Strength:</strong> honest ambition and a clear finite road.</p></article>
+          <article class="card state-card"><h3>Treatment B · focus window</h3><p>Show the current rung, two ahead, and a quiet “7 more levels” summary. Expand the full ladder on demand.</p><p><strong>Strength:</strong> lower daily cognitive load. <strong>Cost:</strong> hides the very ceiling that makes the product distinctive.</p></article>
+        </div>
+        <div class="card" style="margin-block-start:var(--space-4)"><p><strong>Recommendation:</strong> Treatment A for the dashboard. Use tone, size, and status language to reduce pressure; do not hide the product’s promise behind a disclosure.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="states" data-od-id="student-dashboard-state-coverage">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">State coverage</p><h2>One shell, eleven honest states.</h2></div><p>The state toggle in the document header previews the same dashboard with different next things, badge states, and recovery messages. Loading, empty, error, and offline are included because a dashboard cannot be blank when the network is not ready.</p></div>
+        <div class="state-grid">
+          <article class="state-card"><h3>Brand new</h3><p>First step is small and specific. Badge 1 is next-up; the other nine are locked but still visible.</p></article>
+          <article class="state-card"><h3>Working toward</h3><p>Daily eligibility or learning work leads. The ladder says Badge 1 is earned and Badge 2 is next.</p></article>
+          <article class="state-card"><h3>Ready to attempt</h3><p>The exam is available. The primary action changes to the badge exam and the eligible tile becomes the sharpest state.</p></article>
+          <article class="state-card"><h3>Cooldown</h3><p>Targeted practice leads; the countdown is explanatory, not punitive. Badge exam is unavailable until the date arrives.</p></article>
+          <article class="state-card"><h3>Account cap</h3><p>Use the shared capped badge state. It is distinct from locked and keeps the account limit separate from ability.</p></article>
+          <article class="state-card"><h3>Returning after a lapse</h3><p>No streak, absence counter, or guilt copy. Suggest one refresher tied to the climb.</p></article>
+          <article class="state-card"><h3>All badges earned</h3><p>The ladder becomes quiet permanence. Next thing becomes open advanced practice so the screen does not dead-end.</p></article>
+          <article class="state-card"><h3>Loading / empty / error / offline</h3><p>Skeleton, empty state, error state, and offline banner reuse the canonical data-state components. Cached climb remains visible offline.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="completion" data-od-id="student-dashboard-completion">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">After completion</p><h2>Make the return feel causally connected.</h2></div><p>Immediately after a practice set, eligibility test, or badge exam, the dashboard should reflect the changed state without a reload or a celebratory detour.</p></div>
+        <div class="flow-grid">
+          <article class="card"><span class="overline">01 · Save</span><h3>Keep the result</h3><p>Update the latest activity, accuracy, and concept coverage first. Never show the old progress as if nothing happened.</p></article>
+          <article class="card"><span class="overline">02 · Move</span><h3>Advance the next thing</h3><p>Replace the completed action with the next required piece. If a badge was earned, the next-up tile and progress segment resolve together.</p></article>
+          <article class="card"><span class="overline">03 · Explain</span><h3>Show the delta</h3><p>Use “Updated just now” and a small factual change note. The student should see that the work counted without confetti or praise language.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mapping" data-od-id="student-dashboard-mapping">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">Engineer handoff</p><h2>Every dashboard element maps back to Qiyas.</h2></div><p>Exact component names are quoted from qiyas-design-system.html. The dashboard composes the student shell, next action, progress, badge tile, ladder, metric rows, data states, and bottom navigation.</p></div>
+        <div class="table-wrap">
+          <div class="mapping-table" aria-label="Student dashboard component mapping">
+            <div class="map-row map-head"><div>Element on screen</div><div>System component</div><div>Tokens / variant</div><div>Notes for devs</div></div>
+            <div class="map-row"><div><strong>Page frame</strong></div><div>Student shell</div><div class="mono">scaffold · student shell</div><div>Three real destinations: Learn, Ladder, Profile. Product surface stays separate from preview chrome.</div></div>
+            <div class="map-row"><div><strong>Locale switch</strong></div><div>Locale switch</div><div class="mono">logical top end · 44px</div><div>Arabic action EN; English action عر. Swap supplied logo assets; never mirror the English lockup.</div></div>
+            <div class="map-row"><div><strong>Theme / preview controls</strong></div><div>Theme switch</div><div class="mono">surface / text semantic tokens</div><div>Document-only controls. Preserve current dashboard state when toggled.</div></div>
+            <div class="map-row"><div><strong>Next thing</strong></div><div>Button + card + feedback</div><div class="mono">button-primary · card · feedback.info / success</div><div>One specific action. Variant changes by state; primary action remains Ink except disabled/offline.</div></div>
+            <div class="map-row"><div><strong>Badge ladder</strong></div><div>Badge tile + ladder</div><div class="mono">badge locked / next / eligible / cooldown / earned / capped</div><div>Ten tiles visible. Mobile one column; desktop two-column ladder inside the main panel.</div></div>
+            <div class="map-row"><div><strong>Climb progress</strong></div><div>Progress</div><div class="mono">progress-linear + progress-segmented</div><div>Linear shows approximate progress; segments show ten discrete badges. No radial meter.</div></div>
+            <div class="map-row"><div><strong>Recent work</strong></div><div>Key-value rows + stat block</div><div class="mono">key-values / metric rows / tabular numerals</div><div>Factual, compact, and immediately updated after completion.</div></div>
+            <div class="map-row"><div><strong>Offline / error / empty / loading</strong></div><div>Offline state + state-error + empty-state + skeleton</div><div class="mono">canonical data states</div><div>Cached climb stays visible offline; loading never shows a blank dashboard.</div></div>
+            <div class="map-row"><div><strong>Mobile navigation</strong></div><div>Bottom nav</div><div class="mono">44px targets · Learn active</div><div>Three destinations are shown: Learn, Ladder, Profile. Practice is entered through the next-thing action rather than a primary destination.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gaps" data-od-id="student-dashboard-gaps">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">Gap list</p><h2>Open decisions, named rather than hidden.</h2></div><p>These are not invented into the screen. They require product, backend, or platform decisions before Flutter implementation.</p></div>
+        <div class="card">
+          <ul class="gap-list">
+
+            <li><span class="gap-dot" aria-hidden="true"></span><div><strong>Dashboard data freshness contract</strong><span>Define which fields are cached, how quickly cooldown eligibility refreshes, and whether “Updated just now” means local save or server confirmation.</span></div></li>
+            <li><span class="gap-dot" aria-hidden="true"></span><div><strong>Completion event payload</strong><span>Backend must return next thing, ladder state, accuracy, and concept coverage in one consistent response so the dashboard can update without a full reload.</span></div></li>
+            <li><span class="gap-dot" aria-hidden="true"></span><div><strong>Advanced practice after Badge 10</strong><span>The system defines the ten-badge ceiling but not the post-completion practice destination. Confirm whether advanced practice is open, curated, or a separate route.</span></div></li>
+            <li><span class="gap-dot" aria-hidden="true"></span><div><strong>Offline action queue</strong><span>The visual offline state is defined; the product still needs a policy for queued practice attempts, conflict resolution, and server-time reconciliation.</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container" style="padding-block:var(--space-6);color:var(--text-tertiary);font-size:12px;border-block-start:var(--border-width-hairline) solid var(--border-subtle);">
+    <span>Qiyas · Screen 06</span><span style="float:inline-end">390 / 1440 · العربية / English · light / dark</span>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var canvases = Array.prototype.slice.call(document.querySelectorAll('[data-product-canvas]'));
+      var localeButtons = Array.prototype.slice.call(document.querySelectorAll('[data-preview-locale]'));
+      var themeButtons = Array.prototype.slice.call(document.querySelectorAll('[data-preview-theme]'));
+      var stateButtons = Array.prototype.slice.call(document.querySelectorAll('[data-dashboard-state-button]'));
+      var locale = root.dataset.previewLocale || 'ar';
+      var theme = root.dataset.theme || 'light';
+      var state = root.dataset.dashboardState || 'working';
+
+      var copy = {
+        new: {
+          nextEyebrow: {ar:'الخطوة الأولى',en:'First step'}, nextTitle: {ar:'أساسيات الجبر — جلسة تعلّم قصيرة',en:'Algebra foundations — short lesson'}, nextDescription: {ar:'10 دقائق. مفهوم واحد. ابدأ بخطوة واضحة نحو الشارة الأولى.',en:'10 minutes. One concept. Start with a clear first step toward Badge 1.'}, nextMetaOne: {ar:'10 دقائق',en:'10 minutes'}, nextMetaTwo: {ar:'مفهوم واحد',en:'One concept'}, nextMetaThree: {ar:'الشارة 1',en:'Badge 1'}, nextCta: {ar:'ابدأ التعلّم',en:'Start learning'}, climbSummary: {ar:'ابدأ من هنا',en:'Start here'}, progressNumber: {ar:'0 / 10',en:'0 / 10'}, progressLabel: {ar:'شارات مكتسبة',en:'badges earned'}, currentGoal: {ar:'الخطوة الأولى',en:'First step'}, progressPercent: {ar:'0%',en:'0%'}, nextMetric: {ar:'أساسيات الجبر',en:'Algebra foundations'}, quietProgress: {ar:'كل المواد مفتوحة للتعلّم والتدريب.',en:'All learning and practice are open.'}, changedTimestamp: {ar:'جلسة جديدة',en:'New session'}
+        },
+        working: {
+          nextEyebrow: {ar:'الخطوة التالية',en:'Next thing'}, nextTitle: {ar:'الجبر، المستوى 3 — اختبار الأهلية',en:'Algebra, level 3 — eligibility test'}, nextDescription: {ar:'20 سؤالًا. نحو 25 دقيقة. الجزء المطلوب قبل الشارة 2.',en:'20 questions. About 25 minutes. Your next required piece before Badge 2.'}, nextMetaOne: {ar:'20 سؤالًا',en:'20 questions'}, nextMetaTwo: {ar:'25 دقيقة تقريبًا',en:'About 25 minutes'}, nextMetaThree: {ar:'الشارة 2',en:'Badge 2'}, nextCta: {ar:'ابدأ اختبار الأهلية',en:'Start eligibility test'}, climbSummary: {ar:'الشارة 2 من 10',en:'Badge 2 of 10'}, progressNumber: {ar:'1 / 10',en:'1 / 10'}, progressLabel: {ar:'شارات مكتسبة',en:'badges earned'}, currentGoal: {ar:'تعمل نحو الشارة 2',en:'Working toward Badge 2'}, progressPercent: {ar:'10%',en:'10%'}, nextMetric: {ar:'اختبار الأهلية',en:'Eligibility test'}, quietProgress: {ar:'تبقّى مفهومان قبل الفحص التالي.',en:'You are 2 concepts from the next check.'}, changedTimestamp: {ar:'منذ 20 دقيقة',en:'20 minutes ago'}
+        },
+        ready: {
+          nextEyebrow: {ar:'جاهز للمحاولة',en:'Ready to attempt'}, nextTitle: {ar:'اختبار الشارة 2 — المعادلات الخطية',en:'Badge 2 exam — linear equations'}, nextDescription: {ar:'30 سؤالًا. ساعة واحدة. كل ما تحتاجه قبل المحاولة أصبح جاهزًا.',en:'30 questions. One hour. The required work for this attempt is complete.'}, nextMetaOne: {ar:'30 سؤالًا',en:'30 questions'}, nextMetaTwo: {ar:'ساعة واحدة',en:'One hour'}, nextMetaThree: {ar:'اختبار شارة',en:'Badge exam'}, nextCta: {ar:'ابدأ اختبار الشارة',en:'Start badge exam'}, climbSummary: {ar:'الشارة 2 جاهزة',en:'Badge 2 is ready'}, progressNumber: {ar:'1 / 10',en:'1 / 10'}, progressLabel: {ar:'شارات مكتسبة',en:'badges earned'}, currentGoal: {ar:'اختبار الشارة 2 جاهز',en:'Badge 2 exam ready'}, progressPercent: {ar:'10%',en:'10%'}, nextMetric: {ar:'اختبار الشارة',en:'Badge exam'}, quietProgress: {ar:'كل متطلبات الأهلية مكتملة.',en:'All eligibility requirements are complete.'}, changedTimestamp: {ar:'محدّث الآن',en:'Updated just now'}
+        },
+        cooldown: {
+          nextEyebrow: {ar:'الخطوة التالية',en:'Next thing'}, nextTitle: {ar:'المعادلات الخطية — تدريب على الأخطاء',en:'Linear equations — targeted practice'}, nextDescription: {ar:'12 سؤالًا. نحو 15 دقيقة. ركّز على المفاهيم التي ستعود معك في المحاولة التالية.',en:'12 questions. About 15 minutes. Focus on the concepts that will matter on your next attempt.'}, nextMetaOne: {ar:'12 سؤالًا',en:'12 questions'}, nextMetaTwo: {ar:'15 دقيقة تقريبًا',en:'About 15 minutes'}, nextMetaThree: {ar:'المحاولة بعد 3 أيام',en:'Attempt in 3 days'}, nextCta: {ar:'ابدأ التدريب',en:'Start practice'}, climbSummary: {ar:'في فترة انتظار',en:'In cooldown'}, progressNumber: {ar:'1 / 10',en:'1 / 10'}, progressLabel: {ar:'شارات مكتسبة',en:'badges earned'}, currentGoal: {ar:'تدريب مفتوح حتى موعد المحاولة',en:'Open practice until reattempt'}, progressPercent: {ar:'10%',en:'10%'}, nextMetric: {ar:'تدريب المعادلات',en:'Equations practice'}, quietProgress: {ar:'العدّ التنازلي يشرح الموعد؛ لا يوقف التعلّم.',en:'The countdown explains the date; it does not stop learning.'}, changedTimestamp: {ar:'المحاولة بعد 3 أيام',en:'Reattempt in 3 days'}
+        },
+        capped: {
+          nextEyebrow: {ar:'الخطوة التالية',en:'Next thing'}, nextTitle: {ar:'التدريب المفتوح — الدوال',en:'Open practice — functions'}, nextDescription: {ar:'تدرّب واقرأ بحرية. حدّ الحساب يخص الاختبارات، وليس قدرتك على التعلّم.',en:'Practice and read freely. The account limit applies to exams, not to your ability to learn.'}, nextMetaOne: {ar:'مفتوح الآن',en:'Open now'}, nextMetaTwo: {ar:'تقدّمك محفوظ',en:'Progress saved'}, nextMetaThree: {ar:'حد الحساب',en:'Account limit'}, nextCta: {ar:'افتح التدريب',en:'Open practice'}, climbSummary: {ar:'حد الحساب الحالي',en:'Current account limit'}, progressNumber: {ar:'2 / 10',en:'2 / 10'}, progressLabel: {ar:'شارات مكتسبة',en:'badges earned'}, currentGoal: {ar:'التعلّم والتدريب ما زالا مفتوحين',en:'Learning and practice remain open'}, progressPercent: {ar:'20%',en:'20%'}, nextMetric: {ar:'تدريب الدوال',en:'Functions practice'}, quietProgress: {ar:'هذا حد للحساب، وليس حكمًا على قدرتك.',en:'This is an account limit, not a verdict on your ability.'}, changedTimestamp: {ar:'محدّث الآن',en:'Updated just now'}
+        },
+        lapse: {
+          nextEyebrow: {ar:'عودة هادئة',en:'A quiet return'}, nextTitle: {ar:'المعادلات التربيعية — مراجعة سريعة',en:'Quadratics — short refresher'}, nextDescription: {ar:'15 دقيقة. لا يوجد عدّاد غياب. ابدأ من نقطة واضحة عندما تكون مستعدًا.',en:'15 minutes. There is no missed-day count. Start from one clear point when you are ready.'}, nextMetaOne: {ar:'15 دقيقة',en:'15 minutes'}, nextMetaTwo: {ar:'مراجعة واحدة',en:'One refresher'}, nextMetaThree: {ar:'اقتراح',en:'Suggested'}, nextCta: {ar:'ابدأ المراجعة',en:'Start refresher'}, climbSummary: {ar:'تستأنف من الشارة 2',en:'Resuming at Badge 2'}, progressNumber: {ar:'1 / 10',en:'1 / 10'}, progressLabel: {ar:'شارات مكتسبة',en:'badges earned'}, currentGoal: {ar:'استئناف بلا ضغط',en:'Resume without pressure'}, progressPercent: {ar:'10%',en:'10%'}, nextMetric: {ar:'مراجعة التربيعيات',en:'Quadratics refresher'}, quietProgress: {ar:'اقتراح واحد، لا دين مستحق.',en:'One suggestion, no debt.'}, changedTimestamp: {ar:'منذ 3 أسابيع',en:'3 weeks ago'}
+        },
+        earned: {
+          nextEyebrow: {ar:'بعد اكتمال السلم',en:'After the climb'}, nextTitle: {ar:'تدريب متقدم مفتوح — اختر موضوعًا',en:'Advanced open practice — choose a topic'}, nextDescription: {ar:'كل الشارات العشر مكتسبة. يستمر التعلّم، ولا تصبح الصفحة جدار نهاية.',en:'All ten badges are earned. Learning stays open; the dashboard does not become a dead end.'}, nextMetaOne: {ar:'10 / 10 شارات',en:'10 / 10 badges'}, nextMetaTwo: {ar:'تدريب مفتوح',en:'Open practice'}, nextMetaThree: {ar:'مكتمل',en:'Complete'}, nextCta: {ar:'افتح التدريب',en:'Open practice'}, climbSummary: {ar:'كل الشارات مكتسبة',en:'All badges earned'}, progressNumber: {ar:'10 / 10',en:'10 / 10'}, progressLabel: {ar:'شارات مكتسبة',en:'badges earned'}, currentGoal: {ar:'السلم مكتمل',en:'The climb is complete'}, progressPercent: {ar:'100%',en:'100%'}, nextMetric: {ar:'تدريب متقدم',en:'Advanced practice'}, quietProgress: {ar:'إنجاز هادئ. لا حاجة إلى مؤثرات إضافية.',en:'Quiet permanence. No extra spectacle.'}, changedTimestamp: {ar:'مكتمل الآن',en:'Completed just now'}
+        }
+      };
+
+      var commonCopy = {
+        cooldownTitle: {ar:'انتهت المحاولة، والآن فترة انتظار',en:'Badge exam cooldown'},
+        cooldownDescription: {ar:'تفتح المحاولة التالية بعد 3 أيام. تدرّب على المفاهيم التي أخطأت فيها؛ يظل التعلّم مفتوحًا.',en:'Your next attempt opens in 3 days. Practice the concepts you missed; learning stays open.'},
+        cappedTitle: {ar:'وصل هذا الحساب إلى حدّه الحالي للشارات',en:'This account has reached its current badge limit'},
+        cappedDescription: {ar:'هذا حدّ للحساب، وليس مقياسًا لقدرتك. يظل التدريب والتعلّم مفتوحين.',en:'This is an account limit, not a measure of your ability. Open practice and learning remain available.'},
+        lapseTitle: {ar:'طريقة هادئة للعودة',en:'A quiet way back in'},
+        lapseDescription: {ar:'لا يوجد عدّاد لأيام الغياب. ابدأ بالمراجعة المقترحة عندما تكون مستعدًا.',en:'There is no missed-day count. Start with the suggested refresher when you are ready.'},
+        offlineTitle: {ar:'أنت دون اتصال',en:'You are offline'},
+        offlineDescription: {ar:'رحلتك محفوظة على هذا الجهاز. سيصبح بدء العمل الجديد متاحًا عند عودة الاتصال.',en:'Your climb is saved on this device. Starting new work will be available when the connection returns.'}
+      };
+
+      var badgeStates = {
+        new: ['next','locked','locked','locked','locked','locked','locked','locked','locked','locked'],
+        working: ['earned','next','locked','locked','locked','locked','locked','locked','locked','locked'],
+        ready: ['earned','eligible','locked','locked','locked','locked','locked','locked','locked','locked'],
+        cooldown: ['earned','cooldown','locked','locked','locked','locked','locked','locked','locked','locked'],
+        capped: ['earned','earned','capped','locked','locked','locked','locked','locked','locked','locked'],
+        lapse: ['earned','next','locked','locked','locked','locked','locked','locked','locked','locked'],
+        earned: ['earned','earned','earned','earned','earned','earned','earned','earned','earned','earned']
+      };
+      var badgeStatus = {
+        ar: {earned:'مكتسبة',next:'التالية',eligible:'جاهزة للمحاولة',cooldown:'انتظار 3 أيام',locked:'ليس بعد',capped:'حد الحساب'},
+        en: {earned:'Earned',next:'Next up',eligible:'Ready to attempt',cooldown:'3-day cooldown',locked:'Not yet',capped:'Account limit'}
+      };
+
+      function setLocale(next) {
+        locale = next === 'en' ? 'en' : 'ar';
+        root.dataset.previewLocale = locale;
+        localeButtons.forEach(function (button) { button.setAttribute('aria-pressed', String(button.dataset.previewLocale === locale)); });
+        canvases.forEach(function (canvas) {
+          canvas.dataset.locale = locale;
+          canvas.dir = locale === 'ar' ? 'rtl' : 'ltr';
+          canvas.lang = locale;
+          var localeSwitch = canvas.querySelector('[data-locale-switch]');
+          if (localeSwitch) {
+            localeSwitch.setAttribute('aria-label', locale === 'ar' ? 'Switch to English' : 'التبديل إلى العربية');
+            var localeLabel = localeSwitch.querySelector('[data-locale-label]');
+            if (localeLabel) localeLabel.textContent = locale === 'ar' ? 'EN' : 'عر';
+          }
+        });
+        syncCopy();
+      }
+
+      function setTheme(next) {
+        theme = next === 'dark' ? 'dark' : 'light';
+        root.dataset.theme = theme;
+        themeButtons.forEach(function (button) { button.setAttribute('aria-pressed', String(button.dataset.previewTheme === theme)); });
+      }
+
+      function syncCopy() {
+        canvases.forEach(function (canvas) {
+          canvas.querySelectorAll('[data-copy-ar][data-copy-en]').forEach(function (element) {
+            element.textContent = locale === 'ar' ? element.dataset.copyAr : element.dataset.copyEn;
+          });
+          canvas.querySelectorAll('[data-copy-key]').forEach(function (element) {
+            var entry = (copy[state] && copy[state][element.dataset.copyKey]) || commonCopy[element.dataset.copyKey];
+            if (entry) element.textContent = entry[locale];
+          });
+          canvas.querySelectorAll('[data-badge-status]').forEach(function (element, index) {
+            var tile = element.closest('[data-badge-number]');
+            var tileState = tile ? tile.className.split(' ').filter(function (name) { return badgeStates[state] && badgeStates[state][Number(tile.dataset.badgeNumber) - 1] && name !== 'badge-tile'; }) : [];
+            var value = tile && badgeStates[state] ? badgeStates[state][Number(tile.dataset.badgeNumber) - 1] : 'locked';
+            var key = value.split(' ')[0];
+            element.textContent = badgeStatus[locale][key] || badgeStatus[locale].locked;
+          });
+        });
+      }
+
+      function setBadgeState(canvas, index, stateClass) {
+        var tile = canvas.querySelector('[data-badge-number="' + String(index + 1).padStart(2, '0') + '"]');
+        if (!tile) return;
+        tile.className = 'badge-tile ' + stateClass;
+        tile.setAttribute('aria-label', locale === 'ar' ? 'الشارة ' + String(index + 1) : 'Badge ' + String(index + 1));
+      }
+
+      function setState(next) {
+        state = badgeStates[next] ? next : 'working';
+        root.dataset.dashboardState = state;
+        stateButtons.forEach(function (button) { button.setAttribute('aria-pressed', String(button.dataset.dashboardStateButton === state)); });
+        canvases.forEach(function (canvas) {
+          canvas.dataset.dashboardState = state;
+          var action = canvas.querySelector('[data-od-id="student-dashboard-primary-action"]');
+          if (action && action.parentElement) action.parentElement.dataset.tone = state === 'ready' ? 'ready' : state === 'earned' ? 'earned' : 'default';
+          if (badgeStates[state]) badgeStates[state].forEach(function (stateClass, index) { setBadgeState(canvas, index, stateClass); });
+          var count = state === 'earned' ? 10 : state === 'capped' ? 2 : state === 'new' ? 0 : 1;
+          var percent = state === 'earned' ? 100 : state === 'capped' ? 20 : state === 'new' ? 0 : 10;
+          var fill = canvas.querySelector('[data-progress-fill]');
+          if (fill) fill.style.inlineSize = percent + '%';
+          canvas.querySelectorAll('[data-segment]').forEach(function (segment, index) {
+            segment.classList.toggle('done', index < count);
+            segment.classList.toggle('current', index === count && count < 10);
+          });
+        });
+        syncCopy();
+      }
+
+      localeButtons.forEach(function (button) { button.addEventListener('click', function () { setLocale(button.dataset.previewLocale); }); });
+      themeButtons.forEach(function (button) { button.addEventListener('click', function () { setTheme(button.dataset.previewTheme); }); });
+      stateButtons.forEach(function (button) { button.addEventListener('click', function () { setState(button.dataset.dashboardStateButton); }); });
+      canvases.forEach(function (canvas) { var switcher = canvas.querySelector('[data-locale-switch]'); if (switcher) switcher.addEventListener('click', function () { setLocale(locale === 'ar' ? 'en' : 'ar'); }); });
+
+      setTheme(theme);
+      setState(state);
+      setLocale(locale);
+    }());
+  </script>
+</body>
+</html>

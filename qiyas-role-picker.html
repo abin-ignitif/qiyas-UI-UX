@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light" data-preview-locale="ar"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Qiyas Screen 02 — Role Picker">
+  <title>Screen 02 — Role Picker · Qiyas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primitive-green-500: #0D662C; --primitive-green-400: #1A8C43; --primitive-green-200: #66B385; --primitive-green-100: #B3D9C1; --primitive-green-50: #E6F2EA; --primitive-green-700: #09481F; --primitive-green-900: #04230F;
+      --primitive-gold-500: #CE940F; --primitive-gold-400: #DBA724; --primitive-gold-200: #EDC866; --primitive-gold-100: #F9E8B3; --primitive-gold-50: #FFFDF0; --primitive-gold-700: #91680A; --primitive-gold-900: #4A3505;
+      --primitive-ink: #11120F; --primitive-paper: #FEFEFE; --primitive-neutral-50: #F8F9F7; --primitive-neutral-100: #E1E3DF; --primitive-neutral-200: #C4C7C0; --primitive-neutral-400: #878C82; --primitive-neutral-500: #61665C; --primitive-neutral-700: #32352E; --primitive-terracotta-500: #C84B15; --primitive-terracotta-50: #FFF2F0; --primitive-terracotta-700: #96320B;
+      --surface-page: var(--primitive-paper); --surface-raised: var(--primitive-neutral-50); --surface-sunken: var(--primitive-neutral-100); --surface-overlay: var(--primitive-paper); --surface-inverse: var(--primitive-ink);
+      --text-primary: var(--primitive-ink); --text-secondary: var(--primitive-neutral-700); --text-tertiary: var(--primitive-neutral-500); --text-disabled: var(--primitive-neutral-400); --text-inverse: var(--primitive-paper); --text-on-brand: var(--primitive-paper);
+      --border-subtle: var(--primitive-neutral-100); --border-default: var(--primitive-neutral-200); --border-strong: var(--primitive-ink); --border-focus: var(--primitive-green-400);
+      --action-primary-bg: var(--primitive-ink); --action-primary-fg: var(--primitive-paper); --action-secondary-bg: var(--surface-page); --action-secondary-fg: var(--text-primary); --action-destructive-bg: var(--primitive-terracotta-700); --action-destructive-fg: var(--primitive-paper);
+      --state-correct-bg: var(--primitive-green-50); --state-correct-border: var(--primitive-green-500); --state-correct-fg: var(--primitive-green-700); --state-incorrect-bg: var(--primitive-terracotta-50); --state-incorrect-border: var(--primitive-terracotta-500); --state-incorrect-fg: var(--primitive-terracotta-700); --state-selected-bg: var(--primitive-neutral-50); --state-selected-border: var(--primitive-ink); --state-info-bg: var(--primitive-green-50); --state-info-border: var(--primitive-green-200); --focus-ring: var(--primitive-green-400);
+      --font-display: "IBM Plex Sans", system-ui, sans-serif; --font-body: "IBM Plex Sans", system-ui, sans-serif; --font-arabic: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, sans-serif; --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+      --logo-ink: #11120F; --logo-green: #0D662C; --logo-gold: #CE940F;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px;
+      --radius-card: 4px; --radius-control: 4px; --radius-accent: 0; --border-width-hairline: 1px; --border-width-default: 1.5px; --border-width-emphasis: 2px; --border-width-selected: 3px; --content: 1180px; --control-default: 48px; --focus-offset: 3px; --shadow-overlay: 4px 4px 0 var(--primitive-ink); --motion-quick: 120ms; --motion-base: 180ms; --motion-deliberate: 280ms; --ease-enter: cubic-bezier(.2,.7,.3,1);
+    }
+    html[data-theme="dark"] { --surface-page: #11120F; --surface-raised: #181A16; --surface-sunken: #0B0C0A; --surface-overlay: #20231E; --surface-inverse: #FEFEFE; --text-primary: #FEFEFE; --text-secondary: #C4C7C0; --text-tertiary: #A8ADA2; --text-disabled: #72786E; --text-inverse: #11120F; --text-on-brand: #FEFEFE; --border-subtle: #2A2E28; --border-default: #4A5046; --border-strong: #FEFEFE; --border-focus: #66B385; --action-primary-bg: #FEFEFE; --action-primary-fg: #11120F; --action-secondary-bg: #181A16; --action-secondary-fg: #FEFEFE; --state-correct-bg: #173D25; --state-correct-border: #66B385; --state-correct-fg: #B3D9C1; --state-incorrect-bg: #4A1B0A; --state-incorrect-border: #E07843; --state-incorrect-fg: #FFD0BD; --state-selected-bg: #20231E; --state-selected-border: #FEFEFE; --state-info-bg: #173D25; --state-info-border: #66B385; --focus-ring: #66B385; --shadow-overlay: 4px 4px 0 #000000; --logo-ink: #FEFEFE; --logo-green: #66B385; --logo-gold: #DBA724; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--surface-page); }
+    body { margin: 0; color: var(--text-primary); background: var(--surface-page); font-family: var(--font-body); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    body, button, input { font-size: 16px; }
+    button, input { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; }
+    h1, h2, h3, h4, p { margin: 0; }
+    h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.12; letter-spacing: -.02em; }
+    [lang="ar"], [dir="rtl"] { font-family: var(--font-arabic); }
+    :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: var(--focus-offset); }
+    .container { max-inline-size: var(--content); margin-inline: auto; padding-inline: clamp(16px, 4vw, 32px); }
+    .topnav { position: sticky; inset-block-start: 0; z-index: 10; background: color-mix(in srgb, var(--surface-page) 94%, transparent); border-block-end: var(--border-width-hairline) solid var(--border-subtle); backdrop-filter: blur(12px); }
+    .topnav-inner { min-block-size: 64px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4); }
+    .topnav .logo { font-weight: 600; }
+    .topnav nav { display: flex; gap: var(--space-4); color: var(--text-tertiary); font-size: 13px; }
+    .topnav nav a:hover { color: var(--text-primary); }
+    .screen-controls { display: inline-flex; align-items: center; gap: var(--space-3); }
+    .toggle-group { display: inline-flex; border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-control); overflow: hidden; }
+    .toggle-label { color: var(--text-tertiary); font: 600 10px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .toggle-button { min-block-size: 44px; padding-inline: 10px; border: 0; border-inline-start: var(--border-width-hairline) solid var(--border-default); color: var(--text-tertiary); background: transparent; font-size: 12px; font-weight: 600; }
+    .toggle-button:first-child { border-inline-start: 0; }
+    .toggle-button:hover, .toggle-button[aria-pressed="true"] { color: var(--text-primary); background: var(--surface-raised); }
+    .toggle-button[aria-pressed="true"] { box-shadow: inset 0 -2px 0 var(--primitive-green-500); }
+    .hero, .section { padding-block: clamp(48px, 8vw, 88px); }
+    .hero-heading, .section-heading { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(240px, .9fr); gap: var(--space-7); align-items: end; margin-block-end: var(--space-7); }
+    .eyebrow, .label { color: var(--primitive-green-500); font: 700 11px/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+    .lead { max-inline-size: 58ch; color: var(--text-secondary); font-size: 18px; }
+    h1 { max-inline-size: 700px; font-size: clamp(36px, 5vw, 64px); }
+    h2 { font-size: clamp(28px, 4vw, 44px); }
+    h3 { font-size: 22px; }
+    .section { border-block-start: var(--border-width-hairline) solid var(--border-subtle); }
+    .section-heading { grid-template-columns: minmax(180px, .3fr) minmax(0, .7fr); align-items: start; }
+    .section-heading p { color: var(--text-secondary); }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-block-size: 44px; padding-inline: var(--space-4); border: var(--border-width-default) solid transparent; border-radius: var(--radius-control); font-weight: 600; text-decoration: none; transition: background-color var(--motion-quick) ease-out, border-color var(--motion-quick) ease-out, color var(--motion-quick) ease-out, transform var(--motion-quick) ease-out; }
+    .button:hover { transform: translateY(-1px); }
+    .button-primary { color: var(--action-primary-fg); background: var(--action-primary-bg); border-color: var(--action-primary-bg); }
+    .button-primary:hover { background: var(--primitive-neutral-700); border-color: var(--primitive-neutral-700); }
+    html[data-theme="dark"] .button-primary:hover { color: var(--primitive-ink); background: var(--primitive-neutral-200); border-color: var(--primitive-neutral-200); }
+    .button-secondary { color: var(--action-secondary-fg); background: var(--action-secondary-bg); border-color: var(--border-default); }
+    .button-secondary:hover { color: var(--text-primary); background: var(--surface-sunken); border-color: var(--border-strong); }
+    .button-ghost { color: var(--text-primary); background: transparent; border-color: transparent; }
+    .button-ghost:hover { background: var(--surface-raised); }
+    .card { min-inline-size: 0; padding: var(--space-5); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .grid-2, .grid-3 { display: grid; gap: var(--space-4); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .preview-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr)); gap: var(--space-6); align-items: start; }
+    .preview-frame { overflow: hidden; border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .preview-phone { inline-size: min(100%, 390px); }
+    .screen-canvas { position: relative; overflow: auto; color: var(--text-primary); background: var(--surface-page); }
+    .preview-phone .screen-canvas { min-block-size: 844px; }
+    .preview-desktop .screen-canvas { min-block-size: 560px; }
+    .preview-caption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-block-start: var(--border-width-hairline) solid var(--border-default); color: var(--text-tertiary); font-size: 12px; }
+    .preview-caption strong { color: var(--text-primary); font-size: 14px; }
+    .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums lining-nums; }
+    .screen-inner { display: grid; gap: var(--space-6); max-inline-size: 760px; margin-inline: auto; padding: var(--space-7) clamp(20px, 5vw, 64px); }
+    .screen-inner > .brand-lockup { inline-size: 148px; margin-inline: auto; }
+    .brand-lockup svg { display: block; inline-size: 100%; block-size: auto; }
+    .screen-title { text-align: center; }
+    .screen-title h2 { margin-block-end: var(--space-2); font-size: clamp(24px, 5vw, 36px); }
+    .screen-title p { color: var(--text-secondary); }
+    .role-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+    .role-choice { display: grid; align-content: start; gap: var(--space-3); min-block-size: 232px; padding: var(--space-5); color: var(--text-primary); text-align: start; border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-page); transition: border-color var(--motion-quick) ease-out, background-color var(--motion-quick) ease-out, transform var(--motion-quick) ease-out; }
+    .role-choice:hover { border-color: var(--border-strong); background: var(--surface-raised); transform: translateY(-1px); }
+    .role-choice.student .role-mark { color: var(--state-correct-fg); border-color: var(--state-correct-border); background: var(--state-correct-bg); }
+    .role-choice.parent .role-mark { color: var(--text-primary); border-color: var(--border-strong); background: var(--surface-page); }
+    .role-mark { display: grid; place-items: center; inline-size: 56px; block-size: 56px; border: var(--border-width-emphasis) solid currentColor; border-radius: var(--radius-accent); font: 700 18px/1 var(--font-mono); }
+    .role-choice h3 { font-size: 21px; }
+    .role-choice p { color: var(--text-secondary); font-size: 14px; }
+    .choice-status { min-block-size: 44px; padding: var(--space-3); color: var(--text-secondary); border: var(--border-width-default) solid var(--border-default); background: var(--surface-raised); font-size: 13px; }
+    .choice-status[hidden] { display: none; }
+    .state-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+    .state-card { display: grid; gap: var(--space-3); padding: var(--space-4); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-page); }
+    .identity-list { display: grid; gap: var(--space-2); }
+    .identity-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-block-size: 56px; padding: var(--space-3); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-control); background: var(--surface-page); }
+    .identity-row strong { display: block; }
+    .identity-row small { color: var(--text-tertiary); }
+    .feedback, .offline-state, .state-error, .empty-state { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: var(--space-3); align-items: start; padding: var(--space-4); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .feedback-icon { display: grid; place-items: center; inline-size: 24px; block-size: 24px; border: var(--border-width-emphasis) solid currentColor; font: 700 13px/1 var(--font-mono); }
+    .feedback strong { display: block; margin-block-end: 4px; }
+    .feedback p, .offline-state p, .state-error p, .empty-state p { grid-column: 2 / -1; color: inherit; font-size: 13px; }
+    .feedback.error, .offline-state { color: var(--state-incorrect-fg); border-color: var(--state-incorrect-border); background: var(--state-incorrect-bg); }
+    .feedback.info { color: var(--text-primary); }
+    .route-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-3); align-items: stretch; }
+    .route-step { display: grid; align-content: start; gap: var(--space-2); min-block-size: 112px; padding: var(--space-3); border: var(--border-width-default) solid var(--border-default); background: var(--surface-raised); }
+    .route-step strong { font-size: 14px; }
+    .route-step span { color: var(--text-tertiary); font-size: 12px; }
+    .table-wrap { max-inline-size: 100%; overflow-x: auto; }
+    table { inline-size: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 10px 8px; border-block-end: var(--border-width-hairline) solid var(--border-subtle); text-align: start; vertical-align: top; }
+    th { color: var(--text-tertiary); font: 700 11px/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .decision-grid, .mapping-table { display: grid; gap: var(--space-3); }
+    .decision { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); padding-block: var(--space-4); border-block-end: var(--border-width-hairline) solid var(--border-subtle); }
+    .decision:last-child { border-block-end: 0; }
+    .decision h3 { font-size: 18px; }
+    .decision p { color: var(--text-secondary); font-size: 14px; }
+    .mapping-table { min-inline-size: 720px; }
+    .mapping-table .map-row { display: grid; grid-template-columns: 1.1fr 1fr 1fr 1.7fr; gap: var(--space-3); padding-block: var(--space-3); border-block-end: var(--border-width-hairline) solid var(--border-subtle); font-size: 13px; }
+    .mapping-table .map-head { color: var(--text-tertiary); font: 700 11px/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .gap-list { display: grid; gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
+    .gap-list li { display: grid; grid-template-columns: 12px minmax(0,1fr); gap: var(--space-3); align-items: start; }
+    .gap-dot { inline-size: 12px; block-size: 12px; margin-block-start: 5px; border: var(--border-width-default) solid var(--primitive-gold-700); background: var(--primitive-gold-50); }
+    .gap-list strong { display: block; margin-block-end: 4px; }
+    .gap-list span { color: var(--text-secondary); font-size: 13px; }
+    .footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-4); padding-block: var(--space-6); color: var(--text-tertiary); font-size: 12px; border-block-start: var(--border-width-hairline) solid var(--border-subtle); }
+    .locale-en { display: none; }
+    html[data-preview-locale="en"] .locale-ar { display: none; }
+    html[data-preview-locale="en"] .locale-en { display: inline; }
+    [data-product-canvas][data-locale="en"] .locale-ar { display: none; }
+    [data-product-canvas][data-locale="en"] .locale-en { display: inline; }
+    @media (max-width: 920px) { .hero-heading, .section-heading { grid-template-columns: 1fr; gap: var(--space-4); } .grid-2, .grid-3, .state-grid, .decision { grid-template-columns: 1fr; } .route-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); } .mapping-table { min-inline-size: 0; } .mapping-table .map-head { display: none; } .mapping-table .map-row { grid-template-columns: 1fr; gap: 4px; } .mapping-table .map-row > div::before { display: block; margin-block-end: 2px; color: var(--text-tertiary); font: 700 10px/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; } }
+    @media (max-width: 680px) { .topnav nav, .toggle-label { display: none; } .screen-controls { inline-size: 100%; justify-content: space-between; padding-block-end: var(--space-2); } .role-grid, .route-flow { grid-template-columns: 1fr; } .screen-inner { padding-inline: var(--space-4); } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 1ms !important; transition-duration: 1ms !important; } }
+  </style>
+  <style data-qiyas-additive="locale-switch">
+    .screen-canvas > .locale-switch { position: absolute; inset-block-start: var(--space-4); inset-inline-end: var(--space-4); z-index: 5; }
+    .locale-switch { display: inline-flex; align-items: center; justify-content: center; min-inline-size: 44px; min-block-size: 44px; padding-inline: var(--space-3); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-control); color: var(--text-primary); background: var(--surface-page); font: 700 12px/1 var(--font-mono); letter-spacing: .06em; text-decoration: none; transition: background-color var(--motion-quick) ease-out, border-color var(--motion-quick) ease-out, transform var(--motion-quick) ease-out; }
+    .locale-switch:hover { color: var(--text-primary); background: var(--surface-raised); border-color: var(--border-strong); transform: translateY(-1px); }
+    .locale-switch:active { background: var(--surface-sunken); transform: none; }
+    .locale-switch:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: var(--focus-offset); }
+  </style>
+  <style data-qiyas-additive="mobile-build-sheet">
+    .mobile-build-sheet { margin-block-start: var(--space-6); padding: var(--space-5); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .mobile-build-sheet-header { display: grid; grid-template-columns: minmax(0, .72fr) minmax(240px, 1.28fr); gap: var(--space-4); align-items: start; margin-block-end: var(--space-4); }
+    .mobile-build-sheet-header h2 { font-size: 21px; }
+    .mobile-build-sheet-header p { color: var(--text-secondary); font-size: 13px; }
+    .mobile-build-sheet .spec-card { min-inline-size: 0; padding: var(--space-4); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-page); }
+    .mobile-build-sheet .spec-card h3 { margin-block-end: var(--space-3); font-size: 16px; }
+    .mobile-build-sheet .spec-table { inline-size: 100%; border-collapse: collapse; font-size: 12px; }
+    .mobile-build-sheet .spec-table th, .mobile-build-sheet .spec-table td { padding: 10px 8px; border-block-end: var(--border-width-hairline) solid var(--border-subtle); text-align: start; vertical-align: top; }
+    .mobile-build-sheet .spec-table th { color: var(--text-tertiary); font: 700 10px/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .mobile-build-sheet .spec-table td:first-child { color: var(--text-primary); font-weight: 600; }
+    .mobile-build-sheet code, .mobile-build-sheet .spec-value { font-family: var(--font-mono); font-variant-numeric: tabular-nums lining-nums; overflow-wrap: anywhere; }
+    .mobile-build-sheet .spec-note { margin-block-start: var(--space-4); padding-block-start: var(--space-3); border-block-start: var(--border-width-hairline) solid var(--border-subtle); color: var(--text-secondary); font-size: 12px; }
+    .mobile-build-sheet .spec-chip { display: inline-flex; align-items: center; min-block-size: 24px; padding-inline: 8px; border: var(--border-width-hairline) solid var(--border-default); border-radius: var(--radius-accent); color: var(--text-primary); background: var(--surface-sunken); font: 700 11px/1 var(--font-mono); }
+    @media (max-width: 920px) { .mobile-build-sheet-header { grid-template-columns: 1fr; } }
+    @media (max-width: 680px) { .mobile-build-sheet { padding: var(--space-4); } .mobile-build-sheet .grid-2 { grid-template-columns: 1fr; } .mobile-build-sheet .spec-table { font-size: 11px; } .mobile-build-sheet .spec-table th, .mobile-build-sheet .spec-table td { padding: 8px 6px; } }
+  </style>
+</head>
+<body>
+  <svg hidden="" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="qiyas-logo-en" viewBox="0 0 1201 349"><path d="M 343.0 96.0 L 343.0 293.0 L 377.0 293.0 L 377.0 96.0 Z M 1014.0 93.0 L 1013.0 205.0 L 1146.0 206.0 L 1147.0 262.0 L 1014.0 263.0 L 1013.0 294.0 L 1180.0 294.0 L 1179.0 175.0 L 1046.0 174.0 L 1047.0 124.0 L 1180.0 124.0 L 1180.0 94.0 Z M 751.0 93.0 L 751.0 294.0 L 784.0 293.0 L 785.0 205.0 L 896.0 205.0 L 897.0 294.0 L 930.0 294.0 L 930.0 93.0 Z M 783.0 125.0 L 896.0 124.0 L 897.0 174.0 L 785.0 174.0 Z M 471.0 91.0 L 471.0 204.0 L 552.0 204.0 L 554.0 206.0 L 554.0 298.0 L 589.0 298.0 L 589.0 205.0 L 671.0 204.0 L 671.0 92.0 L 637.0 92.0 L 636.0 174.0 L 506.0 174.0 L 505.0 92.0 Z" fill="var(--logo-ink)" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M 21.0 88.0 L 21.0 293.0 L 195.0 293.0 L 230.0 328.0 L 250.0 309.0 L 244.0 299.0 L 143.0 192.0 L 138.0 193.0 L 121.0 212.0 L 164.0 261.0 L 54.0 262.0 L 52.0 258.0 L 54.0 121.0 L 209.0 120.0 L 211.0 122.0 L 211.0 244.0 L 242.0 276.0 L 242.0 89.0 Z" fill="var(--logo-green)" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M 341.0 74.0 L 343.0 76.0 L 379.0 76.0 L 360.0 44.0 Z M 145.0 20.0 L 145.0 51.0 L 176.0 52.0 L 176.0 21.0 Z M 80.0 20.0 L 78.0 41.0 L 80.0 52.0 L 109.0 52.0 L 110.0 20.0 Z" fill="var(--logo-gold)" fill-rule="evenodd" clip-rule="evenodd"></path></symbol>
+    <symbol id="qiyas-logo-ar" viewBox="0 0 1202 299"><path d="M 343.0 104.0 L 314.0 104.0 L 313.0 200.0 L 271.0 199.0 L 271.0 103.0 L 243.0 103.0 L 242.0 200.0 L 199.0 199.0 L 198.0 123.0 L 171.0 123.0 L 169.0 239.0 L 50.0 239.0 L 49.0 176.0 L 21.0 175.0 L 20.0 265.0 L 198.0 266.0 L 199.0 228.0 L 341.0 228.0 Z M 400.0 72.0 L 401.0 228.0 L 983.0 228.0 L 983.0 200.0 L 852.0 200.0 L 851.0 103.0 L 823.0 103.0 L 822.0 200.0 L 430.0 200.0 L 429.0 72.0 Z" fill="var(--logo-ink)" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M 1173.0 75.0 L 1158.0 73.0 L 1146.0 75.0 L 985.0 75.0 L 984.0 227.0 L 1118.0 228.0 L 1157.0 271.0 L 1165.0 272.0 L 1179.0 258.0 L 1181.0 254.0 L 1081.0 147.0 L 1077.0 147.0 L 1060.0 166.0 L 1087.0 195.0 L 1088.0 199.0 L 1016.0 200.0 L 1014.0 198.0 L 1013.0 106.0 L 1015.0 103.0 L 1144.0 103.0 L 1144.0 196.0 L 1173.0 224.0 Z" fill="var(--logo-green)" fill-rule="evenodd" clip-rule="evenodd"></path><path d="M 646.0 249.0 L 646.0 273.0 L 648.0 278.0 L 677.0 277.0 L 677.0 249.0 Z M 703.0 249.0 L 704.0 278.0 L 733.0 278.0 L 733.0 249.0 Z M 412.0 23.0 L 398.0 47.0 L 398.0 52.0 L 431.0 52.0 L 427.0 41.0 L 415.0 22.0 Z M 1096.0 20.0 L 1096.0 49.0 L 1125.0 49.0 L 1125.0 20.0 Z M 1045.0 20.0 L 1042.0 25.0 L 1043.0 49.0 L 1072.0 50.0 L 1073.0 21.0 Z" fill="var(--logo-gold)" fill-rule="evenodd" clip-rule="evenodd"></path></symbol>
+  </defs></svg>
+  <header class="topnav" data-od-id="screen-header"><div class="container topnav-inner"><span class="logo">Qiyas / Screen 02</span><nav aria-label="Document sections"><a href="#states">States</a><a href="#decisions">Decisions</a><a href="#routing">Routing</a><a href="#motion">Motion</a><a href="#mapping">Mapping</a></nav><div class="screen-controls" data-od-id="screen-controls" aria-label="Screen preview controls"><span class="toggle-label">Language</span><div class="toggle-group" role="group" aria-label="Preview language"><button class="toggle-button" type="button" data-preview-locale="ar" data-od-id="preview-language-ar" aria-pressed="true">العربية</button><button class="toggle-button" type="button" data-preview-locale="en" data-od-id="preview-language-en" aria-pressed="false">English</button></div><span class="toggle-label">Theme</span><div class="toggle-group" role="group" aria-label="Preview theme"><button class="toggle-button" type="button" data-preview-theme="light" data-od-id="preview-theme-light" aria-pressed="true">Light</button><button class="toggle-button" type="button" data-preview-theme="dark" data-od-id="preview-theme-dark" aria-pressed="false">Dark</button></div></div></div></header>
+  <main>
+    <section class="hero" id="role-picker-hero" data-od-id="role-picker-hero" data-role-view="stacked">
+      <style data-qiyas-scoped="role-picker-view">
+        #role-picker-hero .role-view-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); margin-block-end: var(--space-5); padding: var(--space-3) var(--space-4); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+        #role-picker-hero .role-view-copy { color: var(--text-secondary); font-size: 13px; }
+        #role-picker-hero .role-view-copy strong { display: block; margin-block-end: 2px; color: var(--text-primary); font-size: 14px; }
+        #role-picker-hero .role-view-toggle { flex: 0 0 auto; }
+        #role-picker-hero .role-view-toggle .toggle-button { min-block-size: 44px; }
+        #role-picker-hero[data-role-view="stacked"] .role-grid { grid-template-columns: minmax(0, 1fr); }
+        #role-picker-hero[data-role-view="split"] .role-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        #role-picker-hero .role-choice { min-inline-size: 0; }
+        #role-picker-hero .preview-phone .role-choice { min-block-size: 232px; }
+        #role-picker-hero .preview-phone .role-choice.student { align-content: center; justify-items: center; min-block-size: 192px; gap: var(--space-2); padding: var(--space-4); text-align: center; }
+        #role-picker-hero .preview-phone .role-choice.parent { align-content: center; justify-items: center; min-block-size: 192px; gap: var(--space-2); padding: var(--space-4); text-align: center; }
+        #role-picker-hero .preview-phone .screen-title h2 .locale-en { display: block; inline-size: calc(100% + var(--space-9)); margin-inline: calc(var(--space-9) / -2); }
+        #role-picker-hero .preview-desktop .screen-inner { max-inline-size: 960px; }
+        #role-picker-hero .preview-desktop .role-grid { gap: var(--space-5); }
+        #role-picker-hero .preview-desktop .role-choice { min-block-size: 260px; padding: var(--space-6); }
+        @media (max-width: 680px) { #role-picker-hero .role-view-bar { align-items: stretch; flex-direction: column; } #role-picker-hero .role-view-toggle { inline-size: 100%; } #role-picker-hero .role-view-toggle .toggle-button { flex: 1 1 50%; } }
+      </style>
+      <div class="container">
+        <div class="hero-heading"><div><p class="eyebrow">Screen 02 · role picker</p><h1 data-od-id="role-picker-title"><span class="locale-ar">من يستخدم هذا الجهاز؟</span><span class="locale-en">Who is signing in?</span></h1></div><p class="lead"><span class="locale-ar">اختيار واحد. طريق واضح إلى تسجيل الدخول.</span><span class="locale-en">One choice, one clear route to sign in.</span></p></div>
+        <div class="role-view-bar" data-od-id="role-picker-view-toggle">
+          <div class="role-view-copy"><strong><span class="locale-ar">عرض الأدوار</span><span class="locale-en">Role view</span></strong><span class="locale-ar">اختر عرضًا متسلسلًا أو متجاورًا.</span><span class="locale-en">Choose a sequential or side-by-side view.</span></div>
+          <div class="toggle-group role-view-toggle" role="group" aria-label="Role choice layout">
+            <button class="toggle-button" type="button" data-role-view-button="stacked" data-od-id="role-view-stacked" aria-pressed="true"><span class="locale-ar">متسلسل</span><span class="locale-en">Sequential</span></button>
+            <button class="toggle-button" type="button" data-role-view-button="split" data-od-id="role-view-split" aria-pressed="false"><span class="locale-ar">متجاور</span><span class="locale-en">Side by side</span></button>
+          </div>
+        </div>
+        <div class="preview-board" data-od-id="role-picker-previews">
+      <article class="preview-frame preview-phone" data-od-id="role-picker-mobile-preview"><div class="screen-canvas" data-product-canvas="" dir="rtl" lang="ar" data-locale="ar"><button class="locale-switch" type="button" data-locale-switch="" data-od-id="role-picker-mobile-locale-switch" aria-label="Switch to English"><span class="locale-ar">EN</span><span class="locale-en" lang="ar" dir="rtl">عر</span></button><div class="screen-inner"><div class="brand-lockup"><svg viewBox="0 0 1202 299" role="img" aria-label="Qiyas / قياس"><use href="#qiyas-logo-ar" class="locale-ar"></use><use href="#qiyas-logo-en" class="locale-en"></use></svg></div><div class="screen-title"><h2><span class="locale-ar">من يستخدم هذا الجهاز؟</span><span class="locale-en">Who is signing in?</span></h2><p><span class="locale-ar">اختر الدور الذي يستخدم هذا الحساب.</span><span class="locale-en">Choose the role for this account.</span></p></div><div class="role-grid"><button class="role-choice student" type="button" data-role-choice="student"><span class="role-mark" aria-hidden="true">S</span><h3><span class="locale-ar">الطالب</span><span class="locale-en">Student</span></h3><p><span class="locale-ar">هنا تبدأ جلسات التعلّم اليومية.</span><span class="locale-en">Where daily learning happens.</span></p></button><button class="role-choice parent" type="button" data-role-choice="parent"><span class="role-mark" aria-hidden="true">P</span><h3><span class="locale-ar">ولي الأمر</span><span class="locale-en">Parent</span></h3><p><span class="locale-ar">تابع التقدّم وأكمل الإعداد.</span><span class="locale-en">Check progress and finish setup.</span></p></button></div><div class="choice-status" data-choice-status="" role="status"><span class="locale-ar">لا تحتاج إلى إنشاء حساب من هنا.</span><span class="locale-en">Account creation does not start here.</span></div></div></div><div class="preview-caption"><strong>Mobile · 390 × 844</strong><span class="mono">first run · no network</span></div></article>
+      <article class="preview-frame preview-desktop" data-od-id="role-picker-desktop-preview"><div class="screen-canvas" data-product-canvas="" dir="rtl" lang="ar" data-locale="ar"><button class="locale-switch" type="button" data-locale-switch="" data-od-id="role-picker-desktop-locale-switch" aria-label="Switch to English"><span class="locale-ar">EN</span><span class="locale-en" lang="ar" dir="rtl">عر</span></button><div class="screen-inner"><div class="brand-lockup"><svg viewBox="0 0 1202 299" role="img" aria-label="Qiyas / قياس"><use href="#qiyas-logo-ar" class="locale-ar"></use><use href="#qiyas-logo-en" class="locale-en"></use></svg></div><div class="screen-title"><h2><span class="locale-ar">من يستخدم هذا الجهاز؟</span><span class="locale-en">Who is signing in?</span></h2><p><span class="locale-ar">اختيار الدور يحدّد شاشة تسجيل الدخول التالية.</span><span class="locale-en">Your role determines the next login screen.</span></p></div><div class="role-grid"><button class="role-choice student" type="button" data-role-choice="student"><span class="role-mark" aria-hidden="true">S</span><h3><span class="locale-ar">الطالب</span><span class="locale-en">Student</span></h3><p><span class="locale-ar">جلسات قصيرة ومتكررة، ومساحة العمل اليومية.</span><span class="locale-en">Short, frequent sessions for daily work.</span></p></button><button class="role-choice parent" type="button" data-role-choice="parent"><span class="role-mark" aria-hidden="true">P</span><h3><span class="locale-ar">ولي الأمر</span><span class="locale-en">Parent</span></h3><p><span class="locale-ar">متابعة هادئة للتقدّم وإعداد الحساب.</span><span class="locale-en">Quiet progress checks and account setup.</span></p></button></div><div class="choice-status" data-choice-status="" role="status"><span class="locale-ar">لا يظهر هذا الاختيار بعد استخدام الدور؛ ينتقل الجهاز مباشرة إلى تسجيل الدخول المحفوظ.</span><span class="locale-en">After a role is used, the picker is skipped on the next launch.</span></div></div></div><div class="preview-caption"><strong>Desktop · 1440 wide</strong><span class="mono">max content 760px · two substantial surfaces</span></div></article>
+    </div>
+      <script>
+        (function () {
+          var hero = document.getElementById('role-picker-hero');
+          if (!hero) return;
+          var controls = Array.prototype.slice.call(hero.querySelectorAll('[data-role-view-button]'));
+          var storageKey = 'qiyas-role-picker-view';
+          function applyView(mode) {
+            var next = mode === 'split' ? 'split' : 'stacked';
+            hero.dataset.roleView = next;
+            controls.forEach(function (control) { control.setAttribute('aria-pressed', String(control.dataset.roleViewButton === next)); });
+            try { localStorage.setItem(storageKey, next); } catch (error) {}
+          }
+          controls.forEach(function (control) { control.addEventListener('click', function () { applyView(control.dataset.roleViewButton); }); });
+          var saved = '';
+          try { saved = localStorage.getItem(storageKey) || ''; } catch (error) {}
+          applyView(saved || 'stacked');
+        }());
+      </script>
+    <section class="mobile-build-sheet" data-od-id="role-picker-mobile-build-sheet" aria-labelledby="role-picker-mobile-build-sheet-title">
+      <div class="mobile-build-sheet-header">
+        <div><p class="eyebrow">Mobile build sheet</p><h2 id="role-picker-mobile-build-sheet-title" data-od-id="role-picker-mobile-build-sheet-title">Figma-ready handoff · role picker</h2></div>
+        <p>Measurements are CSS pixels at 1× for the <span class="spec-value">390 × 844</span> specimen. Flutter should consume the semantic Qiyas tokens and use these values to validate the composition, not create a second visual system.</p>
+      </div>
+      <div class="grid-2">
+        <div class="spec-card" data-od-id="role-picker-mobile-frame-spec">
+          <h3>Frame and layout</h3>
+          <div class="table-wrap"><table class="spec-table" aria-label="Role picker mobile frame measurements"><thead><tr><th>Element</th><th>Exact mobile spec</th><th>Flutter mapping</th></tr></thead><tbody>
+            <tr><td>Canvas</td><td><span class="spec-value">390 × 844 px</span>; no horizontal scroll</td><td><code>SizedBox(width: 390, height: 844)</code> for the specimen; <code>SizedBox.expand()</code> in the app</td></tr>
+            <tr><td>Direction</td><td>Arabic <span class="spec-chip">RTL</span> / English <span class="spec-chip">LTR</span>; same geometry</td><td><code>Directionality</code> plus locale-driven <code>Text</code> direction</td></tr>
+            <tr><td>Content inset</td><td><span class="spec-value">16 px</span> inline at mobile (<code>--space-4</code>); <span class="spec-value">48 px</span> block (<code>--space-7</code>)</td><td><code>Padding(EdgeInsetsDirectional.fromSTEB(16, 48, 16, 48))</code></td></tr>
+            <tr><td>Stack rhythm</td><td><span class="spec-value">32 px</span> between major blocks (<code>--space-6</code>)</td><td><code>Column</code> with <code>SizedBox(height: 32)</code></td></tr>
+            <tr><td>Locale switch</td><td><span class="spec-value">44 × 44 px</span>; logical top end, <span class="spec-value">16 px</span> from both edges</td><td><code>PositionedDirectional(top: 16, end: 16)</code> + <code>SizedBox.square(dimension: 44)</code></td></tr>
+            <tr><td>Brand lockup</td><td><span class="spec-value">148 px</span> wide; natural asset ratio; centered</td><td><code>SizedBox(width: 148)</code> inside <code>Align(alignment: AlignmentDirectional.center)</code></td></tr>
+          </tbody></table></div>
+        </div>
+        <div class="spec-card" data-od-id="role-picker-mobile-component-spec">
+          <h3>Component measurements</h3>
+          <div class="table-wrap"><table class="spec-table" aria-label="Role picker mobile component measurements"><thead><tr><th>Component</th><th>Exact mobile spec</th><th>Flutter mapping</th></tr></thead><tbody>
+            <tr><td>Question / title</td><td>H2 renders at <span class="spec-value">24 px</span> at this width; <span class="spec-value">8 px</span> title-to-description gap</td><td><code>TextStyle(fontSize: 24)</code> + <code>SizedBox(height: 8)</code></td></tr>
+            <tr><td>Role grid</td><td>Sequential by default; full width; <span class="spec-value">16 px</span> gap. Split view is an explicit preview variant.</td><td><code>Column</code> by default; <code>Row</code> only for the side-by-side variant</td></tr>
+            <tr><td>Role choice</td><td>Minimum block size <span class="spec-value">232 px</span>; <span class="spec-value">24 px</span> padding; <span class="spec-value">12 px</span> internal gap</td><td><code>ConstrainedBox(minHeight: 232)</code> + <code>Padding(EdgeInsets.all(24))</code></td></tr>
+            <tr><td>Square-frame mark</td><td><span class="spec-value">56 × 56 px</span>; <span class="spec-value">2 px</span> emphasis border; <span class="spec-value">0 px</span> radius</td><td><code>SizedBox.square(dimension: 56)</code> + <code>BorderRadius.zero</code></td></tr>
+            <tr><td>Status row</td><td>Minimum block size <span class="spec-value">44 px</span>; <span class="spec-value">12 px</span> padding; <span class="spec-value">1.5 px</span> border</td><td><code>ConstrainedBox(minHeight: 44)</code> + <code>EdgeInsets.all(12)</code></td></tr>
+            <tr><td>Cached identity row</td><td><span class="spec-value">56 px</span> minimum height; <span class="spec-value">12 px</span> padding; <span class="spec-value">4 px</span> radius</td><td><code>ConstrainedBox(minHeight: 56)</code> + <code>BorderRadius.circular(4)</code></td></tr>
+          </tbody></table></div>
+          <p class="spec-note"><strong>360 px check:</strong> keep the same <span class="spec-value">16 px</span> inline inset and one-column role stack. Arabic copy may wrap inside the role surface; do not reduce the <span class="spec-value">44 px</span> minimum target or the <span class="spec-value">232 px</span> role surface.</p>
+        </div>
+      </div>
+      <p class="spec-note"><strong>Implementation rule:</strong> all dimensions above describe the mobile product canvas, not the documentation chrome around it. Use logical start/end properties, preserve the Arabic/English asset swap, and let the screen scroll vertically if text scaling reaches 200%.</p>
+    </section>
+    </div></section>
+
+    <section class="section" id="states" data-od-id="role-picker-states"><div class="container"><div class="section-heading"><div><p class="eyebrow">States</p><h2 data-od-id="role-picker-states-title">First run, then faster.</h2></div><p>The picker is local and deterministic. It never waits for a network response, and it is never shown twice in a row after a role has been used.</p></div><div class="state-grid"><div class="state-card" data-od-id="first-run-state"><span class="label">First run</span><h3>Two roles, no names</h3><p>Use the two square-frame choices shown above. Neither choice is a primary action; the content carries the distinction.</p><div class="card"><strong>Signup placement</strong><p style="margin-block-start:var(--space-2);font-size:13px">No signup on the picker. It belongs on the parent login path.</p></div></div><div class="state-card" data-od-id="switch-account-state"><span class="label">Switch account</span><h3>Remembered identities</h3><div class="identity-list"><button class="identity-row" type="button" data-role-choice="cached-student" data-od-id="cached-student-identity"><span><strong><span class="locale-ar">عائشة</span><span class="locale-en">Aisha</span></strong><small><span class="locale-ar">طالب</span><span class="locale-en">Student</span></small></span><span class="mono">→</span></button><button class="identity-row" type="button" data-role-choice="cached-parent" data-od-id="cached-parent-identity"><span><strong><span class="locale-ar">أمي</span><span class="locale-en">Mum</span></strong><small><span class="locale-ar">ولي الأمر</span><span class="locale-en">Parent</span></small></span><span class="mono">→</span></button><button class="button button-ghost" type="button" data-role-choice="different" data-od-id="different-account"><span class="locale-ar">استخدام حساب مختلف</span><span class="locale-en">Use a different account</span></button></div><div class="choice-status" data-choice-status="" role="status"><span class="locale-ar">تظل الأسماء محلية على هذا الجهاز.</span><span class="locale-en">Names stay local to this device.</span></div></div><div class="state-card" data-od-id="offline-picker-state"><span class="label">Offline</span><h3>Does not fail</h3><div class="offline-state" role="status"><span class="feedback-icon" aria-hidden="true">!</span><div><strong><span class="locale-ar">الاتصال غير متاح.</span><span class="locale-en">Connection unavailable.</span></strong><p><span class="locale-ar">يمكنك اختيار الدور؛ لا يحتاج هذا الاختيار إلى شبكة.</span><span class="locale-en">You can still choose a role; this step needs no network.</span></p></div></div></div><div class="state-card" data-od-id="picker-no-loading-state"><span class="label">Loading / empty / error</span><h3>Known resolutions</h3><p><strong>Loading:</strong> none. A spinner indicates an upstream routing defect.</p><p><strong>Empty cache:</strong> fall back to first-run roles.</p><div class="state-error" role="alert"><span class="feedback-icon" aria-hidden="true">×</span><div><strong>Saved role unavailable.</strong><p>Could not read the cached identity. Continue with the first-run picker.</p></div><button class="button button-secondary" type="button" data-od-id="role-storage-retry">Continue</button></div></div></div></div></section>
+
+    <section class="section" id="decisions" data-od-id="role-picker-decisions"><div class="container"><div class="section-heading"><div><p class="eyebrow">Decisions</p><h2>Choosing the threshold deliberately.</h2></div><p>The picker stays a threshold: it names the two audiences without adding account administration, marketing, or a network dependency.</p></div><div class="card decision-grid"><div class="decision"><div><h3>2.1 Signup</h3><p>No signup on this screen. A student cannot create an account, and a parent gets a proper signup path after choosing Parent.</p></div><div><span class="label">Rejected alternative</span><p>Adding a “Create account” link here would add a third action and weaken the one-tap threshold.</p></div></div><div class="decision"><div><h3>2.2 Cached identities</h3><p>After a role is used, “switch account” shows local names such as Aisha and Mum, plus a quiet “use a different account” path.</p></div><div><span class="label">Rejected alternative</span><p>Showing only Student / Parent again makes shared-device switching slower and less human.</p></div></div><div class="decision"><div><h3>2.3 Parent mis-tap</h3><p>Parent always routes to the parent login, where “Not you?” is visible but quiet and returns to this picker.</p></div><div><span class="label">Rejected alternative</span><p>Using a confirmation dialog after tapping Parent adds friction to a recoverable mistake.</p></div></div><div class="decision"><div><h3>2.4 Skipping</h3><p>The user cannot skip the picker on first run. Either role is always reachable; remembered roles, logout, and deep links bypass it deliberately.</p></div><div><span class="label">Rejected alternative</span><p>A “Continue as…” default would create an accidental identity choice on shared devices.</p></div></div></div></div></section>
+
+    <section class="section" id="routing" data-od-id="role-picker-routing"><div class="container"><div class="section-heading"><div><p class="eyebrow">Flow</p><h2>One threshold, deliberate returns.</h2></div><p>Role memory removes the daily gate. The picker returns only when the user explicitly changes identity or has no trusted role to restore.</p></div><div class="route-flow"><div class="route-step"><span class="mono">01</span><strong>Splash</strong><span>Resolve session, deep link, and remembered role.</span></div><div class="route-step"><span class="mono">02</span><strong>Remembered role</strong><span>Skip picker and open Student or Parent login.</span></div><div class="route-step"><span class="mono">03</span><strong>Role picker</strong><span>First launch, logout, or “not you?” only.</span></div><div class="route-step"><span class="mono">04</span><strong>Login</strong><span>Return to the intended destination after auth.</span></div></div><div class="card" style="margin-block-start:var(--space-4)" data-od-id="routing-notes"><p><strong>Deep links bypass this screen:</strong> invite and password reset already identify the destination. Session expiry preserves the destination and returns to the remembered role’s login.</p></div></div></section>
+
+    <section class="section" id="motion" data-od-id="role-picker-motion"><div class="container"><div class="section-heading"><div><p class="eyebrow">Motion</p><h2>The splash hands off, then stops.</h2></div><p>The lockup lands at the unauthenticated shell’s optical centre. Role choices use only the existing quick and base transitions; nothing reaches signature.</p></div><div class="grid-2"><div class="card" data-od-id="role-picker-entry-motion"><strong>Entry</strong><p style="margin-block-start:var(--space-2)">Use the splash shared-element exit. The Arabic lockup remains the Arabic asset, and the physical travel mirrors with direction.</p></div><div class="card" data-od-id="role-picker-reduced-motion"><strong>Reduced motion</strong><p style="margin-block-start:var(--space-2)">Place the lockup at rest and use the system’s short cross-fade. The picker remains immediately actionable.</p></div></div></div></section>
+    <section class="section" id="mapping" data-od-id="role-picker-mapping"><div class="container"><div class="section-heading"><div><p class="eyebrow">Engineer handoff</p><h2>Every role-picker element maps to the system.</h2></div><p>Role choice is composed from the canonical card, square-frame motif, button, feedback, and unauthenticated shell patterns. No new colour or radius is introduced.</p></div><div class="table-wrap"><div class="mapping-table" aria-label="Role picker component mapping"><div class="map-row map-head"><div>Element on screen</div><div>System component</div><div>Tokens / variant</div><div>Notes for devs</div></div><div class="map-row"><div><strong>Page frame</strong></div><div>Unauthenticated shell</div><div class="mono">scaffold</div><div>Full-bleed route; no authenticated navigation.</div></div><div class="map-row"><div><strong>Locale switch</strong></div><div>Locale switch</div><div class="mono">locale-switch · logical-end · 44px</div><div>One compact product control sits at screen top; full tabs remain in document preview chrome.</div></div><div class="map-row"><div><strong>Brand lockup</strong></div><div>Logo lockup</div><div class="mono">qiyas-logo-ar / qiyas-logo-en</div><div>Swap supplied assets by locale; never mirror the English asset.</div></div><div class="map-row"><div><strong>Student / Parent choices</strong></div><div>Card + square frame motif</div><div class="mono">card · radius-accent · border-default</div><div>Two equal actions; distinguish by copy and motif treatment, not primary-button hierarchy.</div></div><div class="map-row"><div><strong>Remembered identities</strong></div><div>Button family + card</div><div class="mono">button-ghost · button-secondary</div><div>Names are local device labels; store role and display name separately.</div></div><div class="map-row"><div><strong>Offline banner</strong></div><div>Page banner / offline state</div><div class="mono">offline-state</div><div>Picker remains actionable; no retry is needed for the role choice.</div></div><div class="map-row"><div><strong>Storage failure</strong></div><div>Error state</div><div class="mono">state-error</div><div>Fallback to first-run roles; preserve the ability to reach either login.</div></div></div></div><div class="grid-2" style="margin-block-start:var(--space-6)"><div class="card" data-od-id="role-picker-gap-list"><h3>Gap list</h3><ul class="gap-list" style="margin-block-start:var(--space-4)"><li><span class="gap-dot" aria-hidden="true"></span><div><strong>Role picker option component</strong><span>The system names the card and square-frame motif but does not define role-choice semantics, analytics, or cached-identity row behavior. Product engineering should codify this as a composed pattern.</span></div></li><li><span class="gap-dot" aria-hidden="true"></span><div><strong>Native identity storage contract</strong><span>The visual surface is defined here; storage permission, encryption, and platform-specific identity labels remain implementation work.</span></div></li></ul></div><div class="card"><h3>Do / don’t</h3><p><strong>Do:</strong> let either role be reached in one tap.</p><p style="margin-block-start:var(--space-3)"><strong>Don’t:</strong> add signup, marketing copy, or a loading spinner to the threshold.</p></div></div></div></section>
+  </main>
+  <footer class="footer container"><span>Qiyas · Screen 02</span><span>390 / 1440 · العربية / English · light / dark</span></footer>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var localeButtons = Array.prototype.slice.call(document.querySelectorAll('[data-preview-locale]'));
+      var themeButtons = Array.prototype.slice.call(document.querySelectorAll('[data-preview-theme]'));
+      var canvases = Array.prototype.slice.call(document.querySelectorAll('[data-product-canvas]'));
+      var localeSwitches = Array.prototype.slice.call(document.querySelectorAll('[data-locale-switch]'));
+      function read(key, fallback) { try { return window.localStorage.getItem(key) || fallback; } catch (error) { return fallback; } }
+      function sync() {
+        var locale = root.dataset.previewLocale;
+        var theme = root.dataset.theme;
+        localeSwitches.forEach(function (button) { button.setAttribute('aria-label', locale === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'); });
+        localeButtons.forEach(function (button) { var active = button.dataset.previewLocale === locale; button.setAttribute('aria-pressed', String(active)); });
+        themeButtons.forEach(function (button) { var active = button.dataset.previewTheme === theme; button.setAttribute('aria-pressed', String(active)); });
+        canvases.forEach(function (canvas) { canvas.dataset.locale = locale; canvas.dir = locale === 'ar' ? 'rtl' : 'ltr'; canvas.lang = locale; });
+        try { window.localStorage.setItem('qiyas-preview-locale', locale); window.localStorage.setItem('qiyas-preview-theme', theme); } catch (error) {}
+      }
+      localeButtons.forEach(function (button) { button.addEventListener('click', function () { root.dataset.previewLocale = button.dataset.previewLocale; sync(); }); });
+      localeSwitches.forEach(function (button) { button.addEventListener('click', function () { root.dataset.previewLocale = root.dataset.previewLocale === 'ar' ? 'en' : 'ar'; sync(); }); });
+      themeButtons.forEach(function (button) { button.addEventListener('click', function () { root.dataset.theme = button.dataset.previewTheme; sync(); }); });
+      document.querySelectorAll('[data-role-choice]').forEach(function (button) { button.addEventListener('click', function () { var status = button.closest('[data-product-canvas], .state-card').querySelector('[data-choice-status]'); if (!status) return; status.hidden = false; var choice = button.dataset.roleChoice; status.textContent = choice === 'parent' || choice === 'cached-parent' ? (root.dataset.previewLocale === 'ar' ? 'تم اختيار ولي الأمر. الانتقال إلى تسجيل الدخول.' : 'Parent selected. Continue to parent login.') : choice === 'different' ? (root.dataset.previewLocale === 'ar' ? 'سيظهر اختيار الدور الأول.' : 'The first-run role picker will open.') : (root.dataset.previewLocale === 'ar' ? 'تم اختيار الطالب. الانتقال إلى تسجيل الدخول.' : 'Student selected. Continue to student login.'); }); });
+      root.dataset.previewLocale = read('qiyas-preview-locale', root.dataset.previewLocale || 'ar'); root.dataset.theme = read('qiyas-preview-theme', root.dataset.theme || 'light'); sync();
+    }());
+  </script>
+
+
+</body></html>

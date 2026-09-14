@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en" data-preview-locale="ar" data-preview-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Screen 01 — Splash · Qiyas</title>
+  <style>
+    /* Qiyas system bindings. All palette literals live in this token block. */
+    :root {
+      --bg: #FEFEFE;
+      --surface: #F8F9F7;
+      --fg: #11120F;
+      --muted: #61665C;
+      --border: #C4C7C0;
+      --accent: #0D662C;
+
+      --paper: #FEFEFE;
+      --ink: #11120F;
+      --green: #0D662C;
+      --green-50: #E6F2EA;
+      --green-100: #B3D9C1;
+      --green-200: #66B385;
+      --green-400: #1A8C43;
+      --green-700: #09481F;
+      --green-900: #04230F;
+      --gold: #CE940F;
+      --gold-50: #FFFDF0;
+      --gold-100: #F9E8B3;
+      --gold-200: #EDC866;
+      --gold-400: #DBA724;
+      --gold-700: #91680A;
+      --gold-900: #4A3505;
+      --neutral-50: #F8F9F7;
+      --neutral-100: #E1E3DF;
+      --neutral-200: #C4C7C0;
+      --neutral-400: #878C82;
+      --neutral-500: #61665C;
+      --neutral-700: #32352E;
+      --neutral-900: #11120F;
+      --terracotta: #C84B15;
+      --terracotta-50: #FFF2F0;
+      --terracotta-700: #96320B;
+
+      --night-bg: #11120F;
+      --night-surface: #181A16;
+      --night-sunken: #0B0C0A;
+      --night-fg: #FEFEFE;
+      --night-muted: #A8ADA2;
+      --night-border: #4A5046;
+      --night-green: #22A04A;
+      --night-green-soft: #09481F;
+      --night-gold: #E0A82E;
+      --night-gold-soft: #4A3A10;
+      --night-terracotta: #E16B32;
+      --night-terracotta-soft: #4A1B0A;
+
+      --loading-min: 240ms;
+      --motion-instant: 0ms;
+      --motion-quick: 120ms;
+      --motion-base: 180ms;
+      --motion-deliberate: 280ms;
+      --motion-signature-min: 600ms;
+      --motion-signature-max: 1000ms;
+      --ease-enter: cubic-bezier(.2,.7,.3,1);
+      --ease-exit: cubic-bezier(.5,0,.8,.3);
+      --ease-linear: linear;
+
+      --text-on-green: #FEFEFE;
+      --font-display: "IBM Plex Sans", system-ui, sans-serif;
+      --font-body: "IBM Plex Sans", system-ui, sans-serif;
+      --font-arabic: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+      --fs-h1: clamp(36px, 5vw, 64px);
+      --fs-h2: clamp(27px, 3vw, 42px);
+      --fs-h3: 20px;
+      --fs-lead: 18px;
+      --fs-body: 16px;
+      --fs-meta: 12px;
+
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-12: 48px;
+      --space-16: 64px;
+      --space-24: 96px;
+      --radius-card: 4px;
+      --radius-control: 4px;
+      --radius-accent: 0px;
+      --border-hairline: 1px;
+      --border-default: 1.5px;
+      --border-emphasis: 2px;
+      --border-selected: 3px;
+      --container: 1160px;
+      --gutter: clamp(16px, 4vw, 32px);
+      --shadow-overlay: 0 4px 0 var(--ink);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      line-height: 1.5;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    p { text-wrap: pretty; }
+    h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; }
+    h1, h2, h3, h4, p { margin-block: 0; }
+    [lang="ar"], [dir="rtl"] { font-family: var(--font-arabic); }
+    :focus-visible { outline: var(--border-emphasis) solid var(--accent); outline-offset: 3px; }
+
+    .container { max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
+    .section { padding-block: clamp(48px, 8vw, var(--space-24)); }
+    .section + .section { border-top: var(--border-hairline) solid var(--border); }
+    .stack { display: flex; flex-direction: column; gap: var(--space-6); }
+    .row { display: flex; align-items: center; gap: var(--space-4); }
+    .row-between { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-4); }
+    .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-12); align-items: start; }
+    @media (max-width: 920px) {
+      .grid-2, .grid-3, .grid-4, .grid-2-1 { grid-template-columns: 1fr; }
+      .row-between { align-items: flex-start; flex-direction: column; }
+    }
+
+    .topnav { position: sticky; top: 0; z-index: 10; background: color-mix(in oklch, var(--bg) 94%, transparent); backdrop-filter: blur(12px); border-bottom: var(--border-hairline) solid var(--border); }
+    .topnav-inner { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); flex-wrap: wrap; }
+    .topnav .logo { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+    .topnav nav { display: flex; align-items: center; gap: var(--space-6); color: var(--muted); font-size: 13px; }
+    .topnav nav a:hover { color: var(--fg); }
+    .topnav-note { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+    .screen-controls { display: inline-flex; align-items: center; gap: var(--space-3); }
+    .toggle-group { display: inline-flex; align-items: center; gap: 0; border: var(--border-default) solid var(--border); border-radius: var(--radius-control); overflow: hidden; }
+    .toggle-label { margin-inline-end: var(--space-2); color: var(--muted); font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+    .toggle-button { min-block-size: 44px; padding-inline: 10px; border: 0; border-inline-start: var(--border-hairline) solid var(--border); color: var(--muted); background: transparent; font-size: 12px; font-weight: 600; }
+    .toggle-button:first-of-type { border-inline-start: 0; }
+    .toggle-button:hover { color: var(--fg); background: var(--surface); }
+    .toggle-button[aria-pressed="true"] { color: var(--fg); background: var(--surface); box-shadow: inset 0 -2px 0 var(--accent); }
+    @media (max-width: 680px) {
+      .topnav nav, .topnav-note { display: none; }
+      .screen-controls { order: 3; inline-size: 100%; justify-content: space-between; padding-block-end: 8px; }
+      .toggle-label { display: none; }
+    }
+
+    .h1, h1 { font-size: var(--fs-h1); font-weight: 600; line-height: 1.08; letter-spacing: -0.035em; }
+    .h2, h2 { font-size: var(--fs-h2); font-weight: 600; line-height: 1.12; letter-spacing: -0.025em; }
+    .h3, h3 { font-size: var(--fs-h3); font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
+    .lead { max-width: 58ch; color: var(--muted); font-size: var(--fs-lead); line-height: 1.55; }
+    .eyebrow { margin-bottom: var(--space-4); color: var(--accent); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; }
+    .meta { color: var(--muted); font-family: var(--font-mono); font-size: var(--fs-meta); font-variant-numeric: tabular-nums; }
+    .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums lining-nums; }
+    [dir="rtl"] { text-align: start; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+    .btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); border: var(--border-default) solid transparent; border-radius: var(--radius-card); padding: 10px 16px; font-size: 14px; font-weight: 600; transition: background 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out, transform 80ms ease-out; }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+    .btn-primary:hover { background: var(--neutral-700); border-color: var(--neutral-700); color: var(--paper); }
+    .btn-secondary { background: transparent; border-color: var(--border); color: var(--fg); }
+    .btn-secondary:hover { background: var(--surface); border-color: var(--fg); color: var(--fg); }
+    .btn-ghost { background: transparent; border-color: transparent; color: var(--fg); padding-inline: 8px; }
+    .btn-ghost:hover { background: var(--surface); color: var(--fg); }
+    .btn:disabled { cursor: not-allowed; opacity: 0.55; transform: none; }
+
+    .card { background: var(--surface); border: var(--border-hairline) solid var(--border); border-radius: var(--radius-card); padding: var(--space-6); }
+    .card-flat { background: transparent; border: 0; padding: 0; }
+    .rule { border: 0; border-top: var(--border-hairline) solid var(--border); margin: 0; }
+    .rule-strong { border: 0; border-top: var(--border-emphasis) solid var(--fg); margin: 0; }
+
+    .hero { padding-block: clamp(48px, 8vw, 88px); }
+    .hero-heading { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.9fr); gap: var(--space-12); align-items: end; margin-bottom: var(--space-8); }
+    .hero-heading .lead { justify-self: end; }
+    @media (max-width: 920px) { .hero-heading { grid-template-columns: 1fr; gap: var(--space-4); } .hero-heading .lead { justify-self: start; } }
+
+    /* Product screen specimen */
+    .stage-board { display: grid; grid-template-columns: minmax(260px, 390px) minmax(0, 1fr); gap: var(--space-8); align-items: start; }
+    .stage-board > .preview-desktop { min-height: 560px; }
+    .preview-frame { overflow: hidden; border: var(--border-default) solid var(--border); border-radius: var(--radius-card); background: var(--surface); }
+    .preview-phone { width: min(100%, 390px); }
+    .splash-canvas { position: relative; display: grid; place-items: center; aspect-ratio: 390 / 844; overflow: hidden; background: var(--stage-bg); color: var(--stage-fg); }
+    .preview-desktop .splash-canvas { aspect-ratio: 16 / 10; min-height: clamp(420px, 62vh, 560px); }
+    .stage-light { --stage-bg: var(--paper); --stage-fg: var(--ink); --stage-logo-ink: var(--ink); --stage-logo-green: var(--green); --stage-logo-gold: var(--gold); --stage-green: var(--green); --stage-gold: var(--gold); --stage-muted: var(--neutral-500); --stage-border: var(--neutral-200); }
+    .stage-dark { --stage-bg: var(--night-bg); --stage-fg: var(--night-fg); --stage-logo-ink: var(--night-fg); --stage-logo-green: var(--green-200); --stage-logo-gold: var(--gold-400); --stage-green: var(--green-200); --stage-gold: var(--gold-400); --stage-muted: var(--night-muted); --stage-border: var(--night-border); }
+    .safe-top, .safe-bottom { position: absolute; inset-inline: 0; color: var(--stage-muted); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em; opacity: 0.5; text-align: center; }
+    .safe-top { top: 12px; }
+    .safe-bottom { bottom: 12px; }
+    .safe-top::before { content: "status bar / 24"; }
+    .safe-bottom::before { content: "gesture safe area / 24"; }
+    .svg-defs { position: absolute; inline-size: 0; block-size: 0; overflow: hidden; }
+    .lockup { display: block; inline-size: min(248px, 68%); color: var(--stage-fg); }
+    .source-lockup { display: block; inline-size: 100%; block-size: auto; overflow: visible; }
+    .source-lockup path:nth-of-type(1) { fill: var(--stage-logo-ink); }
+    .source-lockup path:nth-of-type(2) { fill: var(--stage-logo-green); }
+    .source-lockup path:nth-of-type(n + 3) { fill: var(--stage-logo-gold); }
+    .preview-phone .lockup { inline-size: 184px; }
+    .mini-splash .lockup { inline-size: 96px; }
+    .asset-visual .lockup, .motion-art .lockup { inline-size: 142px; }
+    .preview-logo { display: none; }
+    .preview-logo-ar { display: block; }
+    html[data-preview-locale="en"] .preview-logo-ar { display: none; }
+    html[data-preview-locale="en"] .preview-logo-en { display: block; }
+    .splash-motion { display: block; inline-size: 100%; block-size: auto; opacity: 1; clip-path: inset(0 0 0 0); transform: translateY(0); }
+    .splash-motion path.motion-logo-gold { opacity: 1; transform-box: fill-box; transform-origin: center; }
+    .splash-motion path.motion-logo-triangle { transform: translateY(0) scale(1); }
+    .splash-motion path.motion-logo-dot { transform: translateY(0) scale(1); }
+    .primary-splash.is-playing .preview-logo-en .splash-motion { animation: qiyas-logo-reveal-ltr 500ms var(--ease-enter) 100ms both; }
+    .primary-splash.is-playing .preview-logo-ar .splash-motion { animation: qiyas-logo-reveal-rtl 500ms var(--ease-enter) 100ms both; }
+    .primary-splash.is-playing .splash-motion path.motion-logo-triangle { animation: qiyas-logo-triangle 220ms var(--ease-enter) 560ms both; }
+    .primary-splash.is-playing .splash-motion path.motion-logo-dot.dot-one { animation: qiyas-logo-dot 140ms var(--ease-enter) 760ms both; }
+    .primary-splash.is-playing .splash-motion path.motion-logo-dot.dot-two { animation: qiyas-logo-dot 140ms var(--ease-enter) 840ms both; }
+    .primary-splash.is-playing .splash-motion path.motion-logo-dot.dot-three { animation: qiyas-logo-dot 140ms var(--ease-enter) 920ms both; }
+    .primary-splash.is-playing .splash-motion path.motion-logo-dot.dot-four { animation: qiyas-logo-dot 140ms var(--ease-enter) 1000ms both; }
+    @keyframes qiyas-logo-reveal-ltr { from { opacity: 0; clip-path: inset(0 100% 0 0); transform: translateY(8px); } to { opacity: 1; clip-path: inset(0 0 0 0); transform: translateY(0); } }
+    @keyframes qiyas-logo-reveal-rtl { from { opacity: 0; clip-path: inset(0 0 0 100%); transform: translateY(8px); } to { opacity: 1; clip-path: inset(0 0 0 0); transform: translateY(0); } }
+    @keyframes qiyas-logo-triangle { 0% { opacity: 0; transform: translateY(28px) scale(.78); } 65% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes qiyas-logo-dot { 0% { opacity: 0; transform: translateY(6px) scale(.72); } 65% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+    html[data-preview-reduced="true"] .splash-motion { animation: none !important; opacity: 1 !important; clip-path: inset(0 0 0 0) !important; transform: none !important; }
+    html[data-preview-reduced="true"] .splash-motion path.motion-logo-gold { animation: none !important; opacity: 1 !important; transform: none !important; }
+    @media (prefers-reduced-motion: reduce) {
+      .splash-motion { animation: none !important; opacity: 1 !important; clip-path: inset(0 0 0 0) !important; transform: none !important; }
+      .splash-motion path.motion-logo-gold { animation: none !important; opacity: 1 !important; transform: none !important; }
+    }
+    .indeterminate-rule { position: absolute; inset-inline: 16%; bottom: 11.5%; height: 2px; overflow: hidden; background: color-mix(in oklch, var(--stage-fg) 18%, transparent); opacity: 0; }
+    .indeterminate-rule::after { content: ""; position: absolute; inset-block: 0; width: 32%; background: var(--stage-green); transform: translateX(-120%); }
+    .has-indeterminate .indeterminate-rule { opacity: 1; }
+    .has-indeterminate .indeterminate-rule::after { animation: system-indeterminate 1400ms var(--ease-linear) infinite; }
+    .rest-lockup { animation: system-rest-crossfade var(--motion-base) var(--ease-enter) both; }
+    @keyframes system-rest-crossfade { from { opacity: 0; clip-path: inset(0 100% 0 0); } to { opacity: 1; clip-path: inset(0 0 0 0); } }
+    [dir="rtl"] .rest-lockup { animation-name: system-rest-crossfade-rtl; }
+    @keyframes system-rest-crossfade-rtl { from { opacity: 0; clip-path: inset(0 0 0 100%); } to { opacity: 1; clip-path: inset(0 0 0 0); } }
+    @keyframes system-indeterminate { 0% { transform: translateX(-120%); } 55% { transform: translateX(280%); } 100% { transform: translateX(420%); } }
+    [dir="rtl"] .indeterminate-rule::after { animation-name: system-indeterminate-rtl; }
+    @keyframes system-indeterminate-rtl { 0% { transform: translateX(120%); } 55% { transform: translateX(-280%); } 100% { transform: translateX(-420%); } }
+    .preview-caption { display: grid; gap: 4px; padding: var(--space-3) var(--space-4); border-top: var(--border-hairline) solid var(--border); }
+    .preview-caption strong { font-size: 14px; }
+    .preview-caption span { color: var(--muted); font-size: 12px; }
+    .preview-desktop .preview-caption { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); }
+    .device-note { margin-top: var(--space-3); color: var(--muted); font-size: 12px; line-height: 1.45; }
+
+    /* State gallery */
+    .section-heading { max-width: 56ch; margin-bottom: var(--space-8); }
+    .section-heading h2 { margin-bottom: var(--space-3); }
+    .state-card { display: flex; flex-direction: column; min-height: 100%; gap: var(--space-4); }
+    .state-card h3 { font-size: 17px; }
+    .state-card p { color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .mini-splash { position: relative; display: grid; place-items: center; min-height: 168px; overflow: hidden; border: var(--border-default) solid var(--stage-border); border-radius: var(--radius-card); background: var(--stage-bg); color: var(--stage-fg); }
+    .mini-splash .indeterminate-rule { bottom: 14px; inset-inline: 18%; height: 2px; }
+    .state-meta { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); }
+    .state-label { color: var(--muted); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .state-copy { display: grid; gap: 3px; }
+    .state-copy [dir="rtl"] { font-size: 14px; }
+    .state-copy [dir="ltr"] { color: var(--muted); font-size: 12px; }
+    .mini-message { position: absolute; inset-inline: 16px; bottom: 12px; display: grid; gap: 3px; padding: 8px 10px; border: var(--border-hairline) solid var(--stage-border); border-radius: var(--radius-card); background: color-mix(in oklch, var(--stage-bg) 92%, var(--stage-fg)); color: var(--stage-fg); font-size: 10px; line-height: 1.3; }
+    .mini-message strong { font-size: 11px; }
+    .mini-message .btn { min-height: 32px; justify-self: start; padding: 5px 9px; font-size: 10px; }
+    .stage-offline { --stage-bg: var(--paper); --stage-fg: var(--ink); --stage-logo-ink: var(--ink); --stage-logo-green: var(--green); --stage-logo-gold: var(--gold); --stage-green: var(--green); --stage-gold: var(--gold); --stage-muted: var(--neutral-500); --stage-border: var(--neutral-200); }
+    .stage-error { --stage-bg: var(--night-bg); --stage-fg: var(--night-fg); --stage-logo-ink: var(--night-fg); --stage-logo-green: var(--green-200); --stage-logo-gold: var(--gold-400); --stage-green: var(--green-200); --stage-gold: var(--gold-400); --stage-muted: var(--night-muted); --stage-border: var(--night-border); }
+    .stage-terracotta { --stage-bg: var(--terracotta-50); --stage-fg: var(--ink); --stage-logo-ink: var(--ink); --stage-logo-green: var(--green); --stage-logo-gold: var(--gold); --stage-green: var(--green); --stage-gold: var(--gold); --stage-muted: var(--neutral-500); --stage-border: var(--terracotta); }
+    .stage-info { --stage-bg: var(--surface); --stage-fg: var(--ink); --stage-logo-ink: var(--ink); --stage-logo-green: var(--green); --stage-logo-gold: var(--gold); --stage-green: var(--green); --stage-gold: var(--gold); --stage-muted: var(--neutral-500); --stage-border: var(--neutral-700); }
+    .state-card .mini-message.is-server { border-color: var(--stage-green); }
+    .state-card .mini-message.is-error { border-color: var(--terracotta); }
+    .retry-status { color: var(--stage-muted); font-size: 10px; }
+
+    /* Native handoff and motion verification */
+    .handoff-pair { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+    .handoff-frame { display: grid; gap: var(--space-3); }
+    .handoff-frame strong { font-size: 14px; }
+    .asset-visual { position: relative; display: grid; place-items: center; min-height: 240px; border: var(--border-default) solid var(--border); border-radius: var(--radius-card); background: var(--stage-bg); color: var(--stage-fg); }
+    .asset-visual .safe-top, .asset-visual .safe-bottom { display: none; }
+    .asset-label { color: var(--muted); font-family: var(--font-mono); font-size: 11px; line-height: 1.4; }
+    .motion-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-8); }
+    .motion-frame { display: grid; gap: var(--space-3); }
+    .motion-art { min-height: 160px; }
+    .motion-art .lockup { transition: transform 180ms ease-out, opacity 180ms ease-out; }
+    .motion-art.exit .lockup { transform: translateY(-46px) scale(0.72); opacity: 0.7; }
+    .motion-art.exit::after { content: "route destination surface"; position: absolute; inset-inline: 16px; bottom: 18px; color: var(--stage-muted); font-family: var(--font-mono); font-size: 10px; text-align: center; }
+    .motion-art .route-surface { position: absolute; inset-inline: 16px; bottom: 34px; height: 1px; background: var(--stage-border); }
+    .annotation { color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .motion-token { display: inline-flex; align-items: center; min-height: 24px; padding-inline: 7px; border: var(--border-hairline) solid var(--border); border-radius: var(--radius-card); color: var(--muted); font-family: var(--font-mono); font-size: 10px; }
+    @media (max-width: 920px) { .handoff-pair, .motion-grid { grid-template-columns: 1fr; } .asset-visual { min-height: 180px; } }
+
+    /* Routing diagram */
+    .route-diagram { display: grid; gap: var(--space-4); }
+    .route-origin { display: inline-flex; align-items: center; gap: var(--space-3); width: fit-content; padding: 11px 14px; border: var(--border-emphasis) solid var(--ink); border-radius: var(--radius-card); font-weight: 600; }
+    .route-origin .square-mark { width: 10px; height: 10px; background: var(--green); }
+    .route-branches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+    .route-branch { display: grid; gap: var(--space-3); }
+    .route-connector { position: relative; height: 24px; border-inline-start: var(--border-default) solid var(--border); margin-inline-start: 20px; }
+    .route-connector::after { content: ""; position: absolute; inset-inline-start: -4px; bottom: -1px; width: 7px; height: 7px; border-inline-end: var(--border-default) solid var(--fg); border-block-end: var(--border-default) solid var(--fg); transform: rotate(45deg); }
+    .route-node { min-height: 88px; display: grid; align-content: center; gap: 4px; padding: 13px 14px; border: var(--border-hairline) solid var(--border); border-radius: var(--radius-card); background: var(--surface); }
+    .route-node strong { font-size: 14px; }
+    .route-node span { color: var(--muted); font-size: 12px; line-height: 1.35; }
+    .route-node.is-blocking { border-color: var(--terracotta); background: var(--terracotta-50); }
+    .route-node.is-session { border-color: var(--green); background: var(--green-50); }
+    .route-table { margin-top: var(--space-8); }
+    .route-table .map-row { grid-template-columns: 1.45fr 1fr 1.6fr; }
+
+    /* Mapping table and implementation notes */
+    .map-table { border-top: var(--border-emphasis) solid var(--fg); }
+    .map-row { display: grid; grid-template-columns: 1.2fr 1.15fr 1.25fr 1.75fr; gap: var(--space-4); padding: var(--space-4) 0; border-bottom: var(--border-hairline) solid var(--border); align-items: start; }
+    .map-row > div { min-width: 0; font-size: 13px; line-height: 1.45; }
+    .map-row > div:nth-child(2), .map-row > div:nth-child(3) { color: var(--muted); }
+    .map-head { padding-block: var(--space-3); color: var(--muted); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; }
+    .gap-list { display: grid; gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
+    .gap-list li { display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); padding-block: var(--space-3); border-bottom: var(--border-hairline) solid var(--border); }
+    .gap-dot { width: 8px; height: 8px; margin-top: 6px; background: var(--terracotta); }
+    .gap-list strong { display: block; margin-bottom: 3px; font-size: 14px; }
+    .gap-list span { color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .implementation-notes { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: var(--space-12); align-items: start; }
+    .do-dont { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+    .do-dont .card { min-height: 100%; }
+    .do-dont .card h3 { font-size: 16px; margin-bottom: var(--space-3); }
+    .do-dont .card p { color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .do-dont .do { border-top: var(--border-emphasis) solid var(--green); }
+    .do-dont .dont { border-top: var(--border-emphasis) solid var(--terracotta); }
+    @media (max-width: 920px) { .map-row { grid-template-columns: 1fr; gap: 6px; } .map-head { display: none; } .map-row > div::before { content: attr(data-label); display: block; margin-bottom: 2px; color: var(--muted); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; } .route-branches, .implementation-notes, .do-dont { grid-template-columns: 1fr; } }
+
+    .pagefoot { padding-block: var(--space-12); color: var(--muted); font-size: 12px; border-top: var(--border-hairline) solid var(--border); }
+    .pagefoot .row-between { flex-wrap: wrap; }
+    .footer-lockup { display: inline-flex; align-items: center; gap: 8px; color: var(--fg); font-weight: 600; }
+    .footer-lockup .square-mark { width: 9px; height: 9px; background: var(--green); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+      .indeterminate-rule { opacity: 1; }
+      .indeterminate-rule::after { transform: none; }
+      .motion-art.exit .lockup { transform: none; opacity: 1; }
+    }
+  </style>
+  <style data-qiyas-additive="locale-switch">
+    .locale-en { display: none; }
+    html[data-preview-locale="en"] .locale-ar { display: none; }
+    html[data-preview-locale="en"] .locale-en { display: inline; }
+    .splash-canvas > .locale-switch { position: absolute; inset-block-start: var(--space-4); inset-inline-end: var(--space-4); z-index: 5; }
+    .locale-switch { display: inline-flex; align-items: center; justify-content: center; min-inline-size: 44px; min-block-size: 44px; padding-inline: var(--space-3); border: var(--border-default) solid var(--stage-border); border-radius: var(--radius-control); color: var(--stage-fg); background: var(--stage-bg); font: 700 12px/1 var(--font-mono); letter-spacing: .06em; text-decoration: none; transition: background-color var(--motion-quick) ease-out, border-color var(--motion-quick) ease-out, transform var(--motion-quick) ease-out; }
+    .locale-switch:hover { color: var(--stage-fg); background: var(--stage-bg); border-color: var(--stage-fg); transform: translateY(-1px); }
+    .locale-switch:active { transform: none; }
+    .locale-switch:focus-visible { outline: var(--border-emphasis) solid var(--accent); outline-offset: 3px; }
+  </style>
+  <style data-qiyas-additive="mobile-build-sheet">
+    .mobile-build-sheet { margin-block-start: var(--space-8); padding: var(--space-6); border: var(--border-default) solid var(--border); border-radius: var(--radius-card); background: var(--surface); }
+    .mobile-build-sheet-header { display: grid; grid-template-columns: minmax(0, .72fr) minmax(240px, 1.28fr); gap: var(--space-4); align-items: start; margin-block-end: var(--space-4); }
+    .mobile-build-sheet-header h2 { font-size: 21px; }
+    .mobile-build-sheet-header p { color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .mobile-build-sheet .spec-card { min-inline-size: 0; padding: var(--space-4); border: var(--border-default) solid var(--border); border-radius: var(--radius-card); background: var(--bg); }
+    .mobile-build-sheet .spec-card h3 { margin-block-end: var(--space-3); font-size: 16px; }
+    .mobile-build-sheet .spec-table { inline-size: 100%; border-collapse: collapse; font-size: 12px; }
+    .mobile-build-sheet .spec-table th, .mobile-build-sheet .spec-table td { padding: 10px 8px; border-block-end: var(--border-hairline) solid var(--border); text-align: start; vertical-align: top; }
+    .mobile-build-sheet .spec-table th { color: var(--muted); font: 700 10px/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .mobile-build-sheet .spec-table td:first-child { color: var(--fg); font-weight: 600; }
+    .mobile-build-sheet code, .mobile-build-sheet .spec-value { font-family: var(--font-mono); font-variant-numeric: tabular-nums lining-nums; overflow-wrap: anywhere; }
+    .mobile-build-sheet .spec-note { margin-block-start: var(--space-4); padding-block-start: var(--space-3); border-block-start: var(--border-hairline) solid var(--border); color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .mobile-build-sheet .spec-chip { display: inline-flex; align-items: center; min-block-size: 24px; padding-inline: 8px; border: var(--border-hairline) solid var(--border); border-radius: 0; color: var(--fg); background: var(--surface); font: 700 11px/1 var(--font-mono); }
+    @media (max-width: 920px) { .mobile-build-sheet-header { grid-template-columns: 1fr; } }
+    @media (max-width: 680px) { .mobile-build-sheet { padding: var(--space-4); } .mobile-build-sheet .grid-2 { grid-template-columns: 1fr; } .mobile-build-sheet .spec-table { font-size: 11px; } .mobile-build-sheet .spec-table th, .mobile-build-sheet .spec-table td { padding: 8px 6px; } }
+  </style>
+</head>
+<body>
+  <svg class="svg-defs" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="qiyas-logo-en" viewBox="0 0 1201 349">
+        <path d="M 343.0 96.0 L 343.0 293.0 L 377.0 293.0 L 377.0 96.0 Z M 1014.0 93.0 L 1013.0 205.0 L 1146.0 206.0 L 1147.0 262.0 L 1014.0 263.0 L 1013.0 294.0 L 1180.0 294.0 L 1179.0 175.0 L 1046.0 174.0 L 1047.0 124.0 L 1180.0 124.0 L 1180.0 94.0 Z M 751.0 93.0 L 751.0 294.0 L 784.0 293.0 L 785.0 205.0 L 896.0 205.0 L 897.0 294.0 L 930.0 294.0 L 930.0 93.0 Z M 783.0 125.0 L 896.0 124.0 L 897.0 174.0 L 785.0 174.0 Z M 471.0 91.0 L 471.0 204.0 L 552.0 204.0 L 554.0 206.0 L 554.0 298.0 L 589.0 298.0 L 589.0 205.0 L 671.0 204.0 L 671.0 92.0 L 637.0 92.0 L 636.0 174.0 L 506.0 174.0 L 505.0 92.0 Z" fill="var(--stage-logo-ink)" fill-rule="evenodd" clip-rule="evenodd"/>
+        <path d="M 21.0 88.0 L 21.0 293.0 L 195.0 293.0 L 230.0 328.0 L 250.0 309.0 L 244.0 299.0 L 143.0 192.0 L 138.0 193.0 L 121.0 212.0 L 164.0 261.0 L 54.0 262.0 L 52.0 258.0 L 54.0 121.0 L 209.0 120.0 L 211.0 122.0 L 211.0 244.0 L 242.0 276.0 L 242.0 89.0 Z" fill="var(--stage-logo-green)" fill-rule="evenodd" clip-rule="evenodd"/>
+        <path d="M 341.0 74.0 L 343.0 76.0 L 379.0 76.0 L 360.0 44.0 Z M 145.0 20.0 L 145.0 51.0 L 176.0 52.0 L 176.0 21.0 Z M 80.0 20.0 L 78.0 41.0 L 80.0 52.0 L 109.0 52.0 L 110.0 20.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/>
+      </symbol>
+      <symbol id="qiyas-logo-ar" viewBox="0 0 1202 299">
+        <path d="M 343.0 104.0 L 314.0 104.0 L 313.0 200.0 L 271.0 199.0 L 271.0 103.0 L 243.0 103.0 L 242.0 200.0 L 199.0 199.0 L 198.0 123.0 L 171.0 123.0 L 169.0 239.0 L 50.0 239.0 L 49.0 176.0 L 21.0 175.0 L 20.0 265.0 L 198.0 266.0 L 199.0 228.0 L 341.0 228.0 Z M 400.0 72.0 L 401.0 228.0 L 983.0 228.0 L 983.0 200.0 L 852.0 200.0 L 851.0 103.0 L 823.0 103.0 L 822.0 200.0 L 430.0 200.0 L 429.0 72.0 Z" fill="var(--stage-logo-ink)" fill-rule="evenodd" clip-rule="evenodd"/>
+        <path d="M 1173.0 75.0 L 1158.0 73.0 L 1146.0 75.0 L 985.0 75.0 L 984.0 227.0 L 1118.0 228.0 L 1157.0 271.0 L 1165.0 272.0 L 1179.0 258.0 L 1181.0 254.0 L 1081.0 147.0 L 1077.0 147.0 L 1060.0 166.0 L 1087.0 195.0 L 1088.0 199.0 L 1016.0 200.0 L 1014.0 198.0 L 1013.0 106.0 L 1015.0 103.0 L 1144.0 103.0 L 1144.0 196.0 L 1173.0 224.0 Z" fill="var(--stage-logo-green)" fill-rule="evenodd" clip-rule="evenodd"/>
+        <path d="M 646.0 249.0 L 646.0 273.0 L 648.0 278.0 L 677.0 277.0 L 677.0 249.0 Z M 703.0 249.0 L 704.0 278.0 L 733.0 278.0 L 733.0 249.0 Z M 412.0 23.0 L 398.0 47.0 L 398.0 52.0 L 431.0 52.0 L 427.0 41.0 L 415.0 22.0 Z M 1096.0 20.0 L 1096.0 49.0 L 1125.0 49.0 L 1125.0 20.0 Z M 1045.0 20.0 L 1042.0 25.0 L 1043.0 49.0 L 1072.0 50.0 L 1073.0 21.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/>
+      </symbol>
+    </defs>
+  </svg>
+  <header class="topnav" data-od-id="screen-header">
+    <div class="container topnav-inner">
+      <span class="logo">Qiyas / Screen 01</span>
+      <nav aria-label="Document sections">
+        <a data-od-id="nav-states" href="#states">States</a>
+        <a data-od-id="nav-handoff" href="#handoff">Handoff</a>
+        <a data-od-id="nav-routing" href="#routing">Routing</a>
+        <a data-od-id="nav-mapping" href="#mapping">Mapping</a>
+      </nav>
+      <div class="screen-controls" data-od-id="screen-controls" aria-label="Screen preview controls">
+        <span class="toggle-label">Language</span>
+        <div class="toggle-group" role="group" aria-label="Preview language">
+          <button class="toggle-button" type="button" data-preview-locale="ar" data-od-id="preview-language-ar" aria-pressed="true">العربية</button>
+          <button class="toggle-button" type="button" data-preview-locale="en" data-od-id="preview-language-en" aria-pressed="false">English</button>
+        </div>
+        <span class="toggle-label">Theme</span>
+        <div class="toggle-group" role="group" aria-label="Preview theme">
+          <button class="toggle-button" type="button" data-preview-theme="light" data-od-id="preview-theme-light" aria-pressed="true">Light</button>
+          <button class="toggle-button" type="button" data-preview-theme="dark" data-od-id="preview-theme-dark" aria-pressed="false">Dark</button>
+        </div>
+      </div>
+      <span class="topnav-note">splash / RTL-first</span>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="section hero" data-od-id="splash-rest">
+      <div class="container">
+        <div class="hero-heading">
+          <div>
+            <p class="eyebrow">Screen 01 · enter / hold / exit</p>
+            <h1 data-od-id="splash-title">A quiet first frame, ready when the app is.</h1>
+          </div>
+          <p class="lead">The splash carries no message and no marketing. It resolves theme, locale, auth and update state while the lockup stays optically centred on the surface that follows.</p>
+        </div>
+
+        <div class="stage-board" data-od-id="stage-board" aria-label="Splash rest-state specimens" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr));">
+          <article class="preview-frame preview-phone stage-light" data-primary-stage data-od-id="mobile-primary-preview">
+            <div class="splash-canvas primary-splash has-indeterminate is-playing" dir="rtl" lang="ar" aria-label="Arabic light theme splash rest state" aria-busy="true"><button class="locale-switch" type="button" data-locale-switch data-od-id="splash-mobile-locale-switch" aria-label="Switch to English"><span class="locale-ar">EN</span><span class="locale-en" lang="ar" dir="rtl">عر</span></button>
+              <span class="safe-top" aria-hidden="true"></span>
+              <span class="sr-only" role="status">قياس. جارٍ استعادة الجلسة.</span>
+              <div class="lockup preview-logo preview-logo-ar" role="img" aria-label="قياس lockup">
+                <svg class="splash-motion" viewBox="0 0 1202 299" aria-hidden="true"><path d="M 343.0 104.0 L 314.0 104.0 L 313.0 200.0 L 271.0 199.0 L 271.0 103.0 L 243.0 103.0 L 242.0 200.0 L 199.0 199.0 L 198.0 123.0 L 171.0 123.0 L 169.0 239.0 L 50.0 239.0 L 49.0 176.0 L 21.0 175.0 L 20.0 265.0 L 198.0 266.0 L 199.0 228.0 L 341.0 228.0 Z M 400.0 72.0 L 401.0 228.0 L 983.0 228.0 L 983.0 200.0 L 852.0 200.0 L 851.0 103.0 L 823.0 103.0 L 822.0 200.0 L 430.0 200.0 L 429.0 72.0 Z" fill="var(--stage-logo-ink)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 1173.0 75.0 L 1158.0 73.0 L 1146.0 75.0 L 985.0 75.0 L 984.0 227.0 L 1118.0 228.0 L 1157.0 271.0 L 1165.0 272.0 L 1179.0 258.0 L 1181.0 254.0 L 1081.0 147.0 L 1077.0 147.0 L 1060.0 166.0 L 1087.0 195.0 L 1088.0 199.0 L 1016.0 200.0 L 1014.0 198.0 L 1013.0 106.0 L 1015.0 103.0 L 1144.0 103.0 L 1144.0 196.0 L 1173.0 224.0 Z" fill="var(--stage-logo-green)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-dot dot-one" d="M 646.0 249.0 L 646.0 273.0 L 648.0 278.0 L 677.0 277.0 L 677.0 249.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-dot dot-two" d="M 703.0 249.0 L 704.0 278.0 L 733.0 278.0 L 733.0 249.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-triangle" d="M 412.0 23.0 L 398.0 47.0 L 398.0 52.0 L 431.0 52.0 L 427.0 41.0 L 415.0 22.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-dot dot-three" d="M 1096.0 20.0 L 1096.0 49.0 L 1125.0 49.0 L 1125.0 20.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-dot dot-four" d="M 1045.0 20.0 L 1042.0 25.0 L 1043.0 49.0 L 1072.0 50.0 L 1073.0 21.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+              </div>
+              <div class="lockup preview-logo preview-logo-en" role="img" aria-label="Qiyas lockup">
+                <svg class="splash-motion" viewBox="0 0 1201 349" aria-hidden="true"><path d="M 343.0 96.0 L 343.0 293.0 L 377.0 293.0 L 377.0 96.0 Z M 1014.0 93.0 L 1013.0 205.0 L 1146.0 206.0 L 1147.0 262.0 L 1014.0 263.0 L 1013.0 294.0 L 1180.0 294.0 L 1179.0 175.0 L 1046.0 174.0 L 1047.0 124.0 L 1180.0 124.0 L 1180.0 94.0 Z M 751.0 93.0 L 751.0 294.0 L 784.0 293.0 L 785.0 205.0 L 896.0 205.0 L 897.0 294.0 L 930.0 294.0 L 930.0 93.0 Z M 783.0 125.0 L 896.0 124.0 L 897.0 174.0 L 785.0 174.0 Z M 471.0 91.0 L 471.0 204.0 L 552.0 204.0 L 554.0 206.0 L 554.0 298.0 L 589.0 298.0 L 589.0 205.0 L 671.0 204.0 L 671.0 92.0 L 637.0 92.0 L 636.0 174.0 L 506.0 174.0 L 505.0 92.0 Z" fill="var(--stage-logo-ink)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 21.0 88.0 L 21.0 293.0 L 195.0 293.0 L 230.0 328.0 L 250.0 309.0 L 244.0 299.0 L 143.0 192.0 L 138.0 193.0 L 121.0 212.0 L 164.0 261.0 L 54.0 262.0 L 52.0 258.0 L 54.0 121.0 L 209.0 120.0 L 211.0 122.0 L 211.0 244.0 L 242.0 276.0 L 242.0 89.0 Z" fill="var(--stage-logo-green)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-triangle" d="M 341.0 74.0 L 343.0 76.0 L 379.0 76.0 L 360.0 44.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-dot dot-one" d="M 145.0 20.0 L 145.0 51.0 L 176.0 52.0 L 176.0 21.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-dot dot-two" d="M 80.0 20.0 L 78.0 41.0 L 80.0 52.0 L 109.0 52.0 L 110.0 20.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+              </div>
+              <div class="indeterminate-rule" aria-hidden="true"></div>
+              <span class="safe-bottom" aria-hidden="true"></span>
+            </div>
+            <div class="preview-caption"><strong data-preview-caption="mobile">Mobile · Arabic · light</strong><span class="num">390 × 844 · cold 1120ms / warm 400ms</span></div>
+          </article>
+
+          <article class="preview-frame preview-desktop stage-light" data-primary-stage data-od-id="desktop-primary-preview">
+            <div class="splash-canvas primary-splash has-indeterminate is-playing" dir="rtl" lang="ar" aria-label="Arabic light theme desktop splash rest state" aria-busy="true"><button class="locale-switch" type="button" data-locale-switch data-od-id="splash-desktop-locale-switch" aria-label="Switch to English"><span class="locale-ar">EN</span><span class="locale-en" lang="ar" dir="rtl">عر</span></button>
+              <span class="sr-only" role="status">Qiyas. Restoring your session.</span>
+              <div class="lockup preview-logo preview-logo-ar" role="img" aria-label="قياس lockup">
+                <svg class="splash-motion" viewBox="0 0 1202 299" aria-hidden="true"><path d="M 343.0 104.0 L 314.0 104.0 L 313.0 200.0 L 271.0 199.0 L 271.0 103.0 L 243.0 103.0 L 242.0 200.0 L 199.0 199.0 L 198.0 123.0 L 171.0 123.0 L 169.0 239.0 L 50.0 239.0 L 49.0 176.0 L 21.0 175.0 L 20.0 265.0 L 198.0 266.0 L 199.0 228.0 L 341.0 228.0 Z M 400.0 72.0 L 401.0 228.0 L 983.0 228.0 L 983.0 200.0 L 852.0 200.0 L 851.0 103.0 L 823.0 103.0 L 822.0 200.0 L 430.0 200.0 L 429.0 72.0 Z" fill="var(--stage-logo-ink)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 1173.0 75.0 L 1158.0 73.0 L 1146.0 75.0 L 985.0 75.0 L 984.0 227.0 L 1118.0 228.0 L 1157.0 271.0 L 1165.0 272.0 L 1179.0 258.0 L 1181.0 254.0 L 1081.0 147.0 L 1077.0 147.0 L 1060.0 166.0 L 1087.0 195.0 L 1088.0 199.0 L 1016.0 200.0 L 1014.0 198.0 L 1013.0 106.0 L 1015.0 103.0 L 1144.0 103.0 L 1144.0 196.0 L 1173.0 224.0 Z" fill="var(--stage-logo-green)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-dot dot-one" d="M 646.0 249.0 L 646.0 273.0 L 648.0 278.0 L 677.0 277.0 L 677.0 249.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-dot dot-two" d="M 703.0 249.0 L 704.0 278.0 L 733.0 278.0 L 733.0 249.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-triangle" d="M 412.0 23.0 L 398.0 47.0 L 398.0 52.0 L 431.0 52.0 L 427.0 41.0 L 415.0 22.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-dot dot-three" d="M 1096.0 20.0 L 1096.0 49.0 L 1125.0 49.0 L 1125.0 20.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-dot dot-four" d="M 1045.0 20.0 L 1042.0 25.0 L 1043.0 49.0 L 1072.0 50.0 L 1073.0 21.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+              </div>
+              <div class="lockup preview-logo preview-logo-en" role="img" aria-label="Qiyas lockup">
+                <svg class="splash-motion" viewBox="0 0 1201 349" aria-hidden="true"><path d="M 343.0 96.0 L 343.0 293.0 L 377.0 293.0 L 377.0 96.0 Z M 1014.0 93.0 L 1013.0 205.0 L 1146.0 206.0 L 1147.0 262.0 L 1014.0 263.0 L 1013.0 294.0 L 1180.0 294.0 L 1179.0 175.0 L 1046.0 174.0 L 1047.0 124.0 L 1180.0 124.0 L 1180.0 94.0 Z M 751.0 93.0 L 751.0 294.0 L 784.0 293.0 L 785.0 205.0 L 896.0 205.0 L 897.0 294.0 L 930.0 294.0 L 930.0 93.0 Z M 783.0 125.0 L 896.0 124.0 L 897.0 174.0 L 785.0 174.0 Z M 471.0 91.0 L 471.0 204.0 L 552.0 204.0 L 554.0 206.0 L 554.0 298.0 L 589.0 298.0 L 589.0 205.0 L 671.0 204.0 L 671.0 92.0 L 637.0 92.0 L 636.0 174.0 L 506.0 174.0 L 505.0 92.0 Z" fill="var(--stage-logo-ink)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 21.0 88.0 L 21.0 293.0 L 195.0 293.0 L 230.0 328.0 L 250.0 309.0 L 244.0 299.0 L 143.0 192.0 L 138.0 193.0 L 121.0 212.0 L 164.0 261.0 L 54.0 262.0 L 52.0 258.0 L 54.0 121.0 L 209.0 120.0 L 211.0 122.0 L 211.0 244.0 L 242.0 276.0 L 242.0 89.0 Z" fill="var(--stage-logo-green)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-triangle" d="M 341.0 74.0 L 343.0 76.0 L 379.0 76.0 L 360.0 44.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-dot dot-one" d="M 145.0 20.0 L 145.0 51.0 L 176.0 52.0 L 176.0 21.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/><path class="motion-logo-gold motion-logo-dot dot-two" d="M 80.0 20.0 L 78.0 41.0 L 80.0 52.0 L 109.0 52.0 L 110.0 20.0 Z" fill="var(--stage-logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+              </div>
+              <div class="indeterminate-rule" aria-hidden="true"></div>
+            </div>
+            <div class="preview-caption"><strong data-preview-caption="desktop">Desktop · Arabic · light</strong><span class="num">1440 wide · cold 1120ms / warm 400ms</span></div>
+          </article>
+        </div>
+        <section class="mobile-build-sheet" data-od-id="splash-mobile-build-sheet" aria-labelledby="splash-mobile-build-sheet-title">
+          <div class="mobile-build-sheet-header">
+            <div><p class="eyebrow">Mobile build sheet</p><h2 id="splash-mobile-build-sheet-title" data-od-id="splash-mobile-build-sheet-title">Figma-ready handoff · splash</h2></div>
+            <p>Measurements are CSS pixels at 1× for the <span class="spec-value">390 × 844</span> specimen. Flutter should consume the motion and surface tokens from the system; this sheet records the exact composition around the existing logo animation.</p>
+          </div>
+          <div class="grid-2">
+            <div class="spec-card" data-od-id="splash-mobile-frame-spec">
+              <h3>Frame and optical layout</h3>
+              <div class="table-wrap"><table class="spec-table" aria-label="Splash mobile frame measurements"><thead><tr><th>Element</th><th>Exact mobile spec</th><th>Flutter mapping</th></tr></thead><tbody>
+                <tr><td>Canvas</td><td><span class="spec-value">390 × 844 px</span>; <code>aspect-ratio: 390 / 844</code>; full-bleed surface</td><td><code>SizedBox(width: 390, height: 844)</code> for the specimen; <code>ColoredBox</code> + <code>Stack</code> in the app</td></tr>
+                <tr><td>Direction</td><td>Arabic <span class="spec-chip">RTL</span> / English <span class="spec-chip">LTR</span>; composition remains direction-symmetric</td><td><code>Directionality</code>; swap the supplied Arabic/English lockup asset, never mirror it</td></tr>
+                <tr><td>Locale switch</td><td><span class="spec-value">44 × 44 px</span>; logical top/end inset <span class="spec-value">16 px</span>; stage border</td><td><code>PositionedDirectional(top: 16, end: 16)</code> + <code>SizedBox.square(dimension: 44)</code></td></tr>
+                <tr><td>Optical center</td><td>Lockup centered in the full canvas; no tagline, version, or loading copy</td><td><code>Center</code> inside the <code>Stack</code>; do not center against the safe-area rectangle</td></tr>
+                <tr><td>Safe-area guides</td><td>Specimen markers sit <span class="spec-value">12 px</span> from top/bottom; platform safe area is device-provided and labelled <span class="spec-value">24 px</span></td><td><code>SafeArea</code> for the native screen; the guide is documentation only</td></tr>
+                <tr><td>Theme surface</td><td>Light: Paper; dark: Ink; the first real screen opens on the same surface</td><td>Resolve with the system theme before the shared-element exit; avoid a surface flash</td></tr>
+              </tbody></table></div>
+            </div>
+            <div class="spec-card" data-od-id="splash-mobile-component-spec">
+              <h3>Logo, rule, and motion</h3>
+              <div class="table-wrap"><table class="spec-table" aria-label="Splash mobile component and motion measurements"><thead><tr><th>Component</th><th>Exact mobile spec</th><th>Flutter mapping</th></tr></thead><tbody>
+                <tr><td>Locale lockup</td><td><span class="spec-value">184 px</span> wide; natural asset ratio; centered</td><td><code>SizedBox(width: 184)</code> with the correct supplied SVG asset</td></tr>
+                <tr><td>Indeterminate rule</td><td><span class="spec-value">2 px</span> high; <span class="spec-value">16%</span> inline inset; bottom <span class="spec-value">11.5%</span>; appears only after <span class="spec-value">1200 ms</span></td><td><code>PositionedDirectional(start: 16%, end: 16%, bottom: 11.5%)</code> + <code>SizedBox(height: 2)</code></td></tr>
+                <tr><td>Logo reveal</td><td><span class="spec-value">500 ms</span> duration, starts at <span class="spec-value">100 ms</span>; direction-aware clip reveal</td><td>Use the system signature timing; no replacement Flutter tween</td></tr>
+                <tr><td>Triangle accent</td><td><span class="spec-value">220 ms</span>, starts at <span class="spec-value">560 ms</span>; one existing gold triangle</td><td>Animate the supplied logo path only; no extra decorative shape</td></tr>
+                <tr><td>Dot accents</td><td>Each <span class="spec-value">140 ms</span>; start at <span class="spec-value">760 / 840 / 920 / 1000 ms</span></td><td>Preserve the system sequence and reduced-motion alternative</td></tr>
+                <tr><td>Minimum display</td><td>Cold <span class="spec-value">1120 ms</span>; warm <span class="spec-value">400 ms</span>; hold may be zero after real work resolves</td><td>State machine: enter → hold → exit; never add an artificial marketing delay</td></tr>
+              </tbody></table></div>
+              <p class="spec-note"><strong>360 px check:</strong> keep the <span class="spec-value">184 px</span> lockup and <span class="spec-value">16%</span> rule inset. The canvas scales in width; the logo does not become a different composition.</p>
+            </div>
+          </div>
+          <p class="spec-note"><strong>Implementation rule:</strong> the measurement sheet documents the existing motion section; it does not redesign it. Reduced motion places the lockup at rest, uses the system short cross-fade, and turns exit into a fade.</p>
+        </section>
+        <p class="device-note">The splash uses the theme-aware page surface: Paper in light mode and Ink in dark mode. That is the first real-screen surface too, so the shared-element exit does not flash. Status-bar content follows the same pair: dark icons on Paper, light icons on Ink. At <span class="num">360px</span> the lockup remains optically centred with the rule inset preserved; at the <span class="num">920px</span> intermediate breakpoint, the documentation stack collapses while the product canvas remains full-bleed. Landscape keeps the same optical centre and safe-area treatment.</p>
+        <p class="device-note">The geometry is direction-symmetric. Arabic and English share the same composition, dimensions and motion; only the supplied lockup asset, text direction and logical inline order change.</p>
+      </div>
+    </section>
+
+    <section class="section" id="states" data-od-id="splash-states">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">State coverage</p>
+          <h2 data-od-id="states-title">Hold only while real work is pending.</h2>
+          <p class="lead">Warm starts can pass through hold at zero duration. Cold starts may hold until local session and preference resolution completes; network calls never block a cached route unless update or maintenance is authoritative.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card state-card" data-od-id="state-rest">
+            <div class="state-meta"><h3 data-od-id="state-rest-title">Rest / loading</h3><span class="state-label">default</span></div>
+            <div class="mini-splash stage-light" dir="rtl" lang="ar">
+              <div class="lockup lockup-ar" aria-hidden="true"><svg class="source-lockup" viewBox="0 0 1202 299"><use href="#qiyas-logo-ar"></use></svg></div>
+            </div>
+            <p>The lockup is the only content. Minimum visible time is <span class="num">700ms</span> cold and <span class="num">400ms</span> warm; other loading surfaces use the system’s <span class="num">240ms</span> minimum.</p>
+          </article>
+
+          <article class="card state-card" data-od-id="state-slow">
+            <div class="state-meta"><h3 data-od-id="state-slow-title">Slow / checking</h3><span class="state-label">after 1.2s</span></div>
+            <div class="mini-splash stage-dark has-indeterminate" dir="ltr" lang="en">
+              <div class="lockup lockup-en" aria-hidden="true"><svg class="source-lockup" viewBox="0 0 1201 349"><use href="#qiyas-logo-en"></use></svg></div>
+              <div class="indeterminate-rule" aria-hidden="true"></div>
+            </div>
+            <p>The indeterminate rule appears only after <span class="num">1,200ms</span>. It is a quiet progress cue, not a spinner and not a timed film.</p>
+          </article>
+
+          <article class="card state-card" data-od-id="state-first-launch">
+            <div class="state-meta"><h3 data-od-id="state-first-launch-title">Empty / first launch</h3><span class="state-label">route next</span></div>
+            <div class="mini-splash stage-info" dir="ltr" lang="en">
+              <div class="lockup lockup-en" aria-hidden="true"><svg class="source-lockup" viewBox="0 0 1201 349"><use href="#qiyas-logo-en"></use></svg></div>
+              <div class="mini-message"><strong>Role picker next</strong><span>No local role or session is stored.</span></div>
+            </div>
+            <p>Empty means no session to restore. The splash exits to Role picker; it does not become a dead end or add an empty-state illustration.</p>
+          </article>
+
+          <article class="card state-card" data-od-id="state-offline">
+            <div class="state-meta"><h3 data-od-id="state-offline-title">Offline / no session</h3><span class="state-label">inline error</span></div>
+            <div class="mini-splash stage-offline" dir="rtl" lang="ar">
+              <div class="lockup lockup-ar" aria-hidden="true"><svg class="source-lockup" viewBox="0 0 1202 299"><use href="#qiyas-logo-ar"></use></svg></div>
+              <div class="mini-message is-error"><strong>لا يوجد اتصال بالشبكة</strong><span>لا يمكن المتابعة قبل الاتصال.</span><button data-od-id="retry-offline-ar" class="btn btn-secondary retry-button" type="button">حاول مرة أخرى</button><span class="retry-status" aria-live="polite"></span></div>
+            </div>
+            <div class="state-copy"><span dir="rtl" lang="ar">لا يوجد اتصال بالشبكة</span><span dir="ltr" lang="en">No network connection · Retry</span></div>
+          </article>
+
+          <article class="card state-card" data-od-id="state-server">
+            <div class="state-meta"><h3 data-od-id="state-server-title">Server unreachable</h3><span class="state-label">5xx</span></div>
+            <div class="mini-splash stage-error" dir="ltr" lang="en">
+              <div class="lockup lockup-en" aria-hidden="true"><svg class="source-lockup" viewBox="0 0 1201 349"><use href="#qiyas-logo-en"></use></svg></div>
+              <div class="mini-message is-error"><strong>The service could not be reached</strong><span>Check your connection and try again.</span><button data-od-id="retry-server" class="btn btn-secondary retry-button" type="button">Retry</button><span class="retry-status" aria-live="polite"></span></div>
+            </div>
+            <div class="state-copy"><span dir="rtl" lang="ar">تعذر الوصول إلى الخادم</span><span dir="ltr" lang="en">The service could not be reached</span></div>
+          </article>
+
+          <article class="card state-card" data-od-id="state-timeout">
+            <div class="state-meta"><h3 data-od-id="state-timeout-title">Timeout</h3><span class="state-label">after 5s</span></div>
+            <div class="mini-splash stage-terracotta" dir="rtl" lang="ar">
+              <div class="lockup lockup-ar" aria-hidden="true"><svg class="source-lockup" viewBox="0 0 1202 299"><use href="#qiyas-logo-ar"></use></svg></div>
+              <div class="mini-message is-error"><strong>استغرق التحقق وقتًا أطول من المتوقع</strong><span>يمكنك المحاولة مرة أخرى الآن.</span><button data-od-id="retry-timeout-ar" class="btn btn-secondary retry-button" type="button">حاول مرة أخرى</button><span class="retry-status" aria-live="polite"></span></div>
+            </div>
+            <div class="state-copy"><span dir="rtl" lang="ar">استغرق التحقق وقتًا أطول من المتوقع</span><span dir="ltr" lang="en">This is taking longer than expected</span></div>
+          </article>
+
+          <article class="card state-card" data-od-id="state-update">
+            <div class="state-meta"><h3 data-od-id="state-update-title">Forced update</h3><span class="state-label">blocking</span></div>
+            <div class="mini-splash stage-info" dir="rtl" lang="ar">
+              <div class="mini-message is-server" style="inset: 22px 16px; bottom: auto; top: 50%; transform: translateY(-50%);"><strong>يتوفر تحديث مطلوب</strong><span>حدّث التطبيق للمتابعة إلى حسابك.</span><button data-od-id="update-app-ar" class="btn btn-primary" type="button">تحديث التطبيق</button></div>
+            </div>
+            <div class="state-copy"><span dir="rtl" lang="ar">يتوفر تحديث مطلوب</span><span dir="ltr" lang="en">A required update is available · Update app</span></div>
+          </article>
+
+          <article class="card state-card" data-od-id="state-maintenance">
+            <div class="state-meta"><h3 data-od-id="state-maintenance-title">Maintenance</h3><span class="state-label">blocking</span></div>
+            <div class="mini-splash stage-info" dir="ltr" lang="en">
+              <div class="mini-message is-server" style="inset: 22px 16px; bottom: auto; top: 50%; transform: translateY(-50%);"><strong>The app is temporarily unavailable</strong><span>We will be back after scheduled maintenance.</span></div>
+            </div>
+            <div class="state-copy"><span dir="rtl" lang="ar">التطبيق غير متاح مؤقتًا</span><span dir="ltr" lang="en">The app is temporarily unavailable</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="handoff" data-od-id="native-handoff">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Native handoff</p>
+          <h2 data-od-id="handoff-title">Native and Flutter begin at the same rest state.</h2>
+          <p class="lead">The OS owns the first frame. The app owns the state machine. No zero-state animation is replayed after Flutter appears; the shared-element sequence begins from the native asset’s resting lockup.</p>
+        </div>
+
+        <div class="handoff-pair">
+          <figure class="handoff-frame" data-od-id="ios-launchscreen">
+            <div class="asset-visual stage-light" dir="rtl" lang="ar"><div class="lockup lockup-ar"><svg class="source-lockup" viewBox="0 0 1202 299"><use href="#qiyas-logo-ar"></use></svg></div></div>
+            <figcaption><strong>iOS LaunchScreen</strong><span class="asset-label">Static asset · OS appearance · device locale lockup</span></figcaption>
+          </figure>
+          <figure class="handoff-frame" data-od-id="android-window-background">
+            <div class="asset-visual stage-dark" dir="ltr" lang="en"><div class="lockup lockup-en"><svg class="source-lockup" viewBox="0 0 1201 349"><use href="#qiyas-logo-en"></use></svg></div></div>
+            <figcaption><strong>Android windowBackground</strong><span class="asset-label">Static asset · OS appearance · device locale lockup</span></figcaption>
+          </figure>
+          <figure class="handoff-frame" data-od-id="flutter-rest-state">
+            <div class="asset-visual stage-light" dir="rtl" lang="ar"><div class="lockup lockup-ar"><svg class="source-lockup" viewBox="0 0 1202 299"><use href="#qiyas-logo-ar"></use></svg></div></div>
+            <figcaption><strong>Flutter splash rest</strong><span class="asset-label">Same Paper surface, inset, asset scale and optical centre</span></figcaption>
+          </figure>
+        </div>
+
+        <div class="grid-2" style="margin-top: var(--space-8);">
+          <div class="card">
+            <h3 data-od-id="theme-resolution-title">Theme and locale resolution</h3>
+            <p style="margin-top: var(--space-3); color: var(--muted); font-size: 14px; line-height: 1.5;">Native follows the OS light/dark setting and device locale. Stored in-app preferences reconcile silently after Flutter’s first frame. If a stored preference differs, use the system’s <span class="num">120ms</span> reduced-motion crossfade between the two resolved rest surfaces; no flash and no layout jump.</p>
+          </div>
+          <div class="card">
+            <h3 data-od-id="web-first-paint-title">Web first paint</h3>
+            <p style="margin-top: var(--space-3); color: var(--muted); font-size: 14px; line-height: 1.5;">Static HTML paints the page surface, lockup asset and safe-area-free optical centre before framework code. The first paint uses <span class="num">color-scheme</span> and a server-resolved locale attribute; hydration only attaches routing and state listeners.</p>
+          </div>
+        </div>
+
+        <div class="motion-grid" aria-label="Key frames for shared-element handoff">
+          <figure class="motion-frame" data-od-id="keyframe-enter">
+            <div class="asset-visual stage-light motion-art" dir="rtl" lang="ar"><div class="lockup lockup-ar"><svg class="source-lockup" viewBox="0 0 1202 299"><use href="#qiyas-logo-ar"></use></svg></div></div>
+            <figcaption><span class="motion-token">enter · 1120ms cold</span><p class="annotation">The source lockup reveals from logical start; the warm abbreviation resolves in <span class="num">400ms</span>.</p></figcaption>
+          </figure>
+          <figure class="motion-frame" data-od-id="keyframe-hold">
+            <div class="asset-visual stage-light motion-art has-indeterminate" dir="rtl" lang="ar"><div class="lockup lockup-ar"><svg class="source-lockup" viewBox="0 0 1202 299"><use href="#qiyas-logo-ar"></use></svg></div><div class="indeterminate-rule" aria-hidden="true"></div></div>
+            <figcaption><span class="motion-token">hold · after 1200ms</span><p class="annotation">Hold may be zero. After <span class="num">1,200ms</span>, the indeterminate rule communicates waiting without pulling focus.</p></figcaption>
+          </figure>
+          <figure class="motion-frame" data-od-id="keyframe-exit">
+            <div class="asset-visual stage-light motion-art exit" dir="rtl" lang="ar"><div class="lockup lockup-ar"><svg class="source-lockup" viewBox="0 0 1202 299"><use href="#qiyas-logo-ar"></use></svg></div><div class="route-surface" aria-hidden="true"></div></div>
+            <figcaption><span class="motion-token">exit · shared element</span><p class="annotation">The lockup travels to the destination’s resting position. If that screen has no logo, it fades out into the destination surface.</p></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="routing" data-od-id="routing-logic">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Routing resolution</p>
+          <h2 data-od-id="routing-title">One gate, every destination explicit.</h2>
+          <p class="lead">Auth, deep links, updates and maintenance resolve in priority order. Forced update and maintenance are blocking branches, including for a valid session.</p>
+        </div>
+
+        <div class="route-diagram" aria-label="Splash routing diagram">
+          <div class="route-origin"><span class="square-mark" aria-hidden="true"></span><span>Resolve splash state</span></div>
+          <div class="route-connector" aria-hidden="true"></div>
+          <div class="route-branches">
+            <div class="route-branch"><div class="route-node is-blocking"><strong>Forced update</strong><span>Blocks all routes, including valid sessions.</span></div><div class="route-node"><strong>Update gate</strong><span>One action: Update app. No dismiss.</span></div></div>
+            <div class="route-branch"><div class="route-node is-blocking"><strong>Maintenance</strong><span>Server says the product is unavailable.</span></div><div class="route-node"><strong>Maintenance screen</strong><span>Copy only; no retry action until service returns.</span></div></div>
+            <div class="route-branch"><div class="route-node is-session"><strong>Local + auth decision</strong><span>Use cached session when safe; preserve intended deep link.</span></div><div class="route-node"><strong>Role, student, parent or auth flow</strong><span>Destination-specific shared-element landing.</span></div></div>
+          </div>
+        </div>
+
+        <div class="route-table map-table" aria-label="Exhaustive splash routing table">
+          <div class="map-row map-head"><div>Condition</div><div>Priority</div><div>Destination</div></div>
+          <div class="map-row"><div data-label="Condition"><strong>No session, first launch</strong></div><div data-label="Priority" class="num">08</div><div data-label="Destination">Role picker</div></div>
+          <div class="map-row"><div data-label="Condition"><strong>No session, role used before</strong></div><div data-label="Priority" class="num">07</div><div data-label="Destination">That role’s login screen, with “not you?” escape</div></div>
+          <div class="map-row"><div data-label="Condition"><strong>Valid student session</strong></div><div data-label="Priority" class="num">06</div><div data-label="Destination">Student dashboard</div></div>
+          <div class="map-row"><div data-label="Condition"><strong>Valid parent session</strong></div><div data-label="Priority" class="num">05</div><div data-label="Destination">Parent dashboard</div></div>
+          <div class="map-row"><div data-label="Condition"><strong>Session expired</strong></div><div data-label="Priority" class="num">04</div><div data-label="Destination">Relevant login, intended destination preserved</div></div>
+          <div class="map-row"><div data-label="Condition"><strong>Student invite deep link</strong></div><div data-label="Priority" class="num">03</div><div data-label="Destination">Student first-login, invite prefilled</div></div>
+          <div class="map-row"><div data-label="Condition"><strong>Password-reset deep link</strong></div><div data-label="Priority" class="num">02</div><div data-label="Destination">Reset flow at the correct step</div></div>
+          <div class="map-row"><div data-label="Condition"><strong>Forced update required</strong></div><div data-label="Priority" class="num">01</div><div data-label="Destination">Update gate; blocks every other route</div></div>
+          <div class="map-row"><div data-label="Condition"><strong>Server in maintenance</strong></div><div data-label="Priority" class="num">01</div><div data-label="Destination">Maintenance screen; no action</div></div>
+          <div class="map-row"><div data-label="Condition"><strong>Server unreachable / 5xx</strong></div><div data-label="Priority" class="num">01</div><div data-label="Destination">Splash error state with Retry</div></div>
+          <div class="map-row"><div data-label="Condition"><strong>Timeout after 5 seconds</strong></div><div data-label="Priority" class="num">01</div><div data-label="Destination">Splash timeout state with Retry</div></div>
+          <div class="map-row"><div data-label="Condition"><strong>Offline / no session</strong></div><div data-label="Priority" class="num">01</div><div data-label="Destination">Splash offline state with Retry</div></div>
+          <div class="map-row"><div data-label="Condition"><strong>Offline / stored session</strong></div><div data-label="Priority" class="num">01</div><div data-label="Destination">Cached dashboard; destination carries offline banner</div></div>
+        </div>
+
+        <div class="grid-2" style="margin-top: var(--space-8);">
+          <div class="card"><h3 data-od-id="exit-landing-title">Exit landing rule</h3><p style="margin-top: var(--space-3); color: var(--muted); font-size: 14px; line-height: 1.5;">Student dashboard: lockup settles into the top start-aligned brand position. Parent dashboard: same top start-aligned position. Login and role picker: lockup settles into the unauthenticated shell’s optical centre. Reset and invite flows: lockup lands in the auth header. A destination without a logo uses a <span class="num">120ms</span> fade into its first surface.</p></div>
+          <div class="card"><h3 data-od-id="offline-decision-title">Offline decision</h3><p style="margin-top: var(--space-3); color: var(--muted); font-size: 14px; line-height: 1.5;">Stored session plus no network proceeds with cached state; the splash does not add a blocking error. No session plus no network stays at rest, then shows the inline offline error and Retry after the timeout threshold.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mapping" data-od-id="component-mapping">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Engineer handoff</p>
+          <h2 data-od-id="mapping-title">Every visible element maps to the system.</h2>
+          <p class="lead">The screen now consumes the canonical Qiyas tokens, exact source lockups, and splash motion state machine. No screen-level visual gap remains; only implementation validation is deferred to real device and route content.</p>
+        </div>
+
+        <div class="map-table" aria-label="Component mapping table">
+          <div class="map-row map-head"><div>Element on screen</div><div>System component</div><div>Tokens / variant</div><div>Notes for devs</div></div>
+          <div class="map-row"><div data-label="Element on screen"><strong>Page frame</strong></div><div data-label="System component">Unauthenticated shell</div><div data-label="Tokens / variant" class="num">scaffold.unauth</div><div data-label="Notes for devs">Full-bleed, no product header; reserve safe areas only on native.</div></div>
+          <div class="map-row"><div data-label="Element on screen"><strong>Locale switch</strong></div><div data-label="System component">Locale switch</div><div data-label="Tokens / variant" class="num">locale-switch · logical-end · 44px</div><div data-label="Notes for devs">One quiet <span class="num">EN</span> / <span class="num">عر</span> control at the logical top end; preview chrome retains full language tabs.</div></div>
+          <div class="map-row"><div data-label="Element on screen"><strong>Locale lockup</strong></div><div data-label="System component">Brand lockup</div><div data-label="Tokens / variant" class="num">logo.lockup.ar / logo.lockup.en</div><div data-label="Notes for devs">Uses the exact source SVG geometry. Swap by locale; never mirror the English asset to create Arabic.</div></div>
+          <div class="map-row"><div data-label="Element on screen"><strong>Page background</strong></div><div data-label="System component">Surface</div><div data-label="Tokens / variant" class="num">surface.page.light / surface.page.dark</div><div data-label="Notes for devs">Paper in light, Ink in dark; matches the destination first surface.</div></div>
+          <div class="map-row"><div data-label="Element on screen"><strong>Optical centring</strong></div><div data-label="System component">Splash composition</div><div data-label="Tokens / variant" class="num">splash.lockup.optical-center</div><div data-label="Notes for devs">Use safe-area-aware visual bounds; lift the lockup above mathematical centre on tall mobile canvases.</div></div>
+          <div class="map-row"><div data-label="Element on screen"><strong>Indeterminate rule</strong></div><div data-label="System component">Loading rule</div><div data-label="Tokens / variant" class="num">feedback.info · 1.2s delay</div><div data-label="Notes for devs">Only appears while hold exceeds 1,200ms; mirror travel direction in RTL.</div></div>
+          <div class="map-row"><div data-label="Element on screen"><strong>Offline / server / timeout</strong></div><div data-label="System component">Inline error state</div><div data-label="Tokens / variant" class="num">feedback.error · retry</div><div data-label="Notes for devs">Use what happened → why → what to do. Retry is the single action.</div></div>
+          <div class="map-row"><div data-label="Element on screen"><strong>Forced update</strong></div><div data-label="System component">Blocking feedback state</div><div data-label="Tokens / variant" class="num">feedback.info · action.primary</div><div data-label="Notes for devs">No dismiss or back path. The update action is the only solid button.</div></div>
+          <div class="map-row"><div data-label="Element on screen"><strong>Maintenance</strong></div><div data-label="System component">Blocking empty state</div><div data-label="Tokens / variant" class="num">feedback.info · no-action</div><div data-label="Notes for devs">No retry loop, spinner or artificial motion. Return to splash when the service resolves.</div></div>
+          <div class="map-row"><div data-label="Element on screen"><strong>Shared-element exit</strong></div><div data-label="System component">Route transition</div><div data-label="Tokens / variant" class="num">motion.route.shared-element</div><div data-label="Notes for devs">Use the existing motion spec. Reduced motion becomes a 120ms crossfade.</div></div>
+        </div>
+
+        <div class="implementation-notes" style="margin-top: var(--space-12);">
+          <div>
+            <h3 data-od-id="gap-list-title">Gap list</h3>
+            <ul class="gap-list" style="margin-top: var(--space-4);">
+              <li><span class="gap-dot" aria-hidden="true"></span><div><strong>No unresolved design-system gap</strong><span>The canonical system now supplies the palette, typography, logo geometry, state tokens, motion timing, and reduced-motion alternative used by this screen.</span></div></li>
+              <li><span class="gap-dot" aria-hidden="true"></span><div><strong>Deferred implementation validation</strong><span>Validate shared-element scale and focus handoff against real auth shells at 360px, 390px, 430px, 768px, and desktop widths, as requested by the system’s deferred QA note.</span></div></li>
+            </ul>
+          </div>
+          <div class="do-dont">
+            <div class="card do"><h3 data-od-id="do-title">Do</h3><p>Resolve locally, keep the lockup quiet, and let the destination own the next meaningful message.</p></div>
+            <div class="card dont"><h3 data-od-id="dont-title">Don’t</h3><p>Hold to show the logo, add a tagline, or turn a network wait into a decorative spinner.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pagefoot" data-od-id="screen-footer">
+    <div class="container row-between">
+      <span class="footer-lockup"><span class="square-mark" aria-hidden="true"></span> Qiyas · Screen 01</span>
+      <span class="meta">light / dark · العربية / English · 390 / 1440</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var localeButtons = Array.prototype.slice.call(document.querySelectorAll('[data-preview-locale]'));
+      var themeButtons = Array.prototype.slice.call(document.querySelectorAll('[data-preview-theme]'));
+      var stages = Array.prototype.slice.call(document.querySelectorAll('[data-primary-stage]'));
+      var captions = Array.prototype.slice.call(document.querySelectorAll('[data-preview-caption]'));
+      var localeSwitches = Array.prototype.slice.call(document.querySelectorAll('[data-locale-switch]'));
+      var savedLocale = window.localStorage.getItem('qiyas-preview-locale') || root.dataset.previewLocale || 'ar';
+      var savedTheme = window.localStorage.getItem('qiyas-preview-theme') || root.dataset.previewTheme || 'light';
+
+      function restartSplash() {
+        document.querySelectorAll('.primary-splash').forEach(function (stage) {
+          stage.classList.remove('is-playing');
+          window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(function () {
+              stage.classList.add('is-playing');
+            });
+          });
+        });
+      }
+
+      function syncPreview() {
+        var locale = root.dataset.previewLocale;
+        var theme = root.dataset.previewTheme;
+        var isArabic = locale === 'ar';
+        localeSwitches.forEach(function (button) { button.setAttribute('aria-label', isArabic ? 'Switch to English' : 'التبديل إلى العربية'); });
+
+        localeButtons.forEach(function (button) {
+          var active = button.dataset.previewLocale === locale;
+          button.classList.toggle('is-active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+
+        themeButtons.forEach(function (button) {
+          var active = button.dataset.previewTheme === theme;
+          button.classList.toggle('is-active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+
+        stages.forEach(function (stage) {
+          var canvas = stage.querySelector('.splash-canvas');
+          var status = canvas && canvas.querySelector('[role="status"]');
+          stage.classList.toggle('stage-light', theme === 'light');
+          stage.classList.toggle('stage-dark', theme === 'dark');
+          if (!canvas) return;
+          canvas.dir = isArabic ? 'rtl' : 'ltr';
+          canvas.lang = isArabic ? 'ar' : 'en';
+          canvas.setAttribute('aria-label', isArabic ? 'Arabic ' + theme + ' theme splash rest state' : 'English ' + theme + ' theme splash rest state');
+          if (status) status.textContent = isArabic ? 'قياس. جارٍ استعادة الجلسة.' : 'Qiyas. Restoring your session.';
+        });
+
+        captions.forEach(function (caption) {
+          var viewport = caption.dataset.previewCaption === 'mobile' ? 'Mobile' : 'Desktop';
+          caption.textContent = viewport + ' · ' + (isArabic ? 'Arabic' : 'English') + ' · ' + theme;
+        });
+
+        window.localStorage.setItem('qiyas-preview-locale', locale);
+        window.localStorage.setItem('qiyas-preview-theme', theme);
+        restartSplash();
+      }
+
+      localeButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          root.dataset.previewLocale = button.dataset.previewLocale;
+          syncPreview();
+        });
+      });
+      localeSwitches.forEach(function (button) {
+        button.addEventListener('click', function () {
+          root.dataset.previewLocale = root.dataset.previewLocale === 'ar' ? 'en' : 'ar';
+          syncPreview();
+        });
+      });
+
+      themeButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          root.dataset.previewTheme = button.dataset.previewTheme;
+          syncPreview();
+        });
+      });
+
+      root.dataset.previewLocale = savedLocale;
+      root.dataset.previewTheme = savedTheme;
+      syncPreview();
+    }());
+
+    document.querySelectorAll('[data-retry], .retry-button').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var status = button.parentElement.querySelector('.retry-status');
+        if (!status) return;
+        status.textContent = button.closest('[dir="rtl"]') ? 'جارٍ التحقق…' : 'Checking…';
+        button.disabled = true;
+        window.setTimeout(function () {
+          status.textContent = button.closest('[dir="rtl"]') ? 'لم يتغير الاتصال.' : 'Connection unchanged.';
+          button.disabled = false;
+        }, 700);
+      });
+    });
+  </script>
+</body>
+</html>

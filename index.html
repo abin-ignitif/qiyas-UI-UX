@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qiyas · Screen Library</title>
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --ink-soft:#333;
+    --muted:#5c5c5c;
+    --line:#e2e2e2;
+    --paper:#ffffff;
+    --wash:#f5f5f5;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    line-height:1.6;
+  }
+  header{
+    border-bottom:1px solid var(--line);
+    padding-top:32px;
+    padding-bottom:32px;
+    padding-left:20px;
+    padding-right:20px;
+  }
+  .wrap{max-width:960px;margin-left:auto;margin-right:auto;padding-left:20px;padding-right:20px}
+  h1{font-size:28px;margin:0 0 8px;line-height:1.3}
+  h2{font-size:20px;margin:32px 0 12px}
+  p{margin:0 0 12px;color:var(--ink-soft)}
+  .muted{color:var(--muted);font-size:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;padding:0;margin:0;list-style:none}
+  a.card{
+    display:flex;flex-direction:column;gap:4px;
+    min-height:48px;
+    padding-top:12px;padding-bottom:12px;padding-left:16px;padding-right:16px;
+    border:1px solid var(--ink);
+    border-radius:4px;
+    background-color:var(--ink);
+    color:var(--paper);
+    text-decoration:none;
+  }
+  a.card:hover{background-color:#000}
+  a.card:focus-visible{outline:2px solid #000;outline-offset:2px}
+  a.card .en{font-size:14px;font-weight:600}
+  a.card .file{font-size:12px;opacity:.7;font-family:"IBM Plex Mono",ui-monospace,monospace}
+  a.doc{
+    display:inline-flex;align-items:center;gap:8px;
+    min-height:48px;
+    padding-top:12px;padding-bottom:12px;padding-left:16px;padding-right:16px;
+    border:1px solid var(--ink);
+    border-radius:4px;
+    background:var(--paper);
+    color:var(--ink);
+    text-decoration:none;
+    font-size:14px;font-weight:600;
+    margin-right:8px;margin-bottom:8px;
+  }
+  a.doc:hover{background:var(--wash)}
+  .note{
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:var(--wash);
+    padding-top:12px;padding-bottom:12px;padding-left:16px;padding-right:16px;
+    margin-top:24px;margin-bottom:24px;
+    font-size:14px;
+  }
+  section{padding-bottom:8px}
+  footer{border-top:1px solid var(--line);margin-top:32px;padding-top:20px;padding-bottom:20px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Qiyas · Screen Library</h1>
+    <p>A quiet launcher for all Qiyas screens. Each screen is a self-contained file with its own theme and locale controls.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="note" role="note">
+    <strong>Note:</strong> each screen is a self-contained HTML file with its own Light / Dark theme and Arabic / English locale controls.
+  </div>
+
+  <section aria-labelledby="auth">
+    <h2 id="auth">Auth &amp; onboarding</h2>
+    <ul class="grid">
+      <li><a class="card" href="qiyas-splash-screen.html"><span class="en">Splash Screen</span><span class="file">qiyas-splash-screen.html</span></a></li>
+      <li><a class="card" href="qiyas-role-picker.html"><span class="en">Role Picker</span><span class="file">qiyas-role-picker.html</span></a></li>
+      <li><a class="card" href="qiyas-student-signin.html"><span class="en">Student Sign-In</span><span class="file">qiyas-student-signin.html</span></a></li>
+      <li><a class="card" href="qiyas-parent-login.html"><span class="en">Parent Login</span><span class="file">qiyas-parent-login.html</span></a></li>
+      <li><a class="card" href="qiyas-parent-signup.html"><span class="en">Parent Sign-Up</span><span class="file">qiyas-parent-signup.html</span></a></li>
+      <li><a class="card" href="qiyas-forgot-password.html"><span class="en">Forgot Password</span><span class="file">qiyas-forgot-password.html</span></a></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="family">
+    <h2 id="family">Family</h2>
+    <ul class="grid">
+      <li><a class="card" href="qiyas-parent-dashboard.html"><span class="en">Parent Dashboard</span><span class="file">qiyas-parent-dashboard.html</span></a></li>
+      <li><a class="card" href="qiyas-parent-add-student.html"><span class="en">Add Student</span><span class="file">qiyas-parent-add-student.html</span></a></li>
+      <li><a class="card" href="qiyas-student-dashboard.html"><span class="en">Student Dashboard</span><span class="file">qiyas-student-dashboard.html</span></a></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="exam">
+    <h2 id="exam">Exam &amp; library</h2>
+    <ul class="grid">
+      <li><a class="card" href="qiyas-badge-exam.html"><span class="en">Badge Exam</span><span class="file">qiyas-badge-exam.html</span></a></li>
+      <li><a class="card" href="qiyas-taking-test.html"><span class="en">Taking Test</span><span class="file">qiyas-taking-test.html</span></a></li>
+      <li><a class="card" href="qiyas-results-explanations.html"><span class="en">Results &amp; Explanations</span><span class="file">qiyas-results-explanations.html</span></a></li>
+      <li><a class="card" href="qiyas-learning-library.html"><span class="en">Learning Library</span><span class="file">qiyas-learning-library.html</span></a></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="system">
+    <h2 id="system">System</h2>
+    <ul class="grid">
+      <li><a class="card" href="qiyas-design-system.html"><span class="en">Design System</span><span class="file">qiyas-design-system.html</span></a></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="docs">
+    <h2 id="docs">Handoff docs</h2>
+    <p>
+      <a class="doc" href="DESIGN-HANDOFF.md">DESIGN-HANDOFF.md</a>
+      <a class="doc" href="DESIGN-MANIFEST.json">DESIGN-MANIFEST.json</a>
+      <a class="doc" href="qiyas-screen-handoff-rules.md">qiyas-screen-handoff-rules.md</a>
+    </p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Qiyas · Screen Library</span>
+  </div>
+</footer>
+</body>
+</html>
