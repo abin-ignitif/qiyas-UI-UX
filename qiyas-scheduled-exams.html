@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light" data-preview-locale="ar">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qiyas · Screen 15 · Scheduled Exams</title>
+  <script type="application/json" data-od-external-dependencies>["https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"]</script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--primitive-green-50:#E6F2EA;--primitive-green-100:#B3D9C1;--primitive-green-200:#66B385;--primitive-green-400:#1A8C43;--primitive-green-500:#0D662C;--primitive-green-700:#09481F;--primitive-green-900:#04230F;--primitive-gold-50:#FFFDF0;--primitive-gold-100:#F9E8B3;--primitive-gold-200:#EDC866;--primitive-gold-400:#DBA724;--primitive-gold-500:#CE940F;--primitive-gold-700:#91680A;--primitive-gold-900:#4A3505;--primitive-neutral-50:#F8F9F7;--primitive-neutral-100:#E1E3DF;--primitive-neutral-200:#C4C7C0;--primitive-neutral-400:#878C82;--primitive-neutral-500:#61665C;--primitive-neutral-700:#32352E;--primitive-ink:#11120F;--primitive-paper:#FEFEFE;--primitive-terracotta-50:#FFF2F0;--primitive-terracotta-500:#C84B15;--primitive-terracotta-700:#96320B;--surface-page:var(--primitive-paper);--surface-raised:var(--primitive-neutral-50);--surface-sunken:var(--primitive-neutral-100);--surface-overlay:var(--primitive-paper);--surface-inverse:var(--primitive-ink);--text-primary:var(--primitive-ink);--text-secondary:var(--primitive-neutral-700);--text-tertiary:var(--primitive-neutral-500);--text-disabled:var(--primitive-neutral-400);--text-inverse:var(--primitive-paper);--text-on-brand:var(--primitive-paper);--border-subtle:var(--primitive-neutral-100);--border-default:var(--primitive-neutral-200);--border-strong:var(--primitive-ink);--border-focus:var(--primitive-green-400);--action-primary-bg:var(--primitive-ink);--action-primary-fg:var(--primitive-paper);--action-secondary-bg:var(--surface-page);--action-secondary-fg:var(--text-primary);--action-destructive-bg:var(--primitive-terracotta-700);--action-destructive-fg:var(--primitive-paper);--state-correct-bg:var(--primitive-green-50);--state-correct-border:var(--primitive-green-500);--state-correct-fg:var(--primitive-green-700);--state-incorrect-bg:var(--primitive-terracotta-50);--state-incorrect-border:var(--primitive-terracotta-500);--state-incorrect-fg:var(--primitive-terracotta-700);--state-selected-bg:var(--primitive-neutral-50);--state-selected-border:var(--primitive-ink);--state-gold-bg:var(--primitive-gold-50);--state-gold-border:var(--primitive-gold-500);--state-gold-fg:var(--primitive-gold-700);--state-info-bg:var(--primitive-green-50);--state-info-border:var(--primitive-green-200);--state-info-fg:var(--primitive-green-700);--focus-ring:var(--primitive-green-400);--shadow-overlay:4px 4px 0 var(--primitive-ink);--font-display:"IBM Plex Sans",system-ui,sans-serif;--font-body:"IBM Plex Sans",system-ui,sans-serif;--font-arabic:"IBM Plex Sans Arabic","IBM Plex Sans",system-ui,sans-serif;--font-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;--logo-ink:#11120F;--logo-green:#0D662C;--logo-gold:#CE940F;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--space-9:96px;--radius-card:4px;--radius-control:4px;--radius-accent:0;--border-width-hairline:1px;--border-width-default:1.5px;--border-width-emphasis:2px;--border-width-selected:3px;--content:1180px;--content-admin:1280px;--control-compact:40px;--control-default:48px;--control-large:56px;--focus-offset:3px;--loading-min:240ms;--motion-instant:0ms;--motion-quick:120ms;--motion-base:180ms;--motion-deliberate:280ms;--motion-stagger:40ms;--ease-enter:cubic-bezier(.2,.7,.3,1);--ease-exit:cubic-bezier(.5,0,.8,.3)}
+    html[data-theme="dark"]{--surface-page:#11120F;--surface-raised:#181A16;--surface-sunken:#0B0C0A;--surface-overlay:#20231E;--surface-inverse:#FEFEFE;--text-primary:#FEFEFE;--text-secondary:#C4C7C0;--text-tertiary:#A8ADA2;--text-disabled:#72786E;--text-inverse:#11120F;--text-on-brand:#11120F;--border-subtle:#2A2E28;--border-default:#4A5046;--border-strong:#FEFEFE;--border-focus:#66B385;--action-primary-bg:#FEFEFE;--action-primary-fg:#11120F;--action-secondary-bg:#181A16;--action-secondary-fg:#FEFEFE;--action-destructive-bg:#96320B;--action-destructive-fg:#FEFEFE;--state-correct-bg:#173D25;--state-correct-border:#66B385;--state-correct-fg:#B3D9C1;--state-incorrect-bg:#4A1B0A;--state-incorrect-border:#E07843;--state-incorrect-fg:#FFD0BD;--state-selected-bg:#20231E;--state-selected-border:#FEFEFE;--state-gold-bg:#3C3217;--state-gold-border:#DBA724;--state-gold-fg:#EDC866;--state-info-bg:#173D25;--state-info-border:#66B385;--state-info-fg:#B3D9C1;--focus-ring:#66B385;--shadow-overlay:4px 4px 0 #000000;--logo-ink:#FEFEFE;--logo-green:#66B385;--logo-gold:#DBA724}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--surface-page)}
+    body{margin:0;color:var(--text-primary);background:var(--surface-page);font-family:var(--font-body);line-height:1.5}
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit}
+    :focus-visible{outline:2px solid var(--focus-ring);outline-offset:var(--focus-offset)}
+    .document-header{position:sticky;inset-block-start:0;z-index:30;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-3);padding:var(--space-3) max(16px,calc((100vw - var(--content)) / 2));background:color-mix(in srgb,var(--surface-page) 94%,transparent);border-block-end:var(--border-width-hairline) solid var(--border-subtle);backdrop-filter:blur(12px)}
+    .document-title{font-weight:600}
+    .document-title small{display:block;color:var(--text-tertiary);font:11px/1.3 var(--font-mono);letter-spacing:.06em;text-transform:uppercase}
+    .document-title .qiyas-logo{inline-size:96px;block-size:auto}
+    .title-row{display:flex;align-items:center;gap:var(--space-3)}
+    .control-cluster{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:var(--space-2)}
+    .control-label{color:var(--text-tertiary);font:700 10px/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase}
+    .toggle-group{display:inline-flex;max-inline-size:100%;overflow-x:auto;border:var(--border-width-default) solid var(--border-default);border-radius:var(--radius-control)}
+    .toggle-button{min-block-size:44px;padding-inline:10px;border:0;border-inline-start:var(--border-width-hairline) solid var(--border-default);color:var(--text-tertiary);background:transparent;white-space:nowrap;font-size:12px;font-weight:600}
+    .toggle-button:first-child{border-inline-start:0}
+    .toggle-button:hover,.toggle-button[aria-pressed="true"]{color:var(--text-primary);background:var(--surface-raised)}
+    .toggle-button[aria-pressed="true"]{box-shadow:inset 0 -2px 0 var(--primitive-green-500)}
+    .page{max-inline-size:var(--content);margin-inline:auto;padding-inline:clamp(16px,3vw,24px)}
+    section.section{padding-block:var(--space-8)}
+    section.section+section.section{border-block-start:var(--border-width-hairline) solid var(--border-subtle)}
+    .section-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(240px,.9fr);gap:var(--space-7);align-items:end;margin-block-end:var(--space-6)}
+    .section-head h2{margin:0;font-size:clamp(22px,3vw,30px);letter-spacing:-.01em}
+    .section-head p{margin:0;color:var(--text-secondary);font-size:14px}
+    .eyebrow,.overline{color:var(--primitive-green-500);font:700 11px/1.3 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;margin:0 0 var(--space-2)}
+    .intro{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(240px,.8fr);gap:var(--space-7);align-items:start}
+    .intro h1{margin:0;font-size:clamp(30px,4.4vw,44px);letter-spacing:-.015em;line-height:1.15}
+    .intro p.lede{color:var(--text-secondary);font-size:16px;max-inline-size:60ch}
+    .decision{display:grid;gap:var(--space-2);padding:var(--space-5);border:var(--border-width-default) solid var(--border-default);border-inline-start-width:var(--border-width-emphasis);background:var(--surface-raised);font-size:14px}
+    .decision strong{display:block}
+    .decision p{margin:0 0 var(--space-3);color:var(--text-secondary)}
+    .decision .rejected-label{color:var(--primitive-terracotta-700)}
+    html[data-theme="dark"] .decision .rejected-label{color:var(--state-incorrect-fg)}
+    .preview-grid{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:var(--space-6);align-items:start}
+    @media (max-width:919px){.preview-grid{grid-template-columns:minmax(0,1fr)}.section-head,.intro{grid-template-columns:minmax(0,1fr);gap:var(--space-5)}}
+    .preview-wrap{display:grid;gap:var(--space-2);min-inline-size:0}
+    .preview-label{display:flex;justify-content:space-between;gap:var(--space-2);color:var(--text-tertiary);font:600 11px/1.4 var(--font-mono);letter-spacing:.06em;text-transform:uppercase}
+    .product-canvas{position:relative;overflow:hidden;border:var(--border-width-default) solid var(--border-strong);border-radius:var(--radius-card);background:var(--surface-page);color:var(--text-primary);font-family:var(--font-body)}
+    .product-canvas.preview-phone{inline-size:min(390px,100%);margin-inline:auto;block-size:844px;overflow-y:auto;overscroll-behavior:contain}
+    .product-canvas.preview-desktop{inline-size:100%;min-block-size:760px;max-block-size:900px;overflow-y:auto;container-type:inline-size}
+    @media (max-width:479px){.product-canvas.preview-phone{border-inline-width:0;border-block-width:0;border-radius:0}}
+    table{inline-size:100%;border-collapse:collapse;font-size:13px}
+    th,td{padding:10px 8px;border-block-end:var(--border-width-hairline) solid var(--border-subtle);text-align:start;vertical-align:top}
+    th{color:var(--text-tertiary);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+    .table-wrap{overflow-x:auto;border:var(--border-width-hairline) solid var(--border-subtle);border-radius:var(--radius-card);padding-inline:var(--space-4);background:var(--surface-raised)}
+    .mono{font-family:var(--font-mono);font-variant-numeric:tabular lining-nums}
+    .gap-list{display:grid;gap:var(--space-3);margin:0;padding:0;list-style:none}
+    .gap-list li{padding:var(--space-3);border-inline-start:var(--border-width-emphasis) solid var(--border-strong);background:var(--surface-raised)}
+    .gap-list strong{display:block}
+    .gap-list span{color:var(--text-secondary)}
+    .card{padding:var(--space-5);border:var(--border-width-default) solid var(--border-default);border-radius:var(--radius-card);background:var(--surface-raised)}
+    .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-5)}
+    .footer{padding-block:var(--space-6);border-block-start:var(--border-width-hairline) solid var(--border-subtle);color:var(--text-tertiary);font-size:12px;text-align:center}
+
+    /* ===== product surface · student shell ===== */
+    .app{min-block-size:100%;display:flex;flex-direction:column;background:var(--surface-page)}
+    .app-topbar{position:sticky;inset-block-start:0;z-index:20;display:flex;align-items:center;gap:var(--space-3);min-block-size:56px;padding:var(--space-2) var(--space-4);background:color-mix(in srgb,var(--surface-page) 94%,transparent);border-block-end:var(--border-width-hairline) solid var(--border-subtle);backdrop-filter:blur(10px)}
+    .back-control{display:inline-flex;align-items:center;gap:6px;min-block-size:44px;min-inline-size:44px;padding-inline:6px;border:0;background:transparent;color:var(--text-primary);font-size:13px;font-weight:600;text-decoration:none;border-radius:var(--radius-control)}
+    .back-control:hover{background:var(--surface-raised)}
+    .crumbs{flex:1;display:flex;align-items:center;gap:var(--space-2);min-inline-size:0;font-size:13px;color:var(--text-tertiary)}
+    .crumbs .subject-dot{inline-size:8px;block-size:8px;flex:none;border-radius:0;background:var(--primitive-green-500)}
+    .crumbs .crumb-current{color:var(--text-primary);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .crumbs .crumb-sep{flex:none}
+    .bell-control{position:relative;inline-size:44px;block-size:44px;flex:none;display:grid;place-items:center;border:0;border-radius:var(--radius-control);background:transparent;color:var(--text-primary)}
+    .bell-control:hover{background:var(--surface-raised)}
+    .bell-control::after{content:"";position:absolute;inset-block-start:9px;inset-inline-end:9px;inline-size:7px;block-size:7px;background:var(--primitive-gold-500);border:var(--border-width-hairline) solid var(--surface-page)}
+    .app-main{flex:1;padding:var(--space-5) var(--space-4) var(--space-7)}
+    @container (min-width:768px){.app-main{padding:var(--space-6) max(var(--space-6),calc((100cqi - var(--content)) / 2)) var(--space-8)} .exam-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important} .exam-card{padding:var(--space-5) !important}}
+    .page-head{display:grid;gap:var(--space-1);margin-block-end:var(--space-5)}
+    .page-head h1{margin:0;font-size:26px;letter-spacing:-.01em;line-height:1.25}
+    @container (min-width:768px){.page-head h1{font-size:34px}}
+    .page-head .lede{margin:0;color:var(--text-tertiary);font-size:14px;max-inline-size:62ch}
+    .filter-bar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--space-1);margin-block:var(--space-5);padding:var(--space-1);border:var(--border-width-hairline) solid var(--border-subtle);border-radius:var(--radius-card);background:var(--surface-sunken)}
+    .filter-tab{display:flex;min-inline-size:0;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-block-size:44px;padding-inline:0;border:var(--border-width-hairline) solid transparent;border-radius:var(--radius-control);background:transparent;color:var(--text-secondary);font-size:12px;font-weight:600;line-height:1.25;text-align:center;transition:background-color var(--motion-quick) var(--ease-enter),color var(--motion-quick) var(--ease-enter),border-color var(--motion-quick) var(--ease-enter)}
+    .filter-tab:hover{color:var(--text-primary);background:color-mix(in srgb,var(--surface-raised) 70%,transparent)}
+    .filter-tab[aria-selected="true"]{color:var(--text-primary);background:var(--surface-overlay);border-color:var(--border-default);box-shadow:inset 0 -2px 0 var(--primitive-green-500)}
+    @container (min-width:768px){.filter-bar{display:flex;flex-wrap:nowrap;gap:var(--space-2)} .filter-tab{flex-direction:row;gap:var(--space-2);padding-inline:var(--space-3);font-size:14px}}
+    .filter-note{margin:0;color:var(--text-tertiary);font-size:13px;line-height:1.5;max-inline-size:62ch}
+    .exam-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-3)}
+    .exam-card{display:flex;flex-direction:column;gap:var(--space-4);padding:var(--space-4);border:var(--border-width-default) solid var(--border-default);border-radius:var(--radius-card);background:var(--surface-page);transition:border-color var(--motion-base) var(--ease-enter)}
+    .exam-card:hover{border-color:var(--border-strong)}
+    .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3)}
+    .subject-tag{padding:4px 8px;border-radius:var(--radius-control);background:var(--surface-sunken);color:var(--text-secondary);font:700 10px/1.4 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+    .status-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:var(--border-width-hairline) solid var(--state-info-border);border-radius:var(--radius-control);background:var(--state-info-bg);color:var(--state-info-fg);font-size:11px;font-weight:700;white-space:nowrap}
+    .status-chip .dot{inline-size:6px;block-size:6px;flex:none;background:currentColor}
+    .status-chip.pass{border-color:var(--state-correct-border);background:var(--state-correct-bg);color:var(--state-correct-fg)}
+    .status-chip.warn{border-color:var(--state-gold-border);background:var(--state-gold-bg);color:var(--state-gold-fg)}
+    .status-chip.neutral{border-color:var(--border-default);background:var(--surface-sunken);color:var(--text-tertiary)}
+    .exam-card h3{margin:0;font-size:17px;line-height:1.35}
+    .exam-card .desc{margin:0;color:var(--text-tertiary);font-size:13px;line-height:1.55;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;overflow-wrap:anywhere}
+    .meta-rows{display:grid;gap:var(--space-2);margin-block-start:auto}
+    .meta-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--space-2) var(--space-4);color:var(--text-secondary);font-size:13px}
+    .meta-item{display:inline-flex;align-items:center;gap:6px;min-inline-size:0}
+    .meta-item svg{flex:none;color:var(--text-tertiary)}
+    .meta-item .val{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular lining-nums}
+    .meta-window{display:inline-flex;align-items:center;gap:6px;min-inline-size:0;color:var(--text-secondary);font-size:13px}
+    .meta-window .val{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular lining-nums;overflow-wrap:anywhere}
+    .exam-action{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);inline-size:100%;min-block-size:var(--control-default);padding-inline:var(--space-4);border:var(--border-width-default) solid transparent;border-radius:var(--radius-control);font-weight:600;font-size:14px;text-decoration:none;transition:background-color var(--motion-quick) var(--ease-enter),border-color var(--motion-quick) var(--ease-enter),color var(--motion-quick) var(--ease-enter),transform var(--motion-quick) var(--ease-enter)}
+    .exam-action.primary{background:var(--action-primary-bg);color:var(--action-primary-fg);border-color:var(--action-primary-bg)}
+    .exam-action.primary:hover{transform:translateY(-1px)}
+    .exam-action.secondary{background:var(--action-secondary-bg);color:var(--action-secondary-fg);border-color:var(--border-default)}
+    .exam-action.secondary:hover{border-color:var(--border-strong);background:var(--surface-raised)}
+    .exam-action:disabled,.exam-action.disabled{color:var(--text-disabled);background:var(--surface-sunken);border-color:var(--border-subtle);cursor:not-allowed}
+    .banner{display:grid;gap:var(--space-1);padding:var(--space-3);border:var(--border-width-default) solid var(--border-default);background:var(--surface-raised);font-size:13px}
+    .banner strong{display:flex;align-items:center;gap:var(--space-2)}
+    .banner p{margin:0;color:var(--text-secondary)}
+    .banner.error{border-color:var(--state-incorrect-border);background:var(--state-incorrect-bg);color:var(--state-incorrect-fg)}
+    .banner.error p{color:var(--state-incorrect-fg)}
+    .empty-state{display:grid;gap:var(--space-3);justify-items:start;padding:var(--space-7) var(--space-4);border:var(--border-width-default) dashed var(--border-default);text-align:start}
+    .empty-state h4{margin:0;font-size:16px}
+    .empty-state p{margin:0;color:var(--text-tertiary);font-size:13px;max-inline-size:46ch}
+    .empty-state .mark{inline-size:24px;block-size:24px;border:var(--border-width-emphasis) solid var(--border-strong);transform:rotate(45deg)}
+    .exam-modal{inline-size:min(480px,calc(100% - var(--space-8)));padding:0;border:var(--border-width-default) solid var(--border-strong);border-radius:var(--radius-card);background:var(--surface-overlay);color:var(--text-primary);box-shadow:var(--shadow-overlay)}
+    .exam-modal::backdrop{background:color-mix(in srgb,var(--primitive-ink) 55%,transparent)}
+    .modal-body{display:grid;gap:var(--space-4);padding:var(--space-5)}
+    .modal-head{display:grid;gap:var(--space-2)}
+    .modal-head .row1{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3)}
+    .modal-head h2{margin:0;font-size:18px;line-height:1.3}
+    .modal-pills{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+    .modal-close{inline-size:44px;block-size:44px;flex:none;display:grid;place-items:center;border:0;border-radius:var(--radius-control);background:transparent;color:var(--text-secondary)}
+    .modal-close:hover{background:var(--surface-raised);color:var(--text-primary)}
+    .rules-list{display:grid;gap:var(--space-2);margin:0;padding:0;list-style:none;font-size:13px}
+    .rules-list li{display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-3);padding-block:var(--space-2);border-block-end:var(--border-width-hairline) solid var(--border-subtle)}
+    .rules-list li:last-child{border-block-end:0}
+    .rules-list .k{color:var(--text-secondary)}
+    .rules-list .v{font-weight:600;text-align:end}
+    .time-check{display:grid;gap:var(--space-1)}
+    .modal-actions{display:flex;gap:var(--space-3)}
+    .modal-actions .exam-action{inline-size:auto;flex:1}
+    [dir="rtl"] .back-control svg,[dir="rtl"] .crumb-sep svg{transform:scaleX(-1)}
+    [dir="rtl"] .app{font-family:var(--font-arabic)}
+    .od-nowrap{white-space:nowrap}
+    .exam-modal[open]{animation:modal-in var(--motion-base) var(--ease-enter)}
+    @keyframes modal-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .app-topbar,.crumbs,.page-head,.filter-bar,.exam-grid,.banner,.empty-state{padding-inline:0}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+    .copy-ar,.copy-en{display:inline}
+    .product-canvas[data-locale="ar"] .copy-en{display:none}
+    .product-canvas[data-locale="en"] .copy-ar{display:none}
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden"><symbol id="qiyas-logo-en" viewBox="0 0 1201 349"><path d="M343 96v197h34V96zM1014 93l-1 112 133 1 1 56-133 1-1 31h167l-1-119-133-1 1-50h133V94zM751 93v201l33-1 1-88h111l1 89h33V93zm32 32 113-1 1 50-112 0zM471 91v113h81l2 2v92h35v-93l82-1V92h-34l-1 82H506l-1-82z"/><path d="M21 88v205h174l35 35 20-19-6-10-101-107-5 1-17 19 43 49-110 1-2-4 2-137 155-1 2 2v122l31 32V89z"/><path d="m341 74 2 2h36l-19-32zm-196-54v31l31 1V21zm-65 0-2 21 2 11h29l1-32z"/></symbol><symbol id="qiyas-logo-ar" viewBox="0 0 1202 299"><path d="M343 104h-29l-1 96-42-1v-96h-28l-1 97-43-1-1-76h-27l-2 116H50l-1-63-28-1-1 90 178 1 1-38h142zM400 72l1 156h582v-28H852l-1-97h-28l-1 97H430l-1-128z"/><path d="m1173 75-15-2-12 2H985l-1 152 134 1 39 43 8 1 14-14 2-4-100-107h-4l-17 19 27 29 1 4-72 1-2-2-1-92 2-3h129v93l29 28z"/><path d="M646 249v24l2 5 29-1v-28zm57 0 1 29h29v-29zM412 23l-14 24v5h33l-4-11-12-19zm684-3v29h29V20zm-51 0-3 5 1 24 29 1 1-29z"/></symbol></svg>
+
+  <header class="document-header" data-od-id="sched-document-header">
+    <div class="document-title"><div class="title-row"><svg class="qiyas-logo" viewBox="0 0 1201 349" role="img" aria-label="Qiyas"><path style="fill:var(--logo-ink)" d="M343 96v197h34V96zM1014 93l-1 112 133 1 1 56-133 1-1 31h167l-1-119-133-1 1-50h133V94zM751 93v201l33-1 1-88h111l1 89h33V93zm32 32 113-1 1 50-112 0zM471 91v113h81l2 2v92h35v-93l82-1V92h-34l-1 82H506l-1-82z"/><path style="fill:var(--logo-green)" d="M21 88v205h174l35 35 20-19-6-10-101-107-5 1-17 19 43 49-110 1-2-4 2-137 155-1 2 2v122l31 32V89z"/><path style="fill:var(--logo-gold)" d="m341 74 2 2h36l-19-32zm-196-54v31l31 1V21zm-65 0-2 21 2 11h29l1-32z"/></svg><div><strong>Qiyas · Screen 15</strong><br><span>Scheduled Exams Listing</span></div></div></div>
+    <div class="control-cluster" aria-label="Preview settings">
+      <span class="control-label">Theme</span><button class="toggle-button" id="theme-control" aria-pressed="false" type="button">Dark</button>
+      <span class="control-label">Language</span><button class="toggle-button" id="locale-control" aria-pressed="false" type="button">English</button>
+    </div>
+  </header>
+
+  <main class="page" data-od-id="sched-handoff">
+    <section class="section intro" data-od-id="sched-introduction">
+      <div><p class="eyebrow">Screen 15 · Student exams</p><h1 data-od-id="sched-title">One question at first glance: can I take something right now?</h1><p class="lede">The scheduled exams list puts availability before chronology. The filter bar is a five-column row under a three-month history note, every card ends in exactly one action, and the window a student can still enter is stated as an explicit time range. Arabic is primary; dates, durations, and counts stay LTR islands with tabular figures.</p></div>
+      <aside class="decision" data-od-id="sched-decision"><strong>Resolution</strong><p>Default to All and render each card from one status model so the badge, the action label, and the filter bucket can never disagree. Start is the only primary action; everything else is secondary, disabled with a reason, or a route to an existing runtime.</p><strong class="rejected-label">Rejected</strong><p>A chronological transcript of the three-month window. Expired attempts compete with the exam open right now, and the student scrolls to find out whether anything is actionable.</p></aside>
+    </section>
+
+    <section class="section" data-od-id="sched-live-preview">
+      <div class="section-head"><div><p class="eyebrow">Live preview</p><h2>Both canvases render one state.</h2></div><p>Theme, locale, filter, and the rules modal are driven by one render function; both surfaces show the same active content and never reset each other.</p></div>
+      <div class="preview-grid">
+        <div class="preview-wrap"><div class="preview-label"><span>Mobile</span><span>390 × 844 · check 360</span></div><div class="product-canvas preview-phone" data-device="mobile" data-locale="ar" data-od-id="sched-mobile-preview"></div></div>
+        <div class="preview-wrap"><div class="preview-label"><span>Desktop</span><span>1440 reference · 1180 content cap</span></div><div class="product-canvas preview-desktop" data-device="desktop" data-locale="ar" data-od-id="sched-desktop-preview"></div></div>
+      </div>
+    </section>
+
+    <section class="section" data-od-id="sched-status-model">
+      <div class="section-head"><div><p class="eyebrow">Status model</p><h2>Five statuses, one source of truth.</h2></div><p>Status is derived from the schedule window and the attempt record, never stored by hand. The bucket drives the filter; the status drives the badge, the button, and the target.</p></div>
+      <div class="table-wrap"><table><thead><tr><th>Status</th><th>Source rule</th><th>Card badge</th><th>Action</th><th>Target</th></tr></thead><tbody>
+        <tr><td>Available</td><td class="mono">starts_at ≤ now &lt; ends_at · no open attempt</td><td>chip pass (green, dot + label)</td><td>Start Exam — button-primary</td><td>Rules &amp; start verification modal</td></tr>
+        <tr><td>In Progress</td><td class="mono">in window · open attempt exists</td><td>chip warn (gold, dot + label)</td><td>Resume Exam — button-secondary</td><td><span class="mono">/student/exam/:id</span> runtime (prototype: qiyas-taking-test.html)</td></tr>
+        <tr><td>Upcoming</td><td class="mono">starts_at &gt; now</td><td>chip info (dot + label)</td><td>Upcoming — disabled with reason</td><td>None until the window opens</td></tr>
+        <tr><td>Completed</td><td class="mono">ends_at ≤ now · attempt submitted</td><td>chip pass (dot + label)</td><td>View Result — button-secondary + arrow</td><td><span class="mono">/student/exam/:id</span> result (prototype: qiyas-results-explanations.html)</td></tr>
+        <tr><td>Expired</td><td class="mono">ends_at ≤ now · no attempt</td><td>chip neutral (dot + label)</td><td>Expired — disabled</td><td>None; the window closed unattempted</td></tr>
+      </tbody></table></div>
+      <p class="overline" style="margin-block-start:var(--space-4)">Filter buckets · All / الكل = everything in the 3-month window · Available / المتاحة = in-window (includes In Progress) · Upcoming / القادمة · Completed / المكتملة = window closed with a submitted attempt · Expired / المنتهية = window closed unattempted</p>
+    </section>
+
+    <section class="section" data-od-id="sched-empty-and-recovery">
+      <div class="section-head"><div><p class="eyebrow">Empty states</p><h2>Every empty filter explains the next action.</h2></div><p>Each filter has its own empty copy that says why it is empty and where to go next. Loading, error, and offline screens are out of scope for this screen.</p></div>
+      <div class="table-wrap"><table><thead><tr><th>State</th><th>Condition</th><th>Surface</th><th>Copy contract</th></tr></thead><tbody>
+        <tr><td>Empty · All</td><td>Zero exams in window</td><td>empty state + route</td><td>“No scheduled exams found. Open the Learning Library to keep studying.”</td></tr>
+        <tr><td>Empty · Available</td><td>Nothing open now</td><td>empty state</td><td>“No exams are currently available to take. Check Upcoming for your next window.”</td></tr>
+        <tr><td>Empty · Upcoming</td><td>No future windows</td><td>empty state</td><td>“No upcoming scheduled exams at this time. New windows appear here when the school assigns them.”</td></tr>
+        <tr><td>Empty · Completed</td><td>Nothing submitted yet</td><td>empty state</td><td>“No completed exams yet. Exams you submit appear here with their result once the attempt is recorded.”</td></tr>
+        <tr><td>Empty · Expired</td><td>No closed windows</td><td>empty state</td><td>“No expired exams in your recent history.”</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="section" data-od-id="sched-component-mapping">
+      <div class="section-head"><div><p class="eyebrow">Component mapping</p><h2>Exact system vocabulary.</h2></div><p>The reference web build expresses this screen in Tailwind utilities (rounded-xl, pills, solid emerald). The Qiyas system wins on visual tokens; the translation is named per row and the open items are in the gap list.</p></div>
+      <div class="table-wrap"><table><thead><tr><th>Element on screen</th><th>System component</th><th>Tokens / variant</th><th>Notes for devs</th></tr></thead><tbody>
+        <tr><td>Page frame</td><td>Student shell</td><td>authenticated shell · content cap 1180</td><td>Back control returns to the student dashboard with scroll restored; document controls stay outside the surface.</td></tr>
+        <tr><td>Breadcrumb</td><td>Context rail text + status square</td><td>--text-tertiary 13px · green square 8px</td><td>Subject identity sits before the crumb; the dot is a square per the system motif, not a circle.</td></tr>
+        <tr><td>Locale / theme control</td><td>Locale switch · theme switch</td><td>document header · 44px · aria-pressed</td><td>Prototype-level only; production keeps the app-wide switch behaviour from the shell.</td></tr>
+        <tr><td>Filter bar</td><td>tabs / tab</td><td>role=tablist · surface-sunken track · green inset underline on selected</td><td>Five equal columns on one line; the selected tab raises to the overlay surface. Reference’s white pill → system 4px radius.</td></tr>
+        <tr><td>History note</td><td>Context text</td><td>--text-tertiary · 13px</td><td>Sits under the page description and above the filters; states that the history window is three months.</td></tr>
+        <tr><td>Exam card</td><td>card</td><td>--radius-card · border-default → hover border-strong</td><td>One action per card; no stacked cards; 24px desktop / 16px mobile padding.</td></tr>
+        <tr><td>Subject tag</td><td>overline chip</td><td>mono 10px uppercase · --surface-sunken</td><td>Reference’s font-mono pill, squared. Never truncated.</td></tr>
+        <tr><td>Status indicator</td><td>chip pass / warn / info / neutral</td><td>dot + label; state-correct · state-gold · state-info · sunken</td><td>Never color alone: every status carries its label text. Green = correctness/availability, gold = live attempt.</td></tr>
+        <tr><td>Meta row</td><td>icon + mono value</td><td>Lucide 1.5px square caps · LTR isolate · tabular lining</td><td>Duration, question count, and the Starts–Ends window; window wraps but never splits a date.</td></tr>
+        <tr><td>Primary action</td><td>button-primary</td><td>48px full-width · Ink</td><td>Reference’s solid emerald Start maps to Ink per the system’s primary-action decision.</td></tr>
+        <tr><td>View / Resume</td><td>button-secondary</td><td>outline · 48px</td><td>View Result carries the ↗ arrow icon; Resume returns to the runtime with the open attempt.</td></tr>
+        <tr><td>Disabled action</td><td>button · disabled</td><td>--text-disabled on --surface-sunken</td><td>Label states the reason (Upcoming / Expired); no tooltip-only explanation.</td></tr>
+        <tr><td>Rules modal</td><td>dialog / sheet</td><td>--shadow-overlay · 4px radius · focus contained · Esc + close button</td><td>Rules list, duration/count chips, time-verification banner (state-info vs state-incorrect), Not Now / Start.</td></tr>
+        <tr><td>Empty</td><td>empty</td><td>dashed border · square mark motif</td><td>Says why it is empty and where to go next.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="section" data-od-id="sched-mobile-handoff">
+      <div class="section-head"><div><p class="eyebrow">Flutter handoff</p><h2>Mobile geometry and behavior.</h2></div><p>The mobile surface owns its canvas: full width at 390px and 360px, one logical 16px inset, single column, and normal vertical flow for long Arabic titles.</p></div>
+      <div class="table-wrap"><table><thead><tr><th>Element</th><th>Mobile specification</th><th>Implementation note</th></tr></thead><tbody>
+        <tr><td>Canvas</td><td class="mono">390 × 844; verify 360</td><td>Full-bleed preview frame; usable content 358px at 390 and 328px at 360. Never stack host gutter on product inset.</td></tr>
+        <tr><td>SafeArea</td><td>Top and bottom</td><td>Top bar clears the notch; ≥16px below the last card.</td></tr>
+        <tr><td>Horizontal inset</td><td class="mono">16px logical start + end</td><td>One inset for top bar, header, filter bar, and cards alike.</td></tr>
+        <tr><td>Top bar</td><td class="mono">56px · sticky</td><td>Back ≥44×44; bell ≥44×44; current crumb truncates with ellipsis, subject dot never.</td></tr>
+        <tr><td>Filter tabs</td><td class="mono">5-col grid · min 44px height</td><td>All five filters sit on one line as five equal columns at every width. The label drops to 12px inside 360px so Completed and Expired stay fully visible; the desktop canvas returns to a single-line row at 14px.</td></tr>
+        <tr><td>History note</td><td class="mono">13px · above filters</td><td>One tertiary line under the page description stating the three-month history limit; wraps in normal flow at 360px.</td></tr>
+        <tr><td>Card</td><td class="mono">16px padding · gap 12</td><td>Single column; header row (tag + badge) → title → description (2-line clamp, full text on the detail screen) → meta → action.</td></tr>
+        <tr><td>Action button</td><td class="mono">48px full width</td><td>One per card; disabled states keep the reason label.</td></tr>
+        <tr><td>Timestamps</td><td>LTR isolate · tabular</td><td>“Sep 14, 2026, 12:08 PM” style; Arabic month names with Western digits; wraps whole values only.</td></tr>
+        <tr><td>Rules modal</td><td class="mono">inset-inline 16px · block-start 24px</td><td>Scrolls internally; Not Now and Start each ≥48px in a two-up row.</td></tr>
+        <tr><td>Scroll</td><td>List scrolls</td><td>Content scrolls under the sticky top bar; keyboard cannot cover actions (no text input on this screen).</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="section" data-od-id="sched-gaps">
+      <div class="section-head"><div><p class="eyebrow">Gap list</p><h2>Open decisions stay visible.</h2></div><p>Not hidden in custom components. Each gap names what is missing and why the prototype stayed conservative.</p></div>
+      <ul class="gap-list" data-od-id="sched-gap-list">
+        <li><strong>Upcoming accent has no system color</strong><span>The reference build uses sky blue; the Qiyas palette reserves green for correctness and gold for achievement. Upcoming maps to state-info (green-tinted) pending a token decision.</span></li>
+        <li><strong>Resume button treatment</strong><span>The reference build paints Resume amber-solid; solid fill belongs to the single primary action. Mapped to button-secondary + gold chip warn until the interaction owner confirms.</span></li>
+        <li><strong>Live clock refresh</strong><span>Statuses derive from wall time. The refresh policy when a window opens or closes while the student is on the list (poll, push, on-focus) is a server decision.</span></li>
+        <li><strong>Window pagination</strong><span>The 3-month visibility window is assumed to fit one fetch. Pagination or virtualization beyond 50 items is unspecified.</span></li>
+        <li><strong>Result deep link contract</strong><span>View Result routes to /student/exam/:id in production; this prototype links Screen 10 without an attempt parameter.</span></li>
+        <li><strong>Arabic calendar and digits</strong><span>ar-SA defaults to Hijri; the prototype pins Gregorian with Western (latin) digits to match the numeral rule. Confirm product-wide.</span></li>
+        <li><strong>Notification destination</strong><span>The bell is shell chrome in the spec’s header; its route and unread contract are not defined anywhere in the system yet.</span></li>
+        <li><strong>Cooldown interplay</strong><span>If the rules engine adds a retry cooldown to scheduled exams, the card needs a cooldown state; the badge ladder’s cooldown component is exam-attempt scoped today.</span></li>
+      </ul>
+    </section>
+
+    <section class="section" data-od-id="sched-flutter-tokens"><div class="section-head"><div><p class="eyebrow">Flutter handoff</p><h2>Keep both clients on the same listing contract.</h2></div><p>React consumes the CSS custom properties in this file. Flutter consumes the matching semantic values from the shared token source.</p></div><pre class="card mono" style="overflow:auto;margin:0;font-size:12.5px"><code>final qiyasScheduledExamsTheme = ThemeData(
+  scaffoldBackgroundColor: const Color(0xFFFEFEFE),
+  colorScheme: const ColorScheme.light(
+    primary: Color(0xFF11120F),          // Ink — Start Exam
+    secondary: Color(0xFF0D662C),        // green — status correctness / selected underline
+    error: Color(0xFFC84B15),            // terracotta — failure and insufficient-window copy
+    surface: Color(0xFFFEFEFE),
+  ),
+  textTheme: const TextTheme(
+    titleLarge: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 26, fontWeight: FontWeight.w700),
+    titleMedium: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 17, fontWeight: FontWeight.w700),
+    bodyMedium: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 14, height: 1.5),
+    bodySmall: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 13, height: 1.55, color: Color(0xFF61665C)),
+  ),
+  // card radius 4 · control 48 · filter min 44 · section gap 24 · inset 16 · chip 11px mono tabular
+);</code></pre></section>
+
+    <footer class="footer">Qiyas Screen 15 · Scheduled Exams · Arabic primary · student surface</footer>
+  </main>
+
+  <script>
+    (()=>{
+      const root=document.documentElement;
+      const NOW=new Date('2026-09-15T10:00:00+03:00');
+      const T=(s)=>new Date(s);
+      const exams=[
+        {id:'alg-41',title:{en:'Algebra Assessment 41',ar:'اختبار الجبر 41'},desc:{en:'A 100-question assessment covering linear equations and inequalities from Level 1.',ar:'تقويم من 100 سؤال يغطي المعادلات والمتباينات الخطية من المستوى الأول.'},minutes:30,questions:100,start:T('2026-09-14T12:08:00+03:00'),end:T('2026-09-14T12:38:00+03:00'),attempt:'submitted'},
+        {id:'alg-40',title:{en:'Algebra Assessment 40',ar:'اختبار الجبر 40'},desc:{en:'A 100-question assessment covering expressions and simplification from Level 1.',ar:'تقويم من 100 سؤال يغطي العبارات والتبسيط من المستوى الأول.'},minutes:10,questions:100,start:T('2026-09-14T08:00:00+03:00'),end:T('2026-09-14T08:10:00+03:00'),attempt:'submitted'},
+        {id:'fun-12',title:{en:'Functions Assessment 12',ar:'اختبار الدوال 12'},desc:{en:'Domain, range, and function notation with worked examples from Level 2.',ar:'المجال والمدى ورموز الدوال مع أمثلة محلولة من المستوى الثاني.'},minutes:45,questions:60,start:T('2026-09-15T09:00:00+03:00'),end:T('2026-09-15T12:00:00+03:00'),attempt:'none'},
+        {id:'tri-7',title:{en:'Trigonometry Assessment 7',ar:'اختبار حساب المثلثات 7'},desc:{en:'Unit circle values and the sine and cosine rules, timed like the badge exam.',ar:'قيم دائرة الوحدة وقانونا الجيب وجيب التمام، بتوقيت مماثل لاختبار الشارة.'},minutes:60,questions:80,start:T('2026-09-15T09:30:00+03:00'),end:T('2026-09-15T11:30:00+03:00'),attempt:'open'},
+        {id:'seq-3',title:{en:'Sequences Assessment 3',ar:'اختبار المتتاليات 3'},desc:{en:'Arithmetic and geometric sequences with recurrence relations.',ar:'المتتاليات الحسابية والهندسية مع العلاقات التكرارية.'},minutes:30,questions:40,start:T('2026-09-16T09:00:00+03:00'),end:T('2026-09-16T10:00:00+03:00'),attempt:'none'},
+        {id:'geo-18',title:{en:'Geometry Assessment 18',ar:'اختبار الهندسة 18'},desc:{en:'Triangle congruence and similarity proofs from the Level 2 track.',ar:'إثباتات تطابق وتشابه المثلثات من المسار الثاني.'},minutes:30,questions:50,start:T('2026-09-13T14:00:00+03:00'),end:T('2026-09-13T15:00:00+03:00'),attempt:'none'},
+        {id:'sta-2',title:{en:'Statistics Assessment 2',ar:'اختبار الإحصاء 2'},desc:{en:'Averages, spread, and reading charts from short data sets.',ar:'المتوسطات والتشتت وقراءة المخططات من مجموعات بيانات قصيرة.'},minutes:30,questions:25,start:T('2026-09-15T09:50:00+03:00'),end:T('2026-09-15T10:20:00+03:00'),attempt:'none'}
+      ];
+      const FILTERS=[
+        {key:'all',label:{en:'All',ar:'الكل'}},
+        {key:'available',label:{en:'Available',ar:'المتاحة'}},
+        {key:'upcoming',label:{en:'Upcoming',ar:'القادمة'}},
+        {key:'completed',label:{en:'Completed',ar:'المكتملة'}},
+        {key:'expired',label:{en:'Expired',ar:'المنتهية'}}
+      ];
+      const COPY={
+        eyebrow:{en:'SCHEDULED EXAMS',ar:'الامتحانات المجدولة'},
+        title:{en:'Scheduled Exams',ar:'الامتحانات المجدولة'},
+        lede:{en:'Your upcoming and available scheduled exams will appear here.',ar:'ستظهر هنا امتحاناتك المجدولة القادمة والمتاحة حالياً.'},
+        history:{en:'The history available here is limited to the past three months.',ar:'التاريخ المتاح هنا يقتصر على الأشهر الثلاثة الماضية.'},
+        back:{en:'Back',ar:'رجوع'},
+        subject:{en:'Mathematics',ar:'الرياضيات'},
+        current:{en:'Scheduled Exams',ar:'الامتحانات المجدولة'},
+        bell:{en:'Notifications',ar:'الإشعارات'},
+        filterAria:{en:'Exam status filter',ar:'تصفية حالة الامتحان'},
+        mins:{en:'mins',ar:'دقيقة'},questions:{en:'questions',ar:'سؤال'},
+        starts:{en:'Starts:',ar:'يبدأ:'},ends:{en:'Ends:',ar:'ينتهي:'},
+        status:{completed:{en:'Completed',ar:'مكتمل'},'in-progress':{en:'In Progress',ar:'قيد التنفيذ'},available:{en:'Available',ar:'متاح'},upcoming:{en:'Upcoming',ar:'قادم'},expired:{en:'Expired',ar:'منتهٍ'}},
+        action:{completed:{en:'View Result',ar:'عرض النتيجة'},'in-progress':{en:'Resume Exam',ar:'إكمال الاختبار'},available:{en:'Start Exam',ar:'بدء الاختبار'},upcoming:{en:'Upcoming',ar:'قادم لاحقاً'},expired:{en:'Expired',ar:'منتهٍ'}},
+        empty:{
+          all:{t:{en:'No scheduled exams found.',ar:'لا توجد امتحانات مجدولة.'},p:{en:'Nothing was assigned in the last three months. Keep studying in the Learning Library and new windows will appear here.',ar:'لم يُسند لك شيء خلال الأشهر الثلاثة الماضية. واصل التعلم في مكتبة التعلّم وستظهر النوافذ الجديدة هنا.'}},
+          available:{t:{en:'No exams are currently available to take.',ar:'لا توجد امتحانات متاحة للبدء حالياً.'},p:{en:'The next window opens on the Upcoming tab once its start time arrives.',ar:'تفتح النافذة التالية في تبويب القادمة عند وصول وقت البدء.'}},
+          upcoming:{t:{en:'No upcoming scheduled exams at this time.',ar:'لا توجد امتحانات مجدولة قادمة حالياً.'},p:{en:'New windows appear here when the school assigns them. Browse the Learning Library meanwhile.',ar:'تظهر النوافذ الجديدة هنا عند إسنادها من المدرسة. تصفّح مكتبة التعلّم في الأثناء.'}},
+          completed:{t:{en:'No completed exams yet.',ar:'لا توجد امتحانات مكتملة بعد.'},p:{en:'Exams you submit appear here with their result once the attempt is recorded.',ar:'تظهر هنا الامتحانات التي أرسلتها مع نتيجتها بعد تسجيل المحاولة.'}},
+          expired:{t:{en:'No expired exams in your recent history.',ar:'لا توجد امتحانات منتهية في سجلّك الحديث.'},p:{en:'Closed windows stay visible for three months, then move to your archive.',ar:'تبقى النوافذ المغلقة ظاهرة لثلاثة أشهر ثم تنتقل إلى الأرشيف.'}}
+        },
+        library:{en:'Open Learning Library',ar:'افتح مكتبة التعلّم'},
+        shown:{en:'{n} exams shown',ar:'عرض {n} امتحاناً'},
+        modal:{
+          close:{en:'Close',ar:'إغلاق'},notNow:{en:'Not Now',ar:'لاحقاً'},confirm:{en:'Start Exam',ar:'بدء الاختبار'},
+          duration:{en:'Duration',ar:'المدة'},count:{en:'Questions',ar:'الأسئلة'},
+          rulesTitle:{en:'Exam rules',ar:'قواعد الاختبار'},
+          autoSave:{en:'Auto-save',ar:'الحفظ التلقائي'},autoSaveOn:{en:'On — every answer is saved as you move',ar:'مفعّل — تُحفظ كل إجابة أثناء التنقل'},
+          cooldown:{en:'Cooldown after failure',ar:'فترة الانتظار بعد الرسوب'},cooldownVal:{en:'6 hours before a retake',ar:'6 ساعات قبل إعادة المحاولة'},
+          minimum:{en:'Minimum to pass',ar:'الحد الأدنى للنجاح'},minimumVal:{en:'70% correct',ar:'70% إجابات صحيحة'},
+          okTitle:{en:'Your window covers the full duration.',ar:'نافذتك تغطي المدة كاملة.'},
+          okBody:{en:'{left} left before the window closes; this exam needs {need}.',ar:'متبقٍ {left} قبل إغلاق النافذة، والمطلوب {need}.'},
+          lowTitle:{en:'Not enough time to finish safely.',ar:'لا يوجد وقت كافٍ للإنهاء بأمان.'},
+          lowBody:{en:'{left} left but this exam needs {need}. If the window closes mid-attempt, saved answers submit automatically. Retry is not available after the window ends.',ar:'متبقٍ {left} والمطلوب {need}. عند إغلاق النافذة أثناء المحاولة تُرسل الإجابات المحفوظة تلقائياً، ولا تتوفر إعادة المحاولة بعد الإغلاق.'}
+        },
+        dur:{en:'min',ar:'د'},hour:{en:'h',ar:'س'}
+      };
+      let locale=localStorage.getItem('qiyas-preview-locale')||'ar';
+      let dark=localStorage.getItem('qiyas-preview-theme')==='dark';
+      let filter=localStorage.getItem('qiyas-sched-filter')||'all';
+      let modalExam=null;
+      const canvases=[...document.querySelectorAll('.product-canvas')];
+      const c=(k)=>COPY[k][locale==='ar'?'ar':'en'];
+      const s=(o)=>o[locale==='ar'?'ar':'en'];
+      const statusOf=(e)=>{if(e.start>NOW)return 'upcoming';if(e.end<=NOW)return e.attempt==='submitted'?'completed':'expired';return e.attempt==='open'?'in-progress':'available';};
+      const bucketOf=(e)=>{const st=statusOf(e);return st==='upcoming'?'upcoming':st==='completed'?'completed':st==='expired'?'expired':'available';};
+      const dt=(d)=>{const o={month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'};const loc=locale==='ar'?'ar-SA-u-ca-gregory-nu-latn':'en-US';try{return new Intl.DateTimeFormat(loc,o).format(d);}catch(_){return new Intl.DateTimeFormat('en-GB',o).format(d);}};
+      const minsSpan=(m)=>{const h=Math.floor(m/60),r=m%60;const parts=[];if(h)parts.push(h+' '+COPY.dur.hour);if(r||!h)parts.push(r+' '+COPY.dur.min);return parts.join(' ');};
+      const esc=(x)=>String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      const ICONS={clock:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke-linecap="round"/><path d="M12 7v5l3 2"/></svg>',list:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><rect x="4" y="4" width="16" height="16"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>',cal:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><rect x="3" y="5" width="18" height="16"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',chev:'<svg class="crumb-sep" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg>',back:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M15 4 7 12l8 8"/><path d="M7 12h12"/></svg>',bell:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19h4"/></svg>',arrow:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>',x:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg>'};
+      function actionFor(e){
+        const st=statusOf(e);
+        if(st==='completed')return '<a class="exam-action secondary" href="qiyas-results-explanations.html" data-od-id="sched-action-result-'+e.id+'">'+esc(s(COPY.action.completed))+' '+ICONS.arrow+'</a>';
+        if(st==='in-progress')return '<a class="exam-action secondary" href="qiyas-taking-test.html" data-od-id="sched-action-resume-'+e.id+'">'+esc(s(COPY.action['in-progress']))+'</a>';
+        if(st==='available')return '<button class="exam-action primary" type="button" data-start="'+e.id+'" data-od-id="sched-action-start-'+e.id+'">'+esc(s(COPY.action.available))+'</button>';
+        if(st==='upcoming')return '<button class="exam-action" type="button" disabled data-od-id="sched-action-upcoming-'+e.id+'">'+esc(s(COPY.action.upcoming))+'</button>';
+        return '<button class="exam-action" type="button" disabled data-od-id="sched-action-expired-'+e.id+'">'+esc(s(COPY.action.expired))+'</button>';
+      }
+      function cardHtml(e){
+        const st=statusOf(e);const chip=st==='completed'||st==='available'?'pass':st==='in-progress'?'warn':st==='upcoming'?'':'neutral';
+        return '<article class="exam-card" data-od-id="sched-exam-card-'+e.id+'">'
+          +'<div class="card-head"><span class="subject-tag" data-od-id="sched-subject-tag">'+esc(locale==='ar'?'رياضيات':'MATHEMATICS')+'</span>'
+          +'<span class="status-chip '+chip+'"><span class="dot" aria-hidden="true"></span>'+esc(s(COPY.status[st]))+'</span></div>'
+          +'<div><h3>'+esc(s(e.title))+'</h3><p class="desc">'+esc(s(e.desc))+'</p></div>'
+          +'<div class="meta-rows"><div class="meta-row"><span class="meta-item">'+ICONS.clock+'<span class="val" data-od-id="sched-duration">'+e.minutes+' '+esc(s(COPY.mins))+'</span></span>'
+          +'<span class="meta-item">'+ICONS.list+'<span class="val" data-od-id="sched-questions">'+e.questions+' '+esc(s(COPY.questions))+'</span></span></div>'
+          +'<span class="meta-window">'+ICONS.cal+'<span class="val">'+esc(s(COPY.starts))+' '+esc(dt(e.start))+' — '+esc(s(COPY.ends))+' '+esc(dt(e.end))+'</span></span></div>'
+          +actionFor(e)+'</article>';
+      }
+      function listHtml(){
+        const items=exams.filter(e=>filter==='all'||bucketOf(e)===filter);
+        let out='';
+        if(!items.length){const em=COPY.empty[filter];out+='<div class="empty-state" data-od-id="sched-empty"><span class="mark" aria-hidden="true"></span><h4>'+esc(s(em.t))+'</h4><p>'+esc(s(em.p))+'</p>'+(filter==='all'||filter==='upcoming'?'<a class="exam-action secondary" href="qiyas-learning-library.html" style="inline-size:auto">'+esc(c('library'))+'</a>':'')+'</div>';return out;}
+        out+='<p class="sr-live" aria-live="polite">'+esc(s(COPY.shown).replace('{n}',items.length))+'</p><div class="exam-grid">'+items.map(cardHtml).join('')+'</div>';
+        return out;
+      }
+      function modalHtml(){
+        if(!modalExam)return '';
+        const e=exams.find(x=>x.id===modalExam);if(!e)return '';
+        const left=Math.max(0,Math.round((e.end-NOW)/60000));const enough=left>=e.minutes;
+        const ok=s(COPY.modal.okBody).replace('{left}',minsSpan(left)).replace('{need}',minsSpan(e.minutes));
+        const low=s(COPY.modal.lowBody).replace('{left}',minsSpan(left)).replace('{need}',minsSpan(e.minutes));
+        return '<dialog class="exam-modal" data-od-id="sched-rules-modal" aria-labelledby="sched-modal-title-'+e.id+'"><form method="dialog" class="modal-body">'
+          +'<div class="modal-head"><div class="row1"><h2 id="sched-modal-title-'+e.id+'">'+esc(s(e.title))+'</h2><button class="modal-close" type="button" data-modal-close aria-label="'+esc(s(COPY.modal.close))+'">'+ICONS.x+'</button></div>'
+          +'<div class="modal-pills"><span class="subject-tag">'+e.minutes+' '+esc(s(COPY.mins))+'</span><span class="subject-tag">'+e.questions+' '+esc(s(COPY.questions))+'</span></div></div>'
+          +'<p class="overline" style="margin:0">'+esc(s(COPY.modal.rulesTitle))+'</p>'
+          +'<ul class="rules-list"><li><span class="k">'+esc(s(COPY.modal.duration))+'</span><span class="v mono">'+minsSpan(e.minutes)+'</span></li>'
+          +'<li><span class="k">'+esc(s(COPY.modal.autoSave))+'</span><span class="v">'+esc(s(COPY.modal.autoSaveOn))+'</span></li>'
+          +'<li><span class="k">'+esc(s(COPY.modal.cooldown))+'</span><span class="v">'+esc(s(COPY.modal.cooldownVal))+'</span></li>'
+          +'<li><span class="k">'+esc(s(COPY.modal.minimum))+'</span><span class="v mono">'+esc(s(COPY.modal.minimumVal))+'</span></li></ul>'
+          +'<div class="banner '+(enough?'':'error')+' time-check" data-od-id="sched-time-check"><strong>'+(enough?'':'! ')+esc(enough?s(COPY.modal.okTitle):s(COPY.modal.lowTitle))+'</strong><p>'+esc(enough?ok:low)+'</p></div>'
+          +'<div class="modal-actions"><button class="exam-action secondary" type="button" data-modal-close>'+esc(s(COPY.modal.notNow))+'</button><button class="exam-action primary" type="button" data-modal-confirm>'+esc(s(COPY.modal.confirm))+'</button></div>'
+          +'</form></dialog>';
+      }
+      function appHtml(){
+        return '<div class="app" dir="'+(locale==='ar'?'rtl':'ltr')+'"><header class="app-topbar">'
+          +'<a class="back-control" href="qiyas-student-dashboard.html" data-od-id="sched-back">'+ICONS.back+'<span>'+esc(c('back'))+'</span></a>'
+          +'<nav class="crumbs" aria-label="Breadcrumb" data-od-id="sched-breadcrumb"><span class="subject-dot" aria-hidden="true"></span><span>'+esc(c('subject'))+'</span>'+ICONS.chev+'<span class="crumb-current" data-od-id="sched-crumb-current">'+esc(c('current'))+'</span></nav>'
+          +'<button class="bell-control" type="button" aria-label="'+esc(c('bell'))+'" data-od-id="sched-bell">'+ICONS.bell+'</button></header>'
+          +'<main class="app-main"><div class="page-head" data-od-id="sched-page-head"><p class="eyebrow">'+esc(c('eyebrow'))+'</p><h1 data-od-id="sched-page-title">'+esc(c('title'))+'</h1><p class="lede">'+esc(c('lede'))+'</p><p class="filter-note" data-od-id="sched-history-note">'+esc(c('history'))+'</p></div>'
+          +'<div class="filter-bar" role="tablist" aria-label="'+esc(c('filterAria'))+'" data-od-id="sched-filter-bar">'+FILTERS.map(f=>'<button class="filter-tab" type="button" role="tab" data-filter="'+f.key+'" aria-selected="'+(filter===f.key)+'" data-od-id="sched-filter-'+f.key+'"><span class="od-nowrap">'+esc(s(f.label))+'</span></button>').join('')+'</div>'
+          +'<div role="tabpanel" aria-label="'+esc(c('title'))+'" data-od-id="sched-list-area">'+listHtml()+'</div>'+modalHtml()+'</main></div>';
+      }
+      function apply(){
+        root.dataset.previewLocale=locale;root.dataset.theme=dark?'dark':'light';
+        const lc=document.getElementById('locale-control'),tc=document.getElementById('theme-control');
+        if(lc){lc.textContent=locale==='ar'?'English':'العربية';lc.setAttribute('aria-pressed',String(locale==='en'));}
+        if(tc){tc.textContent=dark?'Light':'Dark';tc.setAttribute('aria-pressed',String(dark));}
+        canvases.forEach(cn=>{cn.dataset.locale=locale;cn.lang=locale;cn.dir=locale==='ar'?'rtl':'ltr';cn.innerHTML=appHtml();});
+        if(modalExam){const e=exams.find(x=>x.id===modalExam);if(e){canvases.forEach(cn=>{const d=cn.querySelector('.exam-modal');if(d&&!d.open){d.showModal();d.addEventListener('close',()=>{if(modalExam){modalExam=null;apply();}},{once:true});}});}}
+      }
+      document.addEventListener('click',(ev)=>{
+        const start=ev.target.closest('[data-start]');if(start){modalExam=start.dataset.start;apply();return;}
+        const mclose=ev.target.closest('[data-modal-close]');if(mclose){modalExam=null;apply();return;}
+        const mconf=ev.target.closest('[data-modal-confirm]');if(mconf){const e=exams.find(x=>x.id===modalExam);if(e)e.attempt='open';modalExam=null;apply();return;}
+        const rf=ev.target.closest('[data-filter]');if(rf){filter=rf.dataset.filter;localStorage.setItem('qiyas-sched-filter',filter);apply();return;}
+        if(ev.target.closest('#theme-control')){dark=!dark;localStorage.setItem('qiyas-preview-theme',dark?'dark':'light');apply();return;}
+        if(ev.target.closest('#locale-control')){locale=locale==='ar'?'en':'ar';localStorage.setItem('qiyas-preview-locale',locale);apply();return;}
+      });
+      apply();
+    })();
+  </script>
+  <style>.sr-live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}</style>
+</body>
+</html>
