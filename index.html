@@ -1,807 +1,145 @@
-<!doctype html>
-<html lang="en" dir="ltr" data-theme="light" data-preview-locale="ar">
-<head><script type="application/json" data-od-external-dependencies>["https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"]</script><script type="application/json" data-od-external-dependencies>["https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"]</script>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Qiyas · Student Dashboard (UI)</title>
-  <script type="application/json" data-od-external-dependencies>["https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"]</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* ===== QIYAS TOKENS — copied verbatim from qiyas-design-system.html ===== */
-    :root {
-      --primitive-green-500: #0D662C;
-      --primitive-green-400: #1A8C43;
-      --primitive-green-200: #66B385;
-      --primitive-green-100: #B3D9C1;
-      --primitive-green-50: #E6F2EA;
-      --primitive-green-700: #09481F;
-      --primitive-green-900: #04230F;
-      --primitive-gold-500: #CE940F;
-      --primitive-gold-400: #DBA724;
-      --primitive-gold-200: #EDC866;
-      --primitive-gold-100: #F9E8B3;
-      --primitive-gold-50: #FFFDF0;
-      --primitive-gold-700: #91680A;
-      --primitive-gold-900: #4A3505;
-      --primitive-ink: #11120F;
-      --primitive-paper: #FEFEFE;
-      --primitive-neutral-50: #F8F9F7;
-      --primitive-neutral-100: #E1E3DF;
-      --primitive-neutral-200: #C4C7C0;
-      --primitive-neutral-400: #878C82;
-      --primitive-neutral-500: #61665C;
-      --primitive-neutral-700: #32352E;
-      --primitive-terracotta-500: #C84B15;
-      --primitive-terracotta-50: #FFF2F0;
-      --primitive-terracotta-700: #96320B;
-
-      --surface-page: var(--primitive-paper);
-      --surface-raised: var(--primitive-neutral-50);
-      --surface-sunken: var(--primitive-neutral-100);
-      --surface-overlay: var(--primitive-paper);
-      --surface-inverse: var(--primitive-ink);
-      --text-primary: var(--primitive-ink);
-      --text-secondary: var(--primitive-neutral-700);
-      --text-tertiary: var(--primitive-neutral-500);
-      --text-disabled: var(--primitive-neutral-400);
-      --text-inverse: var(--primitive-paper);
-      --text-on-brand: var(--primitive-paper);
-      --border-subtle: var(--primitive-neutral-100);
-      --border-default: var(--primitive-neutral-200);
-      --border-strong: var(--primitive-ink);
-      --border-focus: var(--primitive-green-400);
-      --action-primary-bg: var(--primitive-ink);
-      --action-primary-fg: var(--primitive-paper);
-      --action-secondary-bg: var(--surface-page);
-      --action-secondary-fg: var(--text-primary);
-      --action-destructive-bg: var(--primitive-terracotta-700);
-      --action-destructive-fg: var(--primitive-paper);
-      --state-correct-bg: var(--primitive-green-50);
-      --state-correct-border: var(--primitive-green-500);
-      --state-correct-fg: var(--primitive-green-700);
-      --state-incorrect-bg: var(--primitive-terracotta-50);
-      --state-incorrect-border: var(--primitive-terracotta-500);
-      --state-incorrect-fg: var(--primitive-terracotta-700);
-      --state-selected-bg: var(--primitive-neutral-50);
-      --state-selected-border: var(--primitive-ink);
-      --state-gold-bg: var(--primitive-gold-50);
-      --state-gold-border: var(--primitive-gold-500);
-      --state-cooldown-bg: var(--primitive-terracotta-50);
-      --state-cooldown-border: var(--primitive-terracotta-500);
-      --state-info-bg: var(--primitive-green-50);
-      --state-info-border: var(--primitive-green-200);
-      --focus-ring: var(--primitive-green-400);
-      --code-bg: var(--primitive-neutral-700);
-      --shadow-overlay: 4px 4px 0 var(--primitive-ink);
-      --font-display: "IBM Plex Sans", system-ui, sans-serif;
-      --font-body: "IBM Plex Sans", system-ui, sans-serif;
-      --font-arabic: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, sans-serif;
-      --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-      --logo-ink: #11120F; --logo-green: #0D662C; --logo-gold: #CE940F;
-      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
-      --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px;
-      --radius-card: 4px; --radius-control: 4px; --radius-accent: 0;
-      --border-width-hairline: 1px; --border-width-default: 1.5px; --border-width-emphasis: 2px; --border-width-selected: 3px;
-      --content: 1180px;
-      --content-admin: 1280px;
-      --control-compact: 40px; --control-default: 48px; --control-large: 56px;
-      --progress-track: var(--surface-sunken); --progress-fill: var(--primitive-green-500);
-      --timer-low-fill: var(--primitive-terracotta-500); --timer-low-fg: var(--primitive-terracotta-700);
-      --timer-critical-fill: var(--primitive-ink); --timer-critical-fg: var(--primitive-ink);
-      --focus-offset: 3px; --toast-duration: 4s; --loading-min: 240ms;
-      --motion-instant: 0ms; --motion-quick: 120ms; --motion-base: 180ms; --motion-deliberate: 280ms;
-      --motion-signature-min: 600ms; --motion-signature-max: 1000ms;
-      --motion-stagger: 40ms; --motion-tight-stagger: 25ms;
-      --ease-enter: cubic-bezier(.2,.7,.3,1); --ease-exit: cubic-bezier(.5,0,.8,.3); --ease-linear: linear;
-      --rail-width: 168px; --foot-nav-reserve: 72px; --app-bar-h: 56px;
-    }
-    html[data-theme="dark"] {
-      --surface-page: #11120F;
-      --surface-raised: #181A16;
-      --surface-sunken: #0B0C0A;
-      --surface-overlay: #20231E;
-      --surface-inverse: #FEFEFE;
-      --text-primary: #FEFEFE;
-      --text-secondary: #C4C7C0;
-      --text-tertiary: #A8ADA2;
-      --text-disabled: #72786E;
-      --text-inverse: #11120F;
-      --text-on-brand: #FEFEFE;
-      --border-subtle: #2A2E28;
-      --border-default: #4A5046;
-      --border-strong: #FEFEFE;
-      --border-focus: #66B385;
-      --action-primary-bg: #FEFEFE;
-      --action-primary-fg: #11120F;
-      --action-secondary-bg: #181A16;
-      --action-secondary-fg: #FEFEFE;
-      --action-destructive-bg: #96320B;
-      --action-destructive-fg: #FEFEFE;
-      --state-correct-bg: #173D25;
-      --state-correct-border: #66B385;
-      --state-correct-fg: #B3D9C1;
-      --state-incorrect-bg: #4A1B0A;
-      --state-incorrect-border: #E07843;
-      --state-incorrect-fg: #FFD0BD;
-      --state-selected-bg: #20231E;
-      --state-selected-border: #FEFEFE;
-      --state-gold-bg: #3C3217;
-      --state-gold-border: #DBA724;
-      --state-cooldown-bg: #4A1B0A;
-      --state-cooldown-border: #E07843;
-      --state-info-bg: #173D25;
-      --state-info-border: #66B385;
-      --focus-ring: #66B385;
-      --code-bg: #20231E;
-      --shadow-overlay: 4px 4px 0 #000000;
-      --logo-ink: #FEFEFE; --logo-green: #66B385; --logo-gold: #DBA724;
-      --timer-low-fill: var(--state-incorrect-border); --timer-low-fg: var(--state-incorrect-fg);
-      --timer-critical-fill: var(--primitive-paper); --timer-critical-fg: var(--primitive-paper);
-    }
-
-    /* ===== document chrome ===== */
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; background: var(--surface-page); }
-    body { margin: 0; color: var(--text-primary); background: var(--surface-page); font-family: var(--font-body); line-height: 1.5; }
-    a { color: inherit; }
-    button, input, select { font: inherit; }
-    button { cursor: pointer; }
-    :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: var(--focus-offset); }
-    .document-header { position: sticky; inset-block-start: 0; z-index: 30; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) max(16px, calc((100vw - var(--content)) / 2)); background: color-mix(in srgb, var(--surface-page) 94%, transparent); border-block-end: var(--border-width-hairline) solid var(--border-subtle); backdrop-filter: blur(12px); }
-    .document-title { font-weight: 600; }
-    .document-title small { display: block; color: var(--text-tertiary); font: 11px/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
-    .document-title .qiyas-logo { inline-size: 96px; block-size: auto; }
-    .title-row { display: flex; align-items: center; gap: var(--space-3); }
-    .control-cluster { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--space-2); }
-    .control-label { color: var(--text-tertiary); font: 700 10px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
-    .toggle-group { display: inline-flex; max-inline-size: 100%; overflow-x: auto; border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-control); }
-    .toggle-button { min-block-size: 44px; padding-inline: 10px; border: 0; border-inline-start: var(--border-width-hairline) solid var(--border-default); color: var(--text-tertiary); background: transparent; white-space: nowrap; font-size: 12px; font-weight: 600; }
-    .toggle-button:first-child { border-inline-start: 0; }
-    .toggle-button:hover, .toggle-button[aria-pressed="true"] { color: var(--text-primary); background: var(--surface-raised); }
-    .toggle-button[aria-pressed="true"] { box-shadow: inset 0 -2px 0 var(--primitive-green-500); }
-    .page { max-inline-size: var(--content); margin-inline: auto; padding-inline: clamp(16px, 3vw, 24px); }
-    section.section { padding-block: var(--space-8); }
-    section.section + section.section { border-block-start: var(--border-width-hairline) solid var(--border-subtle); }
-    .section-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(240px, .9fr); gap: var(--space-7); align-items: end; margin-block-end: var(--space-6); }
-    .section-head h2 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -.01em; }
-    .section-head p { margin: 0; color: var(--text-secondary); font-size: 14px; }
-    .eyebrow, .overline { color: var(--primitive-green-500); font: 700 11px/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; margin: 0 0 var(--space-2); }
-    .intro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(240px, .8fr); gap: var(--space-7); align-items: start; }
-    .intro h1 { margin: 0; font-size: clamp(30px, 4.4vw, 44px); letter-spacing: -.015em; line-height: 1.15; }
-    .intro p.lede { color: var(--text-secondary); font-size: 16px; max-inline-size: 60ch; }
-    .decision { display: grid; gap: var(--space-2); padding: var(--space-5); border: var(--border-width-default) solid var(--border-default); border-inline-start-width: var(--border-width-emphasis); background: var(--surface-raised); font-size: 14px; }
-    .decision strong { display: block; }
-    .decision p { margin: 0 0 var(--space-3); color: var(--text-secondary); }
-    .decision .rejected-label { color: var(--primitive-terracotta-700); }
-    html[data-theme="dark"] .decision .rejected-label { color: var(--state-incorrect-fg); }
-    .preview-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8); align-items: start; }
-    .preview-wrap { display: grid; gap: var(--space-2); min-inline-size: 0; }
-    .preview-label { display: flex; justify-content: space-between; gap: var(--space-2); color: var(--text-tertiary); font: 600 11px/1.4 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
-    .product-canvas { position: relative; display: flex; flex-direction: column; overflow: hidden; border: var(--border-width-default) solid var(--border-strong); border-radius: var(--radius-card); background: var(--surface-page); color: var(--text-primary); font-family: var(--font-body); }
-    .product-canvas.preview-phone { inline-size: min(390px, 100%); margin-inline: auto; block-size: 844px; overflow-y: auto; overscroll-behavior: contain; }
-    .product-canvas.preview-desktop { inline-size: 100%; min-block-size: 760px; max-block-size: 850px; block-size: 780px; overflow: hidden; container-type: inline-size; }
-    @media (max-width: 479px) { .product-canvas.preview-phone { border-inline-width: 0; border-block-width: 0; border-radius: 0; } }
-    table { inline-size: 100%; border-collapse: collapse; font-size: 13px; }
-    th, td { padding: 10px 8px; border-block-end: var(--border-width-hairline) solid var(--border-subtle); text-align: start; vertical-align: top; }
-    th { color: var(--text-tertiary); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
-    .table-wrap { overflow-x: auto; border: var(--border-width-hairline) solid var(--border-subtle); border-radius: var(--radius-card); padding-inline: var(--space-4); background: var(--surface-raised); }
-    .mono { font-family: var(--font-mono); font-variant-numeric: tabular lining-nums; }
-    .gap-list { display: grid; gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
-    .gap-list li { padding: var(--space-3); border-inline-start: var(--border-width-emphasis) solid var(--border-strong); background: var(--surface-raised); }
-    .gap-list strong { display: block; }
-    .gap-list span { color: var(--text-secondary); }
-    .card { padding: var(--space-5); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
-    .footer { padding-block: var(--space-6); border-block-start: var(--border-width-hairline) solid var(--border-subtle); color: var(--text-tertiary); font-size: 12px; text-align: center; }
-
-    /* ===== product surface · QIYAS student shell ===== */
-    .app { flex: 1 0 auto; display: flex; flex-direction: column; min-block-size: 100%; background: var(--surface-page); }
-    .app-body { display: flex; flex: 1; min-block-size: 0; }
-    .app-bar { position: sticky; inset-block-start: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-block-size: var(--app-bar-h); block-size: var(--app-bar-h); padding: var(--space-2) var(--space-4); background: color-mix(in srgb, var(--surface-page) 94%, transparent); border-block-end: var(--border-width-hairline) solid var(--border-subtle); backdrop-filter: blur(10px); }
-    .app-brand { display: inline-flex; align-items: center; min-inline-size: 0; text-decoration: none; color: var(--text-primary); }
-    .app-brand svg { display: block; inline-size: 84px; block-size: auto; }
-    .util-cluster { display: flex; align-items: center; gap: var(--space-2); margin-inline-start: auto; }
-    .util { inline-size: 44px; block-size: 44px; flex: none; display: grid; place-items: center; border: var(--border-width-hairline) solid var(--border-default); border-radius: var(--radius-control); background: transparent; color: var(--text-secondary); }
-    .util:hover { color: var(--text-primary); border-color: var(--border-strong); background: var(--surface-raised); }
-    .util .badge-dot { position: absolute; }
-    .util-wrap { position: relative; display: grid; place-items: center; }
-    .util-wrap .badge-dot { position: absolute; inset-block-start: 8px; inset-inline-end: 8px; inline-size: 7px; block-size: 7px; background: var(--primitive-gold-500); border: var(--border-width-hairline) solid var(--surface-page); }
-    .util .initials { font: 700 12px/1 var(--font-mono); letter-spacing: .02em; }
-    .side-rail { display: none; }
-    .shell-main { flex: 1; display: flex; flex-direction: column; min-inline-size: 0; min-block-size: 0; }
-    .content { flex: 1 0 auto; inline-size: 100%; max-inline-size: var(--content); margin-inline: auto; padding: var(--space-5) var(--space-4) calc(var(--foot-nav-reserve) + env(safe-area-inset-bottom, 0px)); }
-    .page-head { display: grid; gap: var(--space-1); }
-    .page-head h1 { margin: 0; font-size: 26px; line-height: 1.25; letter-spacing: -.01em; }
-    .page-head .lede { margin: 0; color: var(--text-tertiary); font-size: 14px; max-inline-size: 62ch; }
-
-    .dash-grid { display: grid; gap: var(--space-4); grid-template-columns: minmax(0, 1fr); margin-block-start: var(--space-5); }
-    .panel { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-4); border: var(--border-width-hairline) solid var(--border-subtle); border-radius: var(--radius-card); background: var(--surface-raised); }
-    .panel.primary { border: var(--border-width-emphasis) solid var(--border-strong); background: var(--surface-page); }
-    .panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; }
-    .panel-head h2 { margin: 0; font-size: 15px; line-height: 1.3; }
-    .panel.primary .panel-head h2 { font-size: 19px; }
-    .panel-head small { color: var(--text-tertiary); font-size: 12px; font-weight: 600; }
-    .link { display: inline-flex; align-items: center; min-block-size: 44px; color: var(--text-secondary); font-size: 13px; font-weight: 600; text-decoration: none; border-block-end: var(--border-width-hairline) solid var(--border-default); }
-    .link:hover { color: var(--text-primary); border-block-end-color: var(--border-strong); }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-block-size: var(--control-default); padding-inline: var(--space-4); border: var(--border-width-default) solid transparent; border-radius: var(--radius-control); font-weight: 600; font-size: 14px; text-decoration: none; transition: background-color var(--motion-quick) var(--ease-enter), border-color var(--motion-quick) var(--ease-enter), color var(--motion-quick) var(--ease-enter), transform var(--motion-quick) var(--ease-enter); }
-    .btn:hover { transform: translateY(-1px); }
-    .btn.primary { background: var(--action-primary-bg); color: var(--action-primary-fg); border-color: var(--action-primary-bg); }
-    .btn.primary:disabled, .btn.primary.disabled { color: var(--text-disabled); background: var(--surface-sunken); border-color: var(--border-subtle); cursor: not-allowed; transform: none; }
-    .btn.secondary { background: var(--action-secondary-bg); color: var(--action-secondary-fg); border-color: var(--border-default); }
-    .btn.secondary:hover { border-color: var(--border-strong); background: var(--surface-raised); }
-    .btn.block { inline-size: 100%; }
-    .btn.small { min-block-size: 40px; font-size: 13px; padding-inline: var(--space-3); }
-    .continue-body { display: grid; gap: var(--space-1); }
-    .continue-subject { margin: 0; font-size: 16px; font-weight: 700; overflow-wrap: anywhere; }
-    .continue-topic { margin: 0; color: var(--text-tertiary); font-size: 13px; overflow-wrap: anywhere; }
-    .continue-level { margin: 0; color: var(--text-tertiary); font-size: 13px; overflow-wrap: anywhere; }
-    .continue-level .sep { color: var(--border-default); }
-    .progress-track { display: block; inline-size: 100%; block-size: 8px; border-radius: var(--radius-control); background: var(--progress-track); overflow: hidden; }
-    .progress-track > span { display: block; block-size: 100%; background: var(--progress-fill); }
-    .progress-meta { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); color: var(--text-tertiary); font-size: 12px; }
-    .progress-meta .mono { color: var(--text-secondary); }
-    .panel.primary .btn.block { margin-block-start: auto; }
-    .row-list { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
-    .exam-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-3); padding-block: var(--space-3); border-block-end: var(--border-width-hairline) solid var(--border-subtle); }
-    .exam-row:last-child { border-block-end: 0; padding-block-end: 0; }
-    .exam-row:first-child { padding-block-start: 0; }
-    .exam-main { min-inline-size: 0; }
-    .exam-title { margin: 0; font-size: 14px; font-weight: 700; }
-    .exam-meta { margin: 0; color: var(--text-tertiary); font-size: 12px; }
-    .exam-meta .val { direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular lining-nums; }
-    .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border: var(--border-width-hairline) solid var(--state-info-border); border-radius: var(--radius-control); background: var(--state-info-bg); color: var(--state-info-fg); font-size: 11px; font-weight: 700; white-space: nowrap; }
-    .chip .dot { inline-size: 6px; block-size: 6px; flex: none; background: currentColor; }
-    .chip.neutral { border-color: var(--border-default); background: var(--surface-sunken); color: var(--text-tertiary); }
-    .subject-row { display: grid; grid-template-columns: minmax(0, 1fr) 96px 48px 16px; align-items: center; gap: var(--space-3); padding-block: var(--space-3); border-block-end: var(--border-width-hairline) solid var(--border-subtle); text-decoration: none; color: inherit; min-block-size: 44px; }
-    .row-list li:last-child .subject-row { border-block-end: 0; }
-    .subject-name { display: block; font-size: 14px; font-weight: 700; }
-    .subject-meta { display: block; color: var(--text-tertiary); font-size: 12px; }
-    .subject-pct { text-align: end; font-size: 13px; font-weight: 700; }
-    .chev { color: var(--text-tertiary); }
-    [dir="rtl"] .chev { transform: scaleX(-1); }
-    .progress-hero { display: grid; gap: var(--space-2); padding: var(--space-4); background: var(--surface-sunken); border-block-start: var(--border-width-emphasis) solid var(--border-strong); }
-    .progress-hero .pct { font-size: 40px; font-weight: 700; line-height: 1; letter-spacing: -.02em; }
-    .progress-hero .pct small { font-size: 13px; font-weight: 600; color: var(--text-tertiary); margin-inline-start: 6px; }
-    .metric-list { display: grid; gap: 0; margin: 0; }
-    .metric-row { display: grid; grid-template-columns: minmax(0, 1fr) 64px; align-items: baseline; gap: var(--space-3); padding-block: var(--space-2); border-block-end: var(--border-width-hairline) solid var(--border-subtle); }
-    .metric-row:last-child { border-block-end: 0; }
-    .metric-row dt { color: var(--text-secondary); font-size: 13px; }
-    .metric-row dd { margin: 0; text-align: end; font-weight: 700; font-size: 14px; }
-    .metric-row dd.zero { color: var(--text-tertiary); font-weight: 600; }
-    .result-row { display: grid; grid-template-columns: minmax(0, 1fr) 64px; align-items: center; gap: var(--space-3); padding-block: var(--space-3); border-block-end: var(--border-width-hairline) solid var(--border-subtle); }
-    .result-row:last-child { border-block-end: 0; padding-block-end: 0; }
-    .result-row:first-child { padding-block-start: 0; }
-    .result-title { margin: 0; font-size: 14px; font-weight: 700; }
-    .result-meta { margin: 0; color: var(--text-tertiary); font-size: 12px; }
-    .result-meta .val { direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular lining-nums; }
-    .result-score { text-align: end; }
-    .result-score .score { display: block; font-size: 18px; font-weight: 700; line-height: 1.1; }
-    .result-score small { color: var(--text-tertiary); font-size: 11px; direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular lining-nums; }
-    .empty-state { display: grid; gap: var(--space-3); justify-items: start; padding: var(--space-5) var(--space-4); border: var(--border-width-default) dashed var(--border-default); text-align: start; }
-    .empty-state h3 { margin: 0; font-size: 15px; }
-    .empty-state p { margin: 0; color: var(--text-tertiary); font-size: 13px; max-inline-size: 46ch; }
-    .empty-state .mark { inline-size: 20px; block-size: 20px; border: var(--border-width-emphasis) solid var(--border-strong); transform: rotate(45deg); }
-    .banner { display: grid; gap: var(--space-1); padding: var(--space-3); border: var(--border-width-default) solid var(--border-default); background: var(--surface-raised); font-size: 13px; }
-    .banner strong { display: flex; align-items: center; gap: var(--space-2); }
-    .banner p { margin: 0; color: var(--text-secondary); }
-    .banner.error { border-color: var(--state-incorrect-border); background: var(--state-incorrect-bg); color: var(--state-incorrect-fg); }
-    .banner.error p { color: var(--state-incorrect-fg); }
-    .skel { display: grid; gap: var(--space-3); animation: skeleton-pulse 1200ms ease-in-out infinite alternate; }
-    .skel .line { block-size: 12px; background: var(--surface-sunken); border-radius: var(--radius-control); }
-    .skel .line.w40 { inline-size: 40%; } .skel .line.w60 { inline-size: 60%; } .skel .line.w90 { inline-size: 90%; }
-    .skel .line.btn { block-size: 44px; background: var(--surface-sunken); }
-    .skel-note { display: flex; align-items: center; gap: var(--space-3); color: var(--text-tertiary); font: 600 12px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
-    .skel-note .spinner { inline-size: 14px; block-size: 14px; border: var(--border-width-default) solid var(--border-default); border-block-start-color: var(--primitive-green-500); border-radius: 50%; animation: qiyas-spin 900ms linear infinite; }
-    @keyframes qiyas-spin { to { transform: rotate(360deg); } }
-    @keyframes skeleton-pulse { from { opacity: 1; } to { opacity: .55; } }
-    .sr-only { position: absolute; inline-size: 1px; block-size: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
-    .foot-nav { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: var(--space-1); position: sticky; inset-block-end: 0; z-index: 20; padding: var(--space-2) var(--space-2) calc(var(--space-2) + env(safe-area-inset-bottom, 0px)); background: color-mix(in srgb, var(--surface-page) 96%, transparent); border-block-start: var(--border-width-hairline) solid var(--border-subtle); backdrop-filter: blur(10px); }
-    .foot-link { position: relative; display: grid; align-content: center; justify-items: center; gap: 2px; min-block-size: 48px; padding-block: var(--space-1); border-radius: var(--radius-control); color: var(--text-tertiary); text-decoration: none; font-size: 10px; font-weight: 600; }
-    .foot-link:hover { color: var(--text-primary); background: var(--surface-raised); }
-    .foot-link[aria-current="page"] { color: var(--text-primary); font-weight: 700; background: var(--surface-raised); }
-    .foot-link[aria-current="page"]::before { content: ""; position: absolute; inset-block-start: 0; inset-inline: var(--space-2); block-size: var(--border-width-emphasis); background: var(--border-strong); }
-    .copy-ar, .copy-en { display: inline; }
-    .product-canvas[data-locale="ar"] .copy-en, .product-canvas[data-locale="ar"] .en { display: none; }
-    .product-canvas[data-locale="en"] .copy-ar, .product-canvas[data-locale="en"] .ar { display: none; }
-    [dir="rtl"] .app, [dir="rtl"] .content, [dir="rtl"] .side-rail { font-family: var(--font-arabic); }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
-
-    /* desktop shell: sidebar starts under the header + two-column rows (inside the product only) */
-    @container (min-width: 820px) {
-      .app { block-size: 100%; height: 100%; overflow: hidden; }
-      .app-bar { flex: none; }
-      .app-body { display: flex; flex: 1; min-block-size: 0; block-size: calc(100% - var(--app-bar-h)); height: calc(100% - var(--app-bar-h)); overflow: hidden; }
-      .side-rail {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-4);
-        padding-block: var(--space-4);
-        padding-inline: var(--space-2);
-        border-inline-end: var(--border-width-hairline) solid var(--border-subtle);
-        background: var(--surface-raised);
-        block-size: 100%;
-        height: 100%;
-        inline-size: 64px;
-        flex: none;
-        flex-shrink: 0;
-        box-sizing: border-box;
-        overflow-y: auto;
-        overflow-x: hidden;
-        transition: inline-size var(--motion-base) var(--ease-enter);
-        z-index: 10;
-      }
-      .side-rail:hover,
-      .side-rail:focus-within {
-        inline-size: var(--rail-width);
-      }
-      .rail-nav { display: grid; gap: var(--space-1); inline-size: 100%; }
-      .rail-link {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        min-block-size: 44px;
-        padding-inline: 12px;
-        border-inline-start: var(--border-width-emphasis) solid transparent;
-        border-radius: var(--radius-control);
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 600;
-        position: relative;
-        white-space: nowrap;
-        inline-size: 100%;
-        box-sizing: border-box;
-        transition: background-color var(--motion-quick) var(--ease-enter), color var(--motion-quick) var(--ease-enter);
-      }
-      .rail-link:hover { color: var(--text-primary); background: var(--surface-sunken); }
-      .rail-link[aria-current="page"] {
-        color: var(--text-primary);
-        background: var(--surface-sunken);
-        border-inline-start-color: var(--border-strong);
-        font-weight: 700;
-      }
-      /* Collapsed state (when not hovered) */
-      .side-rail:not(:hover):not(:focus-within) .rail-link {
-        justify-content: center;
-        padding-inline: 0;
-      }
-      .side-rail:not(:hover):not(:focus-within) .rail-link > span {
-        position: absolute;
-        inline-size: 1px;
-        block-size: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip-path: inset(50%);
-        white-space: nowrap;
-        border: 0;
-      }
-      .rail-foot { margin-block-start: auto; inline-size: 100%; }
-      .shell-main { flex: 1; min-inline-size: 0; block-size: 100%; height: 100%; overflow-y: auto; overscroll-behavior: contain; }
-      .util-cluster { justify-content: flex-end; }
-      .content { padding: var(--space-6) clamp(16px, 3vw, 32px) var(--space-7); }
-      .page-head h1 { font-size: 34px; }
-      .dash-grid {
-        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-        grid-template-areas: "continue available" "upcoming upcoming" "subjects subjects" "progress results";
-        gap: var(--space-5);
-      }
-      .continue-card { grid-area: continue; }
-      .available-card { grid-area: available; }
-      .upcoming-card { grid-area: upcoming; }
-      .subjects-card { grid-area: subjects; }
-      .progress-card { grid-area: progress; }
-      .results-card { grid-area: results; }
-      .foot-nav { display: none !important; }
-    }
-
-    /* Direct desktop canvas rules ensuring desktop layout on [data-device="desktop"] */
-    [data-device="desktop"] .app { block-size: 100%; height: 100%; overflow: hidden; }
-    [data-device="desktop"] .app-bar { flex: none; }
-    [data-device="desktop"] .app-body { display: flex; flex: 1; min-block-size: 0; block-size: calc(100% - var(--app-bar-h)); height: calc(100% - var(--app-bar-h)); overflow: hidden; }
-    [data-device="desktop"] .side-rail {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-4);
-      padding-block: var(--space-4);
-      padding-inline: var(--space-2);
-      border-inline-end: var(--border-width-hairline) solid var(--border-subtle);
-      background: var(--surface-raised);
-      block-size: 100%;
-      height: 100%;
-      inline-size: 64px;
-      flex: none;
-      flex-shrink: 0;
-      box-sizing: border-box;
-      overflow-y: auto;
-      overflow-x: hidden;
-      transition: inline-size var(--motion-base) var(--ease-enter);
-      z-index: 10;
-    }
-    [data-device="desktop"] .side-rail:hover,
-    [data-device="desktop"] .side-rail:focus-within {
-      inline-size: var(--rail-width);
-    }
-    [data-device="desktop"] .rail-nav { display: grid; gap: var(--space-1); inline-size: 100%; }
-    [data-device="desktop"] .rail-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-block-size: 44px;
-      padding-inline: 12px;
-      border-inline-start: var(--border-width-emphasis) solid transparent;
-      border-radius: var(--radius-control);
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      position: relative;
-      white-space: nowrap;
-      inline-size: 100%;
-      box-sizing: border-box;
-      transition: background-color var(--motion-quick) var(--ease-enter), color var(--motion-quick) var(--ease-enter);
-    }
-    [data-device="desktop"] .rail-link:hover { color: var(--text-primary); background: var(--surface-sunken); }
-    [data-device="desktop"] .rail-link[aria-current="page"] {
-      color: var(--text-primary);
-      background: var(--surface-sunken);
-      border-inline-start-color: var(--border-strong);
-      font-weight: 700;
-    }
-    /* Collapsed state (when not hovered) */
-    [data-device="desktop"] .side-rail:not(:hover):not(:focus-within) .rail-link {
-      justify-content: center;
-      padding-inline: 0;
-    }
-    [data-device="desktop"] .side-rail:not(:hover):not(:focus-within) .rail-link > span {
-      position: absolute;
-      inline-size: 1px;
-      block-size: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip-path: inset(50%);
-      white-space: nowrap;
-      border: 0;
-    }
-    [data-device="desktop"] .rail-foot { margin-block-start: auto; inline-size: 100%; }
-    [data-device="desktop"] .shell-main { flex: 1; min-inline-size: 0; block-size: 100%; height: 100%; overflow-y: auto; overscroll-behavior: contain; }
-    [data-device="desktop"] .util-cluster { justify-content: flex-end; }
-    [data-device="desktop"] .content { padding: var(--space-6) clamp(16px, 3vw, 32px) var(--space-7); }
-    [data-device="desktop"] .page-head h1 { font-size: 34px; }
-    [data-device="desktop"] .dash-grid {
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-      grid-template-areas: "continue available" "upcoming upcoming" "subjects subjects" "progress results";
-      gap: var(--space-5);
-    }
-    [data-device="desktop"] .continue-card { grid-area: continue; }
-    [data-device="desktop"] .available-card { grid-area: available; }
-    [data-device="desktop"] .upcoming-card { grid-area: upcoming; }
-    [data-device="desktop"] .subjects-card { grid-area: subjects; }
-    [data-device="desktop"] .progress-card { grid-area: progress; }
-    [data-device="desktop"] .results-card { grid-area: results; }
-    [data-device="desktop"] .foot-nav { display: none !important; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .side-rail {
-        transition: none !important;
-      }
-    }
-  </style>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qiyas · Screen Library</title>
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --ink-soft:#333;
+    --muted:#5c5c5c;
+    --line:#e2e2e2;
+    --paper:#ffffff;
+    --wash:#f5f5f5;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    line-height:1.6;
+  }
+  header{
+    border-bottom:1px solid var(--line);
+    padding-top:32px;
+    padding-bottom:32px;
+    padding-left:20px;
+    padding-right:20px;
+  }
+  .wrap{max-width:960px;margin-left:auto;margin-right:auto;padding-left:20px;padding-right:20px}
+  h1{font-size:28px;margin:0 0 8px;line-height:1.3}
+  h2{font-size:20px;margin:32px 0 12px}
+  p{margin:0 0 12px;color:var(--ink-soft)}
+  .muted{color:var(--muted);font-size:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;padding:0;margin:0;list-style:none}
+  a.card{
+    display:flex;flex-direction:column;gap:4px;
+    min-height:48px;
+    padding-top:12px;padding-bottom:12px;padding-left:16px;padding-right:16px;
+    border:1px solid var(--ink);
+    border-radius:4px;
+    background-color:var(--ink);
+    color:var(--paper);
+    text-decoration:none;
+  }
+  a.card:hover{background-color:#000}
+  a.card:focus-visible{outline:2px solid #000;outline-offset:2px}
+  a.card .en{font-size:14px;font-weight:600}
+  a.card .file{font-size:12px;opacity:.7;font-family:"IBM Plex Mono",ui-monospace,monospace}
+  a.doc{
+    display:inline-flex;align-items:center;gap:8px;
+    min-height:48px;
+    padding-top:12px;padding-bottom:12px;padding-left:16px;padding-right:16px;
+    border:1px solid var(--ink);
+    border-radius:4px;
+    background:var(--paper);
+    color:var(--ink);
+    text-decoration:none;
+    font-size:14px;font-weight:600;
+    margin-right:8px;margin-bottom:8px;
+  }
+  a.doc:hover{background:var(--wash)}
+  .note{
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:var(--wash);
+    padding-top:12px;padding-bottom:12px;padding-left:16px;padding-right:16px;
+    margin-top:24px;margin-bottom:24px;
+    font-size:14px;
+  }
+  section{padding-bottom:8px}
+  footer{border-top:1px solid var(--line);margin-top:32px;padding-top:20px;padding-bottom:20px;color:var(--muted);font-size:13px}
+</style>
 </head>
 <body>
+<header>
+  <div class="wrap">
+    <h1>Qiyas · Screen Library</h1>
+    <p>A quiet launcher for all Qiyas screens. Each screen is a self-contained file with its own theme and locale controls.</p>
+  </div>
+</header>
 
-  <!-- ===== QIYAS logo lockups — exact symbols from qiyas-parent-login.html ===== -->
-  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
-    <defs>
-      <symbol id="qiyas-logo-en" viewBox="0 0 1201 349"><path d="M 343.0 96.0 L 343.0 293.0 L 377.0 293.0 L 377.0 96.0 Z M 1014.0 93.0 L 1013.0 205.0 L 1146.0 206.0 L 1147.0 262.0 L 1014.0 263.0 L 1013.0 294.0 L 1180.0 294.0 L 1179.0 175.0 L 1046.0 174.0 L 1047.0 124.0 L 1180.0 124.0 L 1180.0 94.0 Z M 751.0 93.0 L 751.0 294.0 L 784.0 293.0 L 785.0 205.0 L 896.0 205.0 L 897.0 294.0 L 930.0 294.0 L 930.0 93.0 Z M 783.0 125.0 L 896.0 124.0 L 897.0 174.0 L 785.0 174.0 Z M 471.0 91.0 L 471.0 204.0 L 552.0 204.0 L 554.0 206.0 L 554.0 298.0 L 589.0 298.0 L 589.0 205.0 L 671.0 204.0 L 671.0 92.0 L 637.0 92.0 L 636.0 174.0 L 506.0 174.0 L 505.0 92.0 Z" fill="var(--logo-ink)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 21.0 88.0 L 21.0 293.0 L 195.0 293.0 L 230.0 328.0 L 250.0 309.0 L 244.0 299.0 L 143.0 192.0 L 138.0 193.0 L 121.0 212.0 L 164.0 261.0 L 54.0 262.0 L 52.0 258.0 L 54.0 121.0 L 209.0 120.0 L 211.0 122.0 L 211.0 244.0 L 242.0 276.0 L 242.0 89.0 Z" fill="var(--logo-green)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 341.0 74.0 L 343.0 76.0 L 379.0 76.0 L 360.0 44.0 Z M 145.0 20.0 L 145.0 51.0 L 176.0 52.0 L 176.0 21.0 Z M 80.0 20.0 L 78.0 41.0 L 80.0 52.0 L 109.0 52.0 L 110.0 20.0 Z" fill="var(--logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/></symbol>
-      <symbol id="qiyas-logo-ar" viewBox="0 0 1202 299"><path d="M 343.0 104.0 L 314.0 104.0 L 313.0 200.0 L 271.0 199.0 L 271.0 103.0 L 243.0 103.0 L 242.0 200.0 L 199.0 199.0 L 198.0 123.0 L 171.0 123.0 L 169.0 239.0 L 50.0 239.0 L 49.0 176.0 L 21.0 175.0 L 20.0 265.0 L 198.0 266.0 L 199.0 228.0 L 341.0 228.0 Z M 400.0 72.0 L 401.0 228.0 L 983.0 228.0 L 983.0 200.0 L 852.0 200.0 L 851.0 103.0 L 823.0 103.0 L 822.0 200.0 L 430.0 200.0 L 429.0 72.0 Z" fill="var(--logo-ink)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 1173.0 75.0 L 1158.0 73.0 L 1146.0 75.0 L 985.0 75.0 L 984.0 227.0 L 1118.0 228.0 L 1157.0 271.0 L 1165.0 272.0 L 1179.0 258.0 L 1181.0 254.0 L 1081.0 147.0 L 1077.0 147.0 L 1060.0 166.0 L 1087.0 195.0 L 1088.0 199.0 L 1016.0 200.0 L 1014.0 198.0 L 1013.0 106.0 L 1015.0 103.0 L 1144.0 103.0 L 1144.0 196.0 L 1173.0 224.0 Z" fill="var(--logo-green)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 646.0 249.0 L 646.0 273.0 L 648.0 278.0 L 677.0 277.0 L 677.0 249.0 Z M 703.0 249.0 L 704.0 278.0 L 733.0 278.0 L 733.0 249.0 Z M 412.0 23.0 L 398.0 47.0 L 398.0 52.0 L 431.0 52.0 L 427.0 41.0 L 415.0 22.0 Z M 1096.0 20.0 L 1096.0 49.0 L 1125.0 49.0 L 1125.0 20.0 Z M 1045.0 20.0 L 1042.0 25.0 L 1043.0 49.0 L 1072.0 50.0 L 1073.0 21.0 Z" fill="var(--logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/></symbol>
-    </defs>
-  </svg>
+<main class="wrap">
+  <div class="note" role="note">
+    <strong>Note:</strong> each screen is a self-contained HTML file with its own Light / Dark theme and Arabic / English locale controls.
+  </div>
 
-  <header class="document-header" data-od-id="dash-ui-document-header">
-    <div class="document-title"><div class="title-row">
-      <svg class="qiyas-logo" viewBox="0 0 1201 349" role="img" aria-label="Qiyas"><use href="#qiyas-logo-en"></use></svg>
-      <div><strong>Qiyas · Student Dashboard</strong><br><span>Screen 06 · UI preview</span></div>
-    </div></div>
-    <div class="control-cluster" aria-label="Preview settings">
-      <span class="control-label">State</span>
-      <div class="toggle-group" role="group" aria-label="Data state"><button class="toggle-button" data-screen-control="nominal" aria-pressed="true" type="button">Nominal</button><button class="toggle-button" data-screen-control="loading" aria-pressed="false" type="button">Loading</button><button class="toggle-button" data-screen-control="empty" aria-pressed="false" type="button">Empty</button><button class="toggle-button" data-screen-control="error" aria-pressed="false" type="button">Error</button><button class="toggle-button" data-screen-control="offline" aria-pressed="false" type="button">Offline</button></div>
-      <span class="control-label">Theme</span>
-      <div class="toggle-group" role="group" aria-label="Preview theme"><button class="toggle-button" data-preview-theme="light" aria-pressed="true" type="button">Light</button><button class="toggle-button" data-preview-theme="dark" aria-pressed="false" type="button">Dark</button></div>
-      <span class="control-label">Language</span>
-      <div class="toggle-group" role="group" aria-label="Preview language"><button class="toggle-button" data-preview-locale="ar" aria-pressed="true" type="button">العربية</button><button class="toggle-button" data-preview-locale="en" aria-pressed="false" type="button">English</button></div>
-    </div>
-  </header>
+  <section aria-labelledby="auth">
+    <h2 id="auth">Auth &amp; onboarding</h2>
+    <ul class="grid">
+      <li><a class="card" href="qiyas-splash-screen.html"><span class="en">Splash Screen</span><span class="file">qiyas-splash-screen.html</span></a></li>
+      <li><a class="card" href="qiyas-role-picker.html"><span class="en">Role Picker</span><span class="file">qiyas-role-picker.html</span></a></li>
+      <li><a class="card" href="qiyas-student-signin.html"><span class="en">Student Sign-In</span><span class="file">qiyas-student-signin.html</span></a></li>
+      <li><a class="card" href="qiyas-parent-login.html"><span class="en">Parent Login</span><span class="file">qiyas-parent-login.html</span></a></li>
+      <li><a class="card" href="qiyas-parent-signup.html"><span class="en">Parent Sign-Up</span><span class="file">qiyas-parent-signup.html</span></a></li>
+      <li><a class="card" href="qiyas-forgot-password.html"><span class="en">Forgot Password</span><span class="file">qiyas-forgot-password.html</span></a></li>
+    </ul>
+  </section>
 
-  <main class="page" data-od-id="dash-ui-handoff">
-    <section class="section intro" data-od-id="dash-ui-introduction">
-      <div><p class="eyebrow">Screen 06 · Student dashboard · learner-web</p><h1 data-od-id="dash-ui-title">The dashboard answers one question first: what can I do right now?</h1><p class="lede">Continue Practice and the exams open now lead; upcoming exams and subjects follow; progress and recent results sit in the quietest register. Desktop carries a persistent sidebar under the header, mobile a fixed footer navigation. Arabic is primary; numbers, times, scores, and counts stay LTR islands with tabular figures.</p></div>
-      <aside class="decision" data-od-id="dash-ui-decision"><strong>Resolution</strong><p>One responsive screen with two navigation shapes: a collapsible sidebar from 820px starting under the full-width app bar, and a footer nav below 820px. Hierarchy is carried by border weight, heading size, and action prominence, not by labels.</p><strong class="rejected-label">Rejected</strong><p>A uniform card grid with equal borders and an equal-weight filled action per section. It makes the student read everything before acting, and it flattens the difference between the exam that is open now and a result from last week.</p></aside>
-    </section>
+  <section aria-labelledby="family">
+    <h2 id="family">Family</h2>
+    <ul class="grid">
+      <li><a class="card" href="qiyas-parent-dashboard.html"><span class="en">Parent Dashboard</span><span class="file">qiyas-parent-dashboard.html</span></a></li>
+      <li><a class="card" href="qiyas-parent-add-student.html"><span class="en">Add Student</span><span class="file">qiyas-parent-add-student.html</span></a></li>
+      <!-- <li><a class="card" href="qiyas-student-dashboard.html"><span class="en">Student Dashboard</span><span class="file">qiyas-student-dashboard.html</span></a></li> -->
+      <li><a class="card" href="qiyas-student-dashboard-ui.html"><span class="en">Student Dashboard (UI)</span><span class="file">qiyas-student-dashboard-ui.html</span></a></li>
+    </ul>
+  </section>
 
-    <section class="section" data-od-id="dash-ui-live-preview">
-      <div class="section-head"><div><p class="eyebrow">Live preview</p><h2>One screen, two navigation shapes.</h2></div><p>Theme, locale, data state, and navigation are driven by one render function. The desktop canvas is a container at 820px and above with a collapsible sidebar under the header; the mobile canvas stays single column with the footer nav.</p></div>
-      <div class="preview-grid">
-        <div class="preview-wrap"><div class="preview-label"><span>Mobile</span><span>390 × 844 · check 360</span></div><div class="product-canvas preview-phone" data-device="mobile" data-locale="ar" data-od-id="dash-ui-mobile-preview"></div></div>
-        <div class="preview-wrap"><div class="preview-label"><span>Desktop</span><span>1440 reference · 1180 content cap</span></div><div class="product-canvas preview-desktop" data-device="desktop" data-locale="ar" data-od-id="dash-ui-desktop-preview"></div></div>
-      </div>
-    </section>
+  <section aria-labelledby="exam">
+    <h2 id="exam">Exam &amp; library</h2>
+    <ul class="grid">
+      <li><a class="card" href="qiyas-badge-exam.html"><span class="en">Badge Exam</span><span class="file">qiyas-badge-exam.html</span></a></li>
+      <li><a class="card" href="qiyas-taking-test.html"><span class="en">Taking Test</span><span class="file">qiyas-taking-test.html</span></a></li>
+      <li><a class="card" href="qiyas-results-explanations.html"><span class="en">Results &amp; Explanations</span><span class="file">qiyas-results-explanations.html</span></a></li>
+      <li><a class="card" href="qiyas-learning-library.html"><span class="en">Learning Library</span><span class="file">qiyas-learning-library.html</span></a></li>
+      <li><a class="card" href="qiyas-scheduled-exams.html"><span class="en">Scheduled Exams</span><span class="file">qiyas-scheduled-exams.html</span></a></li>
+    </ul>
+  </section>
 
-    <section class="section" data-od-id="dash-ui-hierarchy">
-      <div class="section-head"><div><p class="eyebrow">Information hierarchy</p><h2>Four tiers, deliberately unequal.</h2></div><p>Hierarchy is encoded with size, placement, spacing, border emphasis, typography, and action prominence — never with a label.</p></div>
-      <div class="table-wrap"><table><thead><tr><th>Tier</th><th>Sections</th><th>Treatment</th></tr></thead><tbody>
-        <tr><td>PRIMARY</td><td>Continue Practice · Available Exams</td><td>2px Ink border, larger headings, the only filled Ink actions, raised above the page ground.</td></tr>
-        <tr><td>SECONDARY</td><td>Upcoming Exams · Practice by Subject</td><td>Hairline panels, compact rows, no filled action; status chips and links only.</td></tr>
-        <tr><td>SUPPORTING</td><td>My Progress · Recent Results</td><td>Raised surface (surface-raised), quietest typography, tabular figures.</td></tr>
-        <tr><td>UTILITY</td><td>Profile · Language · Notifications</td><td>Header cluster of equal 44×44 boxes, plus the sidebar/footer nav entries.</td></tr>
-      </tbody></table></div>
-    </section>
+  <section aria-labelledby="system">
+    <h2 id="system">System</h2>
+    <ul class="grid">
+      <li><a class="card" href="qiyas-design-system.html"><span class="en">Design System</span><span class="file">qiyas-design-system.html</span></a></li>
+    </ul>
+  </section>
 
-    <section class="section" data-od-id="dash-ui-component-mapping">
-      <div class="section-head"><div><p class="eyebrow">Component mapping</p><h2>Exact system vocabulary.</h2></div><p>Component and variant names are quoted from qiyas-design-system.html; the sidebar rail and footer nav are new compositions from existing tokens and are recorded in the gap list.</p></div>
-      <div class="table-wrap"><table><thead><tr><th>Element on screen</th><th>System component</th><th>Tokens / variant</th><th>Notes for devs</th></tr></thead><tbody>
-        <tr><td>Document header</td><td>Prototype preview controls</td><td>state / theme / language toggle groups · 44px · aria-pressed</td><td>Preview-only; visually separate from the product surface.</td></tr>
-        <tr><td>Desktop sidebar</td><td>Nav rail (composition)</td><td>--rail-width 168px · collapsed 64px default · hover/focus-within expansion · starts below app-bar · active = 2px border-strong start bar + 700 weight</td><td>Logical start, fixed under header, Help pinned to bottom. Expands on hover with all menu items cleanly contained. No brand inside sidebar.</td></tr>
-        <tr><td>Mobile footer nav</td><td>NavigationBar (composition)</td><td>5 destinations · 48px · env(safe-area-inset-bottom) · active = 2px border-strong top bar + tint + 700 weight</td><td>Sticky inside product surface; hidden from 820px. Same active vocabulary as rail.</td></tr>
-        <tr><td>Header utilities</td><td>Icon button · avatar</td><td>44×44 · --border-default · --radius-control</td><td>Equal boxes, identical radius and gaps, icons optically centered.</td></tr>
-        <tr><td>Welcome</td><td>Page head</td><td>eyebrow · h1 26/34px · --text-tertiary lede</td><td>Typographic page head, never a hero card.</td></tr>
-        <tr><td>Continue Practice</td><td>card (primary) + button-primary</td><td>--border-width-emphasis · button-primary 48px</td><td>Level-based only: subject → topic → level name + number, one action carrying <span class="mono">level_id</span>. No question, equation, progress, or counts. Action pinned to the panel bottom; empty state when the value is null.</td></tr>
-        <tr><td>Available exam</td><td>card row + button-primary</td><td>--border-subtle divider · 40px action</td><td>Status chip precedes the title; Start routes to the exam runtime.</td></tr>
-        <tr><td>Upcoming exam</td><td>list row + chip</td><td>chip neutral · disabled action</td><td>Read-only; View all routes to the scheduled exams screen.</td></tr>
-        <tr><td>Practice by subject</td><td>list row (4 columns)</td><td>minmax(0,1fr) · 96px bar · 48px percent · 16px chevron</td><td>Trailing columns align across rows; chevron mirrors in RTL.</td></tr>
-        <tr><td>My Progress</td><td>progress + metric rows</td><td>--progress-track / --progress-fill · 8px</td><td>Percentage leads; study time renders faithfully, including 0.</td></tr>
-        <tr><td>Recent Results</td><td>list row + mono score</td><td>score 18px · correct/total 11px tabular</td><td>Score in a fixed-width end-aligned column.</td></tr>
-        <tr><td>Empty / Error / Offline</td><td>empty · state-error · offline banner</td><td>dashed border · terracotta · --border-strong</td><td>Error carries Retry; offline disables Start and keeps routes open.</td></tr>
-        <tr><td>Loading</td><td>skeleton</td><td>--loading-min 240ms · reduced-motion safe</td><td>Reserves panel height so data arrival causes no shift.</td></tr>
-      </tbody></table></div>
-    </section>
+  <section aria-labelledby="docs">
+    <h2 id="docs">Handoff docs</h2>
+    <p>
+      <a class="doc" href="DESIGN-HANDOFF.md">DESIGN-HANDOFF.md</a>
+      <a class="doc" href="DESIGN-MANIFEST.json">DESIGN-MANIFEST.json</a>
+      <a class="doc" href="qiyas-screen-handoff-rules.md">qiyas-screen-handoff-rules.md</a>
+    </p>
+  </section>
+</main>
 
-    <section class="section" data-od-id="dash-ui-mobile-handoff">
-      <div class="section-head"><div><p class="eyebrow">Flutter handoff</p><h2>Mobile geometry and behavior.</h2></div><p>CSS pixels at 1× for the 390 × 844 specimen. Flutter consumes the Qiyas semantic tokens and validates the composition against these values.</p></div>
-      <div class="table-wrap"><table><thead><tr><th>Element</th><th>Mobile specification</th><th>Flutter mapping</th></tr></thead><tbody>
-        <tr><td>Canvas</td><td class="mono">390 × 844; verify 360</td><td>SafeArea + SizedBox.expand; usable 358px at 390, 328px at 360.</td></tr>
-        <tr><td>Content inset</td><td class="mono">16px logical start + end</td><td>Padding EdgeInsetsDirectional.symmetric(horizontal: 16)</td></tr>
-        <tr><td>Top app bar</td><td class="mono">56px · sticky</td><td>SliverAppBar / PreferredSize; brand ≤84px, utilities 44×44.</td></tr>
-        <tr><td>Footer nav</td><td class="mono">48px per destination · 5 items</td><td>NavigationBar(height 72, labelBehavior alwaysShow); SafeArea bottom.</td></tr>
-        <tr><td>Bottom reserved padding</td><td class="mono">24px after the last panel</td><td>SliverPadding bottom; nav is sticky, never overlapping.</td></tr>
-        <tr><td>Primary action</td><td class="mono">48px min · full width</td><td>SizedBox(width: double.infinity, height: 48)</td></tr>
-        <tr><td>Panel</td><td class="mono">16px padding · 16px gap</td><td>Card margin 0, padding 16; Column separation 16.</td></tr>
-        <tr><td>Exam row</td><td class="mono">min 44px · 1fr + action</td><td>Row with Expanded title and trailing button; action stays 40px.</td></tr>
-        <tr><td>Subject row</td><td class="mono">1fr · 96 · 48 · 16</td><td>Table/Row with fixed trailing widths; chevron mirrors under RTL.</td></tr>
-        <tr><td>Progress track</td><td class="mono">8px height</td><td>LinearProgressIndicator(minHeight: 8) with token colors.</td></tr>
-        <tr><td>Scroll</td><td class="mono">vertical only</td><td>CustomScrollView; never horizontal.</td></tr>
-      </tbody></table></div>
-    </section>
-
-    <section class="section" data-od-id="dash-ui-states">
-      <div class="section-head"><div><p class="eyebrow">State coverage</p><h2>Honest states, no blank regions.</h2></div><p>Theme and locale changes never reset the active data state. Failure copy follows what happened → why → what next.</p></div>
-      <div class="table-wrap"><table><thead><tr><th>State</th><th>Condition</th><th>Surface</th></tr></thead><tbody>
-        <tr><td>Loading</td><td>First payload load</td><td>Skeleton panels + mono note “Loading your dashboard…”</td></tr>
-        <tr><td>Empty</td><td>No active practice, no exams, no results</td><td>Per-panel empty states with the next route</td></tr>
-        <tr><td>Error</td><td>Timeout / 5xx</td><td>state-error banner with Retry (button-primary)</td></tr>
-        <tr><td>Offline</td><td>No connection</td><td>offline banner; Start disabled, routes stay open</td></tr>
-        <tr><td>Disabled</td><td>Upcoming exam / offline Start</td><td>--text-disabled on --surface-sunken, reason kept in the label</td></tr>
-        <tr><td>Focus / Hover / Pressed</td><td>Keyboard and pointer</td><td>2px focus ring at 3px offset; border-strong hover; −1px pressed lift</td></tr>
-      </tbody></table></div>
-    </section>
-
-    <section class="section" data-od-id="dash-ui-gaps">
-      <div class="section-head"><div><p class="eyebrow">Gap list</p><h2>Open decisions stay visible.</h2></div><p>Not hidden in custom components. Each gap names what is missing and why the screen stayed conservative.</p></div>
-      <ul class="gap-list" data-od-id="dash-ui-gap-list">
-        <li><strong>Nav rail and footer nav are new compositions</strong><span>qiyas-design-system.html defines no navigation rail or bottom bar. Both are built from existing tokens (surface-raised, border-subtle, border-strong, radius-control) and need a system decision before Flutter ships.</span></li>
-        <li><strong>learner-web is not defined in the project</strong><span>The brief names a target app; no repository, route table, or token package exists here, so the screen lives inside the Qiyas prototype.</span></li>
-        <li><strong>Two dashboard surfaces now coexist</strong><span>qiyas-student-dashboard.html (Screen 06 handoff document) and this UI screen. Production routing must choose one deliberately.</span></li>
-        <li><strong>Study time source</strong><span>study_time_minutes has no named aggregation rule; the prototype renders the raw value, including 0, and never estimates.</span></li>
-        <li><strong>Progress definition</strong><span>Completion percentage appears per subject and overall. Whether it derives from badges, answered questions, or exam coverage is a product decision.</span></li>
-        <li><strong>View all contracts</strong><span>Upcoming routes to qiyas-scheduled-exams.html and Results to qiyas-results-explanations.html; pagination and deep-link parameters are unspecified.</span></li>
-        <li><strong>Exam runtime routing</strong><span>Start routes to /student/exam/:id in production; this prototype links qiyas-taking-test.html without an attempt parameter.</span></li>
-        <li><strong>Arabic calendar and digits</strong><span>ar-SA defaults to Hijri; the prototype pins Gregorian with Western digits to match the system numeral rule. Confirm product-wide.</span></li>
-      </ul>
-    </section>
-
-    <section class="section" data-od-id="dash-ui-flutter-tokens"><div class="section-head"><div><p class="eyebrow">Flutter handoff</p><h2>Keep both clients on the same dashboard contract.</h2></div><p>The web build consumes the CSS custom properties in this file; Flutter consumes the matching semantic values from the shared token source.</p></div><pre class="card mono" style="overflow:auto;margin:0;font-size:12.5px"><code>final qiyasStudentDashboardTheme = ThemeData(
-  scaffoldBackgroundColor: const Color(0xFFFEFEFE),
-  colorScheme: const ColorScheme.light(
-    primary: Color(0xFF11120F),          // Ink — Continue Practice / Start Exam
-    secondary: Color(0xFF0D662C),        // green — progress fill, correctness
-    error: Color(0xFFC84B15),            // terracotta — failure states
-    surface: Color(0xFFFEFEFE),
-  ),
-  textTheme: const TextTheme(
-    titleLarge: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 26, fontWeight: FontWeight.w700),
-    titleMedium: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 17, fontWeight: FontWeight.w700),
-    bodyMedium: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 14, height: 1.5),
-    bodySmall: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 13, height: 1.55, color: Color(0xFF61665C)),
-  ),
-  // rail 168 (collapsed 64) · control 48 · progress 8 · panel gap 16/24 · content cap 1180
-);</code></pre></section>
-
-    <footer class="footer">Qiyas Student Dashboard (UI) · learner-web · Arabic primary · sidebar ≥820px · footer nav &lt;820px</footer>
-  </main>
-
-  <script>
-    (()=>{
-      const root = document.documentElement;
-      const DATA = {
-        student:{name:{en:'Abin Alias',ar:'آبن علياس'}},
-        continuePractice:{levelId:2,subject:{en:'Mathematics',ar:'الرياضيات'},topic:{en:'Geometry',ar:'الهندسة'},level:{en:'Foundation',ar:'التأسيسي'},levelNumber:1},
-        availableExams:[
-          {id:'sta-2',title:{en:'Statistics Assessment 2',ar:'اختبار الإحصاء 2'},start:'2026-09-15T09:50:00+03:00',minutes:30,questions:25},
-          {id:'fun-12',title:{en:'Functions Assessment 12',ar:'اختبار الدوال 12'},start:'2026-09-15T09:00:00+03:00',minutes:45,questions:60}
-        ],
-        upcomingExams:[
-          {id:'seq-3',title:{en:'Sequences Assessment 3',ar:'اختبار المتتاليات 3'},start:'2026-09-16T09:00:00+03:00',minutes:30,questions:40},
-          {id:'tri-7',title:{en:'Trigonometry Assessment 7',ar:'اختبار حساب المثلثات 7'},start:'2026-09-17T11:00:00+03:00',minutes:60,questions:80}
-        ],
-        subjects:[
-          {id:'math',name:{en:'Mathematics',ar:'الرياضيات'},topics:5,levels:3,percent:60},
-          {id:'phys',name:{en:'Physics',ar:'الفيزياء'},topics:4,levels:2,percent:35},
-          {id:'chem',name:{en:'Chemistry',ar:'الكيمياء'},topics:3,levels:2,percent:15}
-        ],
-        progress:{percent:42,attempted:186,correct:132,wrong:41,unanswered:13,studyMinutes:0},
-        recentResults:[
-          {id:'alg-41',title:{en:'Algebra Assessment 41',ar:'اختبار الجبر 41'},completed:'2026-09-14T12:38:00+03:00',score:82,correct:82,total:100},
-          {id:'alg-40',title:{en:'Algebra Assessment 40',ar:'اختبار الجبر 40'},completed:'2026-09-14T08:10:00+03:00',score:74,correct:74,total:100},
-          {id:'geo-18',title:{en:'Geometry Assessment 18',ar:'اختبار الهندسة 18'},completed:'2026-09-13T15:00:00+03:00',score:68,correct:34,total:50}
-        ]
-      };
-      const COPY = {
-        eyebrow:{en:'STUDENT DASHBOARD',ar:'لوحة الطالب'},
-        welcome:{en:'Welcome back, ',ar:'أهلاً بعودتك، '},
-        lede:{en:'Continue where you left off, or start the exam that is open now.',ar:'أكمل من حيث توقفت، أو ابدأ الاختبار المتاح الآن.'},
-        navHome:{en:'Home',ar:'الرئيسية'}, navPractice:{en:'Practice',ar:'التدريب'}, navExams:{en:'Exams',ar:'الاختبارات'}, navProgress:{en:'Progress',ar:'التقدم'}, navProfile:{en:'Profile',ar:'الملف'}, navHelp:{en:'Help',ar:'المساعدة'},
-        utilHelp:{en:'Help',ar:'المساعدة'}, utilBell:{en:'Notifications',ar:'الإشعارات'}, utilLang:{en:'Language',ar:'اللغة'}, utilProfile:{en:'Profile',ar:'الملف الشخصي'},
-        continueTitle:{en:'Continue Practice',ar:'متابعة التدريب'},
-        continueCta:{en:'Continue Practice',ar:'متابعة التدريب'},
-        level:{en:'Level',ar:'المستوى'},
-        availableTitle:{en:'Available Exams',ar:'الاختبارات المتاحة'},
-        upcomingTitle:{en:'Upcoming Exams',ar:'الاختبارات القادمة'},
-        subjectsTitle:{en:'Practice by Subject',ar:'التدريب حسب المادة'},
-        progressTitle:{en:'My Progress',ar:'تقدمي'},
-        resultsTitle:{en:'Recent Results',ar:'النتائج الأخيرة'},
-        viewAll:{en:'View all',ar:'عرض الكل'},
-        openLibrary:{en:'Open library',ar:'افتح المكتبة'},
-        startExam:{en:'Start Exam',ar:'ابدأ الاختبار'},
-        upcomingChip:{en:'Upcoming',ar:'قادم'},
-        startHint:{en:'Starts soon',ar:'يبدأ قريباً'},
-        questions:{en:'questions',ar:'سؤال'}, mins:{en:'mins',ar:'دقيقة'},
-        topics:{en:'topics',ar:'مواضيع'}, levels:{en:'levels',ar:'مستويات'},
-        attempted:{en:'Questions attempted',ar:'الأسئلة المُجابة'},
-        correct:{en:'Correct answers',ar:'الإجابات الصحيحة'},
-        wrong:{en:'Wrong answers',ar:'الإجابات الخاطئة'},
-        unanswered:{en:'Unanswered',ar:'دون إجابة'},
-        studyTime:{en:'Study time',ar:'وقت الدراسة'},
-        studyZero:{en:'No study time recorded yet.',ar:'لم يُسجّل وقت دراسة بعد.'},
-        completion:{en:'completion',ar:'نسبة الإكمال'},
-        completedOn:{en:'Completed ',ar:'اكتمل في '},
-        emptyContinueT:{en:'No practice in progress.',ar:'لا يوجد تدريب جارٍ.'},
-        emptyContinueB:{en:'Pick a subject to start a set and it will show up here.',ar:'اختر مادة لبدء مجموعة وسيظهر هنا.'},
-        emptyExamsT:{en:'No exams scheduled right now.',ar:'لا توجد اختبارات مجدولة حالياً.'},
-        emptyExamsB:{en:'New windows appear here when your school assigns them.',ar:'تظهر النوافذ الجديدة هنا عند إسنادها من مدرستك.'},
-        emptyResultsT:{en:'No results yet.',ar:'لا توجد نتائج بعد.'},
-        emptyResultsB:{en:'Finish an exam and your score appears here.',ar:'أكمل اختباراً وستظهر نتيجتك هنا.'},
-        loading:{en:'Loading your dashboard…',ar:'جارٍ تحميل لوحتك…'},
-        errorTitle:{en:'The dashboard didn’t load.',ar:'لم يتم تحميل اللوحة.'},
-        errorBody:{en:'The server did not respond in time. Retry keeps your state, language, and theme.',ar:'لم يستجب الخادم في الوقت المناسب. تُعيد المحاولة مع الحفاظ على حالتك ولغتك ومظهرك.'},
-        retry:{en:'Retry',ar:'إعادة المحاولة'},
-        offlineTitle:{en:'You are offline.',ar:'أنت غير متصل بالإنترنت.'},
-        offlineBody:{en:'Showing the last data saved on this device; starting an exam needs a connection.',ar:'نعرض آخر بيانات محفوظة على هذا الجهاز؛ بدء الاختبار يتطلب اتصالاً.'},
-        libraryCta:{en:'Open Learning Library',ar:'افتح مكتبة التعلّم'}
-      };
-      let locale = localStorage.getItem('qiyas-preview-locale') || 'ar';
-      let dark = localStorage.getItem('qiyas-preview-theme') === 'dark';
-      let screenState = 'nominal';
-      const canvases = [...document.querySelectorAll('.product-canvas')];
-      const s = (o) => o[locale === 'ar' ? 'ar' : 'en'];
-      const c = (k) => COPY[k][locale === 'ar' ? 'ar' : 'en'];
-      const esc = (x) => String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-      const fmt = (v, withTime) => { const d = new Date(v); const o = withTime ? {month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'} : {month:'short',day:'numeric',year:'numeric'}; const loc = locale === 'ar' ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-US'; try { return new Intl.DateTimeFormat(loc, o).format(d); } catch (_) { return new Intl.DateTimeFormat('en-GB', o).format(d); } };
-      const logo = () => '<a class="app-brand" href="index.html" aria-label="Qiyas"><svg viewBox="0 0 1201 349" role="img" aria-hidden="true"><use href="#qiyas-logo-en"></use></svg></a>';
-      const ICONS = {
-        home:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg>',
-        practice:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M5 4h11l3 3v13H5z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>',
-        exams:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><rect x="5" y="4" width="14" height="17"/><path d="M9 4V3h6v1M9 10h6M9 14h6"/></svg>',
-        progress:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M4 19V5M4 19h16"/><path d="M8 16v-5M12 16V8M16 16v-7"/></svg>',
-        profile:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="9" r="3.5"/><path d="M5 20c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></svg>',
-        help:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3 2.5v1.5M12 17v.5"/></svg>',
-        bell:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19h4"/></svg>',
-        chev:'<svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg>',
-        alert:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M12 3 22 20H2z"/><path d="M12 10v4M12 16.5v.5"/></svg>',
-        plug:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M3 3l18 18M9 3v4M15 3v4M7 7h10v4a5 5 0 0 1-10 0z"/></svg>'
-      };
-      const utilCluster = () => '<div class="util-cluster">'
-        + '<button class="util" type="button" aria-label="'+esc(c('utilLang'))+'" data-od-id="dash-ui-util-lang"><span class="initials">'+(locale==='ar'?'EN':'عر')+'</span></button>'
-        + '<span class="util-wrap"><button class="util" type="button" aria-label="'+esc(c('utilBell'))+'" data-od-id="dash-ui-util-bell">'+ICONS.bell+'</button><span class="badge-dot" aria-hidden="true"></span></span>'
-        + '<button class="util" type="button" aria-label="'+esc(c('utilProfile'))+'" data-od-id="dash-ui-util-profile"><span class="initials">AA</span></button>'
-        + '</div>';
-      const railLink = (key, icon, label, active) => '<a class="rail-link" href="#"'+(active?' aria-current="page"':'')+' aria-label="'+esc(label)+'" data-od-id="dash-ui-rail-'+key+'">'+icon+'<span>'+esc(label)+'</span></a>';
-      const sideRail = () => {
-        return '<aside class="side-rail" data-od-id="dash-ui-sidebar">'
-          + '<nav class="rail-nav" aria-label="'+esc(c('navHome'))+'">'
-          + railLink('home', ICONS.home, c('navHome'), true)
-          + railLink('practice', ICONS.practice, c('navPractice'), false)
-          + railLink('exams', ICONS.exams, c('navExams'), false)
-          + railLink('progress', ICONS.progress, c('navProgress'), false)
-          + railLink('profile', ICONS.profile, c('navProfile'), false)
-          + '</nav><div class="rail-foot"><nav class="rail-nav" aria-label="'+esc(c('navHelp'))+'">'
-          + railLink('help', ICONS.help, c('navHelp'), false)
-          + '</nav></div></aside>';
-      };
-      const footNav = () => '<nav class="foot-nav" aria-label="'+esc(c('navHome'))+'" data-od-id="dash-ui-footer-nav">'
-        + '<a class="foot-link" href="#" aria-current="page">'+ICONS.home+'<span>'+esc(c('navHome'))+'</span></a>'
-        + '<a class="foot-link" href="#" data-od-id="dash-ui-foot-practice">'+ICONS.practice+'<span>'+esc(c('navPractice'))+'</span></a>'
-        + '<a class="foot-link" href="qiyas-scheduled-exams.html" data-od-id="dash-ui-foot-exams">'+ICONS.exams+'<span>'+esc(c('navExams'))+'</span></a>'
-        + '<a class="foot-link" href="#" data-od-id="dash-ui-foot-progress">'+ICONS.progress+'<span>'+esc(c('navProgress'))+'</span></a>'
-        + '<a class="foot-link" href="#" data-od-id="dash-ui-foot-profile">'+ICONS.profile+'<span>'+esc(c('navProfile'))+'</span></a>'
-        + '</nav>';
-      const pageHead = () => '<div class="page-head" data-od-id="dash-ui-welcome"><p class="eyebrow">'+esc(c('eyebrow'))+'</p><h1 data-od-id="dash-ui-greeting">'+esc(c('welcome'))+esc(s(DATA.student.name))+'!</h1><p class="lede">'+esc(c('lede'))+'</p></div>';
-      const continuePanel = () => {
-        const p = DATA.continuePractice;
-        if (screenState === 'empty' || !p) return '<section class="panel primary continue-card" data-od-id="dash-ui-continue"><div class="panel-head"><h2>'+esc(c('continueTitle'))+'</h2></div><div class="empty-state" data-od-id="dash-ui-continue-empty"><span class="mark" aria-hidden="true"></span><h3>'+esc(c('emptyContinueT'))+'</h3><p>'+esc(c('emptyContinueB'))+'</p><a class="btn secondary small" href="qiyas-learning-library.html">'+esc(c('libraryCta'))+'</a></div></section>';
-        return '<section class="panel primary continue-card" data-od-id="dash-ui-continue"><div class="panel-head"><h2>'+esc(c('continueTitle'))+'</h2></div>'
-          + '<div class="continue-body"><p class="continue-subject" data-od-id="dash-ui-continue-subject">'+esc(s(p.subject))+'</p><p class="continue-topic" data-od-id="dash-ui-continue-topic">'+esc(s(p.topic))+'</p>'
-          + '<p class="continue-level" data-od-id="dash-ui-continue-level">'+esc(s(p.level))+' <span class="sep" aria-hidden="true">·</span> '+esc(c('level'))+' <span class="mono">'+esc(p.levelNumber)+'</span></p></div>'
-          + '<a class="btn primary block" href="qiyas-learning-library.html" data-level-id="'+esc(p.levelId)+'" data-od-id="dash-ui-continue-action">'+esc(c('continueCta'))+'</a></section>';
-      };
-      const examRow = (e, available) => {
-        const off = screenState === 'offline';
-        const action = available
-          ? '<button class="btn primary small'+(off?' disabled':'')+'" type="button"'+(off?' disabled':'')+' data-od-id="dash-ui-start-'+e.id+'" style="inline-size:auto">'+esc(c('startExam'))+'</button>'
-          : '<button class="btn small disabled" type="button" disabled data-od-id="dash-ui-upcoming-'+e.id+'" style="inline-size:auto;background:var(--surface-sunken);border-color:var(--border-subtle);color:var(--text-disabled)">'+esc(c('upcomingChip'))+'</button>';
-        return '<li class="exam-row" data-od-id="dash-ui-exam-'+e.id+'"><div class="exam-main"><p class="exam-title">'+esc(s(e.title))+'</p><p class="exam-meta"><span class="val">'+esc(fmt(e.start,true))+'</span> · <span class="val">'+e.minutes+' '+esc(c('mins'))+'</span> · <span class="val">'+e.questions+' '+esc(c('questions'))+'</span></p></div>'+action+'</li>';
-      };
-      const availablePanel = () => {
-        if (screenState === 'empty') return '<section class="panel primary available-card" data-od-id="dash-ui-available"><div class="panel-head"><h2>'+esc(c('availableTitle'))+'</h2></div><div class="empty-state" data-od-id="dash-ui-available-empty"><span class="mark" aria-hidden="true"></span><h3>'+esc(c('emptyExamsT'))+'</h3><p>'+esc(c('emptyExamsB'))+'</p><a class="btn secondary small" href="qiyas-scheduled-exams.html">'+esc(c('viewAll'))+'</a></div></section>';
-        return '<section class="panel primary available-card" data-od-id="dash-ui-available"><div class="panel-head"><h2>'+esc(c('availableTitle'))+'</h2><span class="chip"><span class="dot" aria-hidden="true"></span>'+esc(c('startHint'))+'</span></div><ul class="row-list">'+DATA.availableExams.map(e=>examRow(e,true)).join('')+'</ul></section>';
-      };
-      const upcomingPanel = () => '<section class="panel upcoming-card" data-od-id="dash-ui-upcoming"><div class="panel-head"><h2>'+esc(c('upcomingTitle'))+'</h2><a class="link" href="qiyas-scheduled-exams.html" data-od-id="dash-ui-upcoming-viewall">'+esc(c('viewAll'))+'</a></div><ul class="row-list">'+DATA.upcomingExams.map(e=>examRow(e,false)).join('')+'</ul></section>';
-      const subjectsPanel = () => {
-        const rows = DATA.subjects.map(x => '<li><a class="subject-row" href="qiyas-learning-library.html" data-od-id="dash-ui-subject-'+x.id+'"><span><span class="subject-name">'+esc(s(x.name))+'</span><span class="subject-meta">'+x.topics+' '+esc(c('topics'))+' · '+x.levels+' '+esc(c('levels'))+'</span></span><span class="progress-track" aria-hidden="true"><span style="inline-size:'+x.percent+'%"></span></span><span class="subject-pct mono">'+x.percent+'%</span>'+ICONS.chev+'</a></li>').join('');
-        return '<section class="panel subjects-card" data-od-id="dash-ui-subjects"><div class="panel-head"><h2>'+esc(c('subjectsTitle'))+'</h2><a class="link" href="qiyas-learning-library.html">'+esc(c('openLibrary'))+'</a></div><ul class="row-list">'+rows+'</ul></section>';
-      };
-      const progressPanel = () => {
-        const p = DATA.progress;
-        const study = p.studyMinutes === 0 ? '<dd class="zero mono">0 min</dd>' : '<dd class="mono">'+p.studyMinutes+' min</dd>';
-        return '<section class="panel progress-card" data-od-id="dash-ui-progress"><div class="panel-head"><h2>'+esc(c('progressTitle'))+'</h2></div><div class="progress-hero" data-od-id="dash-ui-progress-hero"><span class="pct mono">'+p.percent+'%<small>'+esc(c('completion'))+'</small></span><div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+p.percent+'"><span style="inline-size:'+p.percent+'%"></span></div></div><dl class="metric-list"><div class="metric-row"><dt>'+esc(c('attempted'))+'</dt><dd class="mono">'+p.attempted+'</dd></div><div class="metric-row"><dt>'+esc(c('correct'))+'</dt><dd class="mono">'+p.correct+'</dd></div><div class="metric-row"><dt>'+esc(c('wrong'))+'</dt><dd class="mono">'+p.wrong+'</dd></div><div class="metric-row"><dt>'+esc(c('unanswered'))+'</dt><dd class="mono">'+p.unanswered+'</dd></div><div class="metric-row"><dt>'+esc(c('studyTime'))+'</dt>'+study+'</div></dl>'+(p.studyMinutes===0?'<p class="progress-meta"><span>'+esc(c('studyZero'))+'</span></p>':'')+'</section>';
-      };
-      const resultsPanel = () => {
-        if (screenState === 'empty') return '<section class="panel results-card" data-od-id="dash-ui-results"><div class="panel-head"><h2>'+esc(c('resultsTitle'))+'</h2></div><div class="empty-state" data-od-id="dash-ui-results-empty"><span class="mark" aria-hidden="true"></span><h3>'+esc(c('emptyResultsT'))+'</h3><p>'+esc(c('emptyResultsB'))+'</p></div></section>';
-        return '<section class="panel results-card" data-od-id="dash-ui-results"><div class="panel-head"><h2>'+esc(c('resultsTitle'))+'</h2></div><ul class="row-list">'+DATA.recentResults.map(r=>'<li class="result-row" data-od-id="dash-ui-result-'+r.id+'"><div class="exam-main"><p class="result-title">'+esc(s(r.title))+'</p><p class="result-meta">'+esc(c('completedOn'))+'<span class="val">'+esc(fmt(r.completed,false))+'</span></p></div><div class="result-score"><span class="score mono">'+r.score+'%</span><small>'+r.correct+' / '+r.total+'</small></div></li>').join('')+'</ul></section>';
-      };
-      const skeleton = () => '<div class="panel"><div class="skel"><div class="line w40"></div><div class="line w90"></div><div class="line w60"></div><div class="line btn"></div></div></div><div class="panel"><div class="skel"><div class="line w40"></div><div class="line w90"></div><div class="line w60"></div><div class="line btn"></div></div></div>';
-      const grid = () => {
-        if (screenState === 'loading') return '<div class="skel-note" role="status"><span class="spinner" aria-hidden="true"></span>'+esc(c('loading'))+'</div><div class="dash-grid" style="margin-block-start:var(--space-4)" aria-busy="true">'+skeleton()+'</div>';
-        if (screenState === 'error') return '<div class="banner error" role="alert" data-od-id="dash-ui-error" style="margin-block-start:var(--space-5)"><strong>'+ICONS.alert+' '+esc(c('errorTitle'))+'</strong><p>'+esc(c('errorBody'))+'</p><button class="btn primary small" type="button" data-retry data-od-id="dash-ui-retry" style="inline-size:auto;margin-block-start:var(--space-2)">'+esc(c('retry'))+'</button></div>';
-        let out = '';
-        if (screenState === 'offline') out += '<div class="banner" role="status" data-od-id="dash-ui-offline" style="margin-block-start:var(--space-5)"><strong>'+ICONS.plug+' '+esc(c('offlineTitle'))+'</strong><p>'+esc(c('offlineBody'))+'</p></div>';
-        out += '<div class="dash-grid">'+continuePanel()+availablePanel()+upcomingPanel()+subjectsPanel()+progressPanel()+resultsPanel()+'</div>';
-        return out;
-      };
-      const appHtml = () => '<div class="app" dir="'+(locale==='ar'?'rtl':'ltr')+'">'
-        + '<header class="app-bar" data-od-id="dash-ui-app-bar">'+logo()+utilCluster()+'</header>'
-        + '<div class="app-body">'
-        + sideRail()
-        + '<div class="shell-main">'
-        + '<main class="content">'+pageHead()+grid()+'</main>'
-        + footNav()
-        + '</div></div></div>';
-      const apply = () => {
-        root.dataset.previewLocale = locale;
-        root.dataset.theme = dark ? 'dark' : 'light';
-        document.querySelectorAll('[data-preview-theme]').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.previewTheme === 'dark') === dark)));
-        document.querySelectorAll('[data-preview-locale]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.previewLocale === locale)));
-        document.querySelectorAll('[data-screen-control]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.screenControl === screenState)));
-        canvases.forEach(cn => { cn.dataset.locale = locale; cn.lang = locale; cn.dir = locale === 'ar' ? 'rtl' : 'ltr'; cn.innerHTML = appHtml(); });
-      };
-      document.addEventListener('click', (ev) => {
-        const st = ev.target.closest('[data-screen-control]'); if (st) { screenState = st.dataset.screenControl; apply(); return; }
-        const rt = ev.target.closest('[data-retry]'); if (rt) { screenState = 'loading'; apply(); setTimeout(() => { screenState = 'nominal'; apply(); }, 900); return; }
-        const th = ev.target.closest('[data-preview-theme]'); if (th) { dark = th.dataset.previewTheme === 'dark'; localStorage.setItem('qiyas-preview-theme', dark ? 'dark' : 'light'); apply(); return; }
-        const lo = ev.target.closest('[data-preview-locale]'); if (lo) { locale = lo.dataset.previewLocale; localStorage.setItem('qiyas-preview-locale', locale); apply(); return; }
-      });
-      apply();
-    })();
-  </script>
+<footer>
+  <div class="wrap">
+    <span>Qiyas · Screen Library</span>
+  </div>
+</footer>
 </body>
 </html>
