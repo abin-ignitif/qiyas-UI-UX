@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light" data-preview-locale="ar">
+<head><script type="application/json" data-od-external-dependencies>["https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"]</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Qiyas Admin authentication hand-off — admin sign-in surface.">
+  <title>Qiyas · Admin sign-in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primitive-green-500: #0D662C; --primitive-green-400: #1A8C43; --primitive-green-200: #66B385; --primitive-green-50: #E6F2EA; --primitive-green-700: #09481F;
+      --primitive-gold-500: #CE940F; --primitive-gold-400: #DBA724; --primitive-gold-50: #FFFDF0; --primitive-gold-700: #91680A;
+      --primitive-ink: #11120F; --primitive-paper: #FEFEFE; --primitive-neutral-50: #F8F9F7; --primitive-neutral-100: #E1E3DF; --primitive-neutral-200: #C4C7C0; --primitive-neutral-400: #878C82; --primitive-neutral-500: #61665C; --primitive-neutral-700: #32352E;
+      --primitive-terracotta-500: #C84B15; --primitive-terracotta-50: #FFF2F0; --primitive-terracotta-700: #96320B;
+      --surface-page: var(--primitive-paper); --surface-raised: var(--primitive-neutral-50); --surface-sunken: var(--primitive-neutral-100); --surface-overlay: var(--primitive-paper); --surface-inverse: var(--primitive-ink);
+      --text-primary: var(--primitive-ink); --text-secondary: var(--primitive-neutral-700); --text-tertiary: var(--primitive-neutral-500); --text-disabled: var(--primitive-neutral-400); --text-inverse: var(--primitive-paper);
+      --border-subtle: var(--primitive-neutral-100); --border-default: var(--primitive-neutral-200); --border-strong: var(--primitive-ink); --border-focus: var(--primitive-green-400);
+      --action-primary-bg: var(--primitive-ink); --action-primary-fg: var(--primitive-paper); --action-secondary-bg: var(--surface-page); --action-secondary-fg: var(--text-primary); --action-destructive-bg: var(--primitive-terracotta-700); --action-destructive-fg: var(--primitive-paper);
+      --state-correct-bg: var(--primitive-green-50); --state-correct-border: var(--primitive-green-500); --state-correct-fg: var(--primitive-green-700);
+      --state-incorrect-bg: var(--primitive-terracotta-50); --state-incorrect-border: var(--primitive-terracotta-500); --state-incorrect-fg: var(--primitive-terracotta-700);
+      --state-gold-bg: var(--primitive-gold-50); --state-gold-border: var(--primitive-gold-500); --state-gold-fg: var(--primitive-gold-700);
+      --focus-ring: var(--primitive-green-400); --shadow-overlay: 4px 4px 0 var(--primitive-ink);
+      --font-body: "IBM Plex Sans", system-ui, sans-serif; --font-arabic: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, sans-serif; --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+      --logo-ink: #11120F; --logo-green: #0D662C; --logo-gold: #CE940F;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px;
+      --radius-card: 4px; --radius-control: 4px; --radius-accent: 0;
+      --content: 1280px; --auth-content: 1180px; --form-col: 480px; --control-compact: 40px; --control-default: 44px; --control-large: 48px;
+      --focus-offset: 3px; --motion-quick: 120ms; --motion-base: 180ms; --motion-deliberate: 280ms; --ease-enter: cubic-bezier(.2,.7,.3,1);
+    }
+    html[data-theme="dark"] {
+      --surface-page: #11120F; --surface-raised: #181A16; --surface-sunken: #0B0C0A; --surface-overlay: #20231E; --surface-inverse: #FEFEFE;
+      --text-primary: #FEFEFE; --text-secondary: #C4C7C0; --text-tertiary: #A8ADA2; --text-disabled: #72786E;
+      --border-subtle: #2A2E28; --border-default: #4A5046; --border-strong: #FEFEFE; --border-focus: #66B385;
+      --action-primary-bg: #FEFEFE; --action-primary-fg: #11120F; --action-secondary-bg: #181A16; --action-secondary-fg: #FEFEFE;
+      --state-correct-bg: #173D25; --state-correct-border: #66B385; --state-correct-fg: #B3D9C1;
+      --state-incorrect-bg: #4A1B0A; --state-incorrect-border: #E07843; --state-incorrect-fg: #FFD0BD;
+      --state-gold-bg: #3C3217; --state-gold-border: #DBA724; --state-gold-fg: #EDC866;
+      --focus-ring: #66B385; --shadow-overlay: 4px 4px 0 #000; --logo-ink: #FEFEFE; --logo-green: #66B385; --logo-gold: #DBA724;
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html { background: var(--surface-page); }
+    body { margin: 0; color: var(--text-primary); background: var(--surface-page); font: 400 16px/1.5 var(--font-body); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    button { font: inherit; cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: var(--focus-offset); }
+    h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin-block-start: 0; }
+    h1, h2, h3, h4 { font-family: var(--font-body); line-height: 1.2; letter-spacing: -.02em; }
+    h2 { font-size: 26px; font-weight: 600; }
+    h3 { font-size: 18px; font-weight: 600; }
+    p { color: var(--text-secondary); }
+    .mono { direction: ltr; unicode-bidi: isolate; font-family: var(--font-mono); font-variant-numeric: tabular-nums lining-nums; }
+
+    /* document chrome */
+    .document-header { position: sticky; inset-block-start: 0; z-index: 40; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-3); min-block-size: 72px; padding: var(--space-3) max(var(--space-4), calc((100vw - var(--content)) / 2)); border-block-end: 1px solid var(--border-subtle); background: var(--surface-page); }
+    .document-title { display: flex; align-items: center; gap: var(--space-3); }
+    .document-title strong { font-size: 15px; }
+    .document-title span { color: var(--text-tertiary); font-size: 12px; }
+    .control-cluster { display: flex; flex-wrap: wrap; gap: var(--space-1); align-items: center; }
+    .control-label { margin-inline-end: var(--space-1); color: var(--text-tertiary); font: 700 11px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .document-control { min-block-size: 44px; min-inline-size: 44px; padding-inline: var(--space-3); border: 1.5px solid var(--border-default); border-radius: var(--radius-control); color: var(--text-primary); background: var(--surface-page); }
+    .document-control:hover, .document-control[aria-pressed="true"] { background: var(--surface-raised); border-color: var(--border-strong); }
+    .document-control[aria-pressed="true"] { box-shadow: inset 0 -2px 0 var(--primitive-green-500); }
+    .page { max-inline-size: var(--content); margin-inline: auto; padding: var(--space-7) var(--space-5) var(--space-9); }
+    .intro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: var(--space-7); align-items: end; padding-block-end: var(--space-7); border-block-end: 2px solid var(--border-strong); }
+    .eyebrow { color: var(--primitive-green-500); font: 700 11px/1.4 var(--font-body); letter-spacing: .12em; text-transform: uppercase; }
+    .intro h1 { font-size: 37px; font-weight: 700; max-inline-size: 18ch; margin-block: var(--space-3); }
+    .intro .lead { max-inline-size: 68ch; margin-block-end: 0; font-size: 17px; }
+    .decision { display: grid; gap: var(--space-4); }
+    .decision > div { padding: var(--space-5); border: 1.5px solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .decision h3 { margin-block-end: var(--space-2); font-size: 15px; }
+    .decision h3 .tag { margin-inline-start: var(--space-2); color: var(--text-tertiary); font: 600 11px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .decision p { margin: 0; font-size: 14px; }
+    .decision .rec { border-inline-start: 3px solid var(--primitive-green-500); }
+    .decision .rej { border-inline-start: 3px solid var(--primitive-terracotta-500); }
+    .section { padding-block: var(--space-8); border-block-end: 1px solid var(--border-subtle); }
+    .section-head { display: grid; grid-template-columns: minmax(220px, .34fr) minmax(0, .66fr); gap: var(--space-6); margin-block-end: var(--space-6); }
+    .section-head h2 { margin-block-start: var(--space-2); }
+    .section-head p { margin: 0; max-inline-size: 76ch; }
+    .preview-grid { display: grid; grid-template-columns: 390px minmax(0, 1fr); gap: var(--space-5); align-items: start; }
+    .preview-wrap { min-inline-size: 0; }
+    .preview-label { display: flex; justify-content: space-between; gap: var(--space-3); margin-block-end: var(--space-2); color: var(--text-tertiary); font: 600 11px/1.4 var(--font-mono); }
+    .product-canvas { position: relative; color: var(--text-primary); background: var(--surface-page); border: 1.5px solid var(--border-default); border-radius: var(--radius-card); overflow: hidden; }
+    .preview-phone { inline-size: 390px; max-inline-size: 100%; block-size: 844px; }
+    .preview-desktop { inline-size: 100%; block-size: 760px; }
+    .demo-bar { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-block-end: var(--space-4); padding: var(--space-3); border: 1.5px dashed var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .demo-bar .control-label { margin-inline-end: var(--space-2); }
+    .demo-state { min-block-size: 44px; padding-inline: var(--space-3); border: 1.5px solid var(--border-default); border-radius: var(--radius-control); color: var(--text-secondary); background: var(--surface-page); font-size: 13px; }
+    .demo-state:hover, .demo-state[aria-pressed="true"] { color: var(--text-primary); border-color: var(--border-strong); background: var(--surface-sunken); }
+
+    /* auth shell */
+    .auth-app { block-size: 100%; display: grid; grid-template-rows: auto minmax(0, 1fr); background: var(--surface-page); }
+    .auth-topbar { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3); min-block-size: 68px; padding: var(--space-2) clamp(16px, 3vw, 32px); border-block-end: 1px solid var(--border-subtle); }
+    .auth-brand-mobile { display: none; margin-inline: auto; }
+    .auth-brand-mobile .qiyas-logo { inline-size: 148px; block-size: auto; display: block; }
+    .qiyas-logo { inline-size: 118px; block-size: auto; display: block; }
+    .locale-switch { flex: none; display: inline-grid; place-items: center; inline-size: 44px; block-size: 44px; border: 1.5px solid var(--border-default); border-radius: var(--radius-control); color: var(--text-primary); background: var(--surface-page); font-weight: 600; font-size: 13px; }
+    .locale-switch:hover { background: var(--surface-raised); border-color: var(--border-strong); }
+    .auth-scroll { overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+    .auth-body { display: grid; grid-template-columns: minmax(0, 1fr) var(--form-col); gap: var(--space-8); align-items: start; max-inline-size: var(--auth-content); margin-inline: auto; padding: var(--space-7) clamp(16px, 3vw, 32px) var(--space-8); }
+    .auth-rail { display: grid; align-content: start; gap: var(--space-5); padding-block-start: var(--space-6); max-inline-size: 44ch; }
+    .auth-rail .qiyas-logo { inline-size: 132px; margin-block-end: var(--space-2); }
+    .rail-label { color: var(--primitive-green-500); font: 700 11px/1.4 var(--font-body); letter-spacing: .12em; text-transform: uppercase; margin-block-end: var(--space-3); }
+    .rail-title { font-size: 26px; font-weight: 600; max-inline-size: 20ch; margin-block-end: var(--space-3); }
+    .rail-dest { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+    .rail-dest li { display: flex; align-items: baseline; gap: var(--space-3); color: var(--text-secondary); font-size: 14px; }
+    .rail-dest li::before { content: ""; flex: none; inline-size: 7px; block-size: 7px; border: 1.5px solid var(--border-strong); background: transparent; transform: translateY(-1px); }
+    .rail-foot { margin: 0; padding-block-start: var(--space-4); border-block-start: 1px solid var(--border-subtle); color: var(--text-tertiary); font-size: 13px; }
+    .auth-col { inline-size: var(--form-col); max-inline-size: 100%; display: grid; gap: var(--space-4); padding: var(--space-6); border: 1.5px solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .auth-kicker { color: var(--text-tertiary); font: 600 12px/1.4 var(--font-body); }
+    .auth-title { font-size: 26px; font-weight: 600; margin: 0; }
+    .auth-lead { margin: 0; font-size: 15px; }
+    .auth-status { margin: 0; padding-block-start: var(--space-4); border-block-start: 1px solid var(--border-subtle); color: var(--text-tertiary); font-size: 13px; }
+
+    /* forms */
+    .field { display: grid; gap: 6px; }
+    .field-label { font-size: 13px; font-weight: 600; }
+    .field-control { display: flex; align-items: center; gap: var(--space-2); min-block-size: var(--control-large); padding-inline: 10px; border: 1.5px solid var(--border-default); border-radius: var(--radius-control); background: var(--surface-page); }
+    .field-control:focus-within { border-color: var(--border-focus); box-shadow: 0 0 0 2px var(--state-correct-bg); }
+    .auth-col.is-forced-focus [data-field="email"] .field-control { border-color: var(--border-focus); box-shadow: 0 0 0 2px var(--state-correct-bg); }
+    .field-control input { inline-size: 100%; min-inline-size: 0; min-block-size: 40px; border: 0; background: transparent; color: var(--text-primary); font: inherit; outline: none; }
+    .field-control input::placeholder { color: var(--text-disabled); }
+    .field[data-invalid="true"] .field-control { border-color: var(--state-incorrect-border); }
+    .field-error { display: flex; align-items: flex-start; gap: 6px; color: var(--state-incorrect-fg); font-size: 12px; }
+    .field-error .icon { inline-size: 15px; block-size: 15px; margin-block-start: 1px; flex: none; }
+    .field-error strong { font-weight: 600; }
+    .inline-control { flex: none; display: inline-grid; place-items: center; inline-size: 44px; block-size: 44px; margin-inline-end: -8px; border: 0; border-radius: var(--radius-control); background: transparent; color: var(--text-secondary); }
+    .inline-control:hover { background: var(--surface-sunken); color: var(--text-primary); }
+    .field-help { color: var(--text-tertiary); font-size: 12px; }
+
+    .icon { inline-size: 18px; block-size: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: square; stroke-linejoin: miter; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-block-size: var(--control-large); padding-inline: var(--space-4); border: 1.5px solid transparent; border-radius: var(--radius-control); font-weight: 600; font-size: 15px; text-decoration: none; transition: background-color var(--motion-quick) var(--ease-enter), border-color var(--motion-quick) var(--ease-enter), color var(--motion-quick) var(--ease-enter); }
+    .button-primary { color: var(--action-primary-fg); background: var(--action-primary-bg); border-color: var(--action-primary-bg); }
+    .button-primary:hover { background: var(--primitive-neutral-700); border-color: var(--primitive-neutral-700); }
+    html[data-theme="dark"] .button-primary:hover { color: var(--primitive-ink); background: var(--primitive-neutral-200); border-color: var(--primitive-neutral-200); }
+    .button-ghost { color: var(--text-secondary); background: transparent; border-color: transparent; }
+    .button-ghost:hover { color: var(--text-primary); background: var(--surface-sunken); }
+    .button[disabled], .button[aria-disabled="true"] { color: var(--text-disabled); background: var(--surface-sunken); border-color: var(--border-subtle); cursor: not-allowed; }
+    .button-block { inline-size: 100%; }
+    .button-primary[data-loading="true"] { position: relative; color: transparent; }
+    .button-primary[data-loading="true"]::after { content: ""; position: absolute; inline-size: 18px; block-size: 18px; border: 2px solid var(--action-primary-fg); border-block-start-color: transparent; border-radius: 50%; animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .feedback { display: flex; align-items: flex-start; gap: var(--space-2); padding: var(--space-3); border: 1px solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-page); font-size: 13px; }
+    .feedback strong { display: block; margin-block-end: 2px; }
+    .feedback p { margin: 0; font-size: 13px; }
+    .feedback-icon { flex: none; display: grid; place-items: center; inline-size: 22px; block-size: 22px; border: 1.5px solid currentColor; border-radius: 0; font: 700 12px/1 var(--font-mono); }
+    .feedback.error { color: var(--state-incorrect-fg); border-color: var(--state-incorrect-border); background: var(--state-incorrect-bg); }
+    .feedback.success { color: var(--state-correct-fg); border-color: var(--state-correct-border); background: var(--state-correct-bg); }
+    .feedback.neutral { color: var(--text-primary); border-color: var(--border-default); background: var(--surface-raised); }
+    .feedback .feedback-body { min-inline-size: 0; }
+
+    [data-locale="en"] { direction: ltr; }
+    [data-locale="ar"] { direction: rtl; font-family: var(--font-arabic); }
+    [data-locale="ar"] .mono { direction: ltr; unicode-bidi: isolate; }
+    [data-locale="ar"] h1, [data-locale="ar"] h2, [data-locale="ar"] h3, [data-locale="ar"] .rail-title, [data-locale="ar"] .auth-title { line-height: 1.35; letter-spacing: 0; }
+    [data-locale="en"] .qiyas-logo-ar { display: none; }
+    [data-locale="ar"] .qiyas-logo-en { display: none; }
+    [dir="rtl"] .locale-switch { letter-spacing: 0; }
+
+    /* document sections */
+    .state-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-5); }
+    .state-card { display: grid; align-content: start; gap: var(--space-3); padding: var(--space-4); border: 1.5px solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .state-card header { display: flex; align-items: baseline; gap: var(--space-3); }
+    .state-card h3 { margin: 0; font-size: 16px; }
+    .state-card .state-index { color: var(--text-tertiary); font: 600 11px/1 var(--font-mono); }
+    .state-card .state-desc { margin: 0; font-size: 13px; }
+    .state-canvases { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: var(--space-4); align-items: start; margin-block-start: var(--space-2); }
+    .state-canvas { position: relative; color: var(--text-primary); background: var(--surface-page); border: 1.5px solid var(--border-default); border-radius: var(--radius-card); overflow: hidden; }
+    .state-canvas .auth-app { block-size: auto; }
+    .state-canvas .auth-scroll { overflow: visible; }
+    .state-canvas .auth-col { padding: var(--space-4); gap: var(--space-3); }
+    .state-canvas .auth-title { font-size: 20px; }
+    .state-canvas--desktop .auth-body { grid-template-columns: minmax(0, 1fr) 320px; gap: var(--space-5); max-inline-size: none; padding: var(--space-5); }
+    .state-canvas--desktop .auth-rail { padding-block-start: var(--space-2); gap: var(--space-3); }
+    .state-canvas--desktop .auth-rail .qiyas-logo { inline-size: 96px; }
+    .state-canvas--desktop .rail-title { font-size: 18px; }
+    .state-canvas--desktop .rail-dest li, .state-canvas--desktop .rail-foot { font-size: 12px; }
+    .state-canvas--desktop .auth-col { inline-size: 100%; }
+    .state-canvas--mobile .auth-body { grid-template-columns: 1fr; gap: var(--space-3); padding: var(--space-4); }
+    .state-canvas--mobile .auth-rail { display: none; }
+    .state-canvas--mobile .auth-brand-mobile { display: block; }
+    .state-canvas--mobile .auth-topbar { min-block-size: 56px; }
+
+    /* mobile surface — rail collapses, centred 148px lockup, one 16px inset */
+    .preview-phone .auth-body, .state-canvas--mobile .auth-body { grid-template-columns: 1fr; gap: var(--space-5); padding-block-start: var(--space-5); padding-inline: var(--space-4); }
+    .preview-phone .auth-rail, .state-canvas--mobile .auth-rail { display: none; }
+    .preview-phone .auth-brand-mobile, .state-canvas--mobile .auth-brand-mobile { display: block; }
+    .preview-phone .auth-topbar, .state-canvas--mobile .auth-topbar { position: relative; justify-content: center; padding-inline: var(--space-4); padding-block-start: max(var(--space-2), env(safe-area-inset-top)); }
+    .preview-phone .locale-switch, .state-canvas--mobile .locale-switch { position: absolute; inset-inline-end: var(--space-4); inset-block-start: 50%; transform: translateY(-50%); }
+    .preview-phone .auth-col, .state-canvas--mobile .auth-col { inline-size: 100%; }
+    .preview-phone .auth-body { padding-block-end: max(var(--space-6), env(safe-area-inset-bottom)); }
+
+    .table-wrap { max-inline-size: 100%; overflow-x: auto; }
+    table.data-table { inline-size: 100%; min-inline-size: 760px; border-collapse: collapse; font-size: 13px; }
+    .data-table th, .data-table td { padding: 10px 8px; border-block-end: 1px solid var(--border-subtle); text-align: start; vertical-align: top; }
+    .data-table th { color: var(--text-tertiary); font: 700 11px/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .data-table td:first-child { font-weight: 600; }
+    .build-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+    .mobile-build-sheet { margin-block-start: var(--space-5); padding: var(--space-5); border: 1.5px solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .build-grid dl { margin: 0; }
+    .build-grid dt { color: var(--text-tertiary); font: 600 11px/1.4 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
+    .build-grid dd { margin: var(--space-1) 0 0; color: var(--text-primary); }
+    .gap-list { display: grid; gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
+    .gap-list li { padding: var(--space-3); border-inline-start: 2px solid var(--primitive-gold-500); background: var(--surface-raised); }
+    .gap-list strong { display: block; margin-block-end: 4px; }
+    .gap-list p { margin: 0; font-size: 13px; }
+    .do-dont { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+    .do-dont > div { padding: var(--space-4); border: 1.5px solid var(--border-default); border-radius: var(--radius-card); }
+    .do-dont .do { border-color: var(--primitive-green-500); background: var(--state-correct-bg); }
+    .do-dont .dont { border-color: var(--primitive-terracotta-500); background: var(--state-incorrect-bg); }
+    .do-dont strong { display: block; margin-block-end: var(--space-2); }
+    .do-dont p, .do-dont li { margin: 0; font-size: 13px; color: var(--text-secondary); }
+    .do-dont ul { margin: 0; padding-inline-start: 18px; }
+    .footer { padding-block: var(--space-6); color: var(--text-tertiary); font-size: 12px; }
+    .footer p { margin: 0; }
+
+    @media (max-width: 1024px) {
+      .intro, .section-head, .preview-grid { grid-template-columns: 1fr; }
+      .preview-phone { margin-inline: auto; }
+      .preview-desktop { block-size: 720px; }
+      .state-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 680px) {
+      .document-header { position: static; padding-inline: var(--space-3); }
+      .document-title, .control-cluster { inline-size: 100%; }
+      .page { padding-inline: var(--space-4); }
+      .build-grid, .do-dont { grid-template-columns: 1fr; }
+      .preview-wrap:first-child { margin-inline: calc(var(--space-4) * -1); inline-size: calc(100% + (var(--space-4) * 2)); }
+      .preview-phone { inline-size: 100%; max-inline-size: none; border-inline: 0; border-radius: 0; }
+      .state-canvases { grid-template-columns: 1fr; }
+      .table-wrap { margin-inline: calc(var(--space-4) * -1); padding-inline: var(--space-4); }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; } }
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+    <symbol id="qiyas-logo-en" viewBox="0 0 1201 349">
+      <path d="M343 96v197h34V96zM1014 93l-1 112 133 1 1 56-133 1-1 31h167l-1-119-133-1 1-50h133V94zM751 93v201l33-1 1-88h111l1 89h33V93zm32 32 113-1 1 50-112 0zM471 91v113h81l2 2v92h35v-93l82-1V92h-34l-1 82H506l-1-82z" fill="var(--logo-ink)" fill-rule="evenodd" clip-rule="evenodd"></path>
+      <path d="M21 88v205h174l35 35 20-19-6-10-101-107-5 1-17 19 43 49-110 1-2-4 2-137 155-1 2 2v122l31 32V89z" fill="var(--logo-green)" fill-rule="evenodd" clip-rule="evenodd"></path>
+      <path d="m341 74 2 2h36l-19-32zm-196-54v31l31 1V21zm-65 0-2 21 2 11h29l1-32z" fill="var(--logo-gold)" fill-rule="evenodd" clip-rule="evenodd"></path>
+    </symbol>
+    <symbol id="qiyas-logo-ar" viewBox="0 0 1202 299">
+      <path d="M343 104h-29l-1 96-42-1v-96h-28l-1 97-43-1-1-76h-27l-2 116H50l-1-63-28-1-1 90 178 1 1-38h142zM400 72l1 156h582v-28H852l-1-97h-28l-1 97H430l-1-128z" fill="var(--logo-ink)" fill-rule="evenodd" clip-rule="evenodd"></path>
+      <path d="m1173 75-15-2-12 2H985l-1 152 134 1 39 43 8 1 14-14 2-4-100-107h-4l-17 19 27 29 1 4-72 1-2-2-1-92 2-3h129v93l29 28z" fill="var(--logo-green)" fill-rule="evenodd" clip-rule="evenodd"></path>
+      <path d="M646 249v24l2 5 29-1v-28zm57 0 1 29h29v-29zM412 23l-14 24v5h33l-4-11-12-19zm684-3v29h29V20zm-51 0-3 5 1 24 29 1 1-29z" fill="var(--logo-gold)" fill-rule="evenodd" clip-rule="evenodd"></path>
+    </symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 6.2A9.9 9.9 0 0 1 12 6c6.5 0 10 6 10 6a17 17 0 0 1-3 3.6M6.2 6.5A17 17 0 0 0 2 12s3.5 6 10 6a9.9 9.9 0 0 0 3.4-.6"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4 3 20h18z"/><path d="M12 10v5M12 18v.5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-offline" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M8.5 15.5a5 5 0 0 1 7 0M5 12a10 10 0 0 1 4-2.4M15 9.6A10 10 0 0 1 19 12"/><path d="M12 19v.5"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7"/><rect x="3" y="13" width="18" height="7"/><path d="M7 7.5v.5M7 16.5v.5"/></symbol>
+  </svg>
+
+  <header class="document-header" data-od-id="admin-signin-document-header">
+    <div class="document-title"><strong>Qiyas · Admin sign-in</strong><span>Screen hand-off / preview</span></div>
+    <div class="control-cluster" aria-label="Preview settings" data-od-id="admin-signin-preview-controls">
+      <span class="control-label">Preview</span>
+      <button class="document-control" type="button" data-preview-theme="light" aria-pressed="true">Light</button>
+      <button class="document-control" type="button" data-preview-theme="dark" aria-pressed="false">Dark</button>
+      <button class="document-control" type="button" data-preview-locale="en" aria-pressed="false">English</button>
+      <button class="document-control" type="button" data-preview-locale="ar" aria-pressed="true">العربية</button>
+    </div>
+  </header>
+
+  <main class="page" data-od-id="admin-signin-handoff">
+    <section class="intro" data-od-id="admin-signin-intro">
+      <div>
+        <p class="eyebrow">Admin authentication · Qiyas</p>
+        <h1>A provisioned administrator signs in without ceremony.</h1>
+        <p class="lead">One quiet unauthenticated surface for the single admin role at launch. Access is provisioned by the Qiyas operator, role is resolved after authentication, and the screen never offers self-signup, social login, marketing, a persistence option, or an invented second factor.</p>
+      </div>
+      <aside class="decision" data-od-id="admin-signin-decision">
+        <div class="rec"><h3>Recommended <span class="tag">Applied</span></h3><p>One unauthenticated shell: a brand rail beside a 480px Ink-led form column on desktop, a single column on mobile, and an in-product locale switch at the logical top end. Sessions are not kept by default, so the status line says so plainly.</p></div>
+        <div class="rej"><h3>Rejected <span class="tag">Not built</span></h3><p>Signup, social login, trust seals, gradient or celebration states, a “keep me signed in” checkbox, biometric unlock, a role switch, and any second-factor surface. Gold is absent; green stays reserved for correctness and focus.</p></div>
+      </aside>
+    </section>
+
+    <section class="section" data-od-id="admin-signin-preview-section">
+      <div class="section-head">
+        <div><p class="eyebrow">Live preview</p><h2>One surface, both canvases.</h2></div>
+        <p>The mobile and desktop canvases are independent clones of one template, so neither resets the other. Locale, theme and the demo state below stay in sync across both; typed values survive every failure state and are never written to localStorage.</p>
+      </div>
+      <div class="demo-bar" role="group" aria-label="Prototype state demo" data-od-id="admin-signin-demo-controls">
+        <span class="control-label">Demo state</span>
+        <button class="demo-state" type="button" data-demo-state="default" aria-pressed="true">Default</button>
+        <button class="demo-state" type="button" data-demo-state="filled" aria-pressed="false">Filled</button>
+        <button class="demo-state" type="button" data-demo-state="submitting" aria-pressed="false">Submitting</button>
+        <button class="demo-state" type="button" data-demo-state="email-error" aria-pressed="false">Email error</button>
+        <button class="demo-state" type="button" data-demo-state="form-error" aria-pressed="false">Form error</button>
+        <button class="demo-state" type="button" data-demo-state="locked" aria-pressed="false">Locked</button>
+        <button class="demo-state" type="button" data-demo-state="rate-limit" aria-pressed="false">Rate limited</button>
+        <button class="demo-state" type="button" data-demo-state="offline" aria-pressed="false">Offline</button>
+        <button class="demo-state" type="button" data-demo-state="server" aria-pressed="false">Server</button>
+        <button class="demo-state" type="button" data-demo-state="success" aria-pressed="false">Success</button>
+      </div>
+      <div class="preview-grid">
+        <div class="preview-wrap">
+          <div class="preview-label"><span>Mobile</span><span>390 × 844 · check 360</span></div>
+          <div class="product-canvas preview-phone" data-surface-host="mobile" data-live="true" data-locale="ar" dir="rtl" lang="ar" data-od-id="admin-signin-mobile"></div>
+        </div>
+        <div class="preview-wrap">
+          <div class="preview-label"><span>Desktop</span><span>1440 reference · 1180 rail cap · 480 form column</span></div>
+          <div class="product-canvas preview-desktop" data-surface-host="desktop" data-live="true" data-locale="ar" dir="rtl" lang="ar" data-od-id="admin-signin-desktop"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-od-id="admin-signin-states">
+      <div class="section-head">
+        <div><p class="eyebrow">States gallery</p><h2>Every way signing in can go.</h2></div>
+        <p>Each state is a document preview panel and is repeated on both canvases. Failure copy follows what happened, why, and what to do next; errors preserve typed values and pair an icon with text rather than colour alone.</p>
+      </div>
+      <div class="state-grid" data-od-id="admin-signin-state-grid"></div>
+    </section>
+
+    <section class="section" data-od-id="admin-signin-mapping">
+      <div class="section-head">
+        <div><p class="eyebrow">Component mapping</p><h2>Exact system vocabulary.</h2></div>
+        <p>Rows name components and tokens from qiyas-design-system.html. This screen introduces no new visual language.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Element on screen</th><th>System component</th><th>Tokens / variant</th><th>Notes for devs</th></tr></thead>
+          <tbody>
+            <tr><td>Page frame</td><td>Unauthenticated shell</td><td>unauthenticated shell</td><td>Brand rail inside the 1180px cap plus a 480px form column on desktop; single column on mobile. Document controls stay outside the product canvas.</td></tr>
+            <tr><td>Brand rail</td><td>Context rail</td><td>unauthenticated shell · brand rail</td><td>Hidden below 920px. Holds the lockup, the Admin console label, the H3, the destination list, and the provisioning footnote.</td></tr>
+            <tr><td>Locale control</td><td>Locale switch</td><td>locale-switch, logical top end, 44px target</td><td>Shows EN in Arabic and عر in English; switches without restart, reload, or layout jump.</td></tr>
+            <tr><td>Theme control</td><td>Theme switch</td><td>light / dark semantic tokens</td><td>Synchronizes both canvases; never resets typed values or the active demo state.</td></tr>
+            <tr><td>Email field</td><td>Field</td><td>field, field-control, field-label</td><td>type=email, dir=ltr inside the mirrored shell, autocomplete=username, inputmode=email, autocapitalize=none, autocorrect=off, spellcheck=false.</td></tr>
+            <tr><td>Password field</td><td>Password field</td><td>password-wrap, inline-control</td><td>Existing eye icon at the logical end, 44×44 target, autocomplete=current-password; no second reveal control.</td></tr>
+            <tr><td>Inline failure</td><td>Feedback</td><td>feedback-error, field-error, state-error</td><td>role=alert, icon plus text, first invalid field receives focus.</td></tr>
+            <tr><td>Primary action</td><td>Button</td><td>button-primary</td><td>48px, full width on mobile; submitting disables the control with aria-busy and blocks double submit.</td></tr>
+            <tr><td>Forgot password</td><td>Button</td><td>button-ghost</td><td>Quiet ghost link to qiyas-admin-forgot-password.html; never competes with the primary action.</td></tr>
+            <tr><td>Session status</td><td>Field help</td><td>field-help</td><td>States that admin sessions are not kept by default. No persistence checkbox exists.</td></tr>
+            <tr><td>Locked / rate limited</td><td>State error</td><td>state-error</td><td>Terracotta, icon plus text, retry or reset path; the countdown uses mono tabular figures.</td></tr>
+            <tr><td>Offline</td><td>Offline banner</td><td>offline-state</td><td>Distinct from a 5xx; keeps typed values and offers retry.</td></tr>
+            <tr><td>Server / timeout</td><td>Feedback</td><td>feedback-error</td><td>Names the failure and the timeout, then offers retry.</td></tr>
+            <tr><td>Success transition</td><td>Feedback</td><td>feedback-success</td><td>Confirms sign-in and states the destination; no celebration.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" data-od-id="admin-signin-handoff-sheet">
+      <div class="section-head">
+        <div><p class="eyebrow">Flutter handoff</p><h2>Mobile geometry and behavior.</h2></div>
+        <p>Render the surface inside the established unauthenticated scaffold. Text scales with the platform font setting; overflow is solved with scroll, never with a smaller type scale.</p>
+      </div>
+      <div class="mobile-build-sheet">
+        <div class="build-grid">
+          <dl><dt>Frame</dt><dd class="mono">390 × 844; verify 360</dd></dl>
+          <dl><dt>Content inset</dt><dd class="mono">16px logical start/end · 358px usable at 390 · 328px at 360</dd></dl>
+          <dl><dt>Breakpoint 360–767</dt><dd>Single column, full width, 16px logical insets; controls stay at least 44px high.</dd></dl>
+          <dl><dt>Breakpoint 768–919</dt><dd>Keep one column; only go two columns while both stay readable and touchable.</dd></dl>
+          <dl><dt>Breakpoint 920–1439</dt><dd>Brand rail appears beside the 480px form column at the 1180px content cap.</dd></dl>
+          <dl><dt>Breakpoint 1440+</dt><dd>The 1180px cap holds; the form column never stretches beyond 480px.</dd></dl>
+          <dl><dt>SafeArea</dt><dd>Top and bottom; at least 32px above the title, 16px after the final action</dd></dl>
+          <dl><dt>Brand lockup</dt><dd class="mono">148px centred on mobile; rail lockup on desktop</dd></dl>
+          <dl><dt>Field height</dt><dd class="mono">48px control; label-to-control gap 6–8px</dd></dl>
+          <dl><dt>Field-to-field gap</dt><dd class="mono">SizedBox 16px</dd></dl>
+          <dl><dt>Primary action</dt><dd>button-primary 48px, full width, aria-busy pending state</dd></dl>
+          <dl><dt>Password reveal</dt><dd>44 × 44px target at the logical end of the field</dd></dl>
+          <dl><dt>Locale target</dt><dd class="mono">44 × 44px at the logical top end</dd></dl>
+          <dl><dt>Keyboard open</dt><dd>The active field and the primary action stay usable; the form scrolls inside the shell</dd></dl>
+          <dl><dt>Scroll</dt><dd>SingleChildScrollView; never shrink type to fit</dd></dl>
+          <dl><dt>Text scaling</dt><dd class="mono">200% grows height; never clip or hide copy; Arabic leading 1.15–1.25× Latin</dd></dl>
+          <dl><dt>Bidi</dt><dd>Email, password and the rate-limit countdown stay LTR-isolated inside Arabic copy</dd></dl>
+          <dl><dt>Reduced motion</dt><dd>Pending indicator degrades to a static label; no decorative motion</dd></dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-od-id="admin-signin-gaps">
+      <div class="section-head">
+        <div><p class="eyebrow">Gap list</p><h2>Open decisions stay visible.</h2></div>
+        <p>Per the gap-list convention, nothing here was invented to make the screen look finished.</p>
+      </div>
+      <ul class="gap-list">
+        <li><strong>Admin second factor / SSO</strong><p>Undefined in the system. Do not invent an authenticator, recovery-code, or identity-provider surface; only email and password are shown.</p></li>
+        <li><strong>Admin account provisioning / activation</strong><p>How the first admin account is created, invited, and activated has no designed surface. This is an operations gap, not a screen.</p></li>
+        <li><strong>Admin session lifetime and device policy</strong><p>Session length, idle lock, and device trust are unspecified. The status line states only that sessions are not kept by default.</p></li>
+        <li><strong>Admin role resolution</strong><p>Super admin versus organisation admin is resolved after authentication and never chosen on this screen; the resolution rules and default landing surface are undefined.</p></li>
+        <li><strong>Audit logging requirements</strong><p>What sign-in events are logged, retained, and exposed to the operator is not defined.</p></li>
+        <li><strong>Password policy source of truth</strong><p>The minimum password rules and their enforcement point are not confirmed; sign-in performs no client-side policy beyond presence.</p></li>
+        <li><strong>Email delivery and resend contract</strong><p>Delivery provider, resend cooldown, and anti-abuse thresholds for the recovery flow are unspecified.</p></li>
+      </ul>
+    </section>
+
+    <section class="section" data-od-id="admin-signin-dodont">
+      <div class="section-head">
+        <div><p class="eyebrow">Guardrails</p><h2>Do and Don't.</h2></div>
+        <p>The auth surface stays quiet, truthful, and provisioned-only.</p>
+      </div>
+      <div class="do-dont">
+        <div class="do"><strong>Do</strong><ul><li>Keep exactly one Ink primary action per surface.</li><li>Preserve typed values in every failure state and focus the first invalid field.</li><li>Keep credentials LTR-isolated with Western digits and tabular figures.</li><li>State plainly that admin sessions are not kept by default.</li></ul></div>
+        <div class="dont"><strong>Don't</strong><ul><li>Add signup, marketing, trust seals, or social login.</li><li>Add a “keep me signed in” checkbox or biometric unlock.</li><li>Invent second-factor or SSO flows.</li><li>Use gold, gradients, or celebration states.</li></ul></div>
+      </div>
+    </section>
+
+    <footer class="footer" data-od-id="admin-signin-footer"><p>Qiyas · Admin authentication</p></footer>
+  </main>
+
+  <template id="surface-template">
+    <div class="auth-app" data-app data-od-id="auth-app">
+      <header class="auth-topbar" data-od-id="auth-topbar">
+        <a class="auth-brand-mobile" href="index.html" aria-label="Qiyas" data-od-id="auth-brand-mobile">
+          <svg class="qiyas-logo" viewBox="0 0 1202 299" role="img" aria-label="Qiyas"><use class="qiyas-logo-ar" href="#qiyas-logo-ar"></use><use class="qiyas-logo-en" href="#qiyas-logo-en"></use></svg>
+        </a>
+        <button class="locale-switch" type="button" data-locale-toggle aria-label="تغيير اللغة" data-copy-aria-ar="تغيير اللغة" data-copy-aria-en="Change language" data-od-id="auth-locale-switch">EN</button>
+      </header>
+      <div class="auth-scroll">
+        <div class="auth-body">
+          <aside class="auth-rail" data-od-id="auth-rail">
+            <svg class="qiyas-logo" viewBox="0 0 1202 299" role="img" aria-label="Qiyas"><use class="qiyas-logo-ar" href="#qiyas-logo-ar"></use><use class="qiyas-logo-en" href="#qiyas-logo-en"></use></svg>
+            <p class="rail-label" data-copy-ar="لوحة الإدارة" data-copy-en="Admin console">لوحة الإدارة</p>
+            <h3 class="rail-title" data-copy-ar="سجّل الدخول لإدارة المنصة." data-copy-en="Sign in to manage the platform.">سجّل الدخول لإدارة المنصة.</h3>
+            <ul class="rail-dest" data-od-id="auth-destinations">
+              <li data-copy-ar="إعداد الشارات" data-copy-en="Badge configuration">إعداد الشارات</li>
+              <li data-copy-ar="المدقق" data-copy-en="Validator">المدقق</li>
+              <li data-copy-ar="الأسئلة المعلّمة" data-copy-en="Flagged questions">الأسئلة المعلّمة</li>
+            </ul>
+            <p class="rail-foot" data-copy-ar="الوصول مُخصّص من مشغّل قياس." data-copy-en="Access is provisioned by the Qiyas operator.">الوصول مُخصّص من مشغّل قياس.</p>
+          </aside>
+
+          <section class="auth-col" data-col data-od-id="auth-col">
+            <p class="auth-kicker" data-copy-ar="حساب المشرف" data-copy-en="Admin account">حساب المشرف</p>
+            <h1 class="auth-title" data-copy-ar="تسجيل دخول المشرف" data-copy-en="Admin sign in">تسجيل دخول المشرف</h1>
+            <p class="auth-lead" data-copy-ar="طريق آمن إلى لوحة الإدارة." data-copy-en="A secure route to the admin console.">طريق آمن إلى لوحة الإدارة.</p>
+
+            <div class="feedback error" data-el="form-error" role="alert" hidden data-od-id="auth-form-error">
+              <span class="feedback-icon" aria-hidden="true">!</span>
+              <div class="feedback-body"><strong data-copy-ar="البريد أو كلمة المرور غير صحيحة." data-copy-en="The email or password is incorrect.">البريد أو كلمة المرور غير صحيحة.</strong><p data-copy-ar="لن نحذف ما كتبته." data-copy-en="What you entered stays in place.">لن نحذف ما كتبته.</p></div>
+            </div>
+
+            <div data-banner="locked" hidden data-od-id="auth-locked">
+              <div class="feedback error" role="alert"><span class="feedback-icon" aria-hidden="true"><svg class="icon" style="inline-size:12px;block-size:12px"><use href="#i-lock"/></svg></span><div class="feedback-body"><strong data-copy-ar="تم قفل الحساب مؤقتًا." data-copy-en="Account temporarily locked.">تم قفل الحساب مؤقتًا.</strong><p data-copy-ar="انتظر قليلًا أو استخدم إعادة تعيين كلمة المرور." data-copy-en="Wait a while or use password reset.">انتظر قليلًا أو استخدم إعادة تعيين كلمة المرور.</p></div></div>
+            </div>
+            <div data-banner="rate-limit" hidden data-od-id="auth-rate-limit">
+              <div class="feedback error" role="alert"><span class="feedback-icon" aria-hidden="true"><svg class="icon" style="inline-size:12px;block-size:12px"><use href="#i-clock"/></svg></span><div class="feedback-body"><strong><span data-copy-ar="حاول مرة أخرى بعد" data-copy-en="Try again in">حاول مرة أخرى بعد</span> <span class="mono" data-countdown>00:29</span></strong><p data-copy-ar="تم تجاوز عدد المحاولات المسموح بها." data-copy-en="Too many attempts were made.">تم تجاوز عدد المحاولات المسموح بها.</p></div></div>
+            </div>
+            <div data-banner="offline" hidden data-od-id="auth-offline">
+              <div class="feedback error" role="alert"><span class="feedback-icon" aria-hidden="true"><svg class="icon" style="inline-size:12px;block-size:12px"><use href="#i-offline"/></svg></span><div class="feedback-body"><strong data-copy-ar="الاتصال غير متاح." data-copy-en="Connection unavailable.">الاتصال غير متاح.</strong><p data-copy-ar="تحقّق من الاتصال وحاول مرة أخرى. لم تتغير البيانات." data-copy-en="Check your connection and retry. Your entries are unchanged.">تحقّق من الاتصال وحاول مرة أخرى. لم تتغير البيانات.</p></div></div>
+            </div>
+            <div data-banner="server" hidden data-od-id="auth-server">
+              <div class="feedback error" role="alert"><span class="feedback-icon" aria-hidden="true"><svg class="icon" style="inline-size:12px;block-size:12px"><use href="#i-server"/></svg></span><div class="feedback-body"><strong data-copy-ar="لم يستجب الخادم." data-copy-en="The server did not respond.">لم يستجب الخادم.</strong><p data-copy-ar="انتهت المهلة. حاول مرة أخرى." data-copy-en="The request timed out. Try again.">انتهت المهلة. حاول مرة أخرى.</p></div></div>
+            </div>
+            <div data-banner="success" hidden data-od-id="auth-success">
+              <div class="feedback success" role="status"><span class="feedback-icon" aria-hidden="true"><svg class="icon" style="inline-size:12px;block-size:12px"><use href="#i-check"/></svg></span><div class="feedback-body"><strong data-copy-ar="تم تسجيل الدخول." data-copy-en="Signed in.">تم تسجيل الدخول.</strong><p data-copy-ar="ننقلك إلى لوحة الإدارة." data-copy-en="Taking you to the admin console.">ننقلك إلى لوحة الإدارة.</p></div></div>
+            </div>
+
+            <form data-form="signin" novalidate>
+              <label class="field" data-field="email" style="margin-block-end:var(--space-4)">
+                <span class="field-label" data-copy-ar="البريد الإلكتروني" data-copy-en="Email address">البريد الإلكتروني</span>
+                <span class="field-control"><input type="email" dir="ltr" autocomplete="username" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="admin@qiyas.app" data-od-id="auth-email"></span>
+                <span class="field-error" data-error="email" role="alert" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span data-copy-ar="تحقّق من صيغة البريد الإلكتروني." data-copy-en="Check the email format.">تحقّق من صيغة البريد الإلكتروني.</span></span>
+              </label>
+              <label class="field" data-field="password">
+                <span class="field-label" data-copy-ar="كلمة المرور" data-copy-en="Password">كلمة المرور</span>
+                <span class="field-control">
+                  <input type="password" dir="ltr" autocomplete="current-password" placeholder="Enter your password" data-od-id="auth-password">
+                  <button class="inline-control" type="button" data-pw-toggle aria-label="إظهار كلمة المرور" data-copy-aria-ar="إظهار كلمة المرور" data-copy-aria-en="Reveal password" aria-pressed="false" data-od-id="auth-password-reveal"><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg></button>
+                </span>
+                <span class="field-error" data-error="password" role="alert" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span data-copy-ar="أدخل كلمة المرور." data-copy-en="Enter your password.">أدخل كلمة المرور.</span></span>
+              </label>
+              <div style="margin-block-start:var(--space-5)">
+                <button class="button button-primary button-block" type="submit" data-submit data-od-id="auth-submit">
+                  <span data-submit-label data-copy-ar="تسجيل الدخول" data-copy-en="Sign in">تسجيل الدخول</span>
+                  <span data-busy-label hidden data-copy-ar="جارٍ تسجيل الدخول…" data-copy-en="Signing in…">جارٍ تسجيل الدخول…</span>
+                </button>
+              </div>
+            </form>
+
+            <a class="button button-ghost" href="qiyas-admin-forgot-password.html" style="justify-self:start" data-copy-ar="نسيت كلمة المرور؟" data-copy-en="Forgot password?" data-od-id="auth-forgot-link">نسيت كلمة المرور؟</a>
+            <p class="auth-status" data-copy-ar="جلسة المشرف لا تُحفظ تلقائيًا." data-copy-en="Admin sessions are not kept by default.">جلسة المشرف لا تُحفظ تلقائيًا.</p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const template = document.getElementById('surface-template');
+      const stateGrid = document.querySelector('[data-od-id="admin-signin-state-grid"]');
+
+      const STATES = [
+        { id: 'default', ar: 'افتراضي / فارغ', en: 'Default / empty', dar: 'الحقلان فارغان وزر الدخول متاح. التسميات ظاهرة دائمًا؛ النص النائب لا يحلّ محلها.', den: 'Both fields empty and sign-in available. Labels stay visible; placeholders never replace them.' },
+        { id: 'filled', ar: 'معبّأ / صالح', en: 'Filled / valid', dar: 'قيم مكتوبة وجاهزة للإرسال. البريد معزول باتجاه LTR داخل الواجهة العربية.', den: 'Typed, ready-to-submit values. The email stays LTR-isolated inside the Arabic shell.' },
+        { id: 'focused', ar: 'حقل مُركّز', en: 'Focused field', dar: 'حلقة تركيز 2px خضراء على بُعد 3px، على كل عنصر تفاعلي.', den: 'A 2px green focus ring at 3px offset on every interactive element.' },
+        { id: 'submitting', ar: 'جارٍ الإرسال', en: 'Submitting', dar: 'الزر معطّل مع aria-busy ومؤشر انتظار؛ لا إرسال مزدوج.', den: 'The primary is disabled with aria-busy and a pending indicator; no double submit.' },
+        { id: 'email-error', ar: 'خطأ تنسيق البريد', en: 'Email format error', dar: 'أيقونة ونص أسفل الحقل. التركيز ينتقل إلى أول حقل غير صالح.', den: 'Icon plus text under the field. Focus moves to the first invalid field.' },
+        { id: 'form-error', ar: 'بيانات اعتماد غير صحيحة', en: 'Invalid credentials', dar: 'ما حدث ثم السبب ثم ما يجب فعله. القيم المكتوبة تبقى في مكانها.', den: 'What happened, then why, then what to do. Typed values stay in place.' },
+        { id: 'locked', ar: 'حساب مقفول', en: 'Account locked', dar: 'قفل مؤقت مع مسار إلى إعادة تعيين كلمة المرور.', den: 'A temporary lock with a route to password reset.' },
+        { id: 'rate-limit', ar: 'تجاوز المحاولات', en: 'Rate limited', dar: 'عدّاد تنازلي بأرقام أحادية المسافة لا ينعكس في الواجهة العربية.', den: 'A countdown in tabular mono figures that never mirrors in the Arabic shell.' },
+        { id: 'offline', ar: 'غير متصل', en: 'Offline', dar: 'يُفرّق بين انقطاع الاتصال واستجابة الخادم؛ القيم تبقى وإعادة المحاولة متاحة.', den: 'Distinguished from a server response; values stay and retry is offered.' },
+        { id: 'server', ar: 'الخادم / المهلة', en: 'Server / timeout', dar: 'يسمّي الفشل والمهلة ثم يعرض إعادة المحاولة.', den: 'Names the failure and the timeout, then offers retry.' },
+        { id: 'success', ar: 'انتقال النجاح', en: 'Success transition', dar: 'تأكيد الدخول والوجهة، دون أي احتفال.', den: 'Confirms sign-in and the destination, with no celebration.' }
+      ];
+
+      function buildHost(host, prefix, live) {
+        const clone = template.content.cloneNode(true);
+        const app = clone.querySelector('[data-app]');
+        app.dataset.prefix = prefix;
+        clone.querySelectorAll('[data-od-id]').forEach(function (el) { el.dataset.odId = prefix + '-' + el.dataset.odId; });
+        host.appendChild(app);
+        wire(app, live);
+        return app;
+      }
+
+      function applyState(app, state) {
+        const form = app.querySelector('[data-form="signin"]');
+        const submit = app.querySelector('[data-submit]');
+        const col = app.querySelector('[data-col]');
+        const email = app.querySelector('[data-field="email"]');
+        const pass = app.querySelector('[data-field="password"]');
+        const emailInput = email.querySelector('input');
+        const passInput = pass.querySelector('input');
+        const formError = app.querySelector('[data-el="form-error"]');
+        const banners = app.querySelectorAll('[data-banner]');
+
+        app.dataset.state = state;
+        col.classList.remove('is-forced-focus');
+        [email, pass].forEach(function (f) { f.dataset.invalid = 'false'; f.querySelector('.field-error').hidden = true; });
+        formError.hidden = true;
+        banners.forEach(function (b) { b.hidden = true; });
+        form.hidden = false;
+        submit.disabled = false;
+        submit.removeAttribute('aria-busy');
+        submit.dataset.loading = 'false';
+        const busy = submit.querySelector('[data-busy-label]');
+        const label = submit.querySelector('[data-submit-label]');
+        busy.hidden = true; label.hidden = false;
+
+        var preserved = ['filled', 'submitting', 'email-error', 'form-error', 'locked', 'rate-limit', 'offline', 'server'];
+        if (preserved.indexOf(state) > -1) {
+          emailInput.value = 'admin@qiyas.app';
+          passInput.value = 'QiyasAdmin8';
+        } else if (state === 'default') {
+          emailInput.value = ''; passInput.value = '';
+        }
+
+        if (state === 'filled' || state === 'focused') { emailInput.value = 'admin@qiyas.app'; passInput.value = 'QiyasAdmin8'; }
+        if (state === 'focused') col.classList.add('is-forced-focus');
+        if (state === 'submitting') {
+          submit.disabled = true; submit.setAttribute('aria-busy', 'true'); submit.dataset.loading = 'true';
+          busy.hidden = false; label.hidden = true;
+        }
+        if (state === 'email-error') { emailInput.value = 'admin.qiyas.app'; email.dataset.invalid = 'true'; email.querySelector('.field-error').hidden = false; }
+        if (state === 'form-error') { formError.hidden = false; }
+        if (state === 'locked' || state === 'rate-limit' || state === 'offline' || state === 'server' || state === 'success') {
+          app.querySelector('[data-banner="' + state + '"]').hidden = false;
+          if (state === 'success') form.hidden = true;
+        }
+      }
+
+      function startCountdown(app) {
+        const el = app.querySelector('[data-countdown]');
+        if (!el) return;
+        if (app._countdownTimer) window.clearInterval(app._countdownTimer);
+        let remaining = 29;
+        const render = function () { el.textContent = '00:' + String(remaining).padStart(2, '0'); };
+        render();
+        app._countdownTimer = window.setInterval(function () {
+          remaining -= 1;
+          if (remaining < 0) { window.clearInterval(app._countdownTimer); return; }
+          render();
+        }, 1000);
+      }
+
+      function wire(app, live) {
+        const col = app.querySelector('[data-col]');
+        const form = app.querySelector('[data-form="signin"]');
+        const submit = app.querySelector('[data-submit]');
+        const email = app.querySelector('[data-field="email"]');
+        const pass = app.querySelector('[data-field="password"]');
+        const emailInput = email.querySelector('input');
+        const passInput = pass.querySelector('input');
+
+        app.querySelector('[data-locale-toggle]').addEventListener('click', function () {
+          setLocale(root.dataset.previewLocale === 'ar' ? 'en' : 'ar');
+        });
+        app.querySelector('[data-pw-toggle]').addEventListener('click', function (event) {
+          const btn = event.currentTarget;
+          const input = btn.closest('.field-control').querySelector('input');
+          const show = input.type === 'password';
+          input.type = show ? 'text' : 'password';
+          btn.setAttribute('aria-pressed', String(show));
+          btn.querySelector('use').setAttribute('href', show ? '#i-eye-off' : '#i-eye');
+        });
+
+        if (!live) return;
+
+        const showFieldError = function (field, show) {
+          field.dataset.invalid = String(show);
+          field.querySelector('.field-error').hidden = !show;
+        };
+
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          if (submit.dataset.loading === 'true') return;
+          app.querySelector('[data-el="form-error"]').hidden = true;
+          let firstBad = null;
+          const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
+          showFieldError(email, !emailOk);
+          if (!emailOk) firstBad = firstBad || emailInput;
+          const passOk = passInput.value.length > 0;
+          showFieldError(pass, !passOk);
+          if (!passOk) firstBad = firstBad || passInput;
+          if (firstBad) { firstBad.focus(); return; }
+          applyState(app, 'submitting');
+          setDemoPressed('submitting');
+          window.setTimeout(function () {
+            applyState(app, 'form-error');
+            setDemoPressed('form-error');
+            passInput.value = '';
+            passInput.focus();
+          }, 900);
+        });
+      }
+
+      function setLocale(locale) {
+        root.dataset.previewLocale = locale;
+        root.dir = locale === 'ar' ? 'rtl' : 'ltr';
+        root.lang = locale;
+        document.querySelectorAll('[data-preview-locale]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.previewLocale === locale)); });
+        document.querySelectorAll('[data-surface-host]').forEach(function (canvas) {
+          canvas.dataset.locale = locale;
+          canvas.dir = locale === 'ar' ? 'rtl' : 'ltr';
+          canvas.lang = locale;
+        });
+        document.querySelectorAll('[data-locale-toggle]').forEach(function (b) { b.textContent = locale === 'ar' ? 'EN' : 'عر'; });
+        swapText(locale);
+      }
+
+      function swapText(locale) {
+        const ar = locale === 'ar';
+        document.querySelectorAll('[data-copy-ar]').forEach(function (node) { node.textContent = ar ? node.dataset.copyAr : node.dataset.copyEn; });
+        document.querySelectorAll('[data-copy-aria-ar]').forEach(function (node) { node.setAttribute('aria-label', ar ? node.dataset.copyAriaAr : node.dataset.copyAriaEn); });
+      }
+
+      function setTheme(theme) {
+        root.dataset.theme = theme;
+        document.querySelectorAll('[data-preview-theme]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.previewTheme === theme)); });
+      }
+
+      const liveApps = [];
+      document.querySelectorAll('[data-surface-host][data-live="true"]').forEach(function (host) {
+        liveApps.push(buildHost(host, host.dataset.surfaceHost, true));
+      });
+
+      const activeState = { value: 'default' };
+      function setDemoPressed(state) {
+        activeState.value = state;
+        document.querySelectorAll('[data-demo-state]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.demoState === state)); });
+      }
+
+      document.querySelectorAll('[data-demo-state]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          const state = button.dataset.demoState;
+          setDemoPressed(state);
+          liveApps.forEach(function (app) {
+            applyState(app, state);
+            if (state === 'rate-limit') startCountdown(app);
+          });
+        });
+      });
+
+      document.querySelectorAll('[data-preview-locale]').forEach(function (b) { b.addEventListener('click', function () { setLocale(b.dataset.previewLocale); }); });
+      document.querySelectorAll('[data-preview-theme]').forEach(function (b) { b.addEventListener('click', function () { setTheme(b.dataset.previewTheme); }); });
+
+      STATES.forEach(function (state, index) {
+        const card = document.createElement('article');
+        card.className = 'state-card';
+        card.setAttribute('data-od-id', 'admin-signin-state-' + state.id);
+        const number = String(index + 1).padStart(2, '0');
+        const head = document.createElement('header');
+        head.innerHTML = '<span class="state-index mono">' + number + '</span><h3></h3>';
+        const headTitle = head.querySelector('h3');
+        headTitle.setAttribute('data-copy-ar', state.ar);
+        headTitle.setAttribute('data-copy-en', state.en);
+        headTitle.textContent = state.ar;
+        const desc = document.createElement('p');
+        desc.className = 'state-desc';
+        desc.setAttribute('data-copy-ar', state.dar);
+        desc.setAttribute('data-copy-en', state.den);
+        desc.textContent = state.dar;
+        const canvases = document.createElement('div');
+        canvases.className = 'state-canvases';
+        const mobile = document.createElement('div');
+        mobile.className = 'state-canvas state-canvas--mobile';
+        mobile.setAttribute('data-surface-host', 'state-' + state.id + '-mobile');
+        const desktop = document.createElement('div');
+        desktop.className = 'state-canvas state-canvas--desktop';
+        desktop.setAttribute('data-surface-host', 'state-' + state.id + '-desktop');
+        canvases.appendChild(mobile);
+        canvases.appendChild(desktop);
+        card.appendChild(head);
+        card.appendChild(desc);
+        card.appendChild(canvases);
+        stateGrid.appendChild(card);
+        buildHost(mobile, 'state-' + state.id + '-m', false);
+        buildHost(desktop, 'state-' + state.id + '-d', false);
+        mobile.querySelector('[data-app]') && applyState(mobile.querySelector('[data-app]'), state.id);
+        desktop.querySelector('[data-app]') && applyState(desktop.querySelector('[data-app]'), state.id);
+      });
+
+      setLocale('ar');
+      setTheme('light');
+    })();
+  </script>
+</body>
+</html>
