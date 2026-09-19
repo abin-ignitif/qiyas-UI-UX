@@ -67,6 +67,7 @@
       --state-selected-border: var(--primitive-ink);
       --state-gold-bg: var(--primitive-gold-50);
       --state-gold-border: var(--primitive-gold-500);
+      --state-gold-fg: var(--primitive-gold-700);
       --state-cooldown-bg: var(--primitive-terracotta-50);
       --state-cooldown-border: var(--primitive-terracotta-500);
       --state-info-bg: var(--primitive-green-50);
@@ -128,6 +129,7 @@
       --state-selected-border: #FEFEFE;
       --state-gold-bg: #3C3217;
       --state-gold-border: #DBA724;
+      --state-gold-fg: #F0C75E;
       --state-cooldown-bg: #4A1B0A;
       --state-cooldown-border: #E07843;
       --state-info-bg: #173D25;
@@ -207,6 +209,23 @@
     .util-wrap { position: relative; display: grid; place-items: center; }
     .util-wrap .badge-dot { position: absolute; inset-block-start: 8px; inset-inline-end: 8px; inline-size: 7px; block-size: 7px; background: var(--primitive-gold-500); border: var(--border-width-hairline) solid var(--surface-page); }
     .util .initials { font: 700 12px/1 var(--font-mono); letter-spacing: .02em; }
+    .profile-menu { position: relative; display: inline-flex; }
+    [data-device="mobile"] .profile-menu { display: none; }
+    .profile-popover { position: absolute; inset-block-start: calc(100% + var(--space-2)); inset-inline-end: 0; z-index: 60; display: grid; gap: 0; min-inline-size: 244px; padding: 0; border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-overlay); box-shadow: var(--shadow-overlay); overflow: hidden; }
+    .profile-popover .pp-head { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3); }
+    .profile-popover .pp-avatar { display: grid; place-items: center; inline-size: 40px; block-size: 40px; flex: none; border-radius: var(--radius-accent); background: var(--primitive-green-400); color: var(--primitive-paper); font-size: 16px; font-weight: 700; }
+    html[data-theme="dark"] .profile-popover .pp-avatar { background: var(--primitive-green-200); color: var(--primitive-ink); }
+    .profile-popover .pp-identity { display: grid; gap: 2px; min-inline-size: 0; }
+    .profile-popover .pp-name { font-size: 15px; font-weight: 700; color: var(--text-primary); overflow-wrap: anywhere; }
+    .profile-popover .pp-email { font-size: 12px; color: var(--text-tertiary); overflow-wrap: anywhere; }
+    .profile-popover .pp-divider { block-size: 1px; background: var(--border-subtle); }
+    .profile-popover .pp-group { display: grid; gap: 2px; padding: var(--space-1); }
+    .profile-popover button { display: flex; align-items: center; gap: var(--space-2); min-block-size: 44px; padding-inline: var(--space-3); border: 0; border-radius: var(--radius-control); background: transparent; color: var(--text-primary); font-size: 14px; font-weight: 600; text-align: start; }
+    .profile-popover button:hover { background: var(--surface-sunken); }
+    .profile-popover .pp-icon { display: grid; place-items: center; flex: none; color: var(--text-tertiary); }
+    .profile-popover button:hover .pp-icon { color: var(--text-primary); }
+    .profile-popover .profile-logout { color: var(--state-incorrect-fg); }
+    .profile-popover .profile-logout .pp-icon { color: currentColor; }
     .side-rail { display: none; }
     .shell-main { flex: 1; display: flex; flex-direction: column; min-inline-size: 0; min-block-size: 0; }
     .content { flex: 1 0 auto; inline-size: 100%; max-inline-size: var(--content); margin-inline: auto; padding: var(--space-5) var(--space-4) calc(var(--foot-nav-reserve) + env(safe-area-inset-bottom, 0px)); }
@@ -252,14 +271,49 @@
     .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border: var(--border-width-hairline) solid var(--state-info-border); border-radius: var(--radius-control); background: var(--state-info-bg); color: var(--state-info-fg); font-size: 11px; font-weight: 700; white-space: nowrap; }
     .chip .dot { inline-size: 6px; block-size: 6px; flex: none; background: currentColor; }
     .chip.neutral { border-color: var(--border-default); background: var(--surface-sunken); color: var(--text-tertiary); }
+    .urgent-banner { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--space-5); row-gap: 4px; margin-block-start: var(--space-5); padding: var(--space-5); border: var(--border-width-emphasis) solid var(--state-gold-border); border-radius: var(--radius-card); background: var(--state-gold-bg); }
+    .urgent-banner .ub-eyebrow { grid-column: 1; grid-row: 1; display: inline-flex; align-items: center; gap: 8px; color: var(--state-gold-fg); font-weight: 700; font-size: 13px; }
+    .urgent-banner .ub-eyebrow svg { inline-size: 16px; block-size: 16px; }
+    .urgent-banner h2 { grid-column: 1; grid-row: 2; margin: 0; font-size: 19px; }
+    .urgent-banner .ub-meta { grid-column: 1; grid-row: 3; margin: 0; color: var(--text-secondary); font-size: 13px; }
+    .urgent-banner .ub-actions { grid-column: 2; grid-row: 1 / span 3; display: flex; align-items: center; gap: var(--space-4); }
+    .urgent-banner .ub-countdown { text-align: end; font: 700 26px/1 var(--font-mono); color: var(--state-gold-fg); }
+    .urgent-banner .ub-countdown small { display: block; font: 600 11px/1.6 var(--font-body); color: var(--text-tertiary); }
+    [data-device="mobile"] .urgent-banner { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "eyebrow eyebrow" "title countdown" "body button"; column-gap: var(--space-3); }
+    [data-device="mobile"] .urgent-banner .ub-eyebrow { grid-area: eyebrow; }
+    [data-device="mobile"] .urgent-banner h2 { grid-area: title; }
+    [data-device="mobile"] .urgent-banner .ub-meta { grid-area: body; }
+    [data-device="mobile"] .urgent-banner .ub-actions { display: contents; }
+    [data-device="mobile"] .urgent-banner .ub-countdown { grid-area: countdown; align-self: start; justify-self: end; }
+    [data-device="mobile"] .urgent-banner .btn.gold { grid-area: button; justify-self: end; }
+    .btn.gold { background: var(--primitive-gold-500); color: var(--ink); border-color: var(--primitive-gold-500); }
+    .btn.gold:hover { background: var(--primitive-gold-400); border-color: var(--primitive-gold-400); }
+    .panel.accent { border: var(--border-width-emphasis) solid var(--primitive-green-500); background: var(--primitive-green-50); }
+    html[data-theme="dark"] .panel.accent { border-color: var(--state-correct-border); background: var(--state-correct-bg); }
+    .rec-card { display: grid; gap: var(--space-2); }
+    .rec-kicker { display: inline-flex; align-items: center; gap: 6px; color: var(--primitive-green-700); font-size: 12px; font-weight: 700; }
+    html[data-theme="dark"] .rec-kicker { color: var(--state-correct-fg); }
+    .rec-kicker svg { inline-size: 14px; block-size: 14px; }
+    .rec-card p { margin: 0; color: var(--text-secondary); font-size: 14px; }
+    .rec-card .btn { justify-self: stretch; inline-size: 100%; }
+    .subject-name .flag { inline-size: 7px; block-size: 7px; flex: none; border-radius: 50%; background: var(--primitive-gold-500); }
+    .empty-hero { display: grid; gap: var(--space-3); justify-items: start; grid-column: 1 / -1; padding: var(--space-6) var(--space-5); border: var(--border-width-default) dashed var(--border-default); border-radius: var(--radius-card); text-align: start; }
+    .empty-hero h2 { margin: 0; font-size: 20px; }
+    .empty-hero p { margin: 0; color: var(--text-secondary); font-size: 14px; max-inline-size: 52ch; }
+    .trend { display: inline-flex; align-items: center; gap: 3px; margin-block-start: 2px; font-size: 11px; font-weight: 700; }
+    .trend svg { inline-size: 11px; block-size: 11px; }
+    .trend.up { color: var(--primitive-green-700); }
+    html[data-theme="dark"] .trend.up { color: var(--state-correct-fg); }
+    .trend.down { color: var(--state-incorrect-fg); }
+    .trend.flat { color: var(--text-tertiary); }
     .subject-row { display: grid; grid-template-columns: minmax(0, 1fr) 96px 48px 16px; align-items: center; gap: var(--space-3); padding-block: var(--space-3); border-block-end: var(--border-width-hairline) solid var(--border-subtle); text-decoration: none; color: inherit; min-block-size: 44px; }
     .row-list li:last-child .subject-row { border-block-end: 0; }
-    .subject-name { display: block; font-size: 14px; font-weight: 700; }
+    .subject-name { display: flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 700; }
     .subject-meta { display: block; color: var(--text-tertiary); font-size: 12px; }
     .subject-pct { text-align: end; font-size: 13px; font-weight: 700; }
     .chev { color: var(--text-tertiary); }
     [dir="rtl"] .chev { transform: scaleX(-1); }
-    .progress-hero { display: grid; gap: var(--space-2); padding: var(--space-4); background: var(--surface-sunken); border-block-start: var(--border-width-emphasis) solid var(--border-strong); }
+    .progress-hero { display: grid; gap: var(--space-2); padding: var(--space-4); background: var(--surface-sunken); }
     .progress-hero .pct { font-size: 40px; font-weight: 700; line-height: 1; letter-spacing: -.02em; }
     .progress-hero .pct small { font-size: 13px; font-weight: 600; color: var(--text-tertiary); margin-inline-start: 6px; }
     .metric-list { display: grid; gap: 0; margin: 0; }
@@ -268,15 +322,16 @@
     .metric-row dt { color: var(--text-secondary); font-size: 13px; }
     .metric-row dd { margin: 0; text-align: end; font-weight: 700; font-size: 14px; }
     .metric-row dd.zero { color: var(--text-tertiary); font-weight: 600; }
-    .result-row { display: grid; grid-template-columns: minmax(0, 1fr) 64px; align-items: center; gap: var(--space-3); padding-block: var(--space-3); border-block-end: var(--border-width-hairline) solid var(--border-subtle); }
+    .result-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--space-3); row-gap: 2px; align-items: baseline; padding-block: var(--space-3); border-block-end: var(--border-width-hairline) solid var(--border-subtle); }
     .result-row:last-child { border-block-end: 0; padding-block-end: 0; }
     .result-row:first-child { padding-block-start: 0; }
-    .result-title { margin: 0; font-size: 14px; font-weight: 700; }
-    .result-meta { margin: 0; color: var(--text-tertiary); font-size: 12px; }
+    .result-title { grid-column: 1; grid-row: 1; margin: 0; font-size: 14px; font-weight: 700; }
+    .result-meta { grid-column: 1; grid-row: 2; margin: 0; color: var(--text-tertiary); font-size: 12px; }
     .result-meta .val { direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular lining-nums; }
-    .result-score { text-align: end; }
+    .result-score { grid-column: 2; grid-row: 1; text-align: end; }
     .result-score .score { display: block; font-size: 18px; font-weight: 700; line-height: 1.1; }
     .result-score small { color: var(--text-tertiary); font-size: 11px; direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular lining-nums; }
+    .result-row .trend { grid-column: 2; grid-row: 2; justify-self: end; margin-block-start: 0; }
     .empty-state { display: grid; gap: var(--space-3); justify-items: start; padding: var(--space-5) var(--space-4); border: var(--border-width-default) dashed var(--border-default); text-align: start; }
     .empty-state h3 { margin: 0; font-size: 15px; }
     .empty-state p { margin: 0; color: var(--text-tertiary); font-size: 13px; max-inline-size: 46ch; }
@@ -383,11 +438,12 @@
       .page-head h1 { font-size: 34px; }
       .dash-grid {
         grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-        grid-template-areas: "continue available" "upcoming upcoming" "subjects subjects" "progress results";
+        grid-template-areas: "continue available" "rec rec" "upcoming subjects" "progress results";
         gap: var(--space-5);
       }
       .continue-card { grid-area: continue; }
       .available-card { grid-area: available; }
+      .rec-card-wrap { grid-area: rec; }
       .upcoming-card { grid-area: upcoming; }
       .subjects-card { grid-area: subjects; }
       .progress-card { grid-area: progress; }
@@ -471,11 +527,12 @@
     [data-device="desktop"] .page-head h1 { font-size: 34px; }
     [data-device="desktop"] .dash-grid {
       grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-      grid-template-areas: "continue available" "upcoming upcoming" "subjects subjects" "progress results";
+      grid-template-areas: "continue available" "rec rec" "upcoming subjects" "progress results";
       gap: var(--space-5);
     }
     [data-device="desktop"] .continue-card { grid-area: continue; }
     [data-device="desktop"] .available-card { grid-area: available; }
+    [data-device="desktop"] .rec-card-wrap { grid-area: rec; }
     [data-device="desktop"] .upcoming-card { grid-area: upcoming; }
     [data-device="desktop"] .subjects-card { grid-area: subjects; }
     [data-device="desktop"] .progress-card { grid-area: progress; }
@@ -507,6 +564,8 @@
     <div class="control-cluster" aria-label="Preview settings">
       <span class="control-label">State</span>
       <div class="toggle-group" role="group" aria-label="Data state"><button class="toggle-button" data-screen-control="nominal" aria-pressed="true" type="button">Nominal</button><button class="toggle-button" data-screen-control="loading" aria-pressed="false" type="button">Loading</button><button class="toggle-button" data-screen-control="empty" aria-pressed="false" type="button">Empty</button><button class="toggle-button" data-screen-control="error" aria-pressed="false" type="button">Error</button><button class="toggle-button" data-screen-control="offline" aria-pressed="false" type="button">Offline</button></div>
+      <span class="control-label">Scenario</span>
+      <div class="toggle-group" role="group" aria-label="Scenario"><button class="toggle-button" data-scenario="urgent" aria-pressed="false" type="button">Exam closing soon</button><button class="toggle-button" data-scenario="normal" aria-pressed="true" type="button">Normal</button><button class="toggle-button" data-scenario="firstvisit" aria-pressed="false" type="button">First visit</button><button class="toggle-button" data-scenario="caughtup" aria-pressed="false" type="button">All caught up</button></div>
       <span class="control-label">Theme</span>
       <div class="toggle-group" role="group" aria-label="Preview theme"><button class="toggle-button" data-preview-theme="light" aria-pressed="true" type="button">Light</button><button class="toggle-button" data-preview-theme="dark" aria-pressed="false" type="button">Dark</button></div>
       <span class="control-label">Language</span>
@@ -589,6 +648,9 @@
     <section class="section" data-od-id="dash-ui-gaps">
       <div class="section-head"><div><p class="eyebrow">Gap list</p><h2>Open decisions stay visible.</h2></div><p>Not hidden in custom components. Each gap names what is missing and why the screen stayed conservative.</p></div>
       <ul class="gap-list" data-od-id="dash-ui-gap-list">
+        <li><strong>Server-authoritative exam countdown</strong><span>The dashboard contract returns only <span class="mono">starts_at</span> and <span class="mono">duration_minutes</span>, so “closes in” is a client estimate. Add <span class="mono">ends_at</span>, <span class="mono">remaining_seconds</span>, and <span class="mono">server_now</span> to <span class="mono">available_exams</span> (the scheduled-exam list API already exposes these).</span></li>
+        <li><strong>Pass / fail outcome</strong><span>Recent Results shows trend and score, but there is no pass threshold in the contract, so no pass/fail framing is possible yet.</span></li>
+        <li><strong>Weakest subject</strong><span>Derived on the client from <span class="mono">practice_by_subject[].completion_percentage</span> (lowest wins). A weakest <em>topic</em> recommendation would need a richer field.</span></li>
         <li><strong>Nav rail and footer nav are new compositions</strong><span>qiyas-design-system.html defines no navigation rail or bottom bar. Both are built from existing tokens (surface-raised, border-subtle, border-strong, radius-control) and need a system decision before Flutter ships.</span></li>
         <li><strong>learner-web is not defined in the project</strong><span>The brief names a target app; no repository, route table, or token package exists here, so the screen lives inside the Qiyas prototype.</span></li>
         <li><strong>Two dashboard surfaces now coexist</strong><span>qiyas-student-dashboard.html (Screen 06 handoff document) and this UI screen. Production routing must choose one deliberately.</span></li>
@@ -624,40 +686,61 @@
     (()=>{
       const root = document.documentElement;
       const DATA = {
-        student:{name:{en:'Abin Alias',ar:'آبن علياس'}},
+        student:{name:{en:'Abin Alias',ar:'آبن علياس'},email:'abin.alias@example.com'},
         continuePractice:{levelId:2,subject:{en:'Mathematics',ar:'الرياضيات'},topic:{en:'Geometry',ar:'الهندسة'},level:{en:'Foundation',ar:'التأسيسي'},levelNumber:1},
         availableExams:[
-          {id:'sta-2',title:{en:'Statistics Assessment 2',ar:'اختبار الإحصاء 2'},start:'2026-09-15T09:50:00+03:00',minutes:30,questions:25},
-          {id:'fun-12',title:{en:'Functions Assessment 12',ar:'اختبار الدوال 12'},start:'2026-09-15T09:00:00+03:00',minutes:45,questions:60}
+          {id:'sta-2',title:{en:'Statistics Assessment 2',ar:'اختبار الإحصاء 2'},minutes:30,questions:25,closesInMinutes:42},
+          {id:'fun-12',title:{en:'Functions Assessment 12',ar:'اختبار الدوال 12'},minutes:45,questions:60,closesInMinutes:150}
         ],
         upcomingExams:[
-          {id:'seq-3',title:{en:'Sequences Assessment 3',ar:'اختبار المتتاليات 3'},start:'2026-09-16T09:00:00+03:00',minutes:30,questions:40},
-          {id:'tri-7',title:{en:'Trigonometry Assessment 7',ar:'اختبار حساب المثلثات 7'},start:'2026-09-17T11:00:00+03:00',minutes:60,questions:80}
+          {id:'seq-3',title:{en:'Sequences Assessment 3',ar:'اختبار المتتاليات 3'},minutes:30,questions:40,opensInMinutes:1800},
+          {id:'tri-7',title:{en:'Trigonometry Assessment 7',ar:'اختبار حساب المثلثات 7'},minutes:60,questions:80,opensInMinutes:3060}
         ],
         subjects:[
           {id:'math',name:{en:'Mathematics',ar:'الرياضيات'},topics:5,levels:3,percent:60},
           {id:'phys',name:{en:'Physics',ar:'الفيزياء'},topics:4,levels:2,percent:35},
           {id:'chem',name:{en:'Chemistry',ar:'الكيمياء'},topics:3,levels:2,percent:15}
         ],
+        topics:[
+          {id:'algebra',name:{en:'Algebra',ar:'الجبر'},levels:3,percent:55},
+          {id:'trigonometry',name:{en:'Trigonometry',ar:'حساب المثلثات'},levels:2,percent:40},
+          {id:'geometry',name:{en:'Geometry',ar:'الهندسة'},levels:2,percent:15}
+        ],
         progress:{percent:42,attempted:186,correct:132,wrong:41,unanswered:13,studyMinutes:0},
         recentResults:[
-          {id:'alg-41',title:{en:'Algebra Assessment 41',ar:'اختبار الجبر 41'},completed:'2026-09-14T12:38:00+03:00',score:82,correct:82,total:100},
-          {id:'alg-40',title:{en:'Algebra Assessment 40',ar:'اختبار الجبر 40'},completed:'2026-09-14T08:10:00+03:00',score:74,correct:74,total:100},
-          {id:'geo-18',title:{en:'Geometry Assessment 18',ar:'اختبار الهندسة 18'},completed:'2026-09-13T15:00:00+03:00',score:68,correct:34,total:50}
+          {id:'alg-41',title:{en:'Algebra Assessment 41',ar:'اختبار الجبر 41'},agoMinutes:1680,score:82,prevScore:74,correct:82,total:100},
+          {id:'alg-40',title:{en:'Algebra Assessment 40',ar:'اختبار الجبر 40'},agoMinutes:2640,score:74,prevScore:76,correct:74,total:100},
+          {id:'geo-18',title:{en:'Geometry Assessment 18',ar:'اختبار الهندسة 18'},agoMinutes:3420,score:68,prevScore:68,correct:34,total:50}
         ]
       };
       const COPY = {
         eyebrow:{en:'STUDENT DASHBOARD',ar:'لوحة الطالب'},
         welcome:{en:'Welcome back, ',ar:'أهلاً بعودتك، '},
-        lede:{en:'Continue where you left off, or start the exam that is open now.',ar:'أكمل من حيث توقفت، أو ابدأ الاختبار المتاح الآن.'},
+        lede:{en:'Stay focused, trust your learning, and take the next step.',ar:'ابقَ مركّزاً، وثِق بتعلّمك، واتخذ الخطوة التالية.'},
         navHome:{en:'Home',ar:'الرئيسية'}, navPractice:{en:'Practice',ar:'التدريب'}, navExams:{en:'Exams',ar:'الاختبارات'}, navProgress:{en:'Progress',ar:'التقدم'}, navProfile:{en:'Profile',ar:'الملف'}, navHelp:{en:'Help',ar:'المساعدة'},
         utilHelp:{en:'Help',ar:'المساعدة'}, utilBell:{en:'Notifications',ar:'الإشعارات'}, utilLang:{en:'Language',ar:'اللغة'}, utilProfile:{en:'Profile',ar:'الملف الشخصي'},
+        profileView:{en:'View Profile',ar:'عرض الملف'}, profileSettings:{en:'Settings',ar:'الإعدادات'}, profileLogout:{en:'Logout',ar:'تسجيل الخروج'},
+        closesIn:{en:'Closes in',ar:'يُغلق خلال'}, opensIn:{en:'Opens in',ar:'يبدأ خلال'}, openNow:{en:'Open now',ar:'متاح الآن'}, remaining:{en:'remaining',ar:'المتبقي'},
+        urgentEyebrow:{en:'Closing soon',ar:'ينتهي قريباً'}, urgentSub:{en:'Your exam window is open now and won’t stay that way.',ar:'اختبارك مفتوح الآن ولن يبقى متاحاً طويلاً.'}, urgentHeadSub:{en:'You have an exam closing soon — start it now.',ar:'لديك اختبار ينتهي قريباً — ابدأه الآن.'},
+        recKicker:{en:'Recommended next',ar:'التوصية التالية'}, vsLast:{en:'vs. last attempt',ar:'مقارنة بالمحاولة السابقة'},
+        firstTitle:{en:'Let’s find out where you’re starting from',ar:'لنكتشف أين تقف الآن'}, firstBody:{en:'Take a short check in Mathematics so we can suggest the right starting level.',ar:'خذ تقييماً قصيراً في الرياضيات ليقترح النظام عليك مستوى البداية المناسب.'}, firstCta:{en:'Take the placement check',ar:'ابدأ تقييم البداية'},
+        caughtTitle:{en:'You’re all caught up',ar:'أنت متابع بشكل ممتاز'}, caughtBody:{en:'Nothing pending right now. Browse the library or look back at your results below.',ar:'لا توجد اختبارات معلّقة الآن. يمكنك تصفح المكتبة أو مراجعة نتائجك أدناه.'}, caughtCta:{en:'Browse the library',ar:'تصفّح المكتبة'},
+        firstSub:{en:'You haven’t started yet. Let’s find the right place to begin.',ar:'لم تبدأ بعد. لنجد نقطة الانطلاق المناسبة.'}, caughtSub:{en:'Nothing pending right now.',ar:'لا شيء معلّق حالياً.'}, focusSub:{en:'Today’s focus: ',ar:'التركيز اليوم: '},
+        lowest:{en:'is your lowest — practice it next.',ar:'هو الأدنى لديك — تدرّب عليه تالياً.'}, practiceSubject:{en:'Practice',ar:'تدريب'},
+        improving:{en:'Improving',ar:'في تحسّن'}, declining:{en:'Declining',ar:'في تراجع'}, steady:{en:'Steady',ar:'مستقر'}, aboveAvg:{en:'above your average',ar:'أعلى من متوسطك'}, belowAvg:{en:'below your average',ar:'أقل من متوسطك'}, atAvg:{en:'at your average',ar:'عند متوسطك'}, pts:{en:'pts',ar:'نقطة'},
+        emptyContinueNewT:{en:'Start your first practice set.',ar:'ابدأ أول مجموعة تدريب لك.'}, emptyContinueNewB:{en:'Pick a subject and we’ll pick up where you leave off.',ar:'اختر مادة وسنتابع من حيث تتوقف.'},
+        emptyContinueRetT:{en:'You’re all caught up.',ar:'أكملت كل شيء.'}, emptyContinueRetB:{en:'No practice in progress — start a set whenever you’re ready.',ar:'لا يوجد تدريب جارٍ — ابدأ مجموعة متى شئت.'},
+        emptyExamsNewT:{en:'No exams yet.',ar:'لا توجد اختبارات بعد.'}, emptyExamsNewB:{en:'Browse subjects to start learning — assessments unlock as you go.',ar:'تصفّح المواد لتبدأ التعلّم — تُفتح التقييمات تدريجياً.'},
+        emptyExamsRetT:{en:'No exams scheduled right now.',ar:'لا توجد اختبارات مجدولة حالياً.'}, emptyExamsRetB:{en:'Nothing pending — you’re caught up.',ar:'لا شيء معلّق — أنت متفرّغ.'},
+        emptyResultsNewT:{en:'No results yet.',ar:'لا توجد نتائج بعد.'}, emptyResultsNewB:{en:'Finish your first assessment and your score appears here.',ar:'أكمل أول تقييم وستظهر نتيجتك هنا.'},
+        emptyResultsRetT:{en:'No recent results.',ar:'لا نتائج حديثة.'}, emptyResultsRetB:{en:'Your past scores will show up here after your next assessment.',ar:'ستظهر درجاتك هنا بعد تقييمك القادم.'},
+        correctRate:{en:'Correct rate',ar:'نسبة الإجابة الصحيحة'},
         continueTitle:{en:'Continue Practice',ar:'متابعة التدريب'},
         continueCta:{en:'Continue Practice',ar:'متابعة التدريب'},
         level:{en:'Level',ar:'المستوى'},
         availableTitle:{en:'Available Exams',ar:'الاختبارات المتاحة'},
         upcomingTitle:{en:'Upcoming Exams',ar:'الاختبارات القادمة'},
-        subjectsTitle:{en:'Practice by Subject',ar:'التدريب حسب المادة'},
+        subjectsTitle:{en:'Practice by Topics',ar:'التدريب حسب الموضوعات'},
         progressTitle:{en:'My Progress',ar:'تقدمي'},
         resultsTitle:{en:'Recent Results',ar:'النتائج الأخيرة'},
         viewAll:{en:'View all',ar:'عرض الكل'},
@@ -675,12 +758,6 @@
         studyZero:{en:'No study time recorded yet.',ar:'لم يُسجّل وقت دراسة بعد.'},
         completion:{en:'completion',ar:'نسبة الإكمال'},
         completedOn:{en:'Completed ',ar:'اكتمل في '},
-        emptyContinueT:{en:'No practice in progress.',ar:'لا يوجد تدريب جارٍ.'},
-        emptyContinueB:{en:'Pick a subject to start a set and it will show up here.',ar:'اختر مادة لبدء مجموعة وسيظهر هنا.'},
-        emptyExamsT:{en:'No exams scheduled right now.',ar:'لا توجد اختبارات مجدولة حالياً.'},
-        emptyExamsB:{en:'New windows appear here when your school assigns them.',ar:'تظهر النوافذ الجديدة هنا عند إسنادها من مدرستك.'},
-        emptyResultsT:{en:'No results yet.',ar:'لا توجد نتائج بعد.'},
-        emptyResultsB:{en:'Finish an exam and your score appears here.',ar:'أكمل اختباراً وستظهر نتيجتك هنا.'},
         loading:{en:'Loading your dashboard…',ar:'جارٍ تحميل لوحتك…'},
         errorTitle:{en:'The dashboard didn’t load.',ar:'لم يتم تحميل اللوحة.'},
         errorBody:{en:'The server did not respond in time. Retry keeps your state, language, and theme.',ar:'لم يستجب الخادم في الوقت المناسب. تُعيد المحاولة مع الحفاظ على حالتك ولغتك ومظهرك.'},
@@ -692,6 +769,10 @@
       let locale = localStorage.getItem('qiyas-preview-locale') || 'ar';
       let dark = localStorage.getItem('qiyas-preview-theme') === 'dark';
       let screenState = 'nominal';
+      let profileOpen = false;
+      let examUrgent = false;
+      let audience = 'new';
+      let scenario = 'normal';
       const canvases = [...document.querySelectorAll('.product-canvas')];
       const s = (o) => o[locale === 'ar' ? 'ar' : 'en'];
       const c = (k) => COPY[k][locale === 'ar' ? 'ar' : 'en'];
@@ -708,12 +789,38 @@
         bell:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19h4"/></svg>',
         chev:'<svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg>',
         alert:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M12 3 22 20H2z"/><path d="M12 10v4M12 16.5v.5"/></svg>',
-        plug:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M3 3l18 18M9 3v4M15 3v4M7 7h10v4a5 5 0 0 1-10 0z"/></svg>'
+        plug:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M3 3l18 18M9 3v4M15 3v4M7 7h10v4a5 5 0 0 1-10 0z"/></svg>',
+        settings:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>',
+        logout:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M10 4H5v16h5"/><path d="M14 8l4 4-4 4"/><path d="M18 12H9"/></svg>',
+        clock:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg>',
+        spark:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg>',
+        trendUp:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>',
+        trendDown:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>',
+        trendFlat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true"><path d="M5 12h14"/></svg>'
+      };
+      const profileMenu = () => {
+        const name = s(DATA.student.name);
+        const initial = (name || '?').trim().charAt(0);
+        return '<div class="profile-menu">'
+          + '<button class="util" type="button" data-profile-toggle aria-haspopup="true" aria-expanded="'+(profileOpen?'true':'false')+'" aria-label="'+esc(c('utilProfile'))+'" data-od-id="dash-ui-util-profile"><span class="initials">AA</span></button>'
+          + (profileOpen ? '<div class="profile-popover" data-od-id="dash-ui-profile-menu">'
+              + '<div class="pp-head"><span class="pp-avatar" aria-hidden="true">'+esc(initial)+'</span><span class="pp-identity"><span class="pp-name">'+esc(name)+'</span><span class="pp-email" dir="ltr">'+esc(DATA.student.email)+'</span></span></div>'
+              + '<div class="pp-divider" role="separator"></div>'
+              + '<div class="pp-group">'
+                + '<button type="button" data-profile-action="profile" data-od-id="dash-ui-profile-view"><span class="pp-icon">'+ICONS.profile+'</span><span>'+esc(c('profileView'))+'</span></button>'
+                + '<button type="button" data-profile-action="settings" data-od-id="dash-ui-profile-settings"><span class="pp-icon">'+ICONS.settings+'</span><span>'+esc(c('profileSettings'))+'</span></button>'
+              + '</div>'
+              + '<div class="pp-divider" role="separator"></div>'
+              + '<div class="pp-group">'
+                + '<button type="button" data-profile-action="logout" class="profile-logout" data-od-id="dash-ui-profile-logout"><span class="pp-icon">'+ICONS.logout+'</span><span>'+esc(c('profileLogout'))+'</span></button>'
+              + '</div>'
+            + '</div>' : '')
+          + '</div>';
       };
       const utilCluster = () => '<div class="util-cluster">'
         + '<button class="util" type="button" aria-label="'+esc(c('utilLang'))+'" data-od-id="dash-ui-util-lang"><span class="initials">'+(locale==='ar'?'EN':'عر')+'</span></button>'
         + '<span class="util-wrap"><button class="util" type="button" aria-label="'+esc(c('utilBell'))+'" data-od-id="dash-ui-util-bell">'+ICONS.bell+'</button><span class="badge-dot" aria-hidden="true"></span></span>'
-        + '<button class="util" type="button" aria-label="'+esc(c('utilProfile'))+'" data-od-id="dash-ui-util-profile"><span class="initials">AA</span></button>'
+        + profileMenu()
         + '</div>';
       const railLink = (key, icon, label, active) => '<a class="rail-link" href="#"'+(active?' aria-current="page"':'')+' aria-label="'+esc(label)+'" data-od-id="dash-ui-rail-'+key+'">'+icon+'<span>'+esc(label)+'</span></a>';
       const sideRail = () => {
@@ -735,47 +842,102 @@
         + '<a class="foot-link" href="#" data-od-id="dash-ui-foot-progress">'+ICONS.progress+'<span>'+esc(c('navProgress'))+'</span></a>'
         + '<a class="foot-link" href="#" data-od-id="dash-ui-foot-profile">'+ICONS.profile+'<span>'+esc(c('navProfile'))+'</span></a>'
         + '</nav>';
-      const pageHead = () => '<div class="page-head" data-od-id="dash-ui-welcome"><p class="eyebrow">'+esc(c('eyebrow'))+'</p><h1 data-od-id="dash-ui-greeting">'+esc(c('welcome'))+esc(s(DATA.student.name))+'!</h1><p class="lede">'+esc(c('lede'))+'</p></div>';
+      const isNewStudent = () => audience === 'new';
+      const examIsUrgent = () => examUrgent;
+      const weakestTopic = () => DATA.topics.length ? DATA.topics.slice().sort((a, b) => a.percent - b.percent)[0] : null;
+      const availableExams = () => DATA.availableExams.map((e, i) => i === 0 ? Object.assign({}, e, { closesInMinutes: examUrgent ? 42 : 190 }) : e);
+      const fmtSpan = (mins) => {
+        if (mins == null) return '';
+        const d = Math.floor(mins / 1440), h = Math.floor((mins % 1440) / 60), m = mins % 60;
+        const ar = locale === 'ar';
+        const u = ar ? { d: 'ي', h: 'س', m: 'د' } : { d: 'd', h: 'h', m: 'm' };
+        const parts = [];
+        if (d > 0) parts.push(d + u.d);
+        if (h > 0) parts.push(h + u.h);
+        if (d === 0 && m > 0) parts.push(m + u.m);
+        return parts.length ? parts.join(' ') : (ar ? '<1د' : '<1m');
+      };
+      const pageHead = () => {
+        const w = weakestTopic();
+        let sub;
+        if (screenState === 'empty') sub = isNewStudent() ? c('firstSub') : c('caughtSub');
+        else if (examIsUrgent()) sub = c('urgentHeadSub');
+        else sub = c('focusSub') + (w ? s(w.name) : '');
+        return '<div class="page-head" data-od-id="dash-ui-welcome"><p class="eyebrow">'+esc(c('eyebrow'))+'</p><h1 data-od-id="dash-ui-greeting">'+esc(c('welcome'))+esc(s(DATA.student.name))+'</h1><p class="lede">'+esc(sub)+'</p></div>';
+      };
       const continuePanel = () => {
         const p = DATA.continuePractice;
-        if (screenState === 'empty' || !p) return '<section class="panel primary continue-card" data-od-id="dash-ui-continue"><div class="panel-head"><h2>'+esc(c('continueTitle'))+'</h2></div><div class="empty-state" data-od-id="dash-ui-continue-empty"><span class="mark" aria-hidden="true"></span><h3>'+esc(c('emptyContinueT'))+'</h3><p>'+esc(c('emptyContinueB'))+'</p><a class="btn secondary small" href="qiyas-learning-library.html">'+esc(c('libraryCta'))+'</a></div></section>';
         return '<section class="panel primary continue-card" data-od-id="dash-ui-continue"><div class="panel-head"><h2>'+esc(c('continueTitle'))+'</h2></div>'
           + '<div class="continue-body"><p class="continue-subject" data-od-id="dash-ui-continue-subject">'+esc(s(p.subject))+'</p><p class="continue-topic" data-od-id="dash-ui-continue-topic">'+esc(s(p.topic))+'</p>'
           + '<p class="continue-level" data-od-id="dash-ui-continue-level">'+esc(s(p.level))+' <span class="sep" aria-hidden="true">·</span> '+esc(c('level'))+' <span class="mono">'+esc(p.levelNumber)+'</span></p></div>'
-          + '<a class="btn primary block" href="qiyas-learning-library.html" data-level-id="'+esc(p.levelId)+'" data-od-id="dash-ui-continue-action">'+esc(c('continueCta'))+'</a></section>';
+          + '<a class="btn primary block small" href="qiyas-learning-library.html" data-level-id="'+esc(p.levelId)+'" data-od-id="dash-ui-continue-action">'+esc(c('continueCta'))+'</a></section>';
       };
-      const examRow = (e, available) => {
+      const examRow = (e, kind) => {
         const off = screenState === 'offline';
-        const action = available
-          ? '<button class="btn primary small'+(off?' disabled':'')+'" type="button"'+(off?' disabled':'')+' data-od-id="dash-ui-start-'+e.id+'" style="inline-size:auto">'+esc(c('startExam'))+'</button>'
-          : '<button class="btn small disabled" type="button" disabled data-od-id="dash-ui-upcoming-'+e.id+'" style="inline-size:auto;background:var(--surface-sunken);border-color:var(--border-subtle);color:var(--text-disabled)">'+esc(c('upcomingChip'))+'</button>';
-        return '<li class="exam-row" data-od-id="dash-ui-exam-'+e.id+'"><div class="exam-main"><p class="exam-title">'+esc(s(e.title))+'</p><p class="exam-meta"><span class="val">'+esc(fmt(e.start,true))+'</span> · <span class="val">'+e.minutes+' '+esc(c('mins'))+'</span> · <span class="val">'+e.questions+' '+esc(c('questions'))+'</span></p></div>'+action+'</li>';
+        const mins = kind === 'available' ? e.closesInMinutes : e.opensInMinutes;
+        const timeLabel = '<span class="mono">'+esc(kind === 'available' ? c('closesIn') : c('opensIn'))+' '+fmtSpan(mins)+'</span>';
+        const action = kind === 'available'
+          ? '<button class="btn primary small'+(off?' disabled':'')+'" type="button"'+(off?' disabled':'')+' style="inline-size:auto" data-od-id="dash-ui-start-'+e.id+'">'+esc(c('startExam'))+'</button>'
+          : '<button class="btn secondary small" type="button" disabled style="inline-size:auto;color:var(--text-disabled)" data-od-id="dash-ui-upcoming-'+e.id+'"><span class="chip neutral">'+esc(c('opensIn'))+' '+fmtSpan(mins)+'</span></button>';
+        return '<li class="exam-row" data-od-id="dash-ui-exam-'+e.id+'"><div class="exam-main"><p class="exam-title">'+esc(s(e.title))+'</p><p class="exam-meta">'+timeLabel+' · <span class="val">'+e.minutes+' '+esc(c('mins'))+'</span> · <span class="val">'+e.questions+' '+esc(c('questions'))+'</span></p></div>'+action+'</li>';
       };
-      const availablePanel = () => {
-        if (screenState === 'empty') return '<section class="panel primary available-card" data-od-id="dash-ui-available"><div class="panel-head"><h2>'+esc(c('availableTitle'))+'</h2></div><div class="empty-state" data-od-id="dash-ui-available-empty"><span class="mark" aria-hidden="true"></span><h3>'+esc(c('emptyExamsT'))+'</h3><p>'+esc(c('emptyExamsB'))+'</p><a class="btn secondary small" href="qiyas-scheduled-exams.html">'+esc(c('viewAll'))+'</a></div></section>';
-        return '<section class="panel primary available-card" data-od-id="dash-ui-available"><div class="panel-head"><h2>'+esc(c('availableTitle'))+'</h2><span class="chip"><span class="dot" aria-hidden="true"></span>'+esc(c('startHint'))+'</span></div><ul class="row-list">'+DATA.availableExams.map(e=>examRow(e,true)).join('')+'</ul></section>';
+      const availablePanel = () => '<section class="panel primary available-card" data-od-id="dash-ui-available"><div class="panel-head"><h2>'+esc(c('availableTitle'))+'</h2></div><ul class="row-list">'+availableExams().map(e=>examRow(e,'available')).join('')+'</ul></section>';
+      const upcomingPanel = () => '<section class="panel upcoming-card" data-od-id="dash-ui-upcoming"><div class="panel-head"><h2>'+esc(c('upcomingTitle'))+'</h2><a class="link" href="qiyas-scheduled-exams.html" data-od-id="dash-ui-upcoming-viewall">'+esc(c('viewAll'))+'</a></div><ul class="row-list">'+DATA.upcomingExams.map(e=>examRow(e,'upcoming')).join('')+'</ul></section>';
+      const recPanel = () => {
+        const w = weakestTopic();
+        if (!w) return '';
+        const body = '<strong>'+esc(s(w.name))+'</strong> — ' + (locale === 'ar' ? ('أقل نسبة إكمال لديك، '+w.percent+'٪ فقط.') : ('your lowest completion, at just '+w.percent+'%.'));
+        return '<section class="panel accent rec-card-wrap" data-od-id="dash-ui-recommendation"><div class="rec-card"><span class="rec-kicker">'+ICONS.spark+esc(c('recKicker'))+'</span><p>'+body+'</p><a class="btn primary small" href="qiyas-learning-library.html?topic='+encodeURIComponent(w.id)+'" data-od-id="dash-ui-recommendation-action">'+esc(c('practiceSubject'))+' '+esc(s(w.name))+'</a></div></section>';
       };
-      const upcomingPanel = () => '<section class="panel upcoming-card" data-od-id="dash-ui-upcoming"><div class="panel-head"><h2>'+esc(c('upcomingTitle'))+'</h2><a class="link" href="qiyas-scheduled-exams.html" data-od-id="dash-ui-upcoming-viewall">'+esc(c('viewAll'))+'</a></div><ul class="row-list">'+DATA.upcomingExams.map(e=>examRow(e,false)).join('')+'</ul></section>';
-      const subjectsPanel = () => {
-        const rows = DATA.subjects.map(x => '<li><a class="subject-row" href="qiyas-learning-library.html" data-od-id="dash-ui-subject-'+x.id+'"><span><span class="subject-name">'+esc(s(x.name))+'</span><span class="subject-meta">'+x.topics+' '+esc(c('topics'))+' · '+x.levels+' '+esc(c('levels'))+'</span></span><span class="progress-track" aria-hidden="true"><span style="inline-size:'+x.percent+'%"></span></span><span class="subject-pct mono">'+x.percent+'%</span>'+ICONS.chev+'</a></li>').join('');
-        return '<section class="panel subjects-card" data-od-id="dash-ui-subjects"><div class="panel-head"><h2>'+esc(c('subjectsTitle'))+'</h2><a class="link" href="qiyas-learning-library.html">'+esc(c('openLibrary'))+'</a></div><ul class="row-list">'+rows+'</ul></section>';
+      const topicsPanel = () => {
+        const w = weakestTopic();
+        const rows = DATA.topics.map(x => '<li><a class="subject-row" href="qiyas-learning-library.html?topic='+encodeURIComponent(x.id)+'" data-od-id="dash-ui-topic-'+x.id+'"><span><span class="subject-name">'+(w && x.id === w.id ? '<span class="flag" aria-hidden="true"></span>' : '')+esc(s(x.name))+'</span><span class="subject-meta">'+x.levels+' '+esc(c('levels'))+'</span></span><span class="progress-track" aria-hidden="true"><span style="inline-size:'+x.percent+'%"></span></span><span class="subject-pct mono">'+x.percent+'%</span>'+ICONS.chev+'</a></li>').join('');
+        return '<section class="panel subjects-card" data-od-id="dash-ui-topics"><div class="panel-head"><h2>'+esc(c('subjectsTitle'))+'</h2><a class="link" href="qiyas-learning-library.html">'+esc(c('openLibrary'))+'</a></div><ul class="row-list">'+rows+'</ul></section>';
       };
       const progressPanel = () => {
         const p = DATA.progress;
-        const study = p.studyMinutes === 0 ? '<dd class="zero mono">0 min</dd>' : '<dd class="mono">'+p.studyMinutes+' min</dd>';
-        return '<section class="panel progress-card" data-od-id="dash-ui-progress"><div class="panel-head"><h2>'+esc(c('progressTitle'))+'</h2></div><div class="progress-hero" data-od-id="dash-ui-progress-hero"><span class="pct mono">'+p.percent+'%<small>'+esc(c('completion'))+'</small></span><div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+p.percent+'"><span style="inline-size:'+p.percent+'%"></span></div></div><dl class="metric-list"><div class="metric-row"><dt>'+esc(c('attempted'))+'</dt><dd class="mono">'+p.attempted+'</dd></div><div class="metric-row"><dt>'+esc(c('correct'))+'</dt><dd class="mono">'+p.correct+'</dd></div><div class="metric-row"><dt>'+esc(c('wrong'))+'</dt><dd class="mono">'+p.wrong+'</dd></div><div class="metric-row"><dt>'+esc(c('unanswered'))+'</dt><dd class="mono">'+p.unanswered+'</dd></div><div class="metric-row"><dt>'+esc(c('studyTime'))+'</dt>'+study+'</div></dl>'+(p.studyMinutes===0?'<p class="progress-meta"><span>'+esc(c('studyZero'))+'</span></p>':'')+'</section>';
+        return '<section class="panel progress-card" data-od-id="dash-ui-progress"><div class="panel-head"><h2>'+esc(c('progressTitle'))+'</h2></div><div class="progress-hero" data-od-id="dash-ui-progress-hero"><span class="pct mono">'+p.percent+'%<small>'+esc(c('completion'))+'</small></span><div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+p.percent+'"><span style="inline-size:'+p.percent+'%"></span></div></div><dl class="metric-list"><div class="metric-row"><dt>'+esc(c('attempted'))+'</dt><dd class="mono">'+p.attempted+'</dd></div><div class="metric-row"><dt>'+esc(c('correct'))+'</dt><dd class="mono">'+p.correct+'</dd></div><div class="metric-row"><dt>'+esc(c('wrong'))+'</dt><dd class="mono">'+p.wrong+'</dd></div><div class="metric-row"><dt>'+esc(c('unanswered'))+'</dt><dd class="mono">'+p.unanswered+'</dd></div></dl></section>';
+      };
+      const fmtAgo = (mins) => {
+        const d = Math.floor(mins / 1440), h = Math.floor((mins % 1440) / 60);
+        if (locale === 'ar') return d > 0 ? ('قبل ' + d + ' يوم') : ('قبل ' + h + ' ساعة');
+        return d > 0 ? (d + 'd ago') : (h + 'h ago');
+      };
+      const trendChip = (score, prev) => {
+        const d = score - prev;
+        const dir = d > 0 ? 'up' : d < 0 ? 'down' : 'flat';
+        const icon = d > 0 ? ICONS.trendUp : d < 0 ? ICONS.trendDown : ICONS.trendFlat;
+        const sign = d > 0 ? '+' : '';
+        return '<span class="trend '+dir+'">'+icon+'<span class="mono">'+sign+d+'%</span> '+esc(c('vsLast'))+'</span>';
       };
       const resultsPanel = () => {
-        if (screenState === 'empty') return '<section class="panel results-card" data-od-id="dash-ui-results"><div class="panel-head"><h2>'+esc(c('resultsTitle'))+'</h2></div><div class="empty-state" data-od-id="dash-ui-results-empty"><span class="mark" aria-hidden="true"></span><h3>'+esc(c('emptyResultsT'))+'</h3><p>'+esc(c('emptyResultsB'))+'</p></div></section>';
-        return '<section class="panel results-card" data-od-id="dash-ui-results"><div class="panel-head"><h2>'+esc(c('resultsTitle'))+'</h2></div><ul class="row-list">'+DATA.recentResults.map(r=>'<li class="result-row" data-od-id="dash-ui-result-'+r.id+'"><div class="exam-main"><p class="result-title">'+esc(s(r.title))+'</p><p class="result-meta">'+esc(c('completedOn'))+'<span class="val">'+esc(fmt(r.completed,false))+'</span></p></div><div class="result-score"><span class="score mono">'+r.score+'%</span><small>'+r.correct+' / '+r.total+'</small></div></li>').join('')+'</ul></section>';
+        const rows = DATA.recentResults.map(r => '<li class="result-row" data-od-id="dash-ui-result-'+r.id+'"><p class="result-title">'+esc(s(r.title))+'</p><span class="result-score"><span class="score mono">'+r.score+'%</span></span><p class="result-meta">'+esc(fmtAgo(r.agoMinutes))+'</p>'+trendChip(r.score, r.prevScore)+'</li>').join('');
+        return '<section class="panel results-card" data-od-id="dash-ui-results"><div class="panel-head"><h2>'+esc(c('resultsTitle'))+'</h2><a class="link" href="qiyas-results-explanations.html" data-od-id="dash-ui-results-viewall">'+esc(c('viewAll'))+'</a></div><ul class="row-list">'+rows+'</ul></section>';
       };
       const skeleton = () => '<div class="panel"><div class="skel"><div class="line w40"></div><div class="line w90"></div><div class="line w60"></div><div class="line btn"></div></div></div><div class="panel"><div class="skel"><div class="line w40"></div><div class="line w90"></div><div class="line w60"></div><div class="line btn"></div></div></div>';
+      const urgentBanner = () => {
+        const ex = availableExams()[0];
+        return '<div class="urgent-banner" role="alert" data-od-id="dash-ui-urgent-banner"><span class="ub-eyebrow">'+ICONS.clock+esc(c('urgentEyebrow'))+'</span><h2>'+esc(s(ex.title))+'</h2><p class="ub-meta">'+esc(c('urgentSub'))+'</p><div class="ub-actions"><div class="ub-countdown"><span class="mono">'+fmtSpan(ex.closesInMinutes)+'</span><small>'+esc(c('remaining'))+'</small></div><button class="btn gold" type="button" data-od-id="dash-ui-urgent-start">'+esc(c('startExam'))+'</button></div></div>';
+      };
+      const emptyHero = () => {
+        const first = isNewStudent();
+        return '<div class="empty-hero" data-od-id="dash-ui-empty-hero"><h2>'+esc(first?c('firstTitle'):c('caughtTitle'))+'</h2><p>'+esc(first?c('firstBody'):c('caughtBody'))+'</p><button class="btn primary" type="button" data-od-id="dash-ui-empty-cta">'+esc(first?c('firstCta'):c('caughtCta'))+'</button></div>';
+      };
       const grid = () => {
         if (screenState === 'loading') return '<div class="skel-note" role="status"><span class="spinner" aria-hidden="true"></span>'+esc(c('loading'))+'</div><div class="dash-grid" style="margin-block-start:var(--space-4)" aria-busy="true">'+skeleton()+'</div>';
         if (screenState === 'error') return '<div class="banner error" role="alert" data-od-id="dash-ui-error" style="margin-block-start:var(--space-5)"><strong>'+ICONS.alert+' '+esc(c('errorTitle'))+'</strong><p>'+esc(c('errorBody'))+'</p><button class="btn primary small" type="button" data-retry data-od-id="dash-ui-retry" style="inline-size:auto;margin-block-start:var(--space-2)">'+esc(c('retry'))+'</button></div>';
         let out = '';
         if (screenState === 'offline') out += '<div class="banner" role="status" data-od-id="dash-ui-offline" style="margin-block-start:var(--space-5)"><strong>'+ICONS.plug+' '+esc(c('offlineTitle'))+'</strong><p>'+esc(c('offlineBody'))+'</p></div>';
-        out += '<div class="dash-grid">'+continuePanel()+availablePanel()+upcomingPanel()+subjectsPanel()+progressPanel()+resultsPanel()+'</div>';
+        if (examIsUrgent()) out += urgentBanner();
+        if (screenState === 'empty') {
+          const first = isNewStudent();
+          out += '<div class="dash-grid">' + emptyHero() + (first ? '' : progressPanel() + resultsPanel()) + '</div>';
+          return out;
+        }
+        out += '<div class="dash-grid">'
+          + continuePanel() + availablePanel() + recPanel()
+          + upcomingPanel() + topicsPanel() + progressPanel() + resultsPanel()
+          + '</div>';
         return out;
       };
       const appHtml = () => '<div class="app" dir="'+(locale==='ar'?'rtl':'ltr')+'">'
@@ -792,14 +954,29 @@
         document.querySelectorAll('[data-preview-theme]').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.previewTheme === 'dark') === dark)));
         document.querySelectorAll('[data-preview-locale]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.previewLocale === locale)));
         document.querySelectorAll('[data-screen-control]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.screenControl === screenState)));
+        document.querySelectorAll('[data-scenario]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.scenario === scenario)));
         canvases.forEach(cn => { cn.dataset.locale = locale; cn.lang = locale; cn.dir = locale === 'ar' ? 'rtl' : 'ltr'; cn.innerHTML = appHtml(); });
       };
       document.addEventListener('click', (ev) => {
-        const st = ev.target.closest('[data-screen-control]'); if (st) { screenState = st.dataset.screenControl; apply(); return; }
-        const rt = ev.target.closest('[data-retry]'); if (rt) { screenState = 'loading'; apply(); setTimeout(() => { screenState = 'nominal'; apply(); }, 900); return; }
-        const th = ev.target.closest('[data-preview-theme]'); if (th) { dark = th.dataset.previewTheme === 'dark'; localStorage.setItem('qiyas-preview-theme', dark ? 'dark' : 'light'); apply(); return; }
-        const lo = ev.target.closest('[data-preview-locale]'); if (lo) { locale = lo.dataset.previewLocale; localStorage.setItem('qiyas-preview-locale', locale); apply(); return; }
+        const st = ev.target.closest('button[data-screen-control]'); if (st) { screenState = st.dataset.screenControl; scenario = ''; apply(); return; }
+        const sc = ev.target.closest('button[data-scenario]');
+        if (sc) {
+          scenario = sc.dataset.scenario;
+          if (scenario === 'urgent') { examUrgent = true; screenState = 'nominal'; audience = 'new'; }
+          else if (scenario === 'normal') { examUrgent = false; screenState = 'nominal'; audience = 'new'; }
+          else if (scenario === 'firstvisit') { examUrgent = false; screenState = 'empty'; audience = 'new'; }
+          else if (scenario === 'caughtup') { examUrgent = false; screenState = 'empty'; audience = 'returning'; }
+          apply(); return;
+        }
+        const rt = ev.target.closest('button[data-retry]'); if (rt) { screenState = 'loading'; apply(); setTimeout(() => { screenState = 'nominal'; apply(); }, 900); return; }
+        const th = ev.target.closest('button[data-preview-theme]'); if (th) { dark = th.dataset.previewTheme === 'dark'; localStorage.setItem('qiyas-preview-theme', dark ? 'dark' : 'light'); apply(); return; }
+        const lo = ev.target.closest('button[data-preview-locale]'); if (lo) { locale = lo.dataset.previewLocale; localStorage.setItem('qiyas-preview-locale', locale); apply(); return; }
+
+        const pt = ev.target.closest('button[data-profile-toggle]'); if (pt) { profileOpen = !profileOpen; apply(); return; }
+        const pa = ev.target.closest('button[data-profile-action]'); if (pa) { profileOpen = false; apply(); return; }
+        if (profileOpen && !ev.target.closest('.profile-menu')) { profileOpen = false; apply(); }
       });
+      document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape' && profileOpen) { profileOpen = false; apply(); } });
       apply();
     })();
   </script>
