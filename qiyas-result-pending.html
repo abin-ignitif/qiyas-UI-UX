@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light" data-preview-locale="ar">
+<head><script type="application/json" data-od-external-dependencies>["https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"]</script><script type="application/json" data-od-external-dependencies>["https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"]</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qiyas · Result Pending</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== OD layout primitives — structure only; product CSS outside the layer always wins ===== */
+    @layer od-layout {
+      :where(.od-stack,.od-row,.od-row-top,.od-cluster,.od-grid,.od-field,.od-stat,.od-cell,.od-tile) > :where(*) { min-width: 0; }
+      .od-stack   { display: flex; flex-direction: column; gap: var(--od-gap, 8px); }
+      .od-row     { display: flex; align-items: center; gap: var(--od-gap, 8px); }
+      .od-row-top { display: flex; align-items: flex-start; gap: var(--od-gap, 8px); }
+      .od-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--od-gap, 8px); }
+      .od-fill    { flex: 1 1 0; min-width: 0; }
+      .od-fixed   { flex: none; }
+      .od-grid    { display: grid; gap: var(--od-gap, 12px); grid-template-columns: repeat(var(--od-cols, 3), minmax(0, 1fr)); }
+      .od-stat, .od-field, .od-cell { display: grid; gap: var(--od-gap, 2px); }
+      :where(.od-stat,.od-field,.od-cell) > :where(*) { display: block; }
+      .od-tile { display: grid; grid-template-rows: auto 1fr; }
+      :where(.od-tile) > :where(*) { display: block; }
+      .od-media { display: block; width: 100%; height: auto; aspect-ratio: var(--od-ratio, auto); }
+      .od-media-cover { object-fit: cover; }
+      .od-truncate { display: block; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+      .od-clamp-2, .od-clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+      .od-clamp-2 { -webkit-line-clamp: 2; }
+      .od-clamp-3 { -webkit-line-clamp: 3; }
+      .od-lines-2 { min-height: calc(2 * 1.4em); }
+      .od-nowrap  { white-space: nowrap; }
+      .od-keep    { word-break: keep-all; overflow-wrap: anywhere; }
+      .od-screen { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: 100%; }
+      .od-scroll { overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+      .od-rail { display: flex; gap: var(--od-gap, 8px); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding-inline: var(--od-rail-pad, 16px); scroll-padding-inline: var(--od-rail-pad, 16px); }
+      .od-rail::-webkit-scrollbar { display: none; }
+      :where(.od-rail) > :where(*) { flex: none; scroll-snap-align: start; }
+      :where(.od-rail) > :where(:last-child) { margin-inline-end: var(--od-rail-pad, 16px); }
+      .od-spacer { flex: none; visibility: hidden; pointer-events: none; }
+      .od-touch  { min-width: 44px; min-height: 44px; }
+    }
+
+    /* ===== QIYAS TOKENS — copied verbatim from qiyas-design-system.html ===== */
+    :root {
+      --primitive-green-500: #0D662C;
+      --primitive-green-400: #1A8C43;
+      --primitive-green-200: #66B385;
+      --primitive-green-100: #B3D9C1;
+      --primitive-green-50: #E6F2EA;
+      --primitive-green-700: #09481F;
+      --primitive-green-900: #04230F;
+      --primitive-gold-500: #CE940F;
+      --primitive-gold-400: #DBA724;
+      --primitive-gold-200: #EDC866;
+      --primitive-gold-100: #F9E8B3;
+      --primitive-gold-50: #FFFDF0;
+      --primitive-gold-700: #91680A;
+      --primitive-gold-900: #4A3505;
+      --primitive-ink: #11120F;
+      --primitive-paper: #FEFEFE;
+      --primitive-neutral-50: #F8F9F7;
+      --primitive-neutral-100: #E1E3DF;
+      --primitive-neutral-200: #C4C7C0;
+      --primitive-neutral-400: #878C82;
+      --primitive-neutral-500: #61665C;
+      --primitive-neutral-700: #32352E;
+      --primitive-terracotta-500: #C84B15;
+      --primitive-terracotta-50: #FFF2F0;
+      --primitive-terracotta-700: #96320B;
+
+      --surface-page: var(--primitive-paper);
+      --surface-raised: var(--primitive-neutral-50);
+      --surface-sunken: var(--primitive-neutral-100);
+      --surface-overlay: var(--primitive-paper);
+      --surface-inverse: var(--primitive-ink);
+      --text-primary: var(--primitive-ink);
+      --text-secondary: var(--primitive-neutral-700);
+      --text-tertiary: var(--primitive-neutral-500);
+      --text-disabled: var(--primitive-neutral-400);
+      --text-inverse: var(--primitive-paper);
+      --text-on-brand: var(--primitive-paper);
+      --border-subtle: var(--primitive-neutral-100);
+      --border-default: var(--primitive-neutral-200);
+      --border-strong: var(--primitive-ink);
+      --border-focus: var(--primitive-green-400);
+      --action-primary-bg: var(--primitive-ink);
+      --action-primary-fg: var(--primitive-paper);
+      --action-secondary-bg: var(--surface-page);
+      --action-secondary-fg: var(--text-primary);
+      --action-destructive-bg: var(--primitive-terracotta-700);
+      --action-destructive-fg: var(--primitive-paper);
+      --state-correct-bg: var(--primitive-green-50);
+      --state-correct-border: var(--primitive-green-500);
+      --state-correct-fg: var(--primitive-green-700);
+      --state-incorrect-bg: var(--primitive-terracotta-50);
+      --state-incorrect-border: var(--primitive-terracotta-500);
+      --state-incorrect-fg: var(--primitive-terracotta-700);
+      --state-selected-bg: var(--primitive-neutral-50);
+      --state-selected-border: var(--primitive-ink);
+      --state-gold-bg: var(--primitive-gold-50);
+      --state-gold-border: var(--primitive-gold-500);
+      --state-info-bg: var(--primitive-green-50);
+      --state-info-border: var(--primitive-green-200);
+      --focus-ring: var(--primitive-green-400);
+      --shadow-overlay: 4px 4px 0 var(--primitive-ink);
+      --font-display: "IBM Plex Sans", system-ui, sans-serif;
+      --font-body: "IBM Plex Sans", system-ui, sans-serif;
+      --font-arabic: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+      --logo-ink: #11120F; --logo-green: #0D662C; --logo-gold: #CE940F;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px;
+      --radius-card: 4px; --radius-control: 4px; --radius-accent: 0;
+      --border-width-hairline: 1px; --border-width-default: 1.5px; --border-width-emphasis: 2px; --border-width-selected: 3px;
+      --content: 1180px;
+      --control-default: 48px; --control-large: 56px;
+      --progress-track: var(--surface-sunken); --progress-fill: var(--primitive-green-500);
+      --focus-offset: 3px;
+      --motion-quick: 120ms; --motion-base: 180ms; --motion-deliberate: 280ms;
+      --ease-enter: cubic-bezier(.2,.7,.3,1); --ease-exit: cubic-bezier(.5,0,.8,.3); --ease-linear: linear;
+    }
+    html[data-theme="dark"] {
+      --surface-page: #11120F;
+      --surface-raised: #181A16;
+      --surface-sunken: #0B0C0A;
+      --surface-overlay: #20231E;
+      --surface-inverse: #FEFEFE;
+      --text-primary: #FEFEFE;
+      --text-secondary: #C4C7C0;
+      --text-tertiary: #A8ADA2;
+      --text-disabled: #72786E;
+      --text-inverse: #11120F;
+      --text-on-brand: #FEFEFE;
+      --border-subtle: #2A2E28;
+      --border-default: #4A5046;
+      --border-strong: #FEFEFE;
+      --border-focus: #66B385;
+      --action-primary-bg: #FEFEFE;
+      --action-primary-fg: #11120F;
+      --action-secondary-bg: #181A16;
+      --action-secondary-fg: #FEFEFE;
+      --action-destructive-bg: #96320B;
+      --action-destructive-fg: #FEFEFE;
+      --state-correct-bg: #173D25;
+      --state-correct-border: #66B385;
+      --state-correct-fg: #B3D9C1;
+      --state-incorrect-bg: #4A1B0A;
+      --state-incorrect-border: #E07843;
+      --state-incorrect-fg: #FFD0BD;
+      --state-selected-bg: #20231E;
+      --state-selected-border: #FEFEFE;
+      --state-gold-bg: #3C3217;
+      --state-gold-border: #DBA724;
+      --state-info-bg: #173D25;
+      --state-info-border: #66B385;
+      --focus-ring: #66B385;
+      --shadow-overlay: 4px 4px 0 #000000;
+      --logo-ink: #FEFEFE; --logo-green: #66B385; --logo-gold: #DBA724;
+    }
+
+    /* ===== document chrome ===== */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--surface-page); }
+    body { margin: 0; color: var(--text-primary); background: var(--surface-page); font-family: var(--font-body); line-height: 1.5; }
+    a { color: inherit; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: var(--focus-offset); }
+    .document-header { position: sticky; inset-block-start: 0; z-index: 30; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) max(16px, calc((100vw - var(--content)) / 2)); background: color-mix(in srgb, var(--surface-page) 94%, transparent); border-block-end: var(--border-width-hairline) solid var(--border-subtle); backdrop-filter: blur(12px); }
+    .document-title { font-weight: 600; }
+    .document-title small { display: block; color: var(--text-tertiary); font: 11px/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .document-title .qiyas-logo { inline-size: 96px; block-size: auto; }
+    .title-row { display: flex; align-items: center; gap: var(--space-3); }
+    .control-cluster { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--space-2); }
+    .control-label { color: var(--text-tertiary); font: 700 10px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+    .toggle-group { display: inline-flex; max-inline-size: 100%; overflow-x: auto; border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-control); }
+    .toggle-button { min-block-size: 44px; padding-inline: 10px; border: 0; border-inline-start: var(--border-width-hairline) solid var(--border-default); color: var(--text-tertiary); background: transparent; white-space: nowrap; font-size: 12px; font-weight: 600; }
+    .toggle-button:first-child { border-inline-start: 0; }
+    .toggle-button:hover, .toggle-button[aria-pressed="true"] { color: var(--text-primary); background: var(--surface-raised); }
+    .toggle-button[aria-pressed="true"] { box-shadow: inset 0 -2px 0 var(--primitive-green-500); }
+    .page { max-inline-size: var(--content); margin-inline: auto; padding-inline: clamp(16px, 3vw, 24px); }
+    section.section { padding-block: var(--space-8); }
+    section.section + section.section { border-block-start: var(--border-width-hairline) solid var(--border-subtle); }
+    .section-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(240px, .9fr); gap: var(--space-7); align-items: end; margin-block-end: var(--space-6); }
+    .section-head h2 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -.01em; }
+    .section-head p { margin: 0; color: var(--text-secondary); font-size: 14px; }
+    .eyebrow, .overline { color: var(--primitive-green-500); font: 700 11px/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; margin: 0 0 var(--space-2); }
+    .intro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(240px, .8fr); gap: var(--space-7); align-items: start; }
+    .intro h1 { margin: 0; font-size: clamp(30px, 4.4vw, 44px); letter-spacing: -.015em; line-height: 1.15; }
+    .intro p.lede { color: var(--text-secondary); font-size: 16px; max-inline-size: 60ch; }
+    .decision { display: grid; gap: var(--space-2); padding: var(--space-5); border: var(--border-width-default) solid var(--border-default); border-inline-start-width: var(--border-width-emphasis); background: var(--surface-raised); font-size: 14px; }
+    .decision strong { display: block; }
+    .decision p { margin: 0 0 var(--space-3); color: var(--text-secondary); }
+    .decision .rejected-label { color: var(--primitive-terracotta-700); }
+    html[data-theme="dark"] .decision .rejected-label { color: var(--state-incorrect-fg); }
+    .preview-grid { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: var(--space-6); align-items: start; }
+    @media (max-width: 919px) { .preview-grid { grid-template-columns: minmax(0, 1fr); } .section-head, .intro { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); } }
+    .preview-wrap { display: grid; gap: var(--space-2); min-inline-size: 0; }
+    .preview-label { display: flex; justify-content: space-between; gap: var(--space-2); color: var(--text-tertiary); font: 600 11px/1.4 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .product-canvas { position: relative; display: flex; flex-direction: column; overflow: hidden; border: var(--border-width-default) solid var(--border-strong); border-radius: var(--radius-card); background: var(--surface-page); color: var(--text-primary); font-family: var(--font-body); }
+    .product-canvas.preview-phone { inline-size: min(390px, 100%); margin-inline: auto; block-size: 844px; overflow-y: auto; overscroll-behavior: contain; }
+    .product-canvas.preview-desktop { inline-size: 100%; min-block-size: 760px; max-block-size: 900px; overflow-y: auto; }
+    @media (max-width: 479px) { .product-canvas.preview-phone { border-inline-width: 0; border-block-width: 0; border-radius: 0; } }
+    table { inline-size: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 10px 8px; border-block-end: var(--border-width-hairline) solid var(--border-subtle); text-align: start; vertical-align: top; }
+    th { color: var(--text-tertiary); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+    .table-wrap { overflow-x: auto; border: var(--border-width-hairline) solid var(--border-subtle); border-radius: var(--radius-card); padding-inline: var(--space-4); background: var(--surface-raised); }
+    .mono { font-family: var(--font-mono); font-variant-numeric: tabular lining-nums; }
+    .gap-list { display: grid; gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
+    .gap-list li { padding: var(--space-3); border-inline-start: var(--border-width-emphasis) solid var(--border-strong); background: var(--surface-raised); }
+    .gap-list strong { display: block; }
+    .gap-list span { color: var(--text-secondary); }
+    .card { padding: var(--space-5); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .footer { padding-block: var(--space-6); border-block-start: var(--border-width-hairline) solid var(--border-subtle); color: var(--text-tertiary); font-size: 12px; text-align: center; }
+    .sr-only { position: absolute; inline-size: 1px; block-size: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+    /* ===== product surface · QIYAS student shell (focused status page) ===== */
+    .app { flex: 1 0 auto; display: flex; flex-direction: column; min-block-size: 100%; background: var(--surface-page); }
+    .app-bar { position: sticky; inset-block-start: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-block-size: 56px; padding: var(--space-2) var(--space-4); background: color-mix(in srgb, var(--surface-page) 94%, transparent); border-block-end: var(--border-width-hairline) solid var(--border-subtle); backdrop-filter: blur(10px); }
+    .app-brand { display: inline-flex; align-items: center; min-inline-size: 0; text-decoration: none; color: var(--text-primary); }
+    .app-brand svg { display: block; inline-size: 84px; block-size: auto; }
+    .util-cluster { display: flex; align-items: center; gap: var(--space-2); margin-inline-start: auto; }
+    .util { inline-size: 44px; block-size: 44px; flex: none; display: grid; place-items: center; border: var(--border-width-hairline) solid var(--border-default); border-radius: var(--radius-control); background: transparent; color: var(--text-secondary); }
+    .util:hover { color: var(--text-primary); border-color: var(--border-strong); background: var(--surface-raised); }
+    .util .initials { font: 700 12px/1 var(--font-mono); letter-spacing: .02em; }
+    .content { flex: 1; inline-size: 100%; max-inline-size: var(--content); margin-inline: auto; padding: var(--space-5) var(--space-4) calc(var(--space-7) + env(safe-area-inset-bottom, 0px)); }
+
+    .status-wrap { display: grid; gap: var(--space-5); justify-items: center; max-inline-size: 600px; margin-inline: auto; text-align: center; padding-block-start: var(--space-5); }
+    .status-hero { display: grid; gap: var(--space-2); justify-items: center; }
+    .status-hero h1 { margin: 0; font-size: clamp(26px, 4vw, 40px); letter-spacing: -.02em; line-height: 1.15; }
+    .status-hero .lede { margin: 0; color: var(--text-secondary); font-size: 16px; max-inline-size: 52ch; overflow-wrap: anywhere; }
+    .success-badge { inline-size: 72px; block-size: 72px; display: grid; place-items: center; border: var(--border-width-emphasis) solid var(--state-correct-border); border-radius: var(--radius-card); background: var(--state-correct-bg); color: var(--state-correct-fg); }
+    .success-line { margin: 0; color: var(--state-correct-fg); font: 700 12px/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+    .release-panel { inline-size: 100%; display: grid; gap: var(--space-4); padding: var(--space-5); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .release-meta { display: grid; gap: var(--space-1); justify-items: center; }
+    .release-meta .label { display: inline-flex; align-items: center; gap: 6px; color: var(--text-tertiary); font: 600 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+    .release-meta .val { color: var(--text-primary); font-weight: 700; font-size: 15px; }
+    .countdown { display: flex; justify-content: center; align-items: flex-start; gap: var(--space-2); direction: ltr; }
+    .count-seg { display: grid; gap: var(--space-1); justify-items: center; }
+    .count-tile { display: grid; place-items: center; min-inline-size: 64px; block-size: 64px; padding-inline: var(--space-2); border: var(--border-width-hairline) solid var(--border-default); border-radius: var(--radius-control); background: var(--surface-sunken); }
+    .count-num { font-family: var(--font-mono); font-weight: 700; font-size: clamp(30px, 7vw, 42px); line-height: 1; font-variant-numeric: tabular lining-nums; white-space: nowrap; }
+    .count-cap { color: var(--text-tertiary); font: 600 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+    .count-sep { align-self: flex-start; padding-block-start: 21px; color: var(--text-tertiary); font-family: var(--font-mono); font-weight: 700; font-size: 22px; line-height: 1; }
+    .note { margin: 0; color: var(--text-tertiary); font-size: 13px; max-inline-size: 48ch; overflow-wrap: anywhere; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-block-size: var(--control-default); padding-inline: var(--space-4); border: var(--border-width-default) solid transparent; border-radius: var(--radius-control); font-weight: 600; font-size: 14px; text-decoration: none; transition: background-color var(--motion-quick) var(--ease-enter), border-color var(--motion-quick) var(--ease-enter), color var(--motion-quick) var(--ease-enter), transform var(--motion-quick) var(--ease-enter); }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { background: var(--action-primary-bg); color: var(--action-primary-fg); border-color: var(--action-primary-bg); }
+    .btn.secondary { background: var(--action-secondary-bg); color: var(--action-secondary-fg); border-color: var(--border-default); }
+    .btn.secondary:hover { border-color: var(--border-strong); background: var(--surface-raised); }
+    .btn.block { inline-size: 100%; }
+    [dir="rtl"] .app, [dir="rtl"] .content { font-family: var(--font-arabic); }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+
+  <!-- ===== QIYAS logo lockups — exact symbols from qiyas-parent-login.html ===== -->
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+    <defs>
+      <symbol id="qiyas-logo-en" viewBox="0 0 1201 349"><path d="M 343.0 96.0 L 343.0 293.0 L 377.0 293.0 L 377.0 96.0 Z M 1014.0 93.0 L 1013.0 205.0 L 1146.0 206.0 L 1147.0 262.0 L 1014.0 263.0 L 1013.0 294.0 L 1180.0 294.0 L 1179.0 175.0 L 1046.0 174.0 L 1047.0 124.0 L 1180.0 124.0 L 1180.0 94.0 Z M 751.0 93.0 L 751.0 294.0 L 784.0 293.0 L 785.0 205.0 L 896.0 205.0 L 897.0 294.0 L 930.0 294.0 L 930.0 93.0 Z M 783.0 125.0 L 896.0 124.0 L 897.0 174.0 L 785.0 174.0 Z M 471.0 91.0 L 471.0 204.0 L 552.0 204.0 L 554.0 206.0 L 554.0 298.0 L 589.0 298.0 L 589.0 205.0 L 671.0 204.0 L 671.0 92.0 L 637.0 92.0 L 636.0 174.0 L 506.0 174.0 L 505.0 92.0 Z" fill="var(--logo-ink)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 21.0 88.0 L 21.0 293.0 L 195.0 293.0 L 230.0 328.0 L 250.0 309.0 L 244.0 299.0 L 143.0 192.0 L 138.0 193.0 L 121.0 212.0 L 164.0 261.0 L 54.0 262.0 L 52.0 258.0 L 54.0 121.0 L 209.0 120.0 L 211.0 122.0 L 211.0 244.0 L 242.0 276.0 L 242.0 89.0 Z" fill="var(--logo-green)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 341.0 74.0 L 343.0 76.0 L 379.0 76.0 L 360.0 44.0 Z M 145.0 20.0 L 145.0 51.0 L 176.0 52.0 L 176.0 21.0 Z M 80.0 20.0 L 78.0 41.0 L 80.0 52.0 L 109.0 52.0 L 110.0 20.0 Z" fill="var(--logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/></symbol>
+      <symbol id="qiyas-logo-ar" viewBox="0 0 1202 299"><path d="M 343.0 104.0 L 314.0 104.0 L 313.0 200.0 L 271.0 199.0 L 271.0 103.0 L 243.0 103.0 L 242.0 200.0 L 199.0 199.0 L 198.0 123.0 L 171.0 123.0 L 169.0 239.0 L 50.0 239.0 L 49.0 176.0 L 21.0 175.0 L 20.0 265.0 L 198.0 266.0 L 199.0 228.0 L 341.0 228.0 Z M 400.0 72.0 L 401.0 228.0 L 983.0 228.0 L 983.0 200.0 L 852.0 200.0 L 851.0 103.0 L 823.0 103.0 L 822.0 200.0 L 430.0 200.0 L 429.0 72.0 Z" fill="var(--logo-ink)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 1173.0 75.0 L 1158.0 73.0 L 1146.0 75.0 L 985.0 75.0 L 984.0 227.0 L 1118.0 228.0 L 1157.0 271.0 L 1165.0 272.0 L 1179.0 258.0 L 1181.0 254.0 L 1081.0 147.0 L 1077.0 147.0 L 1060.0 166.0 L 1087.0 195.0 L 1088.0 199.0 L 1016.0 200.0 L 1014.0 198.0 L 1013.0 106.0 L 1015.0 103.0 L 1144.0 103.0 L 1144.0 196.0 L 1173.0 224.0 Z" fill="var(--logo-green)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 646.0 249.0 L 646.0 273.0 L 648.0 278.0 L 677.0 277.0 L 677.0 249.0 Z M 703.0 249.0 L 704.0 278.0 L 733.0 278.0 L 733.0 249.0 Z M 412.0 23.0 L 398.0 47.0 L 398.0 52.0 L 431.0 52.0 L 427.0 41.0 L 415.0 22.0 Z M 1096.0 20.0 L 1096.0 49.0 L 1125.0 49.0 L 1125.0 20.0 Z M 1045.0 20.0 L 1042.0 25.0 L 1043.0 49.0 L 1072.0 50.0 L 1073.0 21.0 Z" fill="var(--logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="document-header" data-od-id="rp-document-header">
+    <div class="document-title"><div class="title-row">
+      <svg class="qiyas-logo" viewBox="0 0 1201 349" role="img" aria-label="Qiyas"><use href="#qiyas-logo-en"></use></svg>
+      <div><strong>Qiyas · Result Pending</strong><br><span>Screen · result pending preview</span></div>
+    </div></div>
+    <div class="control-cluster" aria-label="Preview settings">
+      <span class="control-label">Theme</span>
+      <div class="toggle-group" role="group" aria-label="Preview theme"><button class="toggle-button" data-preview-theme="light" aria-pressed="true" type="button">Light</button><button class="toggle-button" data-preview-theme="dark" aria-pressed="false" type="button">Dark</button></div>
+      <span class="control-label">Language</span>
+      <div class="toggle-group" role="group" aria-label="Preview language"><button class="toggle-button" data-preview-locale="ar" aria-pressed="true" type="button">العربية</button><button class="toggle-button" data-preview-locale="en" aria-pressed="false" type="button">English</button></div>
+    </div>
+  </header>
+
+  <main class="page" data-od-id="rp-handoff">
+    <section class="section intro" data-od-id="rp-introduction">
+      <div><p class="eyebrow">Screen · Result pending · learner-web</p><h1 data-od-id="rp-title">The exam is safe. The result has a time.</h1><p class="lede">A quiet, encouraging status page after submission: the exact release moment and a live countdown. Arabic is primary; the countdown and date stay LTR islands with tabular figures.</p></div>
+      <aside class="decision" data-od-id="rp-decision"><strong>Resolution</strong><p>One promise, kept with a number: the exact release moment, a live countdown, and an automatic transition into the result when the time arrives. Leaving and returning is safe — the page recomputes from the release time.</p><strong class="rejected-label">Rejected</strong><p>A vague “results will appear soon” with no time, a manual refresh, and no evidence the submission actually landed.</p></aside>
+    </section>
+
+    <section class="section" data-od-id="rp-live-preview">
+      <div class="section-head"><div><p class="eyebrow">Live preview</p><h2>Pending now, result at the minute.</h2></div><p>Theme and locale are driven by one render function. The countdown runs live in both canvases and recomputes from the release time.</p></div>
+      <div class="preview-grid">
+        <div class="preview-wrap"><div class="preview-label"><span>Mobile</span><span>390 × 844 · check 360</span></div><div class="product-canvas preview-phone" data-device="mobile" data-locale="ar" data-od-id="rp-mobile-preview"></div></div>
+        <div class="preview-wrap"><div class="preview-label"><span>Desktop</span><span>1440 reference · 600 status column</span></div><div class="product-canvas preview-desktop" data-device="desktop" data-locale="ar" data-od-id="rp-desktop-preview"></div></div>
+      </div>
+    </section>
+
+    <section class="section" data-od-id="rp-component-mapping">
+      <div class="section-head"><div><p class="eyebrow">Component mapping</p><h2>Exact system vocabulary.</h2></div><p>Component and variant names are quoted from qiyas-design-system.html; the countdown is a new composition from existing tokens and is recorded in the gap list.</p></div>
+      <div class="table-wrap"><table><thead><tr><th>Element on screen</th><th>System component</th><th>Tokens / variant</th><th>Notes for devs</th></tr></thead><tbody>
+        <tr><td>Document header</td><td>Prototype preview controls</td><td>theme / locale toggle groups · 44px · aria-pressed</td><td>Preview-only; visually separate from the product surface.</td></tr>
+        <tr><td>App bar</td><td>Header bar (composition)</td><td>56px sticky · brand ≤84px · utilities 44×44</td><td>Same shell as the student dashboard; this focused page carries no nav.</td></tr>
+        <tr><td>Success badge</td><td>state-correct</td><td>--state-correct-bg / border / fg · 72px · check glyph</td><td>Shape + color + text label; never color alone.</td></tr>
+        <tr><td>Success line + heading</td><td>Page head (composition)</td><td>mono eyebrow · h1 clamp(26–40px)</td><td>“Exam Submitted Successfully” first, “Results Coming Soon” as the heading.</td></tr>
+        <tr><td>Release time</td><td>Mono value row</td><td>mono · tabular · LTR isolate</td><td>Exact date and time with Western digits in Arabic.</td></tr>
+        <tr><td>Countdown</td><td>Timer (composition)</td><td>mono numerals · surface-sunken tiles · HH:MM:SS</td><td>Three stat blocks, numeral above caption; LTR container; updates every second.</td></tr>
+        <tr><td>Leave-and-return note</td><td>Muted note</td><td>--text-tertiary · 13px</td><td>Reassurance that the result appears automatically after release.</td></tr>
+        <tr><td>Back to Scheduled Exams</td><td>button-primary</td><td>48px · block</td><td>Single exit; carries no session data.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="section" data-od-id="rp-states">
+      <div class="section-head"><div><p class="eyebrow">State coverage</p><h2>One honest state: pending until the minute.</h2></div><p>The pending state is the only surface on this screen. It recomputes from the release time, so leaving and returning is always safe.</p></div>
+      <div class="table-wrap"><table><thead><tr><th>State</th><th>Condition</th><th>Surface</th></tr></thead><tbody>
+        <tr><td>Pending</td><td>Countdown &gt; 0</td><td>Success badge + “Exam Submitted Successfully” + “Results Coming Soon”, exact release time, live HH:MM:SS, leave-and-return note, Back to Scheduled Exams.</td></tr>
+        <tr><td>Return to the page</td><td>Student reopens the page later</td><td>The countdown recomputes from the release time — no polling, no refresh prompt.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="section" data-od-id="rp-gaps">
+      <div class="section-head"><div><p class="eyebrow">Gap list</p><h2>Open decisions stay visible.</h2></div><p>Not hidden in custom components. Each gap names what is missing and why the screen stayed conservative.</p></div>
+      <ul class="gap-list" data-od-id="rp-gap-list">
+        <li><strong>Result contract</strong><span>The pending screen names the exam and the release time only; the result endpoint and its field names belong to the published result screen.</span></li>
+        <li><strong>Release delivery</strong><span>Whether the result becomes available by polling, push, or a background refresh is a platform decision; this screen recomputes the countdown from the release time.</span></li>
+        <li><strong>Auto hand-off</strong><span>When the countdown reaches zero the prototype stops at 00:00:00; production routes to qiyas-result-published.html at that moment.</span></li>
+        <li><strong>Countdown maximum</strong><span>Hours beyond two digits (for multi-day release windows) are a product decision; the prototype pads to two digits.</span></li>
+        <li><strong>Arabic calendar and digits</strong><span>ar-SA defaults to Hijri; the prototype pins Gregorian with Western digits to match the system numeral rule.</span></li>
+      </ul>
+    </section>
+
+    <section class="section" data-od-id="rp-flutter-tokens"><div class="section-head"><div><p class="eyebrow">Flutter handoff</p><h2>Keep both clients on the same result contract.</h2></div><p>The web build consumes the CSS custom properties in this file; Flutter consumes the matching semantic values from the shared token source.</p></div><pre class="card mono" style="overflow:auto;margin:0;font-size:12.5px"><code>final qiyasResultPendingTheme = ThemeData(
+  scaffoldBackgroundColor: const Color(0xFFFEFEFE),
+  colorScheme: const ColorScheme.light(
+    primary: Color(0xFF11120F),          // Ink — Back to Scheduled Exams
+    secondary: Color(0xFF0D662C),        // green — success badge
+    error: Color(0xFFC84B15),
+    surface: Color(0xFFFEFEFE),
+  ),
+  textTheme: const TextTheme(
+    headlineMedium: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 34, fontWeight: FontWeight.w700),
+    titleMedium: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 17, fontWeight: FontWeight.w700),
+    bodyMedium: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 14, height: 1.5),
+    bodySmall: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 13, height: 1.55, color: Color(0xFF61665C)),
+  ),
+  // badge 72 · countdown tiles 64 · primary 48 · status column cap 600
+);</code></pre></section>
+
+    <footer class="footer">Qiyas · Result Pending · learner-web · Arabic primary · countdown recomputed from the release time</footer>
+  </main>
+
+  <script>
+    (()=>{
+      const root = document.documentElement;
+      const RELEASE_OFFSET_MS = 5 * 3600000 + 26 * 60000 + 42 * 1000;
+      const releaseAt = Date.now() + RELEASE_OFFSET_MS;
+      const EXAM = { name: { en: 'Statistics Assessment 2', ar: 'اختبار الإحصاء 2' } };
+      const COPY = {
+        successLine: { en: 'Exam Submitted Successfully', ar: 'تم إرسال الاختبار بنجاح' },
+        title: { en: 'Results Coming Soon', ar: 'النتائج قريباً' },
+        lede: { en: 'Your result for {exam} will be released on {date} at {time}.', ar: 'ستصدر نتيجتك لاختبار {exam} يوم {date} في الساعة {time}.' },
+        releaseLabel: { en: 'Result release', ar: 'موعد صدور النتيجة' },
+        hours: { en: 'Hours', ar: 'ساعات' }, minutes: { en: 'Minutes', ar: 'دقائق' }, seconds: { en: 'Seconds', ar: 'ثوانٍ' },
+        timerLabel: { en: 'Time remaining until your result is released', ar: 'الوقت المتبقي حتى صدور نتيجتك' },
+        note: { en: 'You can leave this page and come back later. Your result will become available automatically after the release time.', ar: 'يمكنك مغادرة هذه الصفحة والعودة لاحقاً. ستصبح نتيجتك متاحة تلقائياً بعد موعد الصدور.' },
+        backCta: { en: 'Back to Scheduled Exams', ar: 'العودة إلى الاختبارات المجدولة' },
+        utilLang: { en: 'Language', ar: 'اللغة' }, utilHelp: { en: 'Help', ar: 'المساعدة' }, utilBell: { en: 'Notifications', ar: 'الإشعارات' }, utilProfile: { en: 'Profile', ar: 'الملف الشخصي' }
+      };
+      let locale = localStorage.getItem('qiyas-preview-locale') || 'ar';
+      let dark = localStorage.getItem('qiyas-preview-theme') === 'dark';
+      const canvases = [...document.querySelectorAll('.product-canvas')];
+      const c = (k) => COPY[k][locale === 'ar' ? 'ar' : 'en'];
+      const esc = (x) => String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      const pad = (n) => String(n).padStart(2, '0');
+      const dloc = () => locale === 'ar' ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-US';
+      const fmtDate = () => { const d = new Date(releaseAt); const o = { weekday:'short', month:'short', day:'numeric', year:'numeric' }; try { return new Intl.DateTimeFormat(dloc(), o).format(d); } catch (_) { return new Intl.DateTimeFormat('en-GB', o).format(d); } };
+      const fmtTime = () => { const d = new Date(releaseAt); const o = { hour:'numeric', minute:'2-digit' }; try { return new Intl.DateTimeFormat(dloc(), o).format(d); } catch (_) { return new Intl.DateTimeFormat('en-GB', o).format(d); } };
+      const ICONS = {
+        check: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>',
+        clock: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>'
+      };
+      const logo = () => '<a class="app-brand" href="index.html" aria-label="Qiyas"><svg viewBox="0 0 1201 349" role="img" aria-hidden="true"><use href="#qiyas-logo-en"></use></svg></a>';
+      const utilCluster = () => '<div class="util-cluster">'
+        + '<button class="util" type="button" aria-label="'+esc(c('utilLang'))+'" data-od-id="rp-util-lang"><span class="initials">'+(locale==='ar'?'EN':'عر')+'</span></button>'
+        + '<button class="util" type="button" aria-label="'+esc(c('utilProfile'))+'" data-od-id="rp-util-profile"><span class="initials">AA</span></button>'
+        + '</div>';
+      const badge = () => '<span class="success-badge" aria-hidden="true">'+ICONS.check+'</span>';
+      const backCta = () => '<a class="btn primary block" href="qiyas-scheduled-exams.html" data-od-id="rp-back">'+esc(c('backCta'))+'</a>';
+      const countSeg = (unit, cap) => '<span class="count-seg"><span class="count-tile"><span class="count-num" data-countdown="'+unit+'">00</span></span><span class="count-cap">'+esc(cap)+'</span></span>';
+      const pendingView = () => '<div class="status-wrap" data-od-id="rp-pending">'
+        + '<div class="status-hero">'
+        + badge()
+        + '<p class="success-line">'+esc(c('successLine'))+'</p>'
+        + '<h1>'+esc(c('title'))+'</h1>'
+        + '<p class="lede">'+esc(c('lede')).replace('{exam}', '<strong>'+esc(EXAM.name[locale === 'ar' ? 'ar' : 'en'])+'</strong>').replace('{date}', '<span class="mono od-nowrap">'+esc(fmtDate())+'</span>').replace('{time}', '<span class="mono od-nowrap">'+esc(fmtTime())+'</span>')+'</p>'
+        + '</div>'
+        + '<div class="release-panel" data-od-id="rp-release-panel">'
+        + '<div class="release-meta"><span class="label">'+ICONS.clock+' '+esc(c('releaseLabel'))+'</span><span class="val mono od-nowrap">'+esc(fmtDate())+' · '+esc(fmtTime())+'</span></div>'
+        + '<div class="countdown" role="timer" aria-live="off" aria-label="'+esc(c('timerLabel'))+'" data-od-id="rp-countdown">'
+        + countSeg('h', c('hours')) + '<span class="count-sep" aria-hidden="true">:</span>'
+        + countSeg('m', c('minutes')) + '<span class="count-sep" aria-hidden="true">:</span>'
+        + countSeg('s', c('seconds'))
+        + '</div>'
+        + '</div>'
+        + '<p class="note">'+esc(c('note'))+'</p>'
+        + backCta()
+        + '</div>';
+      const appHtml = () => '<div class="app" dir="'+(locale==='ar'?'rtl':'ltr')+'">'
+        + '<header class="app-bar" data-od-id="rp-app-bar">'+logo()+utilCluster()+'</header>'
+        + '<main class="content">'+pendingView()+'</main>'
+        + '</div>';
+      const apply = () => {
+        root.dataset.previewLocale = locale;
+        root.dataset.theme = dark ? 'dark' : 'light';
+        document.querySelectorAll('[data-preview-theme]').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.previewTheme === 'dark') === dark)));
+        document.querySelectorAll('[data-preview-locale]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.previewLocale === locale)));
+        canvases.forEach(cn => { cn.dataset.locale = locale; cn.lang = locale; cn.dir = locale === 'ar' ? 'rtl' : 'ltr'; cn.innerHTML = appHtml(); });
+      };
+      const tick = () => {
+        const r = Math.max(0, releaseAt - Date.now());
+        const h = Math.floor(r / 3600000), m = Math.floor(r % 3600000 / 60000), s = Math.floor(r % 60000 / 1000);
+        document.querySelectorAll('[data-countdown]').forEach(el => { el.textContent = pad(el.dataset.countdown === 'h' ? h : el.dataset.countdown === 'm' ? m : s); });
+      };
+      document.addEventListener('click', (ev) => {
+        const th = ev.target.closest('[data-preview-theme]'); if (th) { dark = th.dataset.previewTheme === 'dark'; localStorage.setItem('qiyas-preview-theme', dark ? 'dark' : 'light'); apply(); return; }
+        const lo = ev.target.closest('[data-preview-locale]'); if (lo) { locale = lo.dataset.previewLocale; localStorage.setItem('qiyas-preview-locale', locale); apply(); return; }
+      });
+      apply();
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
+
+</body>
+</html>

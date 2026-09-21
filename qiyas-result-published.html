@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light" data-preview-locale="ar">
+<head><script type="application/json" data-od-external-dependencies>["https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"]</script><script type="application/json" data-od-external-dependencies>["https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"]</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qiyas · Published Exam Result</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== OD layout primitives — structure only; product CSS outside the layer always wins ===== */
+    @layer od-layout {
+      :where(.od-stack,.od-row,.od-row-top,.od-cluster,.od-grid,.od-field,.od-stat,.od-cell,.od-tile) > :where(*) { min-width: 0; }
+      .od-stack   { display: flex; flex-direction: column; gap: var(--od-gap, 8px); }
+      .od-row     { display: flex; align-items: center; gap: var(--od-gap, 8px); }
+      .od-row-top { display: flex; align-items: flex-start; gap: var(--od-gap, 8px); }
+      .od-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--od-gap, 8px); }
+      .od-fill    { flex: 1 1 0; min-width: 0; }
+      .od-fixed   { flex: none; }
+      .od-grid    { display: grid; gap: var(--od-gap, 12px); grid-template-columns: repeat(var(--od-cols, 3), minmax(0, 1fr)); }
+      .od-stat, .od-field, .od-cell { display: grid; gap: var(--od-gap, 2px); }
+      :where(.od-stat,.od-field,.od-cell) > :where(*) { display: block; }
+      .od-tile { display: grid; grid-template-rows: auto 1fr; }
+      :where(.od-tile) > :where(*) { display: block; }
+      .od-media { display: block; width: 100%; height: auto; aspect-ratio: var(--od-ratio, auto); }
+      .od-media-cover { object-fit: cover; }
+      .od-truncate { display: block; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+      .od-clamp-2, .od-clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+      .od-clamp-2 { -webkit-line-clamp: 2; }
+      .od-clamp-3 { -webkit-line-clamp: 3; }
+      .od-lines-2 { min-height: calc(2 * 1.4em); }
+      .od-nowrap  { white-space: nowrap; }
+      .od-keep    { word-break: keep-all; overflow-wrap: anywhere; }
+      .od-screen { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: 100%; }
+      .od-scroll { overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+      .od-rail { display: flex; gap: var(--od-gap, 8px); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding-inline: var(--od-rail-pad, 16px); scroll-padding-inline: var(--od-rail-pad, 16px); }
+      .od-rail::-webkit-scrollbar { display: none; }
+      :where(.od-rail) > :where(*) { flex: none; scroll-snap-align: start; }
+      :where(.od-rail) > :where(:last-child) { margin-inline-end: var(--od-rail-pad, 16px); }
+      .od-spacer { flex: none; visibility: hidden; pointer-events: none; }
+      .od-touch  { min-width: 44px; min-height: 44px; }
+    }
+
+    /* ===== QIYAS TOKENS — copied verbatim from qiyas-design-system.html ===== */
+    :root {
+      --primitive-green-500: #0D662C;
+      --primitive-green-400: #1A8C43;
+      --primitive-green-200: #66B385;
+      --primitive-green-100: #B3D9C1;
+      --primitive-green-50: #E6F2EA;
+      --primitive-green-700: #09481F;
+      --primitive-green-900: #04230F;
+      --primitive-gold-500: #CE940F;
+      --primitive-gold-400: #DBA724;
+      --primitive-gold-200: #EDC866;
+      --primitive-gold-100: #F9E8B3;
+      --primitive-gold-50: #FFFDF0;
+      --primitive-gold-700: #91680A;
+      --primitive-gold-900: #4A3505;
+      --primitive-ink: #11120F;
+      --primitive-paper: #FEFEFE;
+      --primitive-neutral-50: #F8F9F7;
+      --primitive-neutral-100: #E1E3DF;
+      --primitive-neutral-200: #C4C7C0;
+      --primitive-neutral-400: #878C82;
+      --primitive-neutral-500: #61665C;
+      --primitive-neutral-700: #32352E;
+      --primitive-terracotta-500: #C84B15;
+      --primitive-terracotta-50: #FFF2F0;
+      --primitive-terracotta-700: #96320B;
+
+      --surface-page: var(--primitive-paper);
+      --surface-raised: var(--primitive-neutral-50);
+      --surface-sunken: var(--primitive-neutral-100);
+      --surface-overlay: var(--primitive-paper);
+      --surface-inverse: var(--primitive-ink);
+      --text-primary: var(--primitive-ink);
+      --text-secondary: var(--primitive-neutral-700);
+      --text-tertiary: var(--primitive-neutral-500);
+      --text-disabled: var(--primitive-neutral-400);
+      --text-inverse: var(--primitive-paper);
+      --text-on-brand: var(--primitive-paper);
+      --border-subtle: var(--primitive-neutral-100);
+      --border-default: var(--primitive-neutral-200);
+      --border-strong: var(--primitive-ink);
+      --border-focus: var(--primitive-green-400);
+      --action-primary-bg: var(--primitive-ink);
+      --action-primary-fg: var(--primitive-paper);
+      --action-secondary-bg: var(--surface-page);
+      --action-secondary-fg: var(--text-primary);
+      --action-destructive-bg: var(--primitive-terracotta-700);
+      --action-destructive-fg: var(--primitive-paper);
+      --state-correct-bg: var(--primitive-green-50);
+      --state-correct-border: var(--primitive-green-500);
+      --state-correct-fg: var(--primitive-green-700);
+      --state-incorrect-bg: var(--primitive-terracotta-50);
+      --state-incorrect-border: var(--primitive-terracotta-500);
+      --state-incorrect-fg: var(--primitive-terracotta-700);
+      --state-selected-bg: var(--primitive-neutral-50);
+      --state-selected-border: var(--primitive-ink);
+      --state-gold-bg: var(--primitive-gold-50);
+      --state-gold-border: var(--primitive-gold-500);
+      --state-info-bg: var(--primitive-green-50);
+      --state-info-border: var(--primitive-green-200);
+      --focus-ring: var(--primitive-green-400);
+      --shadow-overlay: 4px 4px 0 var(--primitive-ink);
+      --font-display: "IBM Plex Sans", system-ui, sans-serif;
+      --font-body: "IBM Plex Sans", system-ui, sans-serif;
+      --font-arabic: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+      --logo-ink: #11120F; --logo-green: #0D662C; --logo-gold: #CE940F;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px;
+      --radius-card: 4px; --radius-control: 4px; --radius-accent: 0;
+      --border-width-hairline: 1px; --border-width-default: 1.5px; --border-width-emphasis: 2px; --border-width-selected: 3px;
+      --content: 1180px;
+      --control-default: 48px; --control-large: 56px;
+      --progress-track: var(--surface-sunken); --progress-fill: var(--primitive-green-500);
+      --focus-offset: 3px;
+      --motion-quick: 120ms; --motion-base: 180ms; --motion-deliberate: 280ms;
+      --ease-enter: cubic-bezier(.2,.7,.3,1); --ease-exit: cubic-bezier(.5,0,.8,.3); --ease-linear: linear;
+    }
+    html[data-theme="dark"] {
+      --surface-page: #11120F;
+      --surface-raised: #181A16;
+      --surface-sunken: #0B0C0A;
+      --surface-overlay: #20231E;
+      --surface-inverse: #FEFEFE;
+      --text-primary: #FEFEFE;
+      --text-secondary: #C4C7C0;
+      --text-tertiary: #A8ADA2;
+      --text-disabled: #72786E;
+      --text-inverse: #11120F;
+      --text-on-brand: #FEFEFE;
+      --border-subtle: #2A2E28;
+      --border-default: #4A5046;
+      --border-strong: #FEFEFE;
+      --border-focus: #66B385;
+      --action-primary-bg: #FEFEFE;
+      --action-primary-fg: #11120F;
+      --action-secondary-bg: #181A16;
+      --action-secondary-fg: #FEFEFE;
+      --action-destructive-bg: #96320B;
+      --action-destructive-fg: #FEFEFE;
+      --state-correct-bg: #173D25;
+      --state-correct-border: #66B385;
+      --state-correct-fg: #B3D9C1;
+      --state-incorrect-bg: #4A1B0A;
+      --state-incorrect-border: #E07843;
+      --state-incorrect-fg: #FFD0BD;
+      --state-selected-bg: #20231E;
+      --state-selected-border: #FEFEFE;
+      --state-gold-bg: #3C3217;
+      --state-gold-border: #DBA724;
+      --state-info-bg: #173D25;
+      --state-info-border: #66B385;
+      --focus-ring: #66B385;
+      --shadow-overlay: 4px 4px 0 #000000;
+      --logo-ink: #FEFEFE; --logo-green: #66B385; --logo-gold: #DBA724;
+    }
+
+    /* ===== document chrome ===== */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--surface-page); }
+    body { margin: 0; color: var(--text-primary); background: var(--surface-page); font-family: var(--font-body); line-height: 1.5; }
+    a { color: inherit; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: var(--focus-offset); }
+    .document-header { position: sticky; inset-block-start: 0; z-index: 30; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) max(16px, calc((100vw - var(--content)) / 2)); background: color-mix(in srgb, var(--surface-page) 94%, transparent); border-block-end: var(--border-width-hairline) solid var(--border-subtle); backdrop-filter: blur(12px); }
+    .document-title { font-weight: 600; }
+    .document-title small { display: block; color: var(--text-tertiary); font: 11px/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .document-title .qiyas-logo { inline-size: 96px; block-size: auto; }
+    .title-row { display: flex; align-items: center; gap: var(--space-3); }
+    .control-cluster { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--space-2); }
+    .control-label { color: var(--text-tertiary); font: 700 10px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+    .toggle-group { display: inline-flex; max-inline-size: 100%; overflow-x: auto; border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-control); }
+    .toggle-button { min-block-size: 44px; padding-inline: 10px; border: 0; border-inline-start: var(--border-width-hairline) solid var(--border-default); color: var(--text-tertiary); background: transparent; white-space: nowrap; font-size: 12px; font-weight: 600; }
+    .toggle-button:first-child { border-inline-start: 0; }
+    .toggle-button:hover, .toggle-button[aria-pressed="true"] { color: var(--text-primary); background: var(--surface-raised); }
+    .toggle-button[aria-pressed="true"] { box-shadow: inset 0 -2px 0 var(--primitive-green-500); }
+    .page { max-inline-size: var(--content); margin-inline: auto; padding-inline: clamp(16px, 3vw, 24px); }
+    section.section { padding-block: var(--space-8); }
+    section.section + section.section { border-block-start: var(--border-width-hairline) solid var(--border-subtle); }
+    .section-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(240px, .9fr); gap: var(--space-7); align-items: end; margin-block-end: var(--space-6); }
+    .section-head h2 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -.01em; }
+    .section-head p { margin: 0; color: var(--text-secondary); font-size: 14px; }
+    .eyebrow, .overline { color: var(--primitive-green-500); font: 700 11px/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; margin: 0 0 var(--space-2); }
+    .intro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(240px, .8fr); gap: var(--space-7); align-items: start; }
+    .intro h1 { margin: 0; font-size: clamp(30px, 4.4vw, 44px); letter-spacing: -.015em; line-height: 1.15; }
+    .intro p.lede { color: var(--text-secondary); font-size: 16px; max-inline-size: 60ch; }
+    .decision { display: grid; gap: var(--space-2); padding: var(--space-5); border: var(--border-width-default) solid var(--border-default); border-inline-start-width: var(--border-width-emphasis); background: var(--surface-raised); font-size: 14px; }
+    .decision strong { display: block; }
+    .decision p { margin: 0 0 var(--space-3); color: var(--text-secondary); }
+    .decision .rejected-label { color: var(--primitive-terracotta-700); }
+    html[data-theme="dark"] .decision .rejected-label { color: var(--state-incorrect-fg); }
+    .preview-grid { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: var(--space-6); align-items: start; }
+    @media (max-width: 919px) { .preview-grid { grid-template-columns: minmax(0, 1fr); } .section-head, .intro { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); } }
+    .preview-wrap { display: grid; gap: var(--space-2); min-inline-size: 0; }
+    .preview-label { display: flex; justify-content: space-between; gap: var(--space-2); color: var(--text-tertiary); font: 600 11px/1.4 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .product-canvas { position: relative; display: flex; flex-direction: column; overflow: hidden; border: var(--border-width-default) solid var(--border-strong); border-radius: var(--radius-card); background: var(--surface-page); color: var(--text-primary); font-family: var(--font-body); container: result-canvas / inline-size; }
+    .product-canvas.preview-phone { inline-size: min(390px, 100%); margin-inline: auto; block-size: 844px; overflow-y: auto; overscroll-behavior: contain; }
+    .product-canvas.preview-desktop { inline-size: 100%; min-block-size: 760px; max-block-size: 900px; overflow-y: auto; }
+    @media (max-width: 479px) { .product-canvas.preview-phone { border-inline-width: 0; border-block-width: 0; border-radius: 0; } }
+    table { inline-size: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 10px 8px; border-block-end: var(--border-width-hairline) solid var(--border-subtle); text-align: start; vertical-align: top; }
+    th { color: var(--text-tertiary); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+    .table-wrap { overflow-x: auto; border: var(--border-width-hairline) solid var(--border-subtle); border-radius: var(--radius-card); padding-inline: var(--space-4); background: var(--surface-raised); }
+    .mono { font-family: var(--font-mono); font-variant-numeric: tabular lining-nums; }
+    .gap-list { display: grid; gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
+    .gap-list li { padding: var(--space-3); border-inline-start: var(--border-width-emphasis) solid var(--border-strong); background: var(--surface-raised); }
+    .gap-list strong { display: block; }
+    .gap-list span { color: var(--text-secondary); }
+    .card { padding: var(--space-5); border: var(--border-width-default) solid var(--border-default); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .footer { padding-block: var(--space-6); border-block-start: var(--border-width-hairline) solid var(--border-subtle); color: var(--text-tertiary); font-size: 12px; text-align: center; }
+    .sr-only { position: absolute; inline-size: 1px; block-size: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+    /* ===== product surface · QIYAS student shell (published result page) ===== */
+    .app { flex: 1 0 auto; display: flex; flex-direction: column; min-block-size: 100%; background: var(--surface-page); }
+    .app-bar { position: sticky; inset-block-start: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-block-size: 56px; padding: var(--space-2) var(--space-4); background: color-mix(in srgb, var(--surface-page) 94%, transparent); border-block-end: var(--border-width-hairline) solid var(--border-subtle); backdrop-filter: blur(10px); }
+    .app-brand { display: inline-flex; align-items: center; min-inline-size: 0; text-decoration: none; color: var(--text-primary); }
+    .app-brand svg { display: block; inline-size: 84px; block-size: auto; }
+    .util-cluster { display: flex; align-items: center; gap: var(--space-2); margin-inline-start: auto; }
+    .util { inline-size: 44px; block-size: 44px; flex: none; display: grid; place-items: center; border: var(--border-width-hairline) solid var(--border-default); border-radius: var(--radius-control); background: transparent; color: var(--text-secondary); }
+    .util:hover { color: var(--text-primary); border-color: var(--border-strong); background: var(--surface-raised); }
+    .util .initials { font: 700 12px/1 var(--font-mono); letter-spacing: .02em; }
+    .content { flex: 1; inline-size: 100%; max-inline-size: var(--content); margin-inline: auto; padding: var(--space-5) var(--space-4) calc(var(--space-7) + env(safe-area-inset-bottom, 0px)); }
+
+    .result-wrap { display: grid; gap: var(--space-5); inline-size: 100%; max-inline-size: none; margin-inline: auto; padding-block-start: var(--space-5); }
+    .result-columns { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); align-items: start; }
+    .status-hero { display: grid; gap: var(--space-2); justify-items: center; text-align: center; }
+    .status-hero h1 { margin: 0; font-size: clamp(26px, 4vw, 40px); letter-spacing: -.02em; line-height: 1.15; }
+    .success-badge { inline-size: 64px; block-size: 64px; display: grid; place-items: center; border: var(--border-width-emphasis) solid var(--state-correct-border); border-radius: 50%; background: var(--state-correct-bg); color: var(--state-correct-fg); }
+    .success-line { margin: 0; color: var(--state-correct-fg); font: 700 12px/1.3 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+    .exam-head { display: grid; gap: var(--space-1); justify-items: center; text-align: center; }
+    .exam-head h2 { margin: 0; color: var(--primitive-green-500); font-size: 18px; letter-spacing: -.01em; overflow-wrap: anywhere; }
+    .exam-head p { margin: 0; color: var(--text-tertiary); font-size: 14px; max-inline-size: 60ch; overflow-wrap: anywhere; }
+    .panel { display: grid; gap: var(--space-3); padding: var(--space-4); border: var(--border-width-hairline) solid var(--border-subtle); border-radius: var(--radius-card); background: var(--surface-raised); }
+    .panel.primary { border: var(--border-width-emphasis) solid var(--border-strong); background: var(--surface-page); }
+    .panel-head { display: flex; align-items: center; justify-content: flex-start; gap: var(--space-2); }
+    .panel-head h2 { margin: 0; font-size: 15px; line-height: 1.3; }
+    .panel.primary .panel-head h2 { font-size: 17px; }
+    .panel-icon { flex: none; inline-size: 28px; block-size: 28px; display: grid; place-items: center; border-radius: var(--radius-control); background: var(--state-correct-bg); color: var(--state-correct-fg); }
+    .panel-title { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border: var(--border-width-hairline) solid var(--border-default); border-radius: var(--radius-control); background: var(--surface-sunken); color: var(--text-tertiary); font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .chip.pass { border-color: var(--state-correct-border); background: var(--state-correct-bg); color: var(--state-correct-fg); }
+    .detail-grid { display: grid; gap: 0; margin: 0; }
+    .detail-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-3); padding-block: var(--space-3); border-block-end: var(--border-width-hairline) solid var(--border-subtle); }
+    .detail-row:last-child { border-block-end: 0; padding-block-end: 0; }
+    .detail-row dt { display: flex; align-items: center; gap: var(--space-2); color: var(--text-secondary); font-size: 13px; }
+    .row-icon { flex: none; display: inline-grid; place-items: center; color: var(--text-tertiary); }
+    .detail-row dd { margin: 0; font-family: var(--font-mono); font-weight: 700; font-size: 14px; font-variant-numeric: tabular lining-nums; direction: ltr; unicode-bidi: isolate; white-space: nowrap; }
+    .detail-row dd.pill { padding: 2px 12px; border: var(--border-width-default) solid var(--border-default); border-radius: 999px; background: var(--surface-page); }
+    .score-top { display: flex; align-items: center; gap: var(--space-4); }
+    .ring { --pct: 0; flex: none; inline-size: 84px; block-size: 84px; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--progress-fill) calc(var(--pct) * 1%), var(--progress-track) calc(var(--pct) * 1%)); }
+    .ring-value { display: grid; place-items: center; inline-size: 64px; block-size: 64px; border-radius: 50%; background: var(--surface-page); font-family: var(--font-mono); font-weight: 700; font-size: 15px; font-variant-numeric: tabular lining-nums; direction: ltr; unicode-bidi: isolate; }
+    .score-figure { display: grid; gap: 2px; min-inline-size: 0; }
+    .score-cap { color: var(--text-tertiary); font: 700 11px/1.2 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+    .score-value { font-family: var(--font-mono); font-weight: 700; font-size: clamp(30px, 6vw, 40px); line-height: 1.05; font-variant-numeric: tabular lining-nums; direction: ltr; unicode-bidi: isolate; white-space: nowrap; }
+    .score-sub { color: var(--state-correct-fg); font-size: 13px; font-weight: 600; }
+    .score-divider { block-size: var(--border-width-hairline); background: var(--border-subtle); }
+    .metric-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+    .metric-card { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3); border: var(--border-width-hairline) solid var(--border-default); border-radius: var(--radius-control); background: var(--surface-sunken); }
+    .metric-icon { flex: none; inline-size: 34px; block-size: 34px; display: grid; place-items: center; border: var(--border-width-hairline) solid var(--border-default); border-radius: var(--radius-control); background: var(--surface-page); color: var(--text-secondary); }
+    .metric-body { display: grid; gap: 2px; min-inline-size: 0; }
+    .metric-cap { color: var(--text-tertiary); font: 600 10px/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .metric-num { font-family: var(--font-mono); font-weight: 700; font-size: 20px; line-height: 1.1; font-variant-numeric: tabular lining-nums; direction: ltr; unicode-bidi: isolate; }
+    .metric-card.good { border-color: var(--state-correct-border); background: var(--state-correct-bg); }
+    .metric-card.good .metric-icon, .metric-card.good .metric-num { color: var(--state-correct-fg); }
+    .metric-card.bad { border-color: var(--state-incorrect-border); background: var(--state-incorrect-bg); }
+    .metric-card.bad .metric-icon, .metric-card.bad .metric-num { color: var(--state-incorrect-fg); }
+    .metric-card.warn { border-color: var(--state-gold-border); background: var(--state-gold-bg); }
+    .metric-card.warn .metric-icon, .metric-card.warn .metric-num { color: var(--primitive-gold-700); }
+    html[data-theme="dark"] .metric-card.warn .metric-icon, html[data-theme="dark"] .metric-card.warn .metric-num { color: var(--primitive-gold-200); }
+    .summary-block { display: grid; gap: var(--space-3); }
+    .summary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+    .summary-card { display: grid; gap: 2px; justify-items: start; padding: var(--space-3) var(--space-4); border: var(--border-width-hairline) solid var(--border-default); border-radius: var(--radius-control); background: var(--surface-sunken); }
+    .summary-card .num { font-family: var(--font-mono); font-weight: 700; font-size: 24px; line-height: 1.15; font-variant-numeric: tabular lining-nums; direction: ltr; unicode-bidi: isolate; }
+    .summary-card .cap { color: var(--text-tertiary); font: 600 11px/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+    .summary-card.good { border-color: var(--state-correct-border); background: var(--state-correct-bg); }
+    .summary-card.good .num { color: var(--state-correct-fg); }
+    .summary-card.bad { border-color: var(--state-incorrect-border); background: var(--state-incorrect-bg); }
+    .summary-card.bad .num { color: var(--state-incorrect-fg); }
+    .summary-card.warn { border-color: var(--state-gold-border); background: var(--state-gold-bg); }
+    .summary-card.warn .num { color: var(--primitive-gold-700); }
+    html[data-theme="dark"] .summary-card.warn .num { color: var(--primitive-gold-200); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-block-size: var(--control-default); padding-inline: var(--space-4); border: var(--border-width-default) solid transparent; border-radius: var(--radius-control); font-weight: 600; font-size: 14px; text-decoration: none; transition: background-color var(--motion-quick) var(--ease-enter), border-color var(--motion-quick) var(--ease-enter), color var(--motion-quick) var(--ease-enter), transform var(--motion-quick) var(--ease-enter); }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { background: var(--action-primary-bg); color: var(--action-primary-fg); border-color: var(--action-primary-bg); }
+    .btn.secondary { background: var(--action-secondary-bg); color: var(--action-secondary-fg); border-color: var(--border-default); }
+    .btn.secondary:hover { border-color: var(--border-strong); background: var(--surface-raised); }
+    .btn.block { inline-size: 100%; }
+    .btn-icon { display: inline-flex; align-items: center; }
+    [dir="rtl"] .btn-icon { transform: scaleX(-1); }
+    @container result-canvas (min-width: 560px) {
+      .result-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
+      .result-columns > .panel { align-content: start; }
+      .summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    [dir="rtl"] .app, [dir="rtl"] .content { font-family: var(--font-arabic); }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+
+  <!-- ===== QIYAS logo lockups — exact symbols from qiyas-parent-login.html ===== -->
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+    <defs>
+      <symbol id="qiyas-logo-en" viewBox="0 0 1201 349"><path d="M 343.0 96.0 L 343.0 293.0 L 377.0 293.0 L 377.0 96.0 Z M 1014.0 93.0 L 1013.0 205.0 L 1146.0 206.0 L 1147.0 262.0 L 1014.0 263.0 L 1013.0 294.0 L 1180.0 294.0 L 1179.0 175.0 L 1046.0 174.0 L 1047.0 124.0 L 1180.0 124.0 L 1180.0 94.0 Z M 751.0 93.0 L 751.0 294.0 L 784.0 293.0 L 785.0 205.0 L 896.0 205.0 L 897.0 294.0 L 930.0 294.0 L 930.0 93.0 Z M 783.0 125.0 L 896.0 124.0 L 897.0 174.0 L 785.0 174.0 Z M 471.0 91.0 L 471.0 204.0 L 552.0 204.0 L 554.0 206.0 L 554.0 298.0 L 589.0 298.0 L 589.0 205.0 L 671.0 204.0 L 671.0 92.0 L 637.0 92.0 L 636.0 174.0 L 506.0 174.0 L 505.0 92.0 Z" fill="var(--logo-ink)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 21.0 88.0 L 21.0 293.0 L 195.0 293.0 L 230.0 328.0 L 250.0 309.0 L 244.0 299.0 L 143.0 192.0 L 138.0 193.0 L 121.0 212.0 L 164.0 261.0 L 54.0 262.0 L 52.0 258.0 L 54.0 121.0 L 209.0 120.0 L 211.0 122.0 L 211.0 244.0 L 242.0 276.0 L 242.0 89.0 Z" fill="var(--logo-green)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 341.0 74.0 L 343.0 76.0 L 379.0 76.0 L 360.0 44.0 Z M 145.0 20.0 L 145.0 51.0 L 176.0 52.0 L 176.0 21.0 Z M 80.0 20.0 L 78.0 41.0 L 80.0 52.0 L 109.0 52.0 L 110.0 20.0 Z" fill="var(--logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/></symbol>
+      <symbol id="qiyas-logo-ar" viewBox="0 0 1202 299"><path d="M 343.0 104.0 L 314.0 104.0 L 313.0 200.0 L 271.0 199.0 L 271.0 103.0 L 243.0 103.0 L 242.0 200.0 L 199.0 199.0 L 198.0 123.0 L 171.0 123.0 L 169.0 239.0 L 50.0 239.0 L 49.0 176.0 L 21.0 175.0 L 20.0 265.0 L 198.0 266.0 L 199.0 228.0 L 341.0 228.0 Z M 400.0 72.0 L 401.0 228.0 L 983.0 228.0 L 983.0 200.0 L 852.0 200.0 L 851.0 103.0 L 823.0 103.0 L 822.0 200.0 L 430.0 200.0 L 429.0 72.0 Z" fill="var(--logo-ink)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 1173.0 75.0 L 1158.0 73.0 L 1146.0 75.0 L 985.0 75.0 L 984.0 227.0 L 1118.0 228.0 L 1157.0 271.0 L 1165.0 272.0 L 1179.0 258.0 L 1181.0 254.0 L 1081.0 147.0 L 1077.0 147.0 L 1060.0 166.0 L 1087.0 195.0 L 1088.0 199.0 L 1016.0 200.0 L 1014.0 198.0 L 1013.0 106.0 L 1015.0 103.0 L 1144.0 103.0 L 1144.0 196.0 L 1173.0 224.0 Z" fill="var(--logo-green)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 646.0 249.0 L 646.0 273.0 L 648.0 278.0 L 677.0 277.0 L 677.0 249.0 Z M 703.0 249.0 L 704.0 278.0 L 733.0 278.0 L 733.0 249.0 Z M 412.0 23.0 L 398.0 47.0 L 398.0 52.0 L 431.0 52.0 L 427.0 41.0 L 415.0 22.0 Z M 1096.0 20.0 L 1096.0 49.0 L 1125.0 49.0 L 1125.0 20.0 Z M 1045.0 20.0 L 1042.0 25.0 L 1043.0 49.0 L 1072.0 50.0 L 1073.0 21.0 Z" fill="var(--logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="document-header" data-od-id="res-document-header">
+    <div class="document-title"><div class="title-row">
+      <svg class="qiyas-logo" viewBox="0 0 1201 349" role="img" aria-label="Qiyas"><use href="#qiyas-logo-en"></use></svg>
+      <div><strong>Qiyas · Published Exam Result</strong><br><span>Screen · published result preview</span></div>
+    </div></div>
+    <div class="control-cluster" aria-label="Preview settings">
+      <span class="control-label">Theme</span>
+      <div class="toggle-group" role="group" aria-label="Preview theme"><button class="toggle-button" data-preview-theme="light" aria-pressed="true" type="button">Light</button><button class="toggle-button" data-preview-theme="dark" aria-pressed="false" type="button">Dark</button></div>
+      <span class="control-label">Language</span>
+      <div class="toggle-group" role="group" aria-label="Preview language"><button class="toggle-button" data-preview-locale="ar" aria-pressed="true" type="button">العربية</button><button class="toggle-button" data-preview-locale="en" aria-pressed="false" type="button">English</button></div>
+    </div>
+  </header>
+
+  <main class="page" data-od-id="res-handoff">
+    <section class="section intro" data-od-id="res-introduction">
+      <div><p class="eyebrow">Screen · Published result · learner-web</p><h1 data-od-id="res-title">The result is out. The record is complete.</h1><p class="lede">The published, exam-by-exam result screen: the overall score leads, the exam record follows, and the performance summary uses the system’s own success and failure semantics. Arabic is primary; every figure stays an LTR island with tabular digits.</p></div>
+      <aside class="decision" data-od-id="res-decision"><strong>Resolution</strong><p>Lead with the published result — percentage ring, score, and points earned — then the exam record and the summary metrics grouped by outcome. One exit back to scheduled exams.</p><strong class="rejected-label">Rejected</strong><p>A countdown remnant or a flat list of raw counts. It would either suggest the result is still pending or bury the verdict under undifferentiated numbers.</p></aside>
+    </section>
+
+    <section class="section" data-od-id="res-live-preview">
+      <div class="section-head"><div><p class="eyebrow">Live preview</p><h2>Published, final, exam by exam.</h2></div><p>Theme and locale are driven by one render function. All values come from a single mock payload shaped like the API result contract; there is no pending state and no countdown.</p></div>
+      <div class="preview-grid">
+        <div class="preview-wrap"><div class="preview-label"><span>Mobile</span><span>390 × 844 · single column</span></div><div class="product-canvas preview-phone" data-device="mobile" data-locale="ar" data-od-id="res-mobile-preview"></div></div>
+        <div class="preview-wrap"><div class="preview-label"><span>Desktop</span><span>1440 reference · wide two-column result</span></div><div class="product-canvas preview-desktop" data-device="desktop" data-locale="ar" data-od-id="res-desktop-preview"></div></div>
+      </div>
+    </section>
+
+    <section class="section" data-od-id="res-component-mapping">
+      <div class="section-head"><div><p class="eyebrow">Component mapping</p><h2>Exact system vocabulary.</h2></div><p>Component and variant names are quoted from qiyas-design-system.html; the summary cards and score hero are new compositions from existing tokens and are recorded in the gap list.</p></div>
+      <div class="table-wrap"><table><thead><tr><th>Element on screen</th><th>System component</th><th>Tokens / variant</th><th>Notes for devs</th></tr></thead><tbody>
+        <tr><td>Document header</td><td>Prototype preview controls</td><td>theme / locale toggle groups · 44px · aria-pressed</td><td>Preview-only; visually separate from the product surface.</td></tr>
+        <tr><td>App bar</td><td>Header bar (composition)</td><td>56px sticky · brand ≤84px · utilities 44×44</td><td>Same shell as the student dashboard; this result page carries no nav.</td></tr>
+        <tr><td>Success badge</td><td>state-correct</td><td>--state-correct-bg / border / fg · 72px · check glyph</td><td>Shape + color + text label; never color alone.</td></tr>
+        <tr><td>Exam title + description</td><td>Page head (composition)</td><td>h2 17px · --text-tertiary description</td><td>Long Arabic names wrap rather than clip.</td></tr>
+        <tr><td>Exam Details</td><td>card (hairline) + dl rows</td><td>metric-row pattern · mono values LTR</td><td>Left column of the two-column result grid on desktop; stacks first on mobile.</td></tr>
+        <tr><td>Overall Score</td><td>card (primary) + score ring</td><td>--border-width-emphasis · conic progress ring · mono score · chip tokens</td><td>Right column beside Exam Details; percentage ring, score / max, points earned, then a 2×2 metric grid.</td></tr>
+        <tr><td>Summary metrics</td><td>metric cards (composition)</td><td>state-correct / state-incorrect / state-gold · 2-col grid</td><td>Total questions, correct, wrong, unanswered inside the Overall Score card; icon + caption above numeral.</td></tr>
+        <tr><td>Return to Scheduled Exams</td><td>button-primary</td><td>48px · block</td><td>Full-width exit at the bottom routing to qiyas-scheduled-exams.html.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="section" data-od-id="res-states">
+      <div class="section-head"><div><p class="eyebrow">State coverage</p><h2>One published state, no pending residue.</h2></div><p>The screen renders only when result_available is true. There is no countdown, no refresh prompt, and no hint that the result is still being prepared.</p></div>
+      <div class="table-wrap"><table><thead><tr><th>State</th><th>Condition</th><th>Surface</th></tr></thead><tbody>
+        <tr><td>Published</td><td>result_available true · post-release</td><td>Success hero, exam title + description, Exam Details, Overall Score (with summary metrics), Return to Scheduled Exams.</td></tr>
+        <tr><td>Returning after release</td><td>Student reopens from the pending screen</td><td>Hands off to this screen; the published result renders directly with no waiting state.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="section" data-od-id="res-gaps">
+      <div class="section-head"><div><p class="eyebrow">Gap list</p><h2>Open decisions stay visible.</h2></div><p>Not hidden in custom components. Each gap names what is missing and why the screen stayed conservative.</p></div>
+      <ul class="gap-list" data-od-id="res-gap-list">
+        <li><strong>Result contract field names</strong><span>The payload (exam, date, started_at, duration_minutes, submitted_at, total_questions, score, summary) is an example contract; production must confirm the real endpoint fields.</span></li>
+        <li><strong>Flagged and answered counts</strong><span>The visible summary shows total, correct, wrong, and unanswered; whether flagged or answered counts are also returned is a product decision and the screen renders only what the payload provides.</span></li>
+        <li><strong>Points definition</strong><span>Whether points equal correct answers or a weighted score is a product decision; the screen renders the returned points value.</span></li>
+        <li><strong>Review deep-link</strong><span>Per-question review (qiyas-results-explanations.html) linking from this screen is unspecified.</span></li>
+        <li><strong>Arabic calendar and digits</strong><span>ar-SA defaults to Hijri; the prototype pins Gregorian with Western digits to match the system numeral rule.</span></li>
+      </ul>
+    </section>
+
+    <section class="section" data-od-id="res-flutter-tokens"><div class="section-head"><div><p class="eyebrow">Flutter handoff</p><h2>Keep both clients on the same result contract.</h2></div><p>The web build consumes the CSS custom properties in this file; Flutter consumes the matching semantic values from the shared token source.</p></div><pre class="card mono" style="overflow:auto;margin:0;font-size:12.5px"><code>final qiyasResultPublishedTheme = ThemeData(
+  scaffoldBackgroundColor: const Color(0xFFFEFEFE),
+  colorScheme: const ColorScheme.light(
+    primary: Color(0xFF11120F),          // Ink — Return to Scheduled Exams
+    secondary: Color(0xFF0D662C),        // green — success badge, correct summary
+    tertiary: Color(0xFFCE940F),         // gold — unanswered summary
+    error: Color(0xFFC84B15),            // terracotta — wrong summary
+    surface: Color(0xFFFEFEFE),
+  ),
+  textTheme: const TextTheme(
+    headlineMedium: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 34, fontWeight: FontWeight.w700),
+    titleMedium: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 17, fontWeight: FontWeight.w700),
+    bodyMedium: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 14, height: 1.5),
+    bodySmall: TextStyle(fontFamily: 'IBMPlexSansArabic', fontSize: 13, height: 1.55, color: Color(0xFF61665C)),
+  ),
+  // badge 72 · score clamp(44-56) · details/score two-column ≥680 · summary 3/2-col
+);</code></pre></section>
+
+    <footer class="footer">Qiyas · Published Exam Result · learner-web · Arabic primary · result_available only</footer>
+  </main>
+
+  <script>
+    (()=>{
+      const root = document.documentElement;
+      const RESULT = {
+        id: 'sta-2',
+        result_available: true,
+        status: 'passed',
+        exam: {
+          title: { en: 'Algebra Assessment 48', ar: 'اختبار الجبر 48' },
+          description: { en: 'A 100-question assessment covering basic Algebra concepts from Level 1.', ar: 'اختبار مكوّن من 100 سؤال يغطي مفاهيم الجبر الأساسية من المستوى الأول.' }
+        },
+        date: '2026-09-21T12:03:00+03:00',
+        started_at: '2026-09-21T12:03:00+03:00',
+        duration_minutes: 30,
+        submitted_at: '2026-09-21T12:03:00+03:00',
+        total_questions: 100,
+        score: { percent: 0, points: 0, max_points: 100 },
+        summary: { total: 100, correct: 0, wrong: 1, unanswered: 99 }
+      };
+      const COPY = {
+        successLine: { en: 'Result Published', ar: 'تم نشر النتيجة' },
+        title: { en: 'Exam completed', ar: 'اكتمل الاختبار' },
+        detailsTitle: { en: 'Exam Details', ar: 'تفاصيل الاختبار' },
+        overallTitle: { en: 'Overall Score', ar: 'الدرجة الكلية' },
+        summaryTitle: { en: 'Performance Summary', ar: 'ملخص الأداء' },
+        date: { en: 'Date', ar: 'التاريخ' },
+        started: { en: 'Started time', ar: 'وقت البدء' },
+        duration: { en: 'Duration', ar: 'المدة' },
+        submitted: { en: 'Submitted time', ar: 'وقت التسليم' },
+        totalQ: { en: 'Total questions', ar: 'إجمالي الأسئلة' },
+        min: { en: 'min', ar: 'دقيقة' },
+        scoreMax: { en: 'Score', ar: 'الدرجة' },
+        points: { en: 'Points Earned', ar: 'النقاط المكتسبة' },
+        passed: { en: 'Passed', ar: 'نجحت' },
+        sumTotal: { en: 'Total Questions', ar: 'إجمالي الأسئلة' },
+        sumAnswered: { en: 'Answered', ar: 'تمت الإجابة' },
+        sumUnanswered: { en: 'Unanswered', ar: 'دون إجابة' },
+        sumCorrect: { en: 'Correct', ar: 'صحيحة' },
+        sumWrong: { en: 'Wrong', ar: 'خاطئة' },
+        sumFlagged: { en: 'Flagged', ar: 'معلَّم' },
+        returnCta: { en: 'Return to Scheduled Exams', ar: 'العودة إلى الاختبارات المجدولة' },
+        utilLang: { en: 'Language', ar: 'اللغة' }, utilHelp: { en: 'Help', ar: 'المساعدة' }, utilBell: { en: 'Notifications', ar: 'الإشعارات' }, utilProfile: { en: 'Profile', ar: 'الملف الشخصي' }
+      };
+      let locale = localStorage.getItem('qiyas-preview-locale') || 'ar';
+      let dark = localStorage.getItem('qiyas-preview-theme') === 'dark';
+      const canvases = [...document.querySelectorAll('.product-canvas')];
+      const s = (o) => o[locale === 'ar' ? 'ar' : 'en'];
+      const c = (k) => COPY[k][locale === 'ar' ? 'ar' : 'en'];
+      const esc = (x) => String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      const dloc = () => locale === 'ar' ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-GB';
+      const fmtDate = (v) => { const d = new Date(v); const o = { day:'numeric', month:'short', year:'numeric', timeZone:'Asia/Riyadh' }; try { return new Intl.DateTimeFormat(dloc(), o).format(d); } catch (_) { return new Intl.DateTimeFormat('en-GB', o).format(d); } };
+      const fmtTime = (v) => { const d = new Date(v); const o = { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'Asia/Riyadh' }; let out; try { out = new Intl.DateTimeFormat(dloc(), o).format(d); } catch (_) { out = new Intl.DateTimeFormat('en-GB', o).format(d); } return out.replace(/am|pm/gi, (m) => m.toUpperCase()); };
+      const ICONS = {
+        checkCircle: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>',
+        file: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M10 12h6"/><path d="M10 16h4"/></svg>',
+        calendar: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><path d="M5 6h14v14H5z"/><path d="M5 10h14"/><path d="M9 4v4M15 4v4"/></svg>',
+        clock: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>',
+        timer: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><circle cx="12" cy="13" r="7"/><path d="M12 13V9"/><path d="M10 3h4M12 3v2"/><path d="m16 6 1.5-1.5"/></svg>',
+        check: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>',
+        cross: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg>',
+        minus: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><path d="M6 12h12"/></svg>',
+        arrow: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><path d="M5 12h13"/><path d="m12 6 6 6-6 6"/></svg>'
+      };
+      const logo = () => '<a class="app-brand" href="index.html" aria-label="Qiyas"><svg viewBox="0 0 1201 349" role="img" aria-hidden="true"><use href="#qiyas-logo-en"></use></svg></a>';
+      const utilCluster = () => '<div class="util-cluster">'
+        + '<button class="util" type="button" aria-label="'+esc(c('utilLang'))+'" data-od-id="res-util-lang"><span class="initials">'+(locale==='ar'?'EN':'عر')+'</span></button>'
+        + '<button class="util" type="button" aria-label="'+esc(c('utilProfile'))+'" data-od-id="res-util-profile"><span class="initials">AA</span></button>'
+        + '</div>';
+      const detailRow = (icon, label, value, pill) => '<div class="detail-row"><dt><span class="row-icon" aria-hidden="true">'+icon+'</span>'+esc(label)+'</dt><dd'+(pill ? ' class="pill"' : '')+'>'+esc(value)+'</dd></div>';
+      const metricCard = (icon, num, cap, modifier) => '<div class="metric-card'+(modifier ? ' '+modifier : '')+' od-stat"><span class="metric-icon" aria-hidden="true">'+icon+'</span><span class="metric-body"><span class="metric-cap">'+esc(cap)+'</span><span class="metric-num od-nowrap">'+esc(num)+'</span></span></div>';
+      const hero = () => '<div class="status-hero" data-od-id="res-hero">'
+        + '<span class="success-badge" aria-hidden="true">'+ICONS.checkCircle+'</span>'
+        + '<h1>'+esc(c('title'))+'</h1>'
+        + '</div>';
+      const examHead = () => '<div class="exam-head" data-od-id="res-exam-head">'
+        + '<h2>'+esc(s(RESULT.exam.title))+'</h2>'
+        + '<p>'+esc(s(RESULT.exam.description))+'</p>'
+        + '</div>';
+      const detailsPanel = () => '<section class="panel" data-od-id="res-details">'
+        + '<div class="panel-head"><span class="panel-icon" aria-hidden="true">'+ICONS.file+'</span><h2 class="panel-title">'+esc(c('detailsTitle'))+'</h2></div>'
+        + '<dl class="detail-grid">'
+        + detailRow(ICONS.calendar, c('date'), fmtDate(RESULT.date))
+        + detailRow(ICONS.clock, c('started'), fmtTime(RESULT.started_at))
+        + detailRow(ICONS.timer, c('duration'), RESULT.duration_minutes + ' ' + c('min'))
+        + detailRow(ICONS.check, c('submitted'), fmtTime(RESULT.submitted_at))
+        + detailRow(ICONS.file, c('totalQ'), RESULT.total_questions, true)
+        + '</dl>'
+        + '</section>';
+      const scorePanel = () => '<section class="panel primary" data-od-id="res-score">'
+        + '<div class="score-top">'
+        + '<div class="ring" style="--pct:'+RESULT.score.percent+'"><span class="ring-value od-nowrap">'+RESULT.score.percent+'%</span></div>'
+        + '<div class="score-figure">'
+        + '<span class="score-cap">'+esc(c('overallTitle'))+'</span>'
+        + '<span class="score-value od-nowrap">'+RESULT.score.points+' / '+RESULT.score.max_points+'</span>'
+        + '<span class="score-sub">'+esc(c('points'))+'</span>'
+        + '</div>'
+        + '</div>'
+        + '<div class="score-divider"></div>'
+        + '<div class="metric-grid">'
+        + metricCard(ICONS.file, RESULT.summary.total, c('sumTotal'), '')
+        + metricCard(ICONS.check, RESULT.summary.correct, c('sumCorrect'), 'good')
+        + metricCard(ICONS.cross, RESULT.summary.wrong, c('sumWrong'), 'bad')
+        + metricCard(ICONS.minus, RESULT.summary.unanswered, c('sumUnanswered'), 'warn')
+        + '</div>'
+        + '</section>';
+      const appHtml = () => '<div class="app" dir="'+(locale==='ar'?'rtl':'ltr')+'">'
+        + '<header class="app-bar" data-od-id="res-app-bar">'+logo()+utilCluster()+'</header>'
+        + '<main class="content"><div class="result-wrap">'
+        + hero() + examHead()
+        + '<div class="result-columns">' + scorePanel() + detailsPanel() + '</div>'
+        + '<a class="btn primary block" href="qiyas-scheduled-exams.html" data-od-id="res-return">'+esc(c('returnCta'))+'<span class="btn-icon" aria-hidden="true">'+ICONS.arrow+'</span></a>'
+        + '</div></main>'
+        + '</div>';
+      const apply = () => {
+        root.dataset.previewLocale = locale;
+        root.dataset.theme = dark ? 'dark' : 'light';
+        document.querySelectorAll('[data-preview-theme]').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.previewTheme === 'dark') === dark)));
+        document.querySelectorAll('[data-preview-locale]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.previewLocale === locale)));
+        canvases.forEach(cn => { cn.dataset.locale = locale; cn.lang = locale; cn.dir = locale === 'ar' ? 'rtl' : 'ltr'; cn.innerHTML = appHtml(); });
+      };
+      document.addEventListener('click', (ev) => {
+        const th = ev.target.closest('[data-preview-theme]'); if (th) { dark = th.dataset.previewTheme === 'dark'; localStorage.setItem('qiyas-preview-theme', dark ? 'dark' : 'light'); apply(); return; }
+        const lo = ev.target.closest('[data-preview-locale]'); if (lo) { locale = lo.dataset.previewLocale; localStorage.setItem('qiyas-preview-locale', locale); apply(); return; }
+      });
+      apply();
+    })();
+  </script>
+
+</body>
+</html>
