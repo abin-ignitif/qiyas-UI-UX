@@ -227,6 +227,7 @@
 
     .result-wrap { display: grid; gap: var(--space-5); inline-size: 100%; max-inline-size: none; margin-inline: auto; padding-block-start: var(--space-5); }
     .result-columns { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); align-items: start; }
+    .result-head { display: grid; gap: var(--space-2); }
     .status-hero { display: grid; gap: var(--space-2); justify-items: center; text-align: center; }
     .status-hero h1 { margin: 0; font-size: clamp(26px, 4vw, 40px); letter-spacing: -.02em; line-height: 1.15; }
     .success-badge { inline-size: 64px; block-size: 64px; display: grid; place-items: center; border: var(--border-width-emphasis) solid var(--state-correct-border); border-radius: 50%; background: var(--state-correct-bg); color: var(--state-correct-fg); }
@@ -269,6 +270,7 @@
     .metric-card.bad { border-color: var(--state-incorrect-border); background: var(--state-incorrect-bg); }
     .metric-card.bad .metric-icon, .metric-card.bad .metric-num { color: var(--state-incorrect-fg); }
     .metric-card.warn { border-color: var(--state-gold-border); background: var(--state-gold-bg); }
+    html[data-theme="light"] .metric-card.warn { background: #FFF5DC; }
     .metric-card.warn .metric-icon, .metric-card.warn .metric-num { color: var(--primitive-gold-700); }
     html[data-theme="dark"] .metric-card.warn .metric-icon, html[data-theme="dark"] .metric-card.warn .metric-num { color: var(--primitive-gold-200); }
     .summary-block { display: grid; gap: var(--space-3); }
@@ -412,7 +414,7 @@
       };
       const COPY = {
         successLine: { en: 'Result Published', ar: 'تم نشر النتيجة' },
-        title: { en: 'Exam completed', ar: 'اكتمل الاختبار' },
+        title: { en: 'Exam Completed', ar: 'اكتمل الاختبار' },
         detailsTitle: { en: 'Exam Details', ar: 'تفاصيل الاختبار' },
         overallTitle: { en: 'Overall Score', ar: 'الدرجة الكلية' },
         summaryTitle: { en: 'Performance Summary', ar: 'ملخص الأداء' },
@@ -444,7 +446,7 @@
       const fmtDate = (v) => { const d = new Date(v); const o = { day:'numeric', month:'short', year:'numeric', timeZone:'Asia/Riyadh' }; try { return new Intl.DateTimeFormat(dloc(), o).format(d); } catch (_) { return new Intl.DateTimeFormat('en-GB', o).format(d); } };
       const fmtTime = (v) => { const d = new Date(v); const o = { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'Asia/Riyadh' }; let out; try { out = new Intl.DateTimeFormat(dloc(), o).format(d); } catch (_) { out = new Intl.DateTimeFormat('en-GB', o).format(d); } return out.replace(/am|pm/gi, (m) => m.toUpperCase()); };
       const ICONS = {
-        checkCircle: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>',
+        checkCircle: '<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="m7.5 12 3 3 5.5-6"/></svg>',
         file: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M10 12h6"/><path d="M10 16h4"/></svg>',
         calendar: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><path d="M5 6h14v14H5z"/><path d="M5 10h14"/><path d="M9 4v4M15 4v4"/></svg>',
         clock: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="square" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>',
@@ -499,7 +501,7 @@
       const appHtml = () => '<div class="app" dir="'+(locale==='ar'?'rtl':'ltr')+'">'
         + '<header class="app-bar" data-od-id="res-app-bar">'+logo()+utilCluster()+'</header>'
         + '<main class="content"><div class="result-wrap">'
-        + hero() + examHead()
+        + '<div class="result-head">' + hero() + examHead() + '</div>'
         + '<div class="result-columns">' + scorePanel() + detailsPanel() + '</div>'
         + '<a class="btn primary block" href="qiyas-scheduled-exams.html" data-od-id="res-return">'+esc(c('returnCta'))+'<span class="btn-icon" aria-hidden="true">'+ICONS.arrow+'</span></a>'
         + '</div></main>'
