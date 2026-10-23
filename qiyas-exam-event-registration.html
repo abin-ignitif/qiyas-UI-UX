@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QIYAS · Event Registration</title>
+<meta name="description" content="Register for a QIYAS exam event.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script>
+(function(){try{var t=localStorage.getItem('qiyas-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('qiyas-lang');if(l==='ar'||l==='en'){document.documentElement.setAttribute('lang',l);document.documentElement.setAttribute('dir',l==='ar'?'rtl':'ltr');}}catch(e){}})();
+</script>
+<style>
+:root{--ink:#11120f;--green:#0d662c;--green-dark:#084d20;--green-soft:#eef6ef;--gold:#ce940f;--paper:#fff;--canvas:#f7f8f5;--line:#dfe3dc;--muted:#62685f;--error:#b42318;--font:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5}button,input,select{font:inherit}button{cursor:pointer}.topbar{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center}.topbar-inner{width:min(1080px,calc(100% - 40px));margin:auto;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;text-decoration:none;color:var(--ink)}.brand svg{display:block;width:118px;height:auto}main{width:min(1080px,calc(100% - 40px));margin:44px auto 64px}.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--green);font-weight:600;margin-bottom:10px}.intro{max-width:700px;margin-bottom:28px}.intro h1{font-size:clamp(29px,4vw,40px);line-height:1.15;letter-spacing:-1.3px;margin:0 0 12px;font-weight:700}.intro p{color:var(--muted);font-size:16px;max-width:620px}.layout{display:grid;grid-template-columns:minmax(250px,.78fr) minmax(0,1.22fr);gap:22px;align-items:start}.event-card,.form-card{background:var(--paper);border:1px solid var(--line);box-shadow:0 4px 16px rgba(17,18,15,.035)}.event-card{padding:25px;position:relative;overflow:hidden}.event-card:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--green)}.event-label{display:inline-flex;align-items:center;gap:7px;background:var(--green-soft);color:var(--green-dark);font-size:12px;font-weight:600;padding:6px 9px;margin-bottom:18px}.dot{width:7px;height:7px;border-radius:50%;background:var(--green)}.event-card h2{font-size:23px;line-height:1.25;letter-spacing:-.5px;margin:0 0 10px}.event-desc{color:var(--muted);font-size:14px;margin-bottom:23px}.meta{border-top:1px solid var(--line)}.meta-row{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.meta-icon{width:32px;height:32px;flex:0 0 32px;background:var(--canvas);display:grid;place-items:center;color:var(--green)}.meta-label{font-size:12px;color:var(--muted);margin-bottom:2px}.meta-value{font-weight:600;font-size:14px}.small-note{margin-top:17px;font-size:12px;color:var(--muted)}.form-card{padding:28px}.form-head{margin-bottom:23px}.form-head h2{font-size:22px;letter-spacing:-.5px;margin:0 0 5px}.form-head p{font-size:14px;color:var(--muted)}.required-note{font-size:12px;color:var(--muted);margin-bottom:18px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:17px 15px}.field{min-width:0}.field.full{grid-column:1/-1}label{display:block;font-weight:600;font-size:13px;margin-bottom:7px}label .star{color:var(--error)}input,select{width:100%;height:46px;border:1px solid #cbd1c7;background:#fff;border-radius:3px;padding:0 12px;outline:none;color:var(--ink)}input::placeholder{color:#93988f}input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(13,102,44,.10)}.help{font-size:12px;color:var(--muted);margin-top:6px}.choice-row{display:flex;gap:10px}.choice{display:flex;align-items:center;gap:8px;border:1px solid #cbd1c7;padding:11px 13px;flex:1;min-height:46px;cursor:pointer;font-size:14px}.choice input{width:16px;height:16px;accent-color:var(--green);margin:0}.hidden{display:none!important}.checkline{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--muted);margin:21px 0}.checkline input{width:16px;height:16px;flex:0 0 16px;margin:2px 0 0;accent-color:var(--green)}.checkline a{color:var(--green);text-decoration:underline}.submit{width:100%;height:50px;border:0;background:var(--green);color:white;font-weight:600;display:flex;align-items:center;justify-content:center;gap:9px;transition:background .15s}.submit:hover{background:var(--green-dark)}.submit:focus-visible{outline:3px solid #9bc7a5;outline-offset:2px}.privacy{text-align:center;color:var(--muted);font-size:11px;margin-top:13px}.footer{border-top:1px solid var(--line);padding:20px;text-align:center;color:var(--muted);font-size:12px;background:#fff}.success{padding:34px 20px;text-align:center}.success-icon{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;background:var(--green-soft);color:var(--green)}.success h2{font-size:25px;margin:0 0 8px}.success p{color:var(--muted);max-width:430px;margin:0 auto 20px}.reference-id{font-family:var(--mono);font-size:12px;background:var(--canvas);padding:10px 14px;display:inline-block;margin-bottom:22px}.secondary{border:1px solid var(--line);background:#fff;padding:10px 16px;font-weight:600}.form-error{color:var(--error);font-size:12px;margin-top:5px}.field.invalid input,.field.invalid select{border-color:var(--error)}@media(max-width:760px){main{margin-top:30px}.layout{grid-template-columns:1fr}.event-card{order:0}.form-card{order:1}.event-card,.form-card{padding:22px}.topbar{height:64px}}@media(max-width:480px){.topbar-inner,main{width:calc(100% - 28px)}.fields{grid-template-columns:1fr;gap:15px}.field.full{grid-column:auto}.intro h1{font-size:30px}.intro p{font-size:14px}.choice-row{flex-direction:column}.brand svg{width:104px}.form-card{padding:19px}}
+html{scroll-behavior:smooth}
+.topbar-right{display:flex;align-items:center;gap:24px;margin-left:auto}
+.topnav{display:flex;align-items:center;gap:21px}
+.topnav a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;padding:4px 0;border-bottom:2px solid transparent}
+.topnav a:hover{color:var(--green);border-bottom-color:var(--green-soft)}
+.topnav a:focus-visible{outline:2px solid #9bc7a5;outline-offset:3px}
+.topnav .nav-register{color:var(--green);font-weight:600}
+.intro-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:20px}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;background:var(--green);color:#fff;text-decoration:none;font-weight:600;font-size:14px;transition:background .15s}
+.cta:hover{background:var(--green-dark)}
+.cta:focus-visible{outline:3px solid #9bc7a5;outline-offset:2px}
+.cta-note{font-size:12px;color:var(--muted)}
+.section{margin-top:44px;scroll-margin-top:20px}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:18px}
+.section-head>div{max-width:600px}
+.section-head .eyebrow{margin-bottom:7px}
+.section-head h2{font-size:clamp(22px,3vw,27px);line-height:1.2;letter-spacing:-.6px;margin:0}
+.section-head p{margin:0;max-width:430px;color:var(--muted);font-size:14px}
+.info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.info-card{background:var(--paper);border:1px solid var(--line);padding:20px;box-shadow:0 4px 16px rgba(17,18,15,.025)}
+.info-icon{width:34px;height:34px;display:grid;place-items:center;background:var(--green-soft);color:var(--green);margin-bottom:13px}
+.info-card .card-tag{display:block;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:1.1px;text-transform:uppercase;color:var(--green);margin-bottom:9px}
+.info-card h3{font-size:16px;line-height:1.3;letter-spacing:-.2px;margin:0 0 7px}
+.info-card p{color:var(--muted);font-size:13.5px;margin:0}
+.editable{background:#fdf7e8;border-bottom:1px dashed #d8b25b;color:#6f5924;padding:1px 3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.config-note{display:flex;align-items:flex-start;gap:9px;margin:13px 0 0;padding:11px 13px;background:var(--paper);border:1px solid var(--line);color:var(--muted);font-size:12px;line-height:1.45}
+.config-note svg{flex:0 0 auto;color:var(--green);margin-top:1px}
+.config-note strong{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.9px;text-transform:uppercase;color:var(--green);margin-right:4px}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;list-style:none;padding:0;margin:0}
+.step{background:var(--paper);border:1px solid var(--line);padding:19px;box-shadow:0 4px 16px rgba(17,18,15,.025)}
+.step-num{display:flex;align-items:center;gap:9px;margin-bottom:15px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1px;color:var(--green)}
+.step-num:after{content:"";flex:1;height:1px;background:var(--line)}
+.step h3{font-size:15px;line-height:1.3;letter-spacing:-.2px;margin:0 0 7px}
+.step p{color:var(--muted);font-size:13px;margin:0}
+.step-note{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:12px}
+.process-note{display:flex;align-items:flex-start;gap:9px;margin-top:13px;padding:11px 14px;background:var(--green-soft);border-left:3px solid var(--green);color:var(--green-dark);font-size:12.5px;line-height:1.45}
+.process-note svg{flex:0 0 auto;margin-top:1px}
+.faq-card{background:var(--paper);border:1px solid var(--line)}
+.faq-item+.faq-item{border-top:1px solid var(--line)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 18px;background:none;border:0;text-align:left;font-size:14px;font-weight:600;color:var(--ink)}
+.faq-q:hover{color:var(--green)}
+.faq-q:focus-visible{outline:2px solid #9bc7a5;outline-offset:-2px}
+.faq-q svg{flex:0 0 auto;color:var(--muted);transition:transform .18s,color .18s}
+.faq-q[aria-expanded="true"] svg{transform:rotate(180deg);color:var(--green)}
+.faq-a{padding:0 18px 17px;color:var(--muted);font-size:13.5px;max-width:780px}
+.faq-a p{margin:0}
+.faq-item.open{background:#fcfdfb}
+.event-flags{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.event-flags .event-label{margin-bottom:0}
+.sample-flag{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.9px;text-transform:uppercase;color:#8a6410;background:#fdf7e8;border:1px solid #ead9b1;padding:4px 6px}
+.event-guidance{margin-top:16px;padding:12px 13px;background:var(--canvas);border:1px solid var(--line)}
+.event-guidance .meta-label{margin-bottom:4px}
+.event-guidance p{font-size:12.5px;color:var(--muted);margin:0}
+.event-support{display:flex;align-items:flex-start;gap:7px;margin:12px 0 0;font-size:12px;color:var(--muted)}
+.event-support svg{flex:0 0 auto;margin-top:1px;color:var(--green)}
+.success-note{display:block;width:fit-content;max-width:100%;margin:0 auto 16px;padding:6px 9px;background:var(--canvas);color:var(--muted);font-family:var(--mono);font-size:10px;letter-spacing:.6px;text-transform:uppercase}
+.payment-title{font-size:22px;letter-spacing:-.5px;margin:0 0 6px}
+.payment-intro{color:var(--muted);font-size:14px;margin:0 0 18px}
+.payment-summary{border:1px solid var(--line);background:var(--canvas);padding:5px 16px;margin-bottom:14px}
+.payment-row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:13px;color:var(--muted)}
+.payment-row:last-child{border-bottom:0}
+.payment-row strong{color:var(--ink);font-size:14px;font-weight:600;text-align:right}
+.payment-amount{font-family:var(--mono);font-size:12px;color:#6f5924;background:#fdf7e8;border-bottom:1px dashed #d8b25b;padding:1px 3px;text-align:right}
+.payment-note{font-size:12px;color:var(--muted);margin:0}
+.demo-outcome{display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin:14px 0 0;padding:10px 12px;border:1px dashed var(--line);background:var(--paper)}
+.demo-outcome-label{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.9px;text-transform:uppercase;color:var(--muted)}
+.demo-outcome .choice-row{display:flex;gap:8px;flex-wrap:wrap}
+.demo-outcome .choice{flex:0 0 auto;min-height:0;padding:7px 11px;font-size:12.5px}
+.demo-outcome .choice input{width:15px;height:15px}
+.payment-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.payment-actions .submit{flex:1 1 240px;width:auto}
+.payment-actions .secondary{height:50px;padding:0 18px}
+#registrationPanel{scroll-margin-top:18px}
+@media(max-width:900px){
+  .topbar-right{gap:16px}
+  .topnav{gap:15px}
+  
+  .info-grid,.steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .section-head{flex-direction:column;align-items:flex-start;gap:7px}
+}
+@media(max-width:760px){
+  .topbar{height:auto;padding:12px 0}
+  .topbar-inner{flex-wrap:wrap;gap:10px}
+  .topbar-right{display:block;width:100%;margin-left:0}
+  .topnav{width:100%;justify-content:space-between;gap:8px;padding-top:10px;border-top:1px solid var(--line)}
+  .topnav a{font-size:12px;padding:2px 0}
+  .section{margin-top:36px}
+  .intro-actions{margin-top:17px}
+  .info-grid,.steps{grid-template-columns:1fr}
+  .section-head{margin-bottom:14px}
+}
+@media(max-width:480px){
+  .cta{width:100%}
+  .cta-note{width:100%;font-size:11px}
+  .info-card,.step{padding:17px}
+  .faq-q{font-size:13px;padding:15px 14px;gap:10px}
+  .faq-a{padding:0 14px 16px;font-size:13px}
+  .config-note{flex-wrap:wrap}
+}
+:root{--green-ink:#084d20;--green-btn:#0d662c;--green-btn-hover:#084d20;--field-bg:#fff;--field-border:#cbd1c7;--placeholder:#93988f;--hover-soft:#fcfdfb;--editable-bg:#fdf7e8;--editable-border:#d8b25b;--editable-text:#6f5924;--sample-bg:#fdf7e8;--sample-border:#ead9b1;--sample-text:#8a6410;--focus:#9bc7a5;--focus-ring:rgba(13,102,44,.10);--shadow:rgba(17,18,15,.035);color-scheme:light}
+html[data-theme="dark"]{--ink:#e8ede5;--green:#4cc27a;--green-dark:#3aa865;--green-soft:#17331f;--gold:#e0b23c;--paper:#161b15;--canvas:#0d100d;--line:#2c352c;--muted:#a3ada0;--error:#ff8a7a;--green-ink:#b7ecc8;--green-btn:#1b7a43;--green-btn-hover:#17693a;--field-bg:#10150f;--field-border:#3a453a;--placeholder:#7f8a7b;--hover-soft:#182015;--editable-bg:#2e2610;--editable-border:#7a6423;--editable-text:#f0d48a;--sample-bg:#2e2610;--sample-border:#6d5a20;--sample-text:#f0d48a;--focus:#7fd39d;--focus-ring:rgba(76,194,122,.18);--shadow:rgba(0,0,0,.35);color-scheme:dark}
+html[lang="ar"] body{font-family:"IBM Plex Sans Arabic","IBM Plex Sans","Segoe UI",Tahoma,Arial,system-ui,sans-serif}
+html[lang="ar"] .eyebrow,html[lang="ar"] .card-tag,html[lang="ar"] .sample-flag,html[lang="ar"] .success-note,html[lang="ar"] .demo-outcome-label{font-family:"IBM Plex Sans Arabic","IBM Plex Sans","Segoe UI",Tahoma,Arial,sans-serif;letter-spacing:0}
+html[lang="ar"] .intro h1,html[lang="ar"] .event-card h2,html[lang="ar"] .section-head h2,html[lang="ar"] .form-head h2,html[lang="ar"] .payment-title,html[lang="ar"] .success h2{letter-spacing:0;line-height:1.35}
+html[lang="ar"] .info-card h3,html[lang="ar"] .step h3{letter-spacing:0}
+.topbar,.footer{background:var(--paper)}
+.event-card,.form-card,.info-card,.step{box-shadow:0 4px 16px var(--shadow)}
+.editable{background:var(--editable-bg);border-bottom-color:var(--editable-border);color:var(--editable-text)}
+.sample-flag{background:var(--sample-bg);border-color:var(--sample-border);color:var(--sample-text)}
+.payment-amount{background:var(--editable-bg);border-bottom-color:var(--editable-border);color:var(--editable-text)}
+input,select{background:var(--field-bg);border-color:var(--field-border)}
+input::placeholder{color:var(--placeholder)}
+.choice{border-color:var(--field-border)}
+.secondary{background:var(--paper);color:var(--ink)}
+.faq-item.open{background:var(--hover-soft)}
+.cta,.submit{background:var(--green-btn)}
+.cta:hover,.submit:hover{background:var(--green-btn-hover)}
+.event-label,.process-note{color:var(--green-ink)}
+input:focus,select:focus{box-shadow:0 0 0 3px var(--focus-ring)}
+.cta:focus-visible,.submit:focus-visible,.topnav a:focus-visible,.faq-q:focus-visible{outline-color:var(--focus)}
+.process-note{border-left:0;border-inline-start:3px solid var(--green)}
+.topbar-right{margin-left:0;margin-inline-start:auto}
+.topbar-controls{display:flex;align-items:center;gap:8px}
+.lang-switch{display:inline-flex;align-items:center;gap:2px;padding:2px;border:1px solid var(--line);background:var(--paper)}
+.lang-btn{border:0;background:transparent;color:var(--muted);font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.5px;padding:7px 9px;line-height:1;transition:background .15s,color .15s}
+.lang-btn:hover{color:var(--green)}
+.lang-btn[aria-pressed="true"]{background:var(--green-soft);color:var(--green-ink)}
+.lang-btn:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.theme-toggle{width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--line);background:var(--paper);color:var(--ink);transition:border-color .15s,color .15s}
+.theme-toggle:hover{border-color:var(--green);color:var(--green)}
+.theme-toggle:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.theme-toggle svg{display:block}
+html[data-theme="light"] .icon-sun{display:none}
+html[data-theme="dark"] .icon-moon{display:none}
+html[data-theme="dark"] .brand svg path:nth-of-type(1){fill:#e8ede5}
+html[data-theme="dark"] .brand svg path:nth-of-type(2){fill:#4cc27a}
+html[data-theme="dark"] .brand svg path:nth-of-type(3){fill:#e0b23c}
+html[dir="rtl"] .brand{direction:ltr}
+html[dir="rtl"] .cta svg,html[dir="rtl"] .submit svg{transform:scaleX(-1)}
+html[dir="rtl"] .faq-q{text-align:right}
+html[dir="rtl"] .config-note strong{margin-right:0;margin-inline-end:4px}
+html[dir="rtl"] input[type="email"],html[dir="rtl"] input[type="tel"]{direction:ltr;text-align:left}
+html[dir="rtl"] .payment-row strong,html[dir="rtl"] .payment-amount{text-align:left}
+.payment-email{direction:ltr;unicode-bidi:plaintext;overflow-wrap:anywhere}
+.event-card,.form-card,.payment-summary,.payment-row{min-width:0}
+.payment-row>span,.payment-row>strong{min-width:0;overflow-wrap:anywhere}
+.payment-back{margin:14px 0 0;text-align:center}
+.link-button{border:0;background:none;color:var(--green);font-family:inherit;font-size:13px;font-weight:600;text-decoration:underline;text-underline-offset:3px;padding:4px 2px}
+.link-button:hover{color:var(--green-ink)}
+.link-button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.payment-status{display:flex;align-items:center;justify-content:center;gap:8px;margin:13px 0 0;color:var(--muted);font-size:13px;text-align:center}
+.payment-status:before{content:"";width:14px;height:14px;flex:0 0 14px;border:2px solid var(--line);border-top-color:var(--green);border-radius:50%;animation:qiyas-spin .8s linear infinite}
+@keyframes qiyas-spin{to{transform:rotate(360deg)}}
+.submit:disabled{opacity:.72;cursor:wait}
+.payment-reference{max-width:430px;margin:0 auto 18px;padding:11px 14px;border:1px solid var(--line);background:var(--canvas);display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:12px;color:var(--muted);text-align:start}
+.payment-reference strong{font-family:var(--mono);font-size:12px;color:var(--ink);word-break:break-all;text-align:end}
+.failure .success-icon{background:var(--canvas);color:var(--error)}
+@media(prefers-reduced-motion:reduce){.payment-status:before{animation:none}}
+@media(max-width:900px){.topbar-right{gap:16px}}
+@media(max-width:760px){.topbar-controls{justify-content:flex-start;margin-bottom:10px}.layout{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.faq-q svg{transition:none}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#" aria-label="QIYAS home" data-i18n-aria-label="aria.brand">
+      <svg viewBox="0 0 1201 349" role="img" aria-labelledby="qiyasLogoTitle">
+        <title id="qiyasLogoTitle">QIYAS</title>
+        <path d="M 343.0 96.0 L 343.0 293.0 L 377.0 293.0 L 377.0 96.0 Z M 1014.0 93.0 L 1013.0 205.0 L 1146.0 206.0 L 1147.0 262.0 L 1014.0 263.0 L 1013.0 294.0 L 1180.0 294.0 L 1179.0 175.0 L 1046.0 174.0 L 1047.0 124.0 L 1180.0 124.0 L 1180.0 94.0 Z M 751.0 93.0 L 751.0 294.0 L 784.0 293.0 L 785.0 205.0 L 896.0 205.0 L 897.0 294.0 L 930.0 294.0 L 930.0 93.0 Z M 783.0 125.0 L 896.0 124.0 L 897.0 174.0 L 785.0 174.0 Z M 471.0 91.0 L 471.0 204.0 L 552.0 204.0 L 554.0 206.0 L 554.0 298.0 L 589.0 298.0 L 589.0 205.0 L 671.0 204.0 L 671.0 92.0 L 637.0 92.0 L 636.0 174.0 L 506.0 174.0 L 505.0 92.0 Z" fill="#11120F" fill-rule="evenodd" clip-rule="evenodd"/>
+        <path d="M 21.0 88.0 L 21.0 293.0 L 195.0 293.0 L 230.0 328.0 L 250.0 309.0 L 244.0 299.0 L 143.0 192.0 L 138.0 193.0 L 121.0 212.0 L 164.0 261.0 L 54.0 262.0 L 52.0 258.0 L 54.0 121.0 L 209.0 120.0 L 211.0 122.0 L 211.0 244.0 L 242.0 276.0 L 242.0 89.0 Z" fill="#0D672C" fill-rule="evenodd" clip-rule="evenodd"/>
+        <path d="M 341.0 74.0 L 343.0 76.0 L 379.0 76.0 L 360.0 44.0 Z M 145.0 20.0 L 145.0 51.0 L 176.0 52.0 L 176.0 21.0 Z M 80.0 20.0 L 78.0 41.0 L 80.0 52.0 L 109.0 52.0 L 110.0 20.0 Z" fill="#CD9412" fill-rule="evenodd" clip-rule="evenodd"/>
+      </svg>
+    </a>
+    <div class="topbar-right">
+      <div class="topbar-controls">
+        <div class="lang-switch" role="group" aria-label="Language" data-i18n-aria-label="aria.language">
+          <button type="button" class="lang-btn" data-set-lang="en" aria-pressed="true" lang="en">EN</button>
+          <button type="button" class="lang-btn" data-set-lang="ar" aria-pressed="false" lang="ar">AR</button>
+        </div>
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark theme" aria-pressed="false">
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+      </div>
+      <nav class="topnav" aria-label="Page sections" data-i18n-aria-label="aria.nav">
+        <a href="#eligibility" data-i18n="nav.eligibility">Eligibility</a>
+        <a href="#how-it-works" data-i18n="nav.how">How it works</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        <a class="nav-register" href="#registrationPanel" data-i18n="nav.register">Register</a>
+      </nav>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="intro" aria-labelledby="pageTitle">
+    <div class="eyebrow" data-i18n="intro.eyebrow">Exam Event Registration</div>
+    <h1 id="pageTitle" data-i18n="intro.title">Save your place.</h1>
+    <p data-i18n-html="intro.body">Complete the short form below to register for this exam event. Fields marked with <span style="color:var(--error)">*</span> are required.</p>
+    <div class="intro-actions">
+      <a class="cta" href="#registrationPanel"><span data-i18n="intro.cta">Register Now</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+    </div>
+  </section>
+  <div class="layout">
+    <aside class="event-card" aria-label="Event details" data-i18n-aria-label="aria.eventCard">
+      <div class="event-flags">
+        <div class="event-label"><span class="dot"></span> <span data-event-field="status">Registration open</span></div>
+        <span class="sample-flag" data-i18n="event.sampleData">Sample data</span>
+      </div>
+      <h2 id="eventTitle" data-event-field="name">National Statistics Challenge 2026</h2>
+      <p class="event-desc" data-event-field="description">Register to participate in this QIYAS assessment event. Your registration details will be used to process your participation.</p>
+      <div class="meta">
+        <div class="meta-row"><span class="meta-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span><div><div class="meta-label" data-i18n="event.registrationPeriod">Registration period</div><div class="meta-value" data-event-field="registrationDates">Sample: 1–30 September 2026</div></div></div>
+        <div class="meta-row"><span class="meta-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><div class="meta-label" data-i18n="event.examDateTimeLabel">Exam date &amp; time</div><div class="meta-value" data-event-field="examDateTime">Sample: 15 October 2026, 10:00</div></div></div>
+      </div>
+      <div class="event-guidance">
+        <div class="meta-label" data-i18n="event.instructionsLabel">Exam instructions</div>
+        <p data-event-field="instructions">Sample: Students access the exam through a personal invitation link. Follow the instructions included with the invitation.</p>
+      </div>
+      <p class="event-support"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H7l-3 3V4z"/></svg><span><span data-i18n="event.support">Support:</span> <span data-event-field="supportContact">Sample: events@example.com</span></span></p>
+    </aside>
+    <section class="form-card" id="registrationPanel">
+      <div class="form-head" id="formHead"><h2 data-i18n="form.heading">Registration details</h2><p data-i18n="form.subheading">Student details are required to complete registration.</p></div>
+      <form id="registrationForm" novalidate>
+        <div class="required-note"><span style="color:var(--error)">*</span> <span data-i18n="form.requiredNote">Required fields</span></div>
+        <div class="fields">
+          <div class="field full"><label><span data-i18n="form.registeringAs">Registering as</span> <span class="star">*</span></label><div class="choice-row">
+            <label class="choice"><input type="radio" name="registrantType" value="Student" checked> <span data-i18n="form.student">Student</span></label>
+            <label class="choice"><input type="radio" name="registrantType" value="Parent / Guardian"> <span data-i18n="form.parentGuardian">Parent / Guardian</span></label>
+          </div></div>
+          <div class="field full" id="nameField"><label for="fullName"><span id="fullNameLabel">Student's full name</span> <span class="star">*</span></label><input id="fullName" name="full_name" autocomplete="name" placeholder="Enter the student's full name" data-i18n-placeholder="form.studentNamePlaceholder" required><div class="form-error hidden"></div></div>
+          <div class="field full hidden" id="whatsappField"><label for="whatsapp"><span data-i18n="form.whatsapp">WhatsApp number</span> <span class="star">*</span></label><input id="whatsapp" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" placeholder="Enter your WhatsApp number" data-i18n-placeholder="form.whatsappPlaceholder"><div class="form-error hidden"></div></div>
+          <div class="field full" id="emailField"><label for="email"><span data-i18n="form.email">Email address</span> <span class="star">*</span></label><input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" required><div class="form-error hidden"></div></div>
+          <div class="field full hidden" id="studentNameField"><label for="studentName"><span data-i18n="form.studentFullName">Student's full name</span> <span class="star">*</span></label><input id="studentName" name="student_name" placeholder="Enter the student's full name" data-i18n-placeholder="form.studentNamePlaceholder"><div class="form-error hidden"></div></div>
+          <div class="field" id="schoolField"><label for="school"><span id="schoolLabel" data-i18n="form.school">School</span> <span class="star">*</span></label><input id="school" name="school" placeholder="School name" data-i18n-placeholder="form.schoolPlaceholder" required><div class="form-error hidden"></div></div>
+          <div class="field" id="gradeField"><label for="grade"><span id="gradeLabel" data-i18n="form.grade">Grade</span> <span class="star">*</span></label><select id="grade" name="grade" required><option value="" data-i18n="form.selectGrade">Select grade</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select><div class="form-error hidden"></div></div>
+        </div>
+        <label class="checkline"><input type="checkbox" id="consent" required><span data-i18n="form.consent">I confirm that the information provided is accurate and agree to be contacted about this event.</span></label>
+        <button class="submit" type="submit"><span data-i18n="form.submit">Register &amp; Pay</span> <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="privacy" data-i18n="form.privacy">Your details are used for event registration and related communication.</p>
+      </form>
+      <div class="hidden" id="paymentStep" role="status" aria-live="polite">
+        <div class="eyebrow" style="margin-bottom:8px" data-i18n="payment.step">Step 2 of 2 · Payment review</div>
+        <h2 class="payment-title" data-i18n="payment.title">Review and pay</h2>
+        <p class="payment-intro" data-i18n="payment.intro">Check your registration details before completing the prototype payment.</p>
+        <div class="payment-summary">
+          <div class="payment-row"><span data-i18n="payment.event">Event</span><strong data-event-field="name">National Statistics Challenge 2026</strong></div>
+          <div class="payment-row"><span data-i18n="payment.type">Registration type</span><strong id="paymentType">Student</strong></div>
+          <div class="payment-row"><span data-i18n="payment.student">Student</span><strong id="paymentStudent">—</strong></div>
+          <div class="payment-row hidden" id="paymentGuardianRow"><span data-i18n="payment.guardian">Registered by</span><strong id="paymentGuardian">—</strong></div>
+          <div class="payment-row"><span data-i18n="payment.email">Email</span><strong id="paymentEmail" class="payment-email">—</strong></div>
+          <div class="payment-row"><span data-i18n="payment.school">School</span><strong id="paymentSchool">—</strong></div>
+          <div class="payment-row"><span data-i18n="payment.grade">Grade</span><strong id="paymentGrade">—</strong></div>
+          <div class="payment-row"><span data-i18n="payment.fee">Event registration fee</span><span class="payment-amount editable" data-event-field="eventFee">[Fee amount placeholder]</span></div>
+        </div>
+        <p class="payment-note" data-i18n="payment.note">Prototype only · no real payment will be processed. The event fee is a placeholder set by the event organizer.</p>
+        <div class="demo-outcome" role="group" aria-labelledby="demoOutcomeLabel">
+          <span class="demo-outcome-label" id="demoOutcomeLabel" data-i18n="payment.outcomeLabel">Prototype outcome</span>
+          <div class="choice-row">
+            <label class="choice"><input type="radio" name="demoOutcome" value="success" checked> <span data-i18n="payment.outcomeSuccess">Success</span></label>
+            <label class="choice"><input type="radio" name="demoOutcome" value="failure"> <span data-i18n="payment.outcomeFailure">Failure</span></label>
+          </div>
+        </div>
+        <div class="payment-actions">
+          <button class="submit" type="button" id="payButton"><span id="payButtonLabel" data-i18n="payment.pay">Pay Now</span> <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <p class="payment-status hidden" id="paymentStatus" role="status" aria-live="polite"></p>
+        <p class="payment-back"><button class="link-button" type="button" id="backToDetails" data-i18n="payment.back">Back to registration details</button></p>
+      </div>
+      <div class="hidden" id="successStep" role="status" aria-live="polite">
+        <div class="success">
+          <div class="success-icon"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 4 4L19 6"/></svg></div>
+          <h2 data-i18n="success.title">Payment successful</h2>
+          <p data-i18n="success.body">Your prototype payment was successful and your registration is confirmed.</p>
+          <div class="payment-reference"><span data-i18n="success.reference">Payment reference</span><strong id="paymentReference">DEMO-PAY-000000</strong></div>
+          <div class="success-note" data-i18n="success.note">Prototype only · no real payment was processed and no invitation link was generated or sent.</div>
+          <button class="secondary" type="button" onclick="location.reload()" data-i18n="success.back">Back to registration</button>
+        </div>
+      </div>
+      <div class="hidden" id="failureStep" role="alert">
+        <div class="success failure">
+          <div class="success-icon"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg></div>
+          <h2 data-i18n="failure.title">Payment not completed</h2>
+          <p data-i18n="failure.body">This was a prototype payment and no charge was made. Your registration is still saved, so you can try again.</p>
+          <div class="success-note" data-i18n="failure.note">Prototype only · no real payment was processed and no invitation link was generated or sent.</div>
+          <div class="payment-actions">
+            <button class="submit" type="button" id="retryPayment"><span data-i18n="failure.retry">Try payment again</span> <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 5v6h-6"/></svg></button>
+          </div>
+          <p class="payment-back"><button class="link-button" type="button" id="failureBack" data-i18n="payment.back">Back to registration details</button></p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="section" id="eligibility" aria-labelledby="eligibilityTitle">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" data-i18n="eligibility.eyebrow">Eligibility</div>
+        <h2 id="eligibilityTitle" data-i18n="eligibility.title">Who can register?</h2>
+      </div>
+      <p data-i18n="eligibility.description">Students can register for exam events across different grade levels. Students may participate in exams for their current grade or a higher grade, but not a lower grade.</p>
+    </div>
+    <div class="info-grid">
+      <article class="info-card">
+        <span class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span>
+        <span class="card-tag" data-i18n="eligibility.studentTag">Student registration</span>
+        <h3 data-i18n="eligibility.studentTitle">Students</h3>
+        <p data-i18n="eligibility.studentBody">Students can register directly using their details.</p>
+      </article>
+      <article class="info-card">
+        <span class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <span class="card-tag" data-i18n="eligibility.guardianTag">Guardian registration</span>
+        <h3 data-i18n="eligibility.guardianTitle">Parents &amp; Guardians</h3>
+        <p data-i18n="eligibility.guardianBody">Parents or guardians can register on behalf of a student by providing the student’s details.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="how-it-works" aria-labelledby="howTitle">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" data-i18n="process.eyebrow">Registration process</div>
+        <h2 id="howTitle" data-i18n="process.title">How to Register</h2>
+      </div>
+      <p data-i18n="process.description">Register for an exam event in a few simple steps.</p>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <span class="step-num">01</span>
+        <h3 data-i18n="process.step1Title">Choose registration type</h3>
+        <p data-i18n="process.step1Body">Register as a student or through a parent/guardian.</p>
+      </li>
+      <li class="step">
+        <span class="step-num">02</span>
+        <h3 data-i18n="process.step2Title">Enter student details</h3>
+        <p data-i18n="process.step2Body">Provide the student's full name, email, school, and current grade.</p>
+      </li>
+      <li class="step">
+        <span class="step-num">03</span>
+        <h3 data-i18n="process.step3Title">Submit registration &amp; pay</h3>
+        <p data-i18n="process.step3Body">Submit the registration form and complete the event registration payment.</p>
+      </li>
+      <li class="step">
+        <span class="step-num">04</span>
+        <h3 data-i18n="process.step4Title">Receive your exam invitation</h3>
+        <p data-i18n="process.step4Body">Receive an invitation link to access the exam after the required registration and payment steps.</p>
+      </li>
+    </ol>
+    <p class="process-note"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span data-i18n="process.note">Registration does not automatically guarantee exam access. Exam access is provided through the invitation link.</span></p>
+  </section>
+
+  <section class="section" id="faq" aria-labelledby="faqTitle">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" data-i18n="faq.eyebrow">FAQ</div>
+        <h2 id="faqTitle" data-i18n="faq.title">Frequently asked questions</h2>
+      </div>
+    </div>
+    <div class="faq-card">
+      <div class="faq-item open">
+        <button class="faq-q" type="button" aria-expanded="true" aria-controls="faq-a2" id="faq-q2"><span data-i18n="faq.q1">Can a parent or guardian register on behalf of a student?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a" id="faq-a2" role="region" aria-labelledby="faq-q2"><p data-i18n="faq.a1">Yes, where guardian registration is enabled. Choose “Parent / Guardian”, enter your full name, then provide the student’s full name, school, and grade.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a3" id="faq-q3"><span data-i18n="faq.q2">What information is required for registration?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a" id="faq-a3" role="region" aria-labelledby="faq-q3" hidden><p data-i18n="faq.a2">The student’s full name, email address, school, and grade are required. When a parent or guardian registers, their own full name is also required.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a4" id="faq-q4"><span data-i18n="faq.q3">How will I know my registration is confirmed?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a" id="faq-a4" role="region" aria-labelledby="faq-q4" hidden><p data-i18n-html="faq.a3">After submission, this prototype shows an on-screen confirmation. <span data-event-field="confirmationNote">Sample: Confirmation details and next steps are provided by the event organizer.</span></p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a5" id="faq-q5"><span data-i18n="faq.q4">How will the student receive the exam invitation link?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a" id="faq-a5" role="region" aria-labelledby="faq-q5" hidden><p data-i18n-html="faq.a4"><span data-event-field="invitationNote">The student will receive an exam invitation link. The event organizer confirms the sending details.</span> The invitation is sent using the contact details provided during registration.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a6" id="faq-q6"><span data-i18n="faq.q5">Can I edit my registration details?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a" id="faq-a6" role="region" aria-labelledby="faq-q6" hidden><p data-i18n-html="faq.a5">Editing availability is set by the event organizer. <span data-event-field="editPolicy">Sample: Changes may be requested through the organizer before the deadline.</span></p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a7" id="faq-q7"><span data-i18n="faq.q6">What happens if I miss the registration deadline?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a" id="faq-a7" role="region" aria-labelledby="faq-q7" hidden><p data-i18n-html="faq.a6">Late registrations are not guaranteed. <span data-event-field="latePolicy">Sample: Late requests are reviewed by the event organizer.</span></p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a8" id="faq-q8"><span data-i18n="faq.q7">Whom should I contact if I need help?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a" id="faq-a8" role="region" aria-labelledby="faq-q8" hidden><p data-i18n-html="faq.a7">Use the support details provided for this event. <span data-event-field="supportContact">Sample: events@example.com</span></p></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer" data-i18n="footer.text">© QIYAS · Assessment Platform</footer>
+<script>
+// Sample event data only. Hydrate the localized objects from the selected Exam Event.
+const translations={
+  en:{
+    dir:'ltr',
+    meta:{title:'QIYAS · Event Registration',description:'Register for a QIYAS exam event.'},
+    aria:{brand:'QIYAS home',nav:'Page sections',eventCard:'Event details',language:'Language'},
+    nav:{eligibility:'Eligibility',how:'How it works',faq:'FAQ',register:'Register'},
+    intro:{
+      eyebrow:'Exam Event Registration',
+      title:'Save your place.',
+      body:'Complete the short form below to register for this exam event. Fields marked with <span style="color:var(--error)">*</span> are required.',
+      cta:'Register Now'
+    },
+    event:{
+      status:'Registration open',
+      name:'National Statistics Challenge 2026',
+      description:'Register to participate in this QIYAS assessment event. Your registration details will be used to process your participation.',
+      registrationDates:'Sample: 1–30 September 2026',
+      examDateTime:'Sample: 15 October 2026, 10:00',
+      duration:'Sample: 60 minutes',
+      audience:'Student or parent / guardian',
+      instructions:'Sample: Students access the exam through a personal invitation link. Follow the instructions included with the invitation.',
+      invitationNote:'The student will receive an exam invitation link. The event organizer confirms the sending details.',
+      confirmationNote:'Sample: Confirmation details and next steps are provided by the event organizer.',
+      supportContact:'Sample: events@example.com',
+      editPolicy:'Sample: Changes may be requested through the organizer before the deadline.',
+      latePolicy:'Sample: Late requests are reviewed by the event organizer.',
+      eventFee:'[Fee amount placeholder — set by event organizer]',
+      sampleData:'Sample data',
+      registrationPeriod:'Registration period',
+      examDateTimeLabel:'Exam date & time',
+      instructionsLabel:'Exam instructions',
+      support:'Support:'
+    },
+    form:{
+      heading:'Registration details',
+      subheading:'Student details are required to complete registration.',
+      requiredNote:'Required fields',
+      registeringAs:'Registering as',
+      student:'Student',
+      parentGuardian:'Parent / Guardian',
+      studentFullName:"Student's full name",
+      parentFullName:'Parent / guardian full name',
+      studentNamePlaceholder:"Enter the student's full name",
+      parentNamePlaceholder:'Enter your full name',
+      whatsapp:'WhatsApp number',
+      whatsappPlaceholder:'Enter your WhatsApp number',
+      email:'Email address',
+      school:'School',
+      studentSchool:"Student's school",
+      schoolPlaceholder:'School name',
+      grade:'Grade',
+      studentGrade:"Student's grade",
+      selectGrade:'Select grade',
+      consent:'I confirm that the information provided is accurate and agree to be contacted about this event.',
+      submit:'Register & Pay',
+      privacy:'Your details are used for event registration and related communication.'
+    },
+    payment:{
+      step:'Step 2 of 2 · Payment review',
+      title:'Review and pay',
+      intro:'Check your registration details before completing the prototype payment.',
+      event:'Event',
+      type:'Registration type',
+      student:'Student',
+      guardian:'Registered by',
+      email:'Email',
+      school:'School',
+      grade:'Grade',
+      fee:'Event registration fee',
+      note:'Prototype only · no real payment will be processed. The event fee is a placeholder set by the event organizer.',
+      outcomeLabel:'Prototype outcome',
+      outcomeSuccess:'Success',
+      outcomeFailure:'Failure',
+      pay:'Pay Now',
+      processing:'Processing prototype payment…',
+      processingButton:'Processing…',
+      back:'Back to registration details'
+    },
+    eligibility:{
+      eyebrow:'Eligibility',
+      title:'Who can register?',
+      description:'Students can register for exam events across different grade levels. Students may participate in exams for their current grade or a higher grade, but not a lower grade.',
+      studentTag:'Student registration',
+      studentTitle:'Students',
+      studentBody:'Students can register directly using their details.',
+      guardianTag:'Guardian registration',
+      guardianTitle:'Parents & Guardians',
+      guardianBody:'Parents or guardians can register on behalf of a student by providing the student’s details.'
+    },
+    process:{
+      eyebrow:'Registration process',
+      title:'How to Register',
+      description:'Register for an exam event in a few simple steps.',
+      step1Title:'Choose registration type',
+      step1Body:'Register as a student or through a parent/guardian.',
+      step2Title:'Enter student details',
+      step2Body:"Provide the student's full name, email, school, and current grade.",
+      step3Title:'Submit registration & pay',
+      step3Body:'Submit the registration form and complete the event registration payment.',
+      step4Title:'Receive your exam invitation',
+      step4Body:'Receive an invitation link to access the exam after the required registration and payment steps.',
+      note:'Registration does not automatically guarantee exam access. Exam access is provided through the invitation link.'
+    },
+    faq:{
+      eyebrow:'FAQ',
+      title:'Frequently asked questions',
+      q1:'Can a parent or guardian register on behalf of a student?',
+      a1:'Yes, where guardian registration is enabled. Choose “Parent / Guardian”, enter your full name, then provide the student’s full name, school, and grade.',
+      q2:'What information is required for registration?',
+      a2:'The student’s full name, email address, school, and grade are required. When a parent or guardian registers, their own full name is also required.',
+      q3:'How will I know my registration is confirmed?',
+      a3:'After submission, this prototype shows an on-screen confirmation. <span data-event-field="confirmationNote">Sample: Confirmation details and next steps are provided by the event organizer.</span>',
+      q4:'How will the student receive the exam invitation link?',
+      a4:'<span data-event-field="invitationNote">The student will receive an exam invitation link. The event organizer confirms the sending details.</span> The invitation is sent using the contact details provided during registration.',
+      q5:'Can I edit my registration details?',
+      a5:'Editing availability is set by the event organizer. <span data-event-field="editPolicy">Sample: Changes may be requested through the organizer before the deadline.</span>',
+      q6:'What happens if I miss the registration deadline?',
+      a6:'Late registrations are not guaranteed. <span data-event-field="latePolicy">Sample: Late requests are reviewed by the event organizer.</span>',
+      q7:'Whom should I contact if I need help?',
+      a7:'Use the support details provided for this event. <span data-event-field="supportContact">Sample: events@example.com</span>'
+    },
+    errors:{
+      nameStudent:"Enter the student's full name.",
+      nameGuardian:'Enter your full name.',
+      email:'Enter a valid email address.',
+      phone:'Enter a valid WhatsApp number.',
+      school:'Enter the school name.',
+      grade:'Select a grade.',
+      studentName:'Enter the student’s full name.',
+      consent:'Please confirm before submitting.'
+    },
+    theme:{toDark:'Switch to dark theme',toLight:'Switch to light theme'},
+    success:{
+      title:'Payment successful',
+      body:'Your prototype payment was successful and your registration is confirmed.',
+      reference:'Payment reference',
+      note:'Prototype only · no real payment was processed and no invitation link was generated or sent.',
+      back:'Back to registration'
+    },
+    failure:{
+      title:'Payment not completed',
+      body:'This was a prototype payment and no charge was made. Your registration is still saved, so you can try again.',
+      note:'Prototype only · no real payment was processed and no invitation link was generated or sent.',
+      retry:'Try payment again'
+    },
+    footer:{text:'© QIYAS · Assessment Platform'}
+  },
+  ar:{
+    dir:'rtl',
+    meta:{title:'QIYAS · تسجيل الفعالية',description:'سجّل في فعالية اختبار تابعة لـ QIYAS.'},
+    aria:{brand:'QIYAS — الصفحة الرئيسية',nav:'أقسام الصفحة',eventCard:'تفاصيل الفعالية',language:'اللغة'},
+    nav:{eligibility:'شروط المشاركة',how:'طريقة التسجيل',faq:'الأسئلة الشائعة',register:'التسجيل'},
+    intro:{
+      eyebrow:'تسجيل فعالية اختبار',
+      title:'احجز مقعدك.',
+      body:'أكمل النموذج القصير أدناه للتسجيل في هذه الفعالية. الحقول المعلّمة بـ <span style="color:var(--error)">*</span> مطلوبة.',
+      cta:'سجّل الآن'
+    },
+    event:{
+      status:'التسجيل مفتوح',
+      name:'التحدي الوطني للإحصاء 2026',
+      description:'سجّل للمشاركة في هذه الفعالية التقييمية من QIYAS. ستُستخدم بيانات تسجيلك لمعالجة مشاركتك.',
+      registrationDates:'نموذج: 1–30 سبتمبر 2026',
+      examDateTime:'نموذج: 15 أكتوبر 2026، 10:00',
+      duration:'نموذج: 60 دقيقة',
+      audience:'طالب أو ولي أمر',
+      instructions:'نموذج: يدخل الطلاب إلى الاختبار عبر رابط دعوة شخصي. اتبع التعليمات المرفقة مع الدعوة.',
+      invitationNote:'سيتلقى الطالب رابط دعوة للاختبار. تؤكد الجهة المنظمة للفعالية تفاصيل الإرسال.',
+      confirmationNote:'نموذج: تُقدّم الجهة المنظمة للفعالية تفاصيل التأكيد والخطوات التالية.',
+      supportContact:'نموذج: events@example.com',
+      editPolicy:'نموذج: يمكن طلب التعديلات عبر الجهة المنظمة قبل الموعد النهائي.',
+      latePolicy:'نموذج: تُراجع الجهة المنظمة للفعالية الطلبات المتأخرة.',
+      eventFee:'[قيمة الرسوم — تحددها الجهة المنظمة للفعالية]',
+      sampleData:'بيانات نموذجية',
+      registrationPeriod:'فترة التسجيل',
+      examDateTimeLabel:'تاريخ ووقت الاختبار',
+      instructionsLabel:'تعليمات الاختبار',
+      support:'الدعم:'
+    },
+    form:{
+      heading:'تفاصيل التسجيل',
+      subheading:'بيانات الطالب مطلوبة لإتمام التسجيل.',
+      requiredNote:'الحقول المطلوبة',
+      registeringAs:'التسجيل بصفتك',
+      student:'طالب',
+      parentGuardian:'ولي أمر',
+      studentFullName:'الاسم الكامل للطالب',
+      parentFullName:'الاسم الكامل لولي الأمر',
+      studentNamePlaceholder:'أدخل الاسم الكامل للطالب',
+      parentNamePlaceholder:'أدخل اسمك الكامل',
+      whatsapp:'رقم واتساب',
+      whatsappPlaceholder:'أدخل رقم واتساب',
+      email:'البريد الإلكتروني',
+      school:'المدرسة',
+      studentSchool:'مدرسة الطالب',
+      schoolPlaceholder:'اسم المدرسة',
+      grade:'الصف',
+      studentGrade:'صف الطالب',
+      selectGrade:'اختر الصف',
+      consent:'أؤكد أن المعلومات المقدمة صحيحة وأوافق على التواصل معي بشأن هذه الفعالية.',
+      submit:'سجّل وادفع',
+      privacy:'تُستخدم بياناتك لتسجيل الفعالية والتواصل المرتبط بها.'
+    },
+    payment:{
+      step:'الخطوة 2 من 2 · مراجعة الدفع',
+      title:'راجع وادفع',
+      intro:'راجع تفاصيل تسجيلك قبل إتمام الدفع التجريبي.',
+      event:'الفعالية',
+      type:'نوع التسجيل',
+      student:'الطالب',
+      guardian:'مسجّل بواسطة',
+      email:'البريد الإلكتروني',
+      school:'المدرسة',
+      grade:'الصف',
+      fee:'رسوم تسجيل الفعالية',
+      note:'نموذج أولي فقط · لن تتم معالجة أي دفعة حقيقية. رسوم الفعالية قيمة مؤقتة تحددها الجهة المنظمة.',
+      outcomeLabel:'نتيجة النموذج الأولي',
+      outcomeSuccess:'نجاح',
+      outcomeFailure:'فشل',
+      pay:'ادفع الآن',
+      processing:'جارٍ معالجة الدفع التجريبي…',
+      processingButton:'جارٍ المعالجة…',
+      back:'العودة إلى تفاصيل التسجيل'
+    },
+    eligibility:{
+      eyebrow:'شروط المشاركة',
+      title:'من يمكنه التسجيل؟',
+      description:'يمكن للطلاب التسجيل في فعاليات الاختبار عبر صفوف دراسية مختلفة. يجوز للطالب المشاركة في اختبار صفه الحالي أو صف أعلى، وليس صفًا أدنى.',
+      studentTag:'تسجيل الطالب',
+      studentTitle:'الطلاب',
+      studentBody:'يمكن للطلاب التسجيل مباشرة باستخدام بياناتهم.',
+      guardianTag:'تسجيل ولي الأمر',
+      guardianTitle:'أولياء الأمور',
+      guardianBody:'يمكن لأولياء الأمور التسجيل نيابة عن الطالب من خلال تقديم بيانات الطالب.'
+    },
+    process:{
+      eyebrow:'إجراءات التسجيل',
+      title:'كيفية التسجيل',
+      description:'سجّل في فعالية اختبار بخطوات بسيطة.',
+      step1Title:'اختر نوع التسجيل',
+      step1Body:'سجّل بصفتك طالبًا أو من خلال ولي الأمر.',
+      step2Title:'أدخل بيانات الطالب',
+      step2Body:'قدّم الاسم الكامل للطالب والبريد الإلكتروني والمدرسة والصف الحالي.',
+      step3Title:'أرسل التسجيل وادفع',
+      step3Body:'أرسل نموذج التسجيل وأكمل دفع رسوم تسجيل الفعالية.',
+      step4Title:'استلم دعوة الاختبار',
+      step4Body:'ستتلقى رابط دعوة للوصول إلى الاختبار بعد استكمال خطوات التسجيل والدفع المطلوبة.',
+      note:'لا يضمن التسجيل الوصول إلى الاختبار تلقائيًا. يُتاح الوصول إلى الاختبار عبر رابط الدعوة.'
+    },
+    faq:{
+      eyebrow:'الأسئلة الشائعة',
+      title:'الأسئلة المتكررة',
+      q1:'هل يمكن لولي الأمر التسجيل نيابة عن الطالب؟',
+      a1:'نعم، عند تفعيل تسجيل أولياء الأمور. اختر «ولي أمر»، وأدخل اسمك الكامل، ثم قدّم الاسم الكامل للطالب والمدرسة والصف.',
+      q2:'ما المعلومات المطلوبة للتسجيل؟',
+      a2:'الاسم الكامل للطالب والبريد الإلكتروني والمدرسة والصف مطلوبة. وعند التسجيل من قبل ولي الأمر، يُطلب أيضًا اسمه الكامل.',
+      q3:'كيف أعرف أن تسجيلي مؤكد؟',
+      a3:'بعد الإرسال، يعرض هذا النموذج الأولي تأكيدًا على الشاشة. <span data-event-field="confirmationNote">نموذج: تُقدّم الجهة المنظمة للفعالية تفاصيل التأكيد والخطوات التالية.</span>',
+      q4:'كيف يتلقى الطالب رابط دعوة الاختبار؟',
+      a4:'<span data-event-field="invitationNote">سيتلقى الطالب رابط دعوة للاختبار. تؤكد الجهة المنظمة للفعالية تفاصيل الإرسال.</span> تُرسل الدعوة باستخدام بيانات التواصل المقدمة أثناء التسجيل.',
+      q5:'هل يمكنني تعديل تفاصيل تسجيلي؟',
+      a5:'تحدد الجهة المنظمة للفعالية إمكانية التعديل. <span data-event-field="editPolicy">نموذج: يمكن طلب التعديلات عبر الجهة المنظمة قبل الموعد النهائي.</span>',
+      q6:'ماذا يحدث إذا فاتني موعد التسجيل؟',
+      a6:'لا يمكن ضمان التسجيلات المتأخرة. <span data-event-field="latePolicy">نموذج: تُراجع الجهة المنظمة للفعالية الطلبات المتأخرة.</span>',
+      q7:'بمن أتواصل إذا احتجت إلى مساعدة؟',
+      a7:'استخدم بيانات الدعم المقدمة لهذه الفعالية. <span data-event-field="supportContact">نموذج: events@example.com</span>'
+    },
+    errors:{
+      nameStudent:'أدخل الاسم الكامل للطالب.',
+      nameGuardian:'أدخل اسمك الكامل.',
+      email:'أدخل بريدًا إلكترونيًا صالحًا.',
+      phone:'أدخل رقم واتساب صالحًا.',
+      school:'أدخل اسم المدرسة.',
+      grade:'اختر الصف.',
+      studentName:'أدخل الاسم الكامل للطالب.',
+      consent:'يرجى التأكيد قبل الإرسال.'
+    },
+    theme:{toDark:'التبديل إلى المظهر الداكن',toLight:'التبديل إلى المظهر الفاتح'},
+    success:{
+      title:'تم الدفع بنجاح',
+      body:'تمت دفعتك التجريبية بنجاح وتم تأكيد تسجيلك.',
+      reference:'مرجع الدفع',
+      note:'نموذج أولي فقط · لم تتم معالجة أي دفعة حقيقية ولم يتم إنشاء رابط دعوة أو إرساله.',
+      back:'العودة إلى التسجيل'
+    },
+    failure:{
+      title:'لم يكتمل الدفع',
+      body:'كان هذا دفعًا تجريبيًا ولم يتم خصم أي مبلغ. لا يزال تسجيلك محفوظًا، ويمكنك المحاولة مرة أخرى.',
+      note:'نموذج أولي فقط · لم تتم معالجة أي دفعة حقيقية ولم يتم إنشاء رابط دعوة أو إرساله.',
+      retry:'أعد محاولة الدفع'
+    },
+    footer:{text:'© QIYAS · منصة التقييم'}
+  }
+};
+const eventConfig=translations.en.event;
+const eventConfigAr=translations.ar.event;
+const paymentConfig={
+  // Configurable sample outcome: 'success' or 'failure'.
+  outcome:'success',
+  referencePrefix:'DEMO-PAY',
+  processingDelay:900
+};
+let currentLang=(document.documentElement.lang==='ar')?'ar':'en';
+let paymentInProgress=false;
+let paymentAttempt=0;
+let registrationRecord=null;
+if(paymentConfig.outcome!=='success'&&paymentConfig.outcome!=='failure')paymentConfig.outcome='success';
+const demoOutcomeInputs=[...document.querySelectorAll('input[name="demoOutcome"]')];
+function syncDemoOutcome(){
+  demoOutcomeInputs.forEach(input=>{
+    input.checked=input.value===paymentConfig.outcome;
+    input.disabled=paymentInProgress;
+  });
+}
+demoOutcomeInputs.forEach(input=>{
+  input.addEventListener('change',()=>{if(input.checked)paymentConfig.outcome=input.value;});
+});
+function t(path){
+  const value=path.split('.').reduce((object,key)=>object&&object[key],translations[currentLang]);
+  return value===undefined?path:value;
+}
+function activeEventConfig(){return currentLang==='ar'?eventConfigAr:eventConfig;}
+function applyEventConfig(config){
+  document.querySelectorAll('[data-event-field]').forEach(element=>{
+    const value=config[element.dataset.eventField];
+    if(value===undefined||value===null||value==='')return;
+    element.textContent=value;
+    if(!String(value).trim().startsWith('['))element.classList.remove('editable');
+  });
+}
+function applyTranslations(){
+  const dictionary=translations[currentLang];
+  document.documentElement.lang=currentLang;
+  document.documentElement.dir=dictionary.dir;
+  document.title=t('meta.title');
+  const meta=document.querySelector('meta[name="description"]');
+  if(meta)meta.setAttribute('content',t('meta.description'));
+  document.querySelectorAll('[data-i18n]').forEach(element=>{element.textContent=t(element.getAttribute('data-i18n'));});
+  document.querySelectorAll('[data-i18n-html]').forEach(element=>{element.innerHTML=t(element.getAttribute('data-i18n-html'));});
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(element=>{element.setAttribute('placeholder',t(element.getAttribute('data-i18n-placeholder')));});
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(element=>{element.setAttribute('aria-label',t(element.getAttribute('data-i18n-aria-label')));});
+  document.querySelectorAll('[data-i18n-title]').forEach(element=>{element.setAttribute('title',t(element.getAttribute('data-i18n-title')));});
+  document.querySelectorAll('.lang-btn').forEach(button=>{button.setAttribute('aria-pressed',String(button.dataset.setLang===currentLang));});
+  updateThemeToggle();
+  updateRegistrantType();
+  refreshFieldErrors();
+  updatePaymentSummary();
+  updatePaymentControls();
+  updateConsentMessage();
+  applyEventConfig(activeEventConfig());
+}
+const storage={
+  get(key){try{return localStorage.getItem(key);}catch(error){return null;}},
+  set(key,value){try{localStorage.setItem(key,value);}catch(error){}}
+};
+function updateThemeToggle(){
+  const button=document.getElementById('themeToggle');
+  if(!button)return;
+  const dark=document.documentElement.getAttribute('data-theme')==='dark';
+  button.setAttribute('aria-pressed',String(dark));
+  const label=t(dark?'theme.toLight':'theme.toDark');
+  button.setAttribute('aria-label',label);
+  button.setAttribute('title',label);
+}
+function applyTheme(theme){
+  document.documentElement.setAttribute('data-theme',theme);
+  storage.set('qiyas-theme',theme);
+  updateThemeToggle();
+}
+function applyLanguage(language){
+  currentLang=translations[language]?language:'en';
+  storage.set('qiyas-lang',currentLang);
+  applyTranslations();
+}
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
+});
+document.querySelectorAll('.lang-btn').forEach(button=>{
+  button.addEventListener('click',()=>applyLanguage(button.dataset.setLang));
+});
+window.QIYASEventRegistration={eventConfig,eventConfigAr,paymentConfig,translations,applyEventConfig,applyLanguage,applyTheme,getRegistration:()=>registrationRecord};
+
+const form=document.getElementById('registrationForm');
+const typeInputs=[...document.querySelectorAll('input[name="registrantType"]')];
+const studentNameField=document.getElementById('studentNameField');
+const studentName=document.getElementById('studentName');
+const whatsappField=document.getElementById('whatsappField');
+const whatsappInput=document.getElementById('whatsapp');
+const fullNameInput=document.getElementById('fullName');
+const fullNameLabel=document.getElementById('fullNameLabel');
+const schoolInput=document.getElementById('school');
+const schoolLabel=document.getElementById('schoolLabel');
+const gradeInput=document.getElementById('grade');
+const gradeLabel=document.getElementById('gradeLabel');
+const nameField=document.getElementById('nameField');
+const emailField=document.getElementById('emailField');
+const emailInput=document.getElementById('email');
+const consentInput=document.getElementById('consent');
+const paymentStep=document.getElementById('paymentStep');
+const successStep=document.getElementById('successStep');
+const failureStep=document.getElementById('failureStep');
+function updateRegistrantType(){
+  const guardian=document.querySelector('input[name="registrantType"]:checked').value==='Parent / Guardian';
+  studentNameField.classList.toggle('hidden',!guardian);
+  studentName.required=guardian;
+  whatsappField.classList.toggle('hidden',!guardian);
+  whatsappInput.required=guardian;
+  fullNameLabel.textContent=t(guardian?'form.parentFullName':'form.studentFullName');
+  fullNameInput.placeholder=t(guardian?'form.parentNamePlaceholder':'form.studentNamePlaceholder');
+  schoolLabel.textContent=t(guardian?'form.studentSchool':'form.school');
+  gradeLabel.textContent=t(guardian?'form.studentGrade':'form.grade');
+  if(!guardian){studentName.value='';setError(studentNameField,'');whatsappInput.value='';setError(whatsappField,'');}
+}
+typeInputs.forEach(input=>input.addEventListener('change',updateRegistrantType));
+updateRegistrantType();
+function setError(field,key){
+  field.classList.toggle('invalid',!!key);
+  field.dataset.errorKey=key||'';
+  const error=field.querySelector('.form-error');
+  if(error){error.textContent=key?t(key):'';error.classList.toggle('hidden',!key);}
+}
+function refreshFieldErrors(){
+  document.querySelectorAll('.field').forEach(field=>{
+    const key=field.dataset.errorKey;
+    if(key)setError(field,key);
+  });
+}
+function updateConsentMessage(){
+  if(!consentInput)return;
+  consentInput.setCustomValidity(consentInput.dataset.customError==='1'?t('errors.consent'):'');
+}
+function updatePaymentSummary(){
+  const typeElement=document.getElementById('paymentType');
+  const studentElement=document.getElementById('paymentStudent');
+  const guardianElement=document.getElementById('paymentGuardian');
+  const guardianRow=document.getElementById('paymentGuardianRow');
+  const emailElement=document.getElementById('paymentEmail');
+  const schoolElement=document.getElementById('paymentSchool');
+  const gradeElement=document.getElementById('paymentGrade');
+  const checked=document.querySelector('input[name="registrantType"]:checked');
+  if(!typeElement||!studentElement||!checked)return;
+  const guardian=checked.value==='Parent / Guardian';
+  typeElement.textContent=t(guardian?'form.parentGuardian':'form.student');
+  const studentSource=guardian?studentName:fullNameInput;
+  studentElement.textContent=studentSource.value.trim()||'—';
+  if(guardianRow)guardianRow.classList.toggle('hidden',!guardian);
+  if(guardianElement)guardianElement.textContent=guardian?(fullNameInput.value.trim()||'—'):'—';
+  if(emailElement)emailElement.textContent=emailInput.value.trim()||'—';
+  if(schoolElement)schoolElement.textContent=schoolInput.value.trim()||'—';
+  if(gradeElement)gradeElement.textContent=gradeInput.value||'—';
+}
+function updatePaymentControls(){
+  const payButton=document.getElementById('payButton');
+  const payButtonLabel=document.getElementById('payButtonLabel');
+  const status=document.getElementById('paymentStatus');
+  if(payButton){payButton.disabled=paymentInProgress;payButton.setAttribute('aria-busy',String(paymentInProgress));}
+  if(payButtonLabel)payButtonLabel.textContent=t(paymentInProgress?'payment.processingButton':'payment.pay');
+  if(status){status.textContent=paymentInProgress?t('payment.processing'):'';status.classList.toggle('hidden',!paymentInProgress);}
+  syncDemoOutcome();
+}
+function registrationData(guardian){
+  return {
+    eventName:activeEventConfig().name,
+    registrationType:guardian?'Parent / Guardian':'Student',
+    studentName:(guardian?studentName.value:fullNameInput.value).trim(),
+    registeredBy:guardian?fullNameInput.value.trim():'',
+    email:emailInput.value.trim(),
+    school:schoolInput.value.trim(),
+    grade:gradeInput.value,
+    fee:activeEventConfig().eventFee
+  };
+}
+function updateRegistrationRecord(record,guardian){
+  Object.assign(record,registrationData(guardian));
+  return record;
+}
+function createRegistrationRecord(guardian){
+  return Object.assign({id:'DEMO-REG-'+Math.floor(100000+Math.random()*900000),paymentReference:null,paid:false},registrationData(guardian));
+}
+function showFailure(){
+  paymentStep.classList.add('hidden');
+  successStep.classList.add('hidden');
+  failureStep.classList.remove('hidden');
+  failureStep.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function showSuccess(){
+  const reference=(paymentConfig.referencePrefix||'DEMO-PAY')+'-'+Math.floor(100000+Math.random()*900000);
+  if(registrationRecord){registrationRecord.paymentReference=reference;registrationRecord.paid=true;}
+  const referenceElement=document.getElementById('paymentReference');
+  if(referenceElement)referenceElement.textContent=reference;
+  paymentStep.classList.add('hidden');
+  failureStep.classList.add('hidden');
+  successStep.classList.remove('hidden');
+  successStep.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function processPayment(){
+  if(paymentInProgress)return;
+  const guardian=document.querySelector('input[name="registrantType"]:checked').value==='Parent / Guardian';
+  registrationRecord=registrationRecord?updateRegistrationRecord(registrationRecord,guardian):createRegistrationRecord(guardian);
+  const attempt=++paymentAttempt;
+  paymentInProgress=true;
+  updatePaymentControls();
+  window.setTimeout(()=>{
+    if(attempt!==paymentAttempt)return;
+    paymentInProgress=false;
+    updatePaymentControls();
+    if(paymentConfig.outcome==='failure')showFailure();else showSuccess();
+  },Math.max(0,Number(paymentConfig.processingDelay)||0));
+}
+function returnToDetails(){
+  paymentAttempt++;
+  paymentInProgress=false;
+  updatePaymentControls();
+  paymentStep.classList.add('hidden');
+  successStep.classList.add('hidden');
+  failureStep.classList.add('hidden');
+  document.getElementById('formHead').classList.remove('hidden');
+  form.classList.remove('hidden');
+  fullNameInput.focus();
+}
+function returnToPayment(){
+  paymentAttempt++;
+  paymentInProgress=false;
+  updatePaymentSummary();
+  updatePaymentControls();
+  successStep.classList.add('hidden');
+  failureStep.classList.add('hidden');
+  paymentStep.classList.remove('hidden');
+  paymentStep.scrollIntoView({behavior:'smooth',block:'nearest'});
+  document.getElementById('payButton').focus({preventScroll:true});
+}
+form.addEventListener('submit',event=>{
+  event.preventDefault();
+  const name=fullNameInput.value.trim();
+  const email=emailInput.value.trim();
+  const guardian=document.querySelector('input[name="registrantType"]:checked').value==='Parent / Guardian';
+  let valid=true;
+  setError(nameField,name?'':(guardian?'errors.nameGuardian':'errors.nameStudent')); if(!name) valid=false;
+  const emailValid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  setError(emailField,emailValid?'':'errors.email'); if(!emailValid) valid=false;
+  if(guardian){const phone=whatsappInput.value.trim();const phoneValid=/^\+?[0-9\s\-()]{7,20}$/.test(phone);setError(whatsappField,phoneValid?'':'errors.phone');if(!phoneValid)valid=false;}
+  const school=schoolInput.value.trim();
+  setError(document.getElementById('schoolField'),school?'':'errors.school'); if(!school) valid=false;
+  const grade=gradeInput.value;
+  setError(document.getElementById('gradeField'),grade?'':'errors.grade'); if(!grade) valid=false;
+  if(guardian){const sn=studentName.value.trim();setError(studentNameField,sn?'':'errors.studentName');if(!sn)valid=false;}
+  if(!consentInput.checked){
+    consentInput.dataset.customError='1';
+    updateConsentMessage();
+    consentInput.focus();
+    consentInput.reportValidity();
+    valid=false;
+  }else{
+    consentInput.dataset.customError='0';
+    updateConsentMessage();
+  }
+  if(!valid)return;
+  paymentAttempt++;
+  registrationRecord=registrationRecord?updateRegistrationRecord(registrationRecord,guardian):createRegistrationRecord(guardian);
+  paymentInProgress=false;
+  updatePaymentSummary();
+  updatePaymentControls();
+  document.getElementById('formHead').classList.add('hidden');
+  form.classList.add('hidden');
+  successStep.classList.add('hidden');
+  failureStep.classList.add('hidden');
+  paymentStep.classList.remove('hidden');
+  paymentStep.scrollIntoView({behavior:'smooth',block:'nearest'});
+});
+document.getElementById('backToDetails').addEventListener('click',returnToDetails);
+document.getElementById('failureBack').addEventListener('click',returnToDetails);
+document.getElementById('payButton').addEventListener('click',processPayment);
+document.getElementById('retryPayment').addEventListener('click',returnToPayment);
+document.querySelectorAll('.faq-q').forEach(button=>{
+  button.addEventListener('click',()=>{
+    const item=button.closest('.faq-item');
+    const panel=document.getElementById(button.getAttribute('aria-controls'));
+    const willOpen=button.getAttribute('aria-expanded')!=='true';
+    document.querySelectorAll('.faq-item').forEach(other=>{
+      const otherButton=other.querySelector('.faq-q');
+      const otherPanel=document.getElementById(otherButton.getAttribute('aria-controls'));
+      otherButton.setAttribute('aria-expanded','false');
+      otherPanel.hidden=true;
+      other.classList.remove('open');
+    });
+    if(willOpen){
+      button.setAttribute('aria-expanded','true');
+      panel.hidden=false;
+      item.classList.add('open');
+    }
+  });
+});
+applyTranslations();
+</script>
+</body>
+</html>
