@@ -893,6 +893,102 @@
       const FINAL_ATTEMPT_STATUSES = new Set(['submitted', 'expired']);
       const FINAL_EXAM_STATUSES = new Set(['completed', 'expired']);
       let leaderboardRequest = 0;
+      let demoMode = false;
+
+      const DEMO_USER = { id: 'demo-layla', name: 'Layla Hassan', email: 'layla.hassan@qiyas.sa' };
+      const demoEntry = (name, marks, speed, id) => ({
+        name,
+        marks,
+        max_marks: 100,
+        speed_seconds: speed,
+        ...(id ? { id } : {})
+      });
+      const DEMO_EVENTS = [
+        {
+          id: 'statistics-assessment-2',
+          title: 'Statistics Assessment 2',
+          currentUserId: 'demo-layla',
+          entries: [
+            demoEntry('Noor Al-Haddad', 100, 1740),
+            demoEntry('Yousef Karam', 97, 1810),
+            demoEntry('Mariam Saleh', 95, 1695),
+            demoEntry('Omar Nasser', 92, 1920),
+            demoEntry('Sara Khalil', 90, 1885),
+            demoEntry('Ali Mansour', 88, 2010),
+            demoEntry('Hana Aziz', 84, 2050),
+            demoEntry('Tariq Fares', 82, 2100),
+            demoEntry('Reem Saab', 80, 2140),
+            demoEntry('Kareem Zaid', 78, 2200),
+            demoEntry('Dina Hamad', 77, 2240),
+            demoEntry('Layla Hassan', 75, 1985, 'demo-layla')
+          ]
+        },
+        {
+          id: 'algebra-final',
+          title: 'Algebra Final',
+          currentUserId: 'demo-layla',
+          entries: [
+            demoEntry('Omar Khalid', 98, 1810),
+            demoEntry('Layla Hassan', 96, 1695, 'demo-layla'),
+            demoEntry('Mariam Saleh', 94, 1880),
+            demoEntry('Yousef Karim', 91, 1920),
+            demoEntry('Sara Nasser', 89, 1975),
+            demoEntry('Ali Mansour', 87, 2040),
+            demoEntry('Noor Abdullah', 85, 2100),
+            demoEntry('Hassan Ali', 82, 2150),
+            demoEntry('Aisha Rahman', 80, 2210),
+            demoEntry('Zainab Fahad', 78, 2260),
+            demoEntry('Tariq Aziz', 76, 2310),
+            demoEntry('Dina Hamad', 73, 2360)
+          ]
+        },
+        {
+          id: 'geometry-midterm',
+          title: 'Geometry Midterm',
+          currentUserId: 'demo-layla',
+          entries: [
+            demoEntry('Faris Hamdan', 98, 1500),
+            demoEntry('Rania Odeh', 95, 1560),
+            demoEntry('Basel Naji', 93, 1610),
+            demoEntry('Maya Khoury', 91, 1690),
+            demoEntry('Jad Saleh', 89, 1740),
+            demoEntry('Lina Qasim', 87, 1800),
+            demoEntry('Layla Hassan', 85, 1665, 'demo-layla'),
+            demoEntry('Sami Haddad', 83, 1860),
+            demoEntry('Huda Salem', 81, 1920),
+            demoEntry('Rami Farah', 78, 1980),
+            demoEntry('Nadine Ayoub', 75, 2040)
+          ]
+        },
+        {
+          id: 'physics-qualifier',
+          title: 'Physics Qualifier',
+          currentUserId: 'demo-layla',
+          entries: [
+            demoEntry('Fatima Noor', 99, 2100),
+            demoEntry('Ali Mansour', 97, 2180),
+            demoEntry('Huda Salem', 95, 2240),
+            demoEntry('Rami Farah', 93, 2300),
+            demoEntry('Lina Qasim', 91, 2360),
+            demoEntry('Sami Haddad', 89, 2420),
+            demoEntry('Rania Odeh', 87, 2480),
+            demoEntry('Basel Naji', 85, 2540),
+            demoEntry('Maya Khoury', 83, 2600),
+            demoEntry('Jad Saleh', 81, 2660),
+            demoEntry('Nadine Ayoub', 79, 2720),
+            demoEntry('Faris Hamdan', 77, 2780),
+            demoEntry('Dina Hamad', 75, 2840),
+            demoEntry('Kareem Zaid', 73, 2900),
+            demoEntry('Layla Hassan', 70, 2950, 'demo-layla')
+          ]
+        }
+      ];
+
+      const isDemoMode = () => {
+        if (window.QIYAS_DEMO === false) return false;
+        if (new URLSearchParams(window.location.search).get('live') === '1') return false;
+        return true;
+      };
 
       const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (character) => ({
         '&': '&amp;',
@@ -961,6 +1057,7 @@
       };
 
       const getStoredUser = () => {
+        if (demoMode) return DEMO_USER;
         if (window.QIYAS_CURRENT_USER && typeof window.QIYAS_CURRENT_USER === 'object') {
           return window.QIYAS_CURRENT_USER;
         }
@@ -1213,7 +1310,9 @@
         const url = new URL(window.location.href);
         if (examId != null) url.searchParams.set('exam', String(examId));
         else url.searchParams.delete('exam');
-        window.history.replaceState(null, '', url);
+        try {
+          window.history.replaceState(null, '', url);
+        } catch (error) {}
       };
 
       const loadLeaderboard = async (examId, storedUser) => {
@@ -1245,9 +1344,35 @@
         }
       };
 
+      const demoPayload = (event) => ({
+        exam: { id: event.id, title: event.title },
+        current_user_id: event.currentUserId,
+        entries: event.entries,
+        updated_at: new Date().toISOString()
+      });
+
+      const renderDemoEvent = (examId, storedUser) => {
+        const event = DEMO_EVENTS.find((item) => String(item.id) === String(examId)) || DEMO_EVENTS[0];
+        if (!event) return;
+        render(normalize(demoPayload(event), storedUser));
+      };
+
+      const initDemo = (storedUser) => {
+        setExamOptions(DEMO_EVENTS);
+        const requestedId = new URLSearchParams(window.location.search).get('exam');
+        const selected = DEMO_EVENTS.find((event) => String(event.id) === String(requestedId)) || DEMO_EVENTS[0];
+        setSelectedExam(selected.id);
+        renderDemoEvent(selected.id, storedUser);
+      };
+
       const bootstrap = async () => {
+        demoMode = isDemoMode();
         const storedUser = getStoredUser();
         updateProfile(null, storedUser);
+        if (demoMode) {
+          initDemo(storedUser);
+          return;
+        }
         try {
           const injectedPayload = await getInjectedLeaderboard();
           if (injectedPayload) {
@@ -1292,6 +1417,10 @@
         const examId = examSelect.value;
         if (!examId) return;
         setSelectedExam(examId);
+        if (demoMode) {
+          renderDemoEvent(examId, getStoredUser());
+          return;
+        }
         loadLeaderboard(examId, getStoredUser());
       });
 
