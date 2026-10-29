@@ -717,7 +717,7 @@
         eyebrow:{en:'STUDENT DASHBOARD',ar:'لوحة الطالب'},
         welcome:{en:'Welcome back, ',ar:'أهلاً بعودتك، '},
         lede:{en:'Stay focused, trust your learning, and take the next step.',ar:'ابقَ مركّزاً، وثِق بتعلّمك، واتخذ الخطوة التالية.'},
-        navHome:{en:'Home',ar:'الرئيسية'}, navPractice:{en:'Practice',ar:'التدريب'}, navExams:{en:'Exams',ar:'الاختبارات'}, navProgress:{en:'Progress',ar:'التقدم'}, navProfile:{en:'Profile',ar:'الملف'}, navHelp:{en:'Help',ar:'المساعدة'},
+        navHome:{en:'Home',ar:'الرئيسية'}, navPractice:{en:'Practice',ar:'التدريب'}, navExams:{en:'Exams',ar:'الاختبارات'}, navProgress:{en:'Progress',ar:'التقدم'}, navLeaderboard:{en:'Leaderboard',ar:'لوحة المتصدرين'}, navRanks:{en:'Ranks',ar:'الترتيب'}, navProfile:{en:'Profile',ar:'الملف'}, navHelp:{en:'Help',ar:'المساعدة'},
         utilHelp:{en:'Help',ar:'المساعدة'}, utilBell:{en:'Notifications',ar:'الإشعارات'}, utilLang:{en:'Language',ar:'اللغة'}, utilProfile:{en:'Profile',ar:'الملف الشخصي'},
         profileView:{en:'View Profile',ar:'عرض الملف'}, profileSettings:{en:'Settings',ar:'الإعدادات'}, profileLogout:{en:'Logout',ar:'تسجيل الخروج'},
         closesIn:{en:'Closes in',ar:'يُغلق خلال'}, opensIn:{en:'Opens in',ar:'يبدأ خلال'}, openNow:{en:'Open now',ar:'متاح الآن'}, remaining:{en:'remaining',ar:'المتبقي'},
@@ -784,6 +784,7 @@
         practice:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M5 4h11l3 3v13H5z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>',
         exams:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><rect x="5" y="4" width="14" height="17"/><path d="M9 4V3h6v1M9 10h6M9 14h6"/></svg>',
         progress:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M4 19V5M4 19h16"/><path d="M8 16v-5M12 16V8M16 16v-7"/></svg>',
+        leaderboard:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M8 4h8v4a4 4 0 0 1-8 0z"/><path d="M5 6h3M16 6h3M12 12v4M9 20h6"/></svg>',
         profile:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="9" r="3.5"/><path d="M5 20c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></svg>',
         help:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3 2.5v1.5M12 17v.5"/></svg>',
         bell:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19h4"/></svg>',
@@ -822,7 +823,7 @@
         + '<span class="util-wrap"><button class="util" type="button" aria-label="'+esc(c('utilBell'))+'" data-od-id="dash-ui-util-bell">'+ICONS.bell+'</button><span class="badge-dot" aria-hidden="true"></span></span>'
         + profileMenu()
         + '</div>';
-      const railLink = (key, icon, label, active) => '<a class="rail-link" href="#"'+(active?' aria-current="page"':'')+' aria-label="'+esc(label)+'" data-od-id="dash-ui-rail-'+key+'">'+icon+'<span>'+esc(label)+'</span></a>';
+      const railLink = (key, icon, label, active, href = '#') => '<a class="rail-link" href="' + esc(href) + '"'+(active?' aria-current="page"':'')+' aria-label="'+esc(label)+'" data-od-id="dash-ui-rail-'+key+'">'+icon+'<span>'+esc(label)+'</span></a>';
       const sideRail = () => {
         return '<aside class="side-rail" data-od-id="dash-ui-sidebar">'
           + '<nav class="rail-nav" aria-label="'+esc(c('navHome'))+'">'
@@ -830,6 +831,7 @@
           + railLink('practice', ICONS.practice, c('navPractice'), false)
           + railLink('exams', ICONS.exams, c('navExams'), false)
           + railLink('progress', ICONS.progress, c('navProgress'), false)
+          + railLink('leaderboard', ICONS.leaderboard, c('navLeaderboard'), false, 'qiyas-leaderboard.html')
           + railLink('profile', ICONS.profile, c('navProfile'), false)
           + '</nav><div class="rail-foot"><nav class="rail-nav" aria-label="'+esc(c('navHelp'))+'">'
           + railLink('help', ICONS.help, c('navHelp'), false)
@@ -839,6 +841,7 @@
         + '<a class="foot-link" href="#" aria-current="page">'+ICONS.home+'<span>'+esc(c('navHome'))+'</span></a>'
         + '<a class="foot-link" href="#" data-od-id="dash-ui-foot-practice">'+ICONS.practice+'<span>'+esc(c('navPractice'))+'</span></a>'
         + '<a class="foot-link" href="qiyas-scheduled-exams.html" data-od-id="dash-ui-foot-exams">'+ICONS.exams+'<span>'+esc(c('navExams'))+'</span></a>'
+        + '<a class="foot-link" href="qiyas-leaderboard.html" data-od-id="dash-ui-foot-leaderboard">'+ICONS.leaderboard+'<span>'+esc(c('navRanks'))+'</span></a>'
         + '<a class="foot-link" href="#" data-od-id="dash-ui-foot-progress">'+ICONS.progress+'<span>'+esc(c('navProgress'))+'</span></a>'
         + '<a class="foot-link" href="#" data-od-id="dash-ui-foot-profile">'+ICONS.profile+'<span>'+esc(c('navProfile'))+'</span></a>'
         + '</nav>';

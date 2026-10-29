@@ -1,0 +1,1351 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light" data-scheduled-exams-endpoint="/api/v1/student/scheduled-exams/" data-exam-leaderboard-endpoint="/api/v1/student/scheduled-exams/{examId}/leaderboard/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Qiyas leaderboard: published results ranked by marks and completion speed.">
+  <title>Leaderboard — Qiyas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primitive-green-500: #0D662C;
+      --primitive-green-400: #1A8C43;
+      --primitive-green-200: #66B385;
+      --primitive-green-100: #B3D9C1;
+      --primitive-green-50: #E6F2EA;
+      --primitive-green-700: #09481F;
+      --primitive-green-900: #04230F;
+      --primitive-gold-500: #CE940F;
+      --primitive-gold-400: #DBA724;
+      --primitive-gold-200: #EDC866;
+      --primitive-gold-100: #F9E8B3;
+      --primitive-gold-50: #FFFDF0;
+      --primitive-gold-700: #91680A;
+      --primitive-gold-900: #4A3505;
+      --primitive-ink: #11120F;
+      --primitive-paper: #FEFEFE;
+      --primitive-neutral-50: #F8F9F7;
+      --primitive-neutral-100: #E1E3DF;
+      --primitive-neutral-200: #C4C7C0;
+      --primitive-neutral-400: #878C82;
+      --primitive-neutral-500: #61665C;
+      --primitive-neutral-700: #32352E;
+      --primitive-terracotta-500: #C84B15;
+      --primitive-terracotta-50: #FFF2F0;
+      --primitive-terracotta-700: #96320B;
+
+      --surface-page: var(--primitive-paper);
+      --surface-raised: var(--primitive-neutral-50);
+      --surface-sunken: var(--primitive-neutral-100);
+      --surface-overlay: var(--primitive-paper);
+      --surface-inverse: var(--primitive-ink);
+      --text-primary: var(--primitive-ink);
+      --text-secondary: var(--primitive-neutral-700);
+      --text-tertiary: var(--primitive-neutral-500);
+      --text-disabled: var(--primitive-neutral-400);
+      --text-inverse: var(--primitive-paper);
+      --text-on-brand: var(--primitive-paper);
+      --border-subtle: var(--primitive-neutral-100);
+      --border-default: var(--primitive-neutral-200);
+      --border-strong: var(--primitive-ink);
+      --border-focus: var(--primitive-green-400);
+      --action-primary-bg: var(--primitive-ink);
+      --action-primary-fg: var(--primitive-paper);
+      --action-secondary-bg: var(--surface-page);
+      --action-secondary-fg: var(--text-primary);
+      --action-destructive-bg: var(--primitive-terracotta-700);
+      --action-destructive-fg: var(--primitive-paper);
+      --state-correct-bg: var(--primitive-green-50);
+      --state-correct-border: var(--primitive-green-500);
+      --state-correct-fg: var(--primitive-green-700);
+      --state-incorrect-bg: var(--primitive-terracotta-50);
+      --state-incorrect-border: var(--primitive-terracotta-500);
+      --state-incorrect-fg: var(--primitive-terracotta-700);
+      --state-selected-bg: var(--primitive-neutral-50);
+      --state-selected-border: var(--primitive-ink);
+      --state-gold-bg: var(--primitive-gold-50);
+      --state-gold-border: var(--primitive-gold-500);
+      --state-gold-fg: var(--primitive-gold-700);
+      --state-info-bg: var(--primitive-green-50);
+      --state-info-border: var(--primitive-green-200);
+      --focus-ring: var(--primitive-green-400);
+      --shadow-overlay: 4px 4px 0 var(--primitive-ink);
+      --font-display: "IBM Plex Sans", system-ui, sans-serif;
+      --font-body: "IBM Plex Sans", system-ui, sans-serif;
+      --font-arabic: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+      --logo-ink: #11120F;
+      --logo-green: #0D662C;
+      --logo-gold: #CE940F;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 24px;
+      --space-6: 32px;
+      --space-7: 48px;
+      --space-8: 64px;
+      --space-9: 96px;
+      --radius-card: 4px;
+      --radius-control: 4px;
+      --radius-accent: 0;
+      --border-width-hairline: 1px;
+      --border-width-default: 1.5px;
+      --border-width-emphasis: 2px;
+      --border-width-selected: 3px;
+      --content: 1180px;
+      --control-compact: 40px;
+      --control-default: 48px;
+      --control-large: 56px;
+      --progress-track: var(--surface-sunken);
+      --progress-fill: var(--primitive-green-500);
+      --focus-offset: 3px;
+      --motion-instant: 0ms;
+      --motion-quick: 120ms;
+      --motion-base: 180ms;
+      --motion-deliberate: 280ms;
+      --ease-enter: cubic-bezier(.2,.7,.3,1);
+      --ease-exit: cubic-bezier(.5,0,.8,.3);
+      --rail-width: 168px;
+      --foot-nav-reserve: 72px;
+      --app-bar-h: 56px;
+      --medal-gold: #E6B422;
+      --medal-gold-deep: #C99A06;
+      --medal-gold-on: var(--primitive-ink);
+      --medal-silver: #A9B0A9;
+      --medal-silver-on: var(--primitive-ink);
+      --medal-bronze: #95522F;
+      --medal-bronze-on: var(--primitive-paper);
+    }
+
+    html[data-theme="dark"] {
+      --surface-page: #11120F;
+      --surface-raised: #181A16;
+      --surface-sunken: #0B0C0A;
+      --surface-overlay: #20231E;
+      --surface-inverse: #FEFEFE;
+      --text-primary: #FEFEFE;
+      --text-secondary: #C4C7C0;
+      --text-tertiary: #A8ADA2;
+      --text-disabled: #72786E;
+      --text-inverse: #11120F;
+      --text-on-brand: #FEFEFE;
+      --border-subtle: #2A2E28;
+      --border-default: #4A5046;
+      --border-strong: #FEFEFE;
+      --border-focus: #66B385;
+      --action-primary-bg: #FEFEFE;
+      --action-primary-fg: #11120F;
+      --action-secondary-bg: #181A16;
+      --action-secondary-fg: #FEFEFE;
+      --action-destructive-bg: #96320B;
+      --action-destructive-fg: #FEFEFE;
+      --state-correct-bg: #173D25;
+      --state-correct-border: #66B385;
+      --state-correct-fg: #B3D9C1;
+      --state-incorrect-bg: #4A1B0A;
+      --state-incorrect-border: #E07843;
+      --state-incorrect-fg: #FFD0BD;
+      --state-selected-bg: #20231E;
+      --state-selected-border: #FEFEFE;
+      --state-gold-bg: #3C3217;
+      --state-gold-border: #DBA724;
+      --state-gold-fg: #F0C75E;
+      --state-info-bg: #173D25;
+      --state-info-border: #66B385;
+      --focus-ring: #66B385;
+      --shadow-overlay: 4px 4px 0 #000000;
+      --logo-ink: #FEFEFE;
+      --logo-green: #66B385;
+      --logo-gold: #DBA724;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--surface-page); }
+    body {
+      margin: 0;
+      color: var(--text-primary);
+      background: var(--surface-page);
+      font-family: "IBM Plex Sans", "IBM Plex Sans Arabic", system-ui, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    h1, h2, h3, p, dl, dd { margin: 0; }
+    h1, h2, h3 { font-family: var(--font-display); line-height: 1.12; letter-spacing: -.02em; }
+    :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: var(--focus-offset); }
+    [hidden] { display: none !important; }
+    .sr-only {
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      min-block-size: 100vh;
+      min-block-size: 100dvh;
+      background: var(--surface-page);
+    }
+    .app-bar {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      min-block-size: var(--app-bar-h);
+      block-size: var(--app-bar-h);
+      padding: var(--space-2) var(--space-4);
+      background: color-mix(in srgb, var(--surface-page) 94%, transparent);
+      border-block-end: var(--border-width-hairline) solid var(--border-subtle);
+      backdrop-filter: blur(10px);
+    }
+    .app-brand {
+      display: inline-flex;
+      align-items: center;
+      min-inline-size: 0;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    .app-brand svg { display: block; inline-size: 84px; block-size: auto; }
+    .util-cluster {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-inline-start: auto;
+    }
+    .util {
+      inline-size: 44px;
+      block-size: 44px;
+      flex: none;
+      display: grid;
+      place-items: center;
+      border: var(--border-width-hairline) solid var(--border-default);
+      border-radius: var(--radius-control);
+      background: transparent;
+      color: var(--text-secondary);
+      transition: color var(--motion-quick) var(--ease-enter), border-color var(--motion-quick) var(--ease-enter), background-color var(--motion-quick) var(--ease-enter);
+    }
+    .util:hover { color: var(--text-primary); border-color: var(--border-strong); background: var(--surface-raised); }
+    .util .initials { font: 700 12px/1 var(--font-mono); letter-spacing: .02em; }
+    .util-wrap { position: relative; display: grid; place-items: center; }
+    .util-wrap .badge-dot {
+      position: absolute;
+      inset-block-start: 8px;
+      inset-inline-end: 8px;
+      inline-size: 7px;
+      block-size: 7px;
+      background: var(--primitive-gold-500);
+      border: var(--border-width-hairline) solid var(--surface-page);
+    }
+    .profile-menu { position: relative; display: inline-flex; }
+    .profile-popover {
+      position: absolute;
+      inset-block-start: calc(100% + var(--space-2));
+      inset-inline-end: 0;
+      z-index: 60;
+      display: grid;
+      min-inline-size: 244px;
+      padding: 0;
+      border: var(--border-width-default) solid var(--border-default);
+      border-radius: var(--radius-card);
+      background: var(--surface-overlay);
+      box-shadow: var(--shadow-overlay);
+      overflow: hidden;
+    }
+    .pp-head { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3); }
+    .pp-avatar {
+      display: grid;
+      place-items: center;
+      inline-size: 40px;
+      block-size: 40px;
+      flex: none;
+      border-radius: var(--radius-accent);
+      background: var(--primitive-green-400);
+      color: var(--primitive-paper);
+      font-size: 16px;
+      font-weight: 700;
+    }
+    html[data-theme="dark"] .pp-avatar { background: var(--primitive-green-200); color: var(--primitive-ink); }
+    .pp-identity { display: grid; gap: 2px; min-inline-size: 0; }
+    .pp-name { font-size: 15px; font-weight: 700; color: var(--text-primary); overflow-wrap: anywhere; }
+    .pp-email { font-size: 12px; color: var(--text-tertiary); overflow-wrap: anywhere; }
+    .pp-divider { block-size: 1px; background: var(--border-subtle); }
+    .pp-group { display: grid; gap: 2px; padding: var(--space-1); }
+    .pp-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-block-size: 44px;
+      padding-inline: var(--space-3);
+      border-radius: var(--radius-control);
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .pp-link:hover { background: var(--surface-sunken); }
+    .pp-icon { display: grid; place-items: center; flex: none; color: var(--text-tertiary); }
+    .pp-link:hover .pp-icon { color: var(--text-primary); }
+
+    .app-body { display: flex; flex: 1; min-block-size: 0; }
+    .side-rail { display: none; }
+    .shell-main { display: flex; flex-direction: column; flex: 1; min-inline-size: 0; min-block-size: 0; }
+    .content {
+      flex: 1 0 auto;
+      inline-size: 100%;
+      max-inline-size: var(--content);
+      margin-inline: auto;
+      padding: var(--space-5) var(--space-4) calc(var(--foot-nav-reserve) + env(safe-area-inset-bottom, 0px));
+    }
+    .leaderboard-wrap { max-inline-size: 1000px; margin-inline: auto; }
+
+    .page-head { display: grid; gap: var(--space-3); margin-block-end: var(--space-5); }
+    .eyebrow {
+      margin: 0;
+      color: var(--primitive-green-500);
+      font: 700 11px/1.3 var(--font-mono);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    html[data-theme="dark"] .eyebrow { color: var(--primitive-green-200); }
+    .page-head-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(220px, .75fr);
+      gap: var(--space-5);
+      align-items: end;
+    }
+    .page-head h1 { font-size: clamp(30px, 4vw, 42px); }
+    .lede {
+      margin-block-start: var(--space-2);
+      max-inline-size: 60ch;
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+    .scope-card {
+      display: grid;
+      gap: 5px;
+      padding: var(--space-3) var(--space-4);
+      border: var(--border-width-hairline) solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      background: var(--surface-raised);
+    }
+    .scope-label {
+      color: var(--text-tertiary);
+      font: 700 10px/1 var(--font-mono);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .exam-select-wrap { position: relative; display: block; min-inline-size: 0; }
+    .exam-select {
+      inline-size: 100%;
+      min-block-size: 40px;
+      padding: 8px 34px 8px 10px;
+      border: var(--border-width-hairline) solid var(--border-default);
+      border-radius: var(--radius-control);
+      background: var(--surface-page);
+      color: var(--text-primary);
+      font: 600 14px/1.3 "IBM Plex Sans", "IBM Plex Sans Arabic", system-ui, sans-serif;
+      text-overflow: ellipsis;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+    .exam-select:hover { border-color: var(--border-strong); }
+    .exam-select:disabled { color: var(--text-disabled); background: var(--surface-sunken); cursor: not-allowed; }
+    .exam-select-icon {
+      position: absolute;
+      inset-block-start: 50%;
+      inset-inline-end: 10px;
+      inline-size: 14px;
+      block-size: 14px;
+      transform: translateY(-50%);
+      color: var(--text-tertiary);
+      pointer-events: none;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      inline-size: max-content;
+      max-inline-size: 100%;
+      margin-block-start: 2px;
+      padding: 4px 7px;
+      border: var(--border-width-hairline) solid var(--state-info-border);
+      border-radius: var(--radius-control);
+      background: var(--state-info-bg);
+      color: var(--state-correct-fg);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .chip .dot { inline-size: 6px; block-size: 6px; flex: none; background: currentColor; }
+    .chip.neutral { border-color: var(--border-default); background: var(--surface-sunken); color: var(--text-tertiary); }
+
+    .board-body { padding: var(--space-4); }
+
+    .rank-medal {
+      --medal: var(--medal-gold);
+      --medal-on: var(--medal-gold-on);
+      --medal-surface:
+        radial-gradient(circle at 32% 24%, rgba(255, 246, 200, .62) 0%, rgba(255, 246, 200, .16) 18%, rgba(255, 246, 200, 0) 42%),
+        linear-gradient(145deg, #FFE9A0 0%, #F8D45F 22%, var(--medal) 52%, var(--medal-gold-deep) 100%);
+      --medal-ribbon-surface: linear-gradient(180deg, #F9DE7E 0%, #D9A90E 55%, #A97F00 100%);
+      --medal-edge: color-mix(in srgb, var(--medal-gold-deep) 42%, var(--surface-page));
+      position: relative;
+      display: inline-grid;
+      place-items: end center;
+      inline-size: 34px;
+      block-size: 34px;
+      vertical-align: middle;
+    }
+    .rank-medal[data-medal="silver"] {
+      --medal: var(--medal-silver);
+      --medal-on: var(--medal-silver-on);
+      --medal-surface:
+        radial-gradient(circle at 30% 24%, rgba(255, 255, 255, .75) 0%, rgba(255, 255, 255, .2) 14%, rgba(255, 255, 255, 0) 34%),
+        linear-gradient(145deg, #D9DED9 0%, #C3C9C3 20%, var(--medal) 50%, #858C85 78%, #697069 100%);
+      --medal-ribbon-surface: linear-gradient(180deg, #DCE1DC 0%, #AEB5AE 48%, #7C847C 100%);
+      --medal-edge: #C2C8C2;
+    }
+    .rank-medal[data-medal="bronze"] {
+      --medal: var(--medal-bronze);
+      --medal-on: var(--medal-bronze-on);
+      --medal-surface:
+        radial-gradient(circle at 32% 24%, rgba(255, 221, 184, .52) 0%, rgba(255, 221, 184, .14) 18%, rgba(255, 221, 184, 0) 42%),
+        linear-gradient(145deg, #C97F4C 0%, #B36B3D 22%, var(--medal) 55%, #5F341C 100%);
+      --medal-ribbon-surface: linear-gradient(180deg, #B36B3D 0%, #8F4F2C 55%, #5F341C 100%);
+      --medal-edge: color-mix(in srgb, var(--medal-bronze) 42%, var(--surface-page));
+    }
+    .medal-ribbon {
+      position: absolute;
+      inset-block-start: 0;
+      inline-size: 19px;
+      block-size: 16px;
+      background: var(--medal-ribbon-surface);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), inset 0 -1px 1px rgba(17, 18, 15, .18);
+      clip-path: polygon(0 0, 100% 0, 63% 100%, 50% 78%, 37% 100%);
+    }
+    .medal-face {
+      position: absolute;
+      inset-block-end: 0;
+      display: grid;
+      place-items: center;
+      inline-size: 30px;
+      block-size: 30px;
+      border: var(--border-width-default) solid var(--medal-edge);
+      border-radius: 50%;
+      background: var(--medal-surface);
+      box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, .55),
+        inset 0 -2px 3px rgba(17, 18, 15, .18),
+        0 1px 2px rgba(17, 18, 15, .16);
+      color: var(--medal-on);
+      font: 700 11px/1 var(--font-mono);
+      font-variant-numeric: tabular lining-nums;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: var(--border-width-hairline) solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      background: var(--surface-raised);
+    }
+    .ranks { inline-size: 100%; border-collapse: collapse; table-layout: fixed; font-size: 13px; }
+    .ranks .col-rank { width: 64px; }
+    .ranks .col-marks { width: 100px; }
+    .ranks .col-speed { width: 112px; }
+    .ranks th {
+      padding: 10px 12px;
+      border-block-end: var(--border-width-hairline) solid var(--border-subtle);
+      color: var(--text-tertiary);
+      font: 700 10px/1 var(--font-mono);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-align: start;
+    }
+    .ranks th.num, .ranks td.num { text-align: end; }
+    .ranks td {
+      padding: 10px 12px;
+      border-block-end: var(--border-width-hairline) solid var(--border-subtle);
+      vertical-align: middle;
+    }
+    .ranks tbody tr:last-child td { border-block-end: 0; }
+    .ranks tbody tr { transition: background-color var(--motion-quick) var(--ease-enter); }
+    .ranks tbody tr:not(.is-you):hover { background: var(--surface-page); }
+    .ranks tbody tr.is-you { background: var(--state-info-bg); }
+    .ranks tbody tr.is-you td:first-child { box-shadow: inset 3px 0 0 var(--primitive-green-500); }
+    html[data-theme="dark"] .ranks tbody tr.is-you td:first-child { box-shadow: inset 3px 0 0 var(--primitive-green-200); }
+    .rank-num {
+      display: inline-grid;
+      place-items: center;
+      min-inline-size: 26px;
+      block-size: 26px;
+      padding-inline: 6px;
+      border-radius: var(--radius-control);
+      background: var(--surface-sunken);
+      color: var(--text-secondary);
+      font: 700 11px/1 var(--font-mono);
+      font-variant-numeric: tabular lining-nums;
+    }
+    .is-you .rank-num { background: var(--primitive-green-500); color: var(--primitive-paper); }
+    html[data-theme="dark"] .is-you .rank-num { background: var(--primitive-green-200); color: var(--primitive-ink); }
+    .name-text { min-inline-size: 0; font-weight: 600; overflow-wrap: anywhere; }
+    .you-badge {
+      display: inline-flex;
+      align-items: center;
+      block-size: 18px;
+      margin-inline-start: 6px;
+      padding-inline: 6px;
+      border-radius: var(--radius-control);
+      background: var(--primitive-green-500);
+      color: var(--primitive-paper);
+      font: 700 9px/1 var(--font-mono);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    html[data-theme="dark"] .you-badge { background: var(--primitive-green-200); color: var(--primitive-ink); }
+    .marks { display: inline-flex; align-items: baseline; gap: 2px; font-variant-numeric: tabular lining-nums; }
+    .marks strong { font: 700 14px/1 var(--font-mono); }
+    .marks small { color: var(--text-tertiary); font: 600 10px/1 var(--font-mono); }
+    .speed {
+      color: var(--text-secondary);
+      font: 600 12px/1 var(--font-mono);
+      font-variant-numeric: tabular lining-nums;
+      white-space: nowrap;
+    }
+
+    .you-zone { margin-block-start: var(--space-3); }
+    .gap-divider {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: 6px 4px;
+      color: var(--text-tertiary);
+    }
+    .gap-divider::before, .gap-divider::after {
+      content: "";
+      flex: 1;
+      block-size: var(--border-width-hairline);
+      background: var(--border-subtle);
+    }
+    .gap-divider span { font: 700 15px/1 var(--font-mono); letter-spacing: .18em; }
+    .you-row {
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr) 88px 100px;
+      gap: var(--space-3);
+      align-items: center;
+      padding-block: 10px;
+      padding-inline: 10px 12px;
+      border: var(--border-width-hairline) solid var(--border-default);
+      border-inline-start: var(--border-width-selected) solid var(--primitive-green-500);
+      border-radius: var(--radius-card);
+      background: var(--state-info-bg);
+    }
+    html[data-theme="dark"] .you-row { border-inline-start-color: var(--primitive-green-200); }
+    .you-row .rank-num { justify-self: start; }
+    .you-row .num { text-align: end; }
+
+    .board-note {
+      margin-block-start: var(--space-3);
+      color: var(--text-tertiary);
+      font-size: 12px;
+    }
+
+    .empty-state {
+      display: grid;
+      gap: var(--space-2);
+      justify-items: start;
+      padding: var(--space-6) var(--space-4);
+      border: var(--border-width-default) dashed var(--border-default);
+      border-radius: var(--radius-card);
+    }
+    .empty-state h3 { font-size: 18px; }
+    .empty-state p { color: var(--text-secondary); font-size: 14px; max-inline-size: 50ch; }
+
+    .skeleton { display: grid; gap: var(--space-3); }
+    .skel-rows {
+      display: grid;
+      gap: var(--border-width-hairline);
+      overflow: hidden;
+      border: var(--border-width-hairline) solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      background: var(--border-subtle);
+    }
+    .skel-row { block-size: 46px; background: var(--surface-sunken); animation: qiyas-pulse 1200ms ease-in-out infinite alternate; }
+    @keyframes qiyas-pulse { from { opacity: 1; } to { opacity: .55; } }
+
+    .foot-nav {
+      position: sticky;
+      inset-block-end: 0;
+      z-index: 20;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      gap: var(--space-1);
+      padding: var(--space-2) var(--space-2) calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
+      border-block-start: var(--border-width-hairline) solid var(--border-subtle);
+      background: color-mix(in srgb, var(--surface-page) 96%, transparent);
+      backdrop-filter: blur(10px);
+    }
+    .foot-link {
+      position: relative;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 2px;
+      min-block-size: 48px;
+      padding-block: var(--space-1);
+      border-radius: var(--radius-control);
+      color: var(--text-tertiary);
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    .foot-link:hover { color: var(--text-primary); background: var(--surface-raised); }
+    .foot-link[aria-current="page"] { color: var(--text-primary); font-weight: 700; background: var(--surface-raised); }
+    .foot-link[aria-current="page"]::before {
+      content: "";
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline: var(--space-2);
+      block-size: var(--border-width-emphasis);
+      background: var(--border-strong);
+    }
+
+    @media (min-width: 760px) {
+      .app-body { min-block-size: calc(100vh - var(--app-bar-h)); min-block-size: calc(100dvh - var(--app-bar-h)); }
+      .side-rail {
+        position: sticky;
+        inset-block-start: var(--app-bar-h);
+        display: flex;
+        flex-direction: column;
+        flex: none;
+        gap: var(--space-4);
+        inline-size: 64px;
+        block-size: calc(100vh - var(--app-bar-h));
+        block-size: calc(100dvh - var(--app-bar-h));
+        padding-block: var(--space-4);
+        padding-inline: var(--space-2);
+        overflow-x: hidden;
+        overflow-y: auto;
+        border-inline-end: var(--border-width-hairline) solid var(--border-subtle);
+        background: var(--surface-raised);
+      }
+      .rail-nav { display: grid; gap: var(--space-1); inline-size: 100%; }
+      .rail-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-block-size: 44px;
+        padding-inline: 12px;
+        border-inline-start: var(--border-width-emphasis) solid transparent;
+        border-radius: var(--radius-control);
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        inline-size: 100%;
+        transition: background-color var(--motion-quick) var(--ease-enter), color var(--motion-quick) var(--ease-enter);
+      }
+      .rail-link svg { flex: none; }
+      .rail-link span { display: none; }
+      .rail-link:hover { color: var(--text-primary); background: var(--surface-sunken); }
+      .rail-link[aria-current="page"] {
+        color: var(--text-primary);
+        background: var(--surface-sunken);
+        border-inline-start-color: var(--border-strong);
+        font-weight: 700;
+      }
+      .rail-foot { margin-block-start: auto; inline-size: 100%; }
+      .foot-nav { display: none; }
+      .content { padding: var(--space-6) clamp(24px, 3vw, 40px) var(--space-8); }
+    }
+
+    @media (min-width: 1024px) {
+      .side-rail { inline-size: var(--rail-width); }
+      .rail-link { justify-content: flex-start; }
+      .rail-link span { display: inline; }
+    }
+
+    @media (max-width: 759px) {
+      .page-head-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+      .scope-card { max-inline-size: 100%; }
+    }
+
+    @media (max-width: 639px) {
+      .ranks th, .ranks td { padding: 9px 8px; }
+      .ranks .col-rank { width: 56px; }
+      .ranks .col-marks { width: 60px; }
+      .ranks .col-speed { width: 76px; }
+      .ranks th { font-size: 9px; }
+      .name-text { font-size: 12px; }
+      .you-badge { block-size: 16px; padding-inline: 5px; font-size: 8px; margin-inline-start: 4px; }
+      .marks strong { font-size: 12px; }
+      .marks small { display: none; }
+      .speed { font-size: 10px; }
+      .you-row { grid-template-columns: 48px minmax(0, 1fr) 52px 68px; gap: 8px; padding-block: 9px; padding-inline: 6px 8px; }
+      .rank-num { min-inline-size: 24px; block-size: 24px; font-size: 10px; }
+      .board-body { padding: var(--space-3); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+    <defs>
+      <symbol id="qiyas-logo-en" viewBox="0 0 1201 349"><path d="M 343.0 96.0 L 343.0 293.0 L 377.0 293.0 L 377.0 96.0 Z M 1014.0 93.0 L 1013.0 205.0 L 1146.0 206.0 L 1147.0 262.0 L 1014.0 263.0 L 1013.0 294.0 L 1180.0 294.0 L 1179.0 175.0 L 1046.0 174.0 L 1047.0 124.0 L 1180.0 124.0 L 1180.0 94.0 Z M 751.0 93.0 L 751.0 294.0 L 784.0 293.0 L 785.0 205.0 L 896.0 205.0 L 897.0 294.0 L 930.0 294.0 L 930.0 93.0 Z M 783.0 125.0 L 896.0 124.0 L 897.0 174.0 L 785.0 174.0 Z M 471.0 91.0 L 471.0 204.0 L 552.0 204.0 L 554.0 206.0 L 554.0 298.0 L 589.0 298.0 L 589.0 205.0 L 671.0 204.0 L 671.0 92.0 L 637.0 92.0 L 636.0 174.0 L 506.0 174.0 L 505.0 92.0 Z" fill="var(--logo-ink)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 21.0 88.0 L 21.0 293.0 L 195.0 293.0 L 230.0 328.0 L 250.0 309.0 L 244.0 299.0 L 143.0 192.0 L 138.0 193.0 L 121.0 212.0 L 164.0 261.0 L 54.0 262.0 L 52.0 258.0 L 54.0 121.0 L 209.0 120.0 L 211.0 122.0 L 211.0 244.0 L 242.0 276.0 L 242.0 89.0 Z" fill="var(--logo-green)" fill-rule="evenodd" clip-rule="evenodd"/><path d="M 341.0 74.0 L 343.0 76.0 L 379.0 76.0 L 360.0 44.0 Z M 145.0 20.0 L 145.0 51.0 L 176.0 52.0 L 176.0 21.0 Z M 80.0 20.0 L 78.0 41.0 L 80.0 52.0 L 109.0 52.0 L 110.0 20.0 Z" fill="var(--logo-gold)" fill-rule="evenodd" clip-rule="evenodd"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="app">
+    <header class="app-bar">
+      <a class="app-brand" href="index.html" aria-label="Qiyas screen library">
+        <svg viewBox="0 0 1201 349" role="img" aria-hidden="true"><use href="#qiyas-logo-en"></use></svg>
+      </a>
+      <div class="util-cluster">
+        <button class="util" type="button" id="theme-toggle" aria-label="Switch to dark theme" aria-pressed="false" title="Switch theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        </button>
+        <span class="util-wrap">
+          <button class="util" type="button" aria-label="Notifications" title="Notifications">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19h4"/></svg>
+          </button>
+          <span class="badge-dot" aria-hidden="true"></span>
+        </span>
+        <div class="profile-menu">
+          <button class="util" type="button" id="profile-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Account">
+            <span class="initials" id="profile-initials">--</span>
+          </button>
+          <div class="profile-popover" id="profile-popover" hidden>
+            <div class="pp-head">
+              <span class="pp-avatar" id="pp-avatar" aria-hidden="true">--</span>
+              <span class="pp-identity">
+                <span class="pp-name" id="pp-name">Student</span>
+                <span class="pp-email" id="pp-email">Student account</span>
+              </span>
+            </div>
+            <div class="pp-divider" role="separator"></div>
+            <div class="pp-group">
+              <a class="pp-link" href="qiyas-student-dashboard-ui.html">
+                <span class="pp-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg></span>
+                <span>Student dashboard</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="side-rail" aria-label="Primary navigation">
+        <nav class="rail-nav" aria-label="Primary">
+          <a class="rail-link" href="qiyas-student-dashboard-ui.html" aria-label="Home" title="Home">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Home</span>
+          </a>
+          <a class="rail-link" href="qiyas-learning-library.html" aria-label="Practice" title="Practice">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M5 4h11l3 3v13H5z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg><span>Practice</span>
+          </a>
+          <a class="rail-link" href="qiyas-scheduled-exams.html" aria-label="Exams" title="Exams">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><rect x="5" y="4" width="14" height="17"/><path d="M9 4V3h6v1M9 10h6M9 14h6"/></svg><span>Exams</span>
+          </a>
+          <a class="rail-link" href="#" aria-label="Progress" title="Progress">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M4 19V5M4 19h16"/><path d="M8 16v-5M12 16V8M16 16v-7"/></svg><span>Progress</span>
+          </a>
+          <a class="rail-link" href="qiyas-leaderboard.html" aria-current="page" aria-label="Leaderboard" title="Leaderboard">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M8 4h8v4a4 4 0 0 1-8 0z"/><path d="M5 6h3M16 6h3M12 12v4M9 20h6"/></svg><span>Leaderboard</span>
+          </a>
+          <a class="rail-link" href="#" data-open-profile aria-label="Profile" title="Profile">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="9" r="3.5"/><path d="M5 20c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></svg><span>Profile</span>
+          </a>
+        </nav>
+        <div class="rail-foot">
+          <nav class="rail-nav" aria-label="Help">
+            <a class="rail-link" href="#" aria-label="Help" title="Help">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3 2.5v1.5M12 17v.5"/></svg><span>Help</span>
+            </a>
+          </nav>
+        </div>
+      </aside>
+
+      <div class="shell-main">
+        <main class="content">
+          <div class="leaderboard-wrap">
+            <header class="page-head">
+              <p class="eyebrow">Student leaderboard</p>
+              <div class="page-head-grid">
+                <div>
+                  <h1>Leaderboard</h1>
+                  <p class="lede">Published results for the selected event exam, ranked by marks and completion speed. Ties go to the faster student.</p>
+                </div>
+                <div class="scope-card">
+                  <label class="scope-label" for="exam-select">Event exam</label>
+                  <div class="exam-select-wrap">
+                    <select class="exam-select" id="exam-select" aria-label="Event exam" disabled>
+                      <option value="">Loading event exams…</option>
+                    </select>
+                    <svg class="exam-select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                  </div>
+                  <span class="chip"><span class="dot" aria-hidden="true"></span><span id="scope-meta">Published results</span></span>
+                </div>
+              </div>
+            </header>
+
+            <section class="board" id="board" aria-label="Leaderboard" aria-busy="true">
+              <div class="board-body" id="board-body">
+                <div class="skeleton" aria-hidden="true">
+                  <div class="skel-rows">
+                    <div class="skel-row"></div>
+                    <div class="skel-row"></div>
+                    <div class="skel-row"></div>
+                    <div class="skel-row"></div>
+                    <div class="skel-row"></div>
+                    <div class="skel-row"></div>
+                    <div class="skel-row"></div>
+                    <div class="skel-row"></div>
+                    <div class="skel-row"></div>
+                    <div class="skel-row"></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <p class="board-note">Only students with published results for this event exam appear. Ties are broken by completion speed.</p>
+          </div>
+        </main>
+
+        <nav class="foot-nav" aria-label="Primary">
+          <a class="foot-link" href="qiyas-student-dashboard-ui.html">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Home</span>
+          </a>
+          <a class="foot-link" href="qiyas-learning-library.html">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M5 4h11l3 3v13H5z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg><span>Practice</span>
+          </a>
+          <a class="foot-link" href="qiyas-scheduled-exams.html">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><rect x="5" y="4" width="14" height="17"/><path d="M9 4V3h6v1M9 10h6M9 14h6"/></svg><span>Exams</span>
+          </a>
+          <a class="foot-link" href="qiyas-leaderboard.html" aria-current="page">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M8 4h8v4a4 4 0 0 1-8 0z"/><path d="M5 6h3M16 6h3M12 12v4M9 20h6"/></svg><span>Ranks</span>
+          </a>
+          <a class="foot-link" href="#">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M4 19V5M4 19h16"/><path d="M8 16v-5M12 16V8M16 16v-7"/></svg><span>Progress</span>
+          </a>
+          <a class="foot-link" href="#" data-open-profile>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="9" r="3.5"/><path d="M5 20c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></svg><span>Profile</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const board = document.getElementById('board');
+      const boardBody = document.getElementById('board-body');
+      const examSelect = document.getElementById('exam-select');
+      const scopeMeta = document.getElementById('scope-meta');
+      const profileToggle = document.getElementById('profile-toggle');
+      const profilePopover = document.getElementById('profile-popover');
+      const profileInitials = document.getElementById('profile-initials');
+      const ppAvatar = document.getElementById('pp-avatar');
+      const ppName = document.getElementById('pp-name');
+      const ppEmail = document.getElementById('pp-email');
+      const themeToggle = document.getElementById('theme-toggle');
+
+      const ICONS = {
+        sun: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>',
+        moon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M20 15.2A8.3 8.3 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2z"/></svg>'
+      };
+
+      const SCHEDULED_EXAMS_ENDPOINT = root.dataset.scheduledExamsEndpoint || '/api/v1/student/scheduled-exams/';
+      const EXAM_LEADERBOARD_ENDPOINT = root.dataset.examLeaderboardEndpoint || '/api/v1/student/scheduled-exams/{examId}/leaderboard/';
+      const STORAGE_KEYS = ['qiyas.currentUser', 'qiyas-user', 'qiyas_session', 'qiyas-student', 'qiyas-student-user'];
+      const ACCESS_TOKEN_KEYS = ['qiyas.accessToken', 'qiyas.access_token', 'qiyas-access-token', 'qiyas_token', 'qiyas-token', 'access_token', 'accessToken'];
+      const MEDALS = { 1: 'gold', 2: 'silver', 3: 'bronze' };
+      const FINAL_ATTEMPT_STATUSES = new Set(['submitted', 'expired']);
+      const FINAL_EXAM_STATUSES = new Set(['completed', 'expired']);
+      let leaderboardRequest = 0;
+
+      const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (character) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[character]));
+
+      const toNumber = (value, fallback = 0) => {
+        const number = Number(value);
+        return Number.isFinite(number) ? number : fallback;
+      };
+
+      const getAccessToken = () => {
+        if (window.QIYAS_ACCESS_TOKEN) return String(window.QIYAS_ACCESS_TOKEN);
+        for (const store of [window.localStorage, window.sessionStorage]) {
+          for (const key of [...ACCESS_TOKEN_KEYS, ...STORAGE_KEYS]) {
+            try {
+              const raw = store.getItem(key);
+              if (!raw) continue;
+              const text = raw.trim();
+              if (!text.startsWith('{')) return text;
+              const parsed = JSON.parse(text);
+              const token = parsed.access ?? parsed.access_token ?? parsed.accessToken ?? parsed.token ?? parsed.tokens?.access ?? parsed.session?.access;
+              if (token) return String(token);
+            } catch (error) {
+              continue;
+            }
+          }
+        }
+        return '';
+      };
+
+      const fetchJson = async (url) => {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000);
+        const headers = { Accept: 'application/json' };
+        const accessToken = getAccessToken();
+        if (accessToken) headers.Authorization = 'Bearer ' + accessToken;
+        try {
+          const response = await fetch(url, {
+            headers,
+            credentials: 'include',
+            signal: controller.signal
+          });
+          if (!response.ok) throw new Error('Request failed: ' + response.status);
+          return await response.json();
+        } finally {
+          clearTimeout(timeout);
+        }
+      };
+
+      const withLanguage = (endpoint) => {
+        const url = new URL(endpoint, window.location.href);
+        url.searchParams.set('lang', root.lang === 'ar' ? 'ar' : 'en');
+        return url;
+      };
+
+      const getInitials = (name) => {
+        const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+        if (!parts.length) return '?';
+        const first = parts[0].charAt(0);
+        const last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
+        return (first + last).toUpperCase();
+      };
+
+      const getStoredUser = () => {
+        if (window.QIYAS_CURRENT_USER && typeof window.QIYAS_CURRENT_USER === 'object') {
+          return window.QIYAS_CURRENT_USER;
+        }
+        const stores = [window.localStorage, window.sessionStorage];
+        for (const store of stores) {
+          for (const key of STORAGE_KEYS) {
+            try {
+              const raw = store.getItem(key);
+              if (!raw) continue;
+              const parsed = JSON.parse(raw);
+              if (!parsed || typeof parsed !== 'object') continue;
+              const candidate = parsed.user || parsed.student || parsed.currentUser || parsed.profile || parsed;
+              const id = candidate.id ?? candidate.user_id ?? candidate.student_id ?? candidate.studentId ?? candidate.username;
+              const name = candidate.name ?? candidate.full_name ?? candidate.fullName ?? candidate.display_name ?? candidate.displayName;
+              const email = candidate.email ?? candidate.email_address;
+              if (id != null || name) return { id: id != null ? String(id) : '', name: name || '', email: email || '' };
+            } catch (error) {
+              continue;
+            }
+          }
+        }
+        return null;
+      };
+
+      const parseTime = (value) => {
+        if (value == null || value === '') return null;
+        if (typeof value === 'number' && Number.isFinite(value)) return value;
+        if (typeof value !== 'string') return null;
+        const text = value.trim();
+        if (!text) return null;
+        if (/^\d+(\.\d+)?$/.test(text)) return Number(text);
+        const minutes = text.match(/(\d+)\s*m/i);
+        const seconds = text.match(/(\d+)\s*s/i);
+        if (minutes || seconds) return toNumber(minutes && minutes[1]) * 60 + toNumber(seconds && seconds[1]);
+        return null;
+      };
+
+      const normalize = (payload, storedUser) => {
+        const source = Array.isArray(payload)
+          ? { entries: payload }
+          : payload && typeof payload === 'object'
+            ? payload
+            : {};
+        const list = Array.isArray(source.entries) ? source.entries
+          : Array.isArray(source.results) ? source.results
+          : Array.isArray(source.leaderboard) ? source.leaderboard
+          : Array.isArray(source.students) ? source.students
+          : [];
+
+        const entries = [];
+        const seenIds = new Set();
+        list.forEach((item, index) => {
+          if (!item || typeof item !== 'object') return;
+          const id = String(item.id ?? item.user_id ?? item.userId ?? item.student_id ?? item.studentId ?? item.username ?? `entry-${index}`);
+          if (seenIds.has(id)) return;
+          const name = item.name ?? item.full_name ?? item.fullName ?? item.student_name ?? item.studentName ?? item.display_name ?? item.displayName ?? '';
+          seenIds.add(id);
+          const rank = Number(item.rank ?? item.position);
+          entries.push({
+            id,
+            name: String(name).trim() || 'Student',
+            marks: toNumber(item.marks ?? item.score ?? item.points ?? item.mark, 0),
+            maxMarks: toNumber(item.max_marks ?? item.maxMarks ?? item.total_marks ?? item.totalMarks ?? item.total ?? 100, 100),
+            speed: parseTime(item.speed_seconds ?? item.speedSeconds ?? item.duration_seconds ?? item.durationSeconds ?? item.completion_seconds ?? item.completionSeconds ?? item.time_seconds ?? item.timeSeconds ?? item.speed),
+            rank: Number.isFinite(rank) && rank > 0 ? Math.floor(rank) : null
+          });
+        });
+
+        const findEntry = (id, name) => {
+          if (id != null && String(id)) {
+            const byId = entries.find((entry) => entry.id === String(id));
+            if (byId) return byId;
+          }
+          const normalizedName = String(name || '').trim().toLowerCase();
+          if (!normalizedName) return null;
+          return entries.find((entry) => entry.name.toLowerCase() === normalizedName) || null;
+        };
+
+        let currentUserId = String(
+          source.current_user_id ?? source.currentUserId ?? source.me?.id ?? source.current_user?.id ?? ''
+        );
+
+        const currentUser = source.current_user ?? source.currentUser ?? source.me;
+        if (currentUser && typeof currentUser === 'object') {
+          const currentId = String(currentUser.id ?? currentUser.user_id ?? currentUser.userId ?? currentUser.student_id ?? currentUser.studentId ?? currentUserId ?? '');
+          const currentName = currentUser.name ?? currentUser.full_name ?? currentUser.fullName ?? currentUser.display_name ?? currentUser.displayName ?? storedUser?.name ?? '';
+          const existing = findEntry(currentId, currentName);
+          const currentSpeed = currentUser.speed_seconds ?? currentUser.speedSeconds ?? currentUser.duration_seconds ?? currentUser.durationSeconds ?? currentUser.completion_seconds ?? currentUser.completionSeconds;
+          const hasResult = [currentUser.marks, currentUser.score, currentUser.points, currentUser.mark, currentSpeed].some((value) => value != null);
+
+          if (existing) {
+            currentUserId = existing.id;
+          } else if (hasResult) {
+            const id = currentId || `current-${entries.length}`;
+            if (!seenIds.has(id)) {
+              const currentRank = Number(currentUser.rank ?? currentUser.position);
+              entries.push({
+                id,
+                name: String(currentName).trim() || 'Student',
+                marks: toNumber(currentUser.marks ?? currentUser.score ?? currentUser.points ?? currentUser.mark, 0),
+                maxMarks: toNumber(currentUser.max_marks ?? currentUser.maxMarks ?? currentUser.total_marks ?? currentUser.totalMarks ?? currentUser.total ?? 100, 100),
+                speed: parseTime(currentSpeed),
+                rank: Number.isFinite(currentRank) && currentRank > 0 ? Math.floor(currentRank) : null
+              });
+              seenIds.add(id);
+            }
+            currentUserId = id;
+          } else if (currentId) {
+            currentUserId = currentId;
+          }
+        }
+
+        if (storedUser) {
+          const existing = findEntry(storedUser.id, storedUser.name);
+          if (existing) currentUserId = existing.id;
+          else if (!currentUserId && storedUser.id != null) currentUserId = String(storedUser.id);
+        }
+
+        const ordered = entries
+          .sort((a, b) => b.marks - a.marks
+            || (a.speed == null ? Number.MAX_SAFE_INTEGER : a.speed) - (b.speed == null ? Number.MAX_SAFE_INTEGER : b.speed)
+            || a.name.localeCompare(b.name))
+          .map((entry, index) => ({ ...entry, rank: entry.rank || index + 1 }));
+
+        return {
+          examId: source.exam_id ?? source.examId ?? source.exam?.id ?? '',
+          title: String(source.exam_title ?? source.examTitle ?? source.exam?.title ?? source.title ?? 'Event exam'),
+          updatedAt: source.updated_at ?? source.updatedAt ?? null,
+          currentUserId,
+          entries: ordered
+        };
+      };
+
+      const formatSpeed = (seconds) => {
+        if (seconds == null || seconds < 0) return '—';
+        const total = Math.round(seconds);
+        const minutes = Math.floor(total / 60);
+        const remainder = total % 60;
+        if (!minutes) return `${remainder}s`;
+        return `${minutes}m ${String(remainder).padStart(2, '0')}s`;
+      };
+
+      const youBadge = () => '<span class="you-badge">You</span>';
+
+      const rankMark = (rank) => {
+        const medal = MEDALS[rank];
+        if (!medal) return '<span class="rank-num">' + rank + '</span>';
+        const label = medal.charAt(0).toUpperCase() + medal.slice(1);
+        return '<span class="rank-medal" data-medal="' + medal + '" role="img" aria-label="Rank ' + rank + ', ' + label + ' medal">'
+          + '<span class="medal-ribbon" aria-hidden="true"></span>'
+          + '<span class="medal-face" aria-hidden="true">' + rank + '</span>'
+          + '</span>';
+      };
+
+      const tableRow = (entry, isCurrent) => {
+        return '<tr' + (isCurrent ? ' class="is-you" aria-current="true"' : '') + '>'
+          + '<td>' + rankMark(entry.rank) + '</td>'
+          + '<td><span class="name-text">' + esc(entry.name) + (isCurrent ? youBadge() : '') + '</span></td>'
+          + '<td class="num"><span class="marks"><strong>' + esc(entry.marks) + '</strong><small>/ ' + esc(entry.maxMarks) + '</small></span></td>'
+          + '<td class="num"><span class="speed">' + esc(formatSpeed(entry.speed)) + '</span></td>'
+          + '</tr>';
+      };
+
+      const youRow = (entry) => {
+        return '<div class="you-row is-you" aria-label="Your position" aria-current="true">'
+          + '<span class="rank-num">' + entry.rank + '</span>'
+          + '<span class="name-text">' + esc(entry.name) + youBadge() + '</span>'
+          + '<span class="num"><span class="marks"><strong>' + esc(entry.marks) + '</strong><small>/ ' + esc(entry.maxMarks) + '</small></span></span>'
+          + '<span class="num"><span class="speed">' + esc(formatSpeed(entry.speed)) + '</span></span>'
+          + '</div>';
+      };
+
+      const render = (data) => {
+        const entries = data.entries || [];
+        const current = data.currentUserId ? entries.find((entry) => entry.id === data.currentUserId) : null;
+
+        setScopeMeta(entries.length ? entries.length + ' students' : 'No results', !entries.length);
+
+        if (!entries.length) {
+          boardBody.innerHTML = '<div class="empty-state"><h3>No published results for this event exam</h3><p>Standings appear after students complete the event exam and its results are published.</p></div>';
+          board.setAttribute('aria-busy', 'false');
+          updateProfile(current, getStoredUser());
+          return;
+        }
+
+        const visible = entries.slice(0, 10);
+        const currentIndex = current ? entries.findIndex((entry) => entry.id === current.id) : -1;
+        const currentInTopTen = currentIndex >= 0 && currentIndex < 10;
+
+        let html = '<div class="table-wrap"><table class="ranks">'
+          + '<caption class="sr-only">Top 10 standings</caption>'
+          + '<colgroup><col class="col-rank"><col class="col-name"><col class="col-marks"><col class="col-speed"></colgroup>'
+          + '<thead><tr><th scope="col">Rank</th><th scope="col">Name</th><th scope="col" class="num">Marks</th><th scope="col" class="num">Speed</th></tr></thead>'
+          + '<tbody>' + visible.map((entry) => tableRow(entry, currentInTopTen && entry.id === current.id)).join('') + '</tbody>'
+          + '</table></div>';
+
+        if (current && currentIndex >= 10) {
+          html += '<div class="you-zone"><div class="gap-divider" aria-hidden="true"><span>…</span></div>' + youRow(current) + '</div>';
+        }
+
+        boardBody.innerHTML = html;
+        board.setAttribute('aria-busy', 'false');
+        updateProfile(current, getStoredUser());
+      };
+
+      const updateProfile = (entry, storedUser) => {
+        const name = entry?.name || storedUser?.name || 'Student';
+        const email = storedUser?.email || entry?.email || 'Student account';
+        const initials = getInitials(name);
+        profileInitials.textContent = initials;
+        ppAvatar.textContent = initials;
+        ppName.textContent = name;
+        ppEmail.textContent = email;
+        profileToggle.setAttribute('aria-label', 'Signed in as ' + name);
+        profileToggle.setAttribute('title', name);
+      };
+
+      const setScopeMeta = (text, neutral = false) => {
+        scopeMeta.textContent = text;
+        const chip = scopeMeta.closest('.chip');
+        if (chip) chip.classList.toggle('neutral', neutral);
+      };
+
+      const hasOwnPublishedAttempt = (exam) => FINAL_ATTEMPT_STATUSES.has(
+        String(exam.attempt_status ?? exam.attemptStatus ?? '').toLowerCase()
+      );
+
+      const hasParticipation = (exam) => {
+        const attemptStatus = String(exam.attempt_status ?? exam.attemptStatus ?? '').toLowerCase();
+        if (attemptStatus) return true;
+        return String(exam.status ?? '').toLowerCase() === 'completed';
+      };
+
+      const hasPublishedResults = (exam) => hasOwnPublishedAttempt(exam)
+        || FINAL_EXAM_STATUSES.has(String(exam.status ?? '').toLowerCase());
+
+      const skeletonMarkup = () => '<div class="skeleton" aria-hidden="true">'
+        + '<div class="skel-rows">'
+        + '<div class="skel-row"></div>'.repeat(10)
+        + '</div></div>';
+
+      const setExamOptions = (exams) => {
+        examSelect.innerHTML = exams.map((exam) => '<option value="' + esc(exam.id) + '">' + esc(exam.title || 'Event exam') + '</option>').join('');
+        examSelect.disabled = exams.length === 0;
+      };
+
+      const setSelectedExam = (examId, { updateUrl = true } = {}) => {
+        if (examId != null) examSelect.value = String(examId);
+        if (!updateUrl) return;
+        const url = new URL(window.location.href);
+        if (examId != null) url.searchParams.set('exam', String(examId));
+        else url.searchParams.delete('exam');
+        window.history.replaceState(null, '', url);
+      };
+
+      const loadLeaderboard = async (examId, storedUser) => {
+        if (examId == null) return;
+        const requestId = ++leaderboardRequest;
+        board.setAttribute('aria-busy', 'true');
+        boardBody.innerHTML = skeletonMarkup();
+        try {
+          const endpoint = EXAM_LEADERBOARD_ENDPOINT.replace('{examId}', encodeURIComponent(examId));
+          const payload = await fetchJson(withLanguage(endpoint));
+          if (requestId !== leaderboardRequest) return;
+          render(normalize(payload, storedUser));
+        } catch (error) {
+          if (requestId !== leaderboardRequest) return;
+          setScopeMeta('No results', true);
+          boardBody.innerHTML = '<div class="empty-state"><h3>Leaderboard unavailable</h3><p>Published results for this event exam could not be loaded.</p></div>';
+          board.setAttribute('aria-busy', 'false');
+          updateProfile(null, storedUser);
+        }
+      };
+
+      const getInjectedLeaderboard = async () => {
+        const injected = window.QIYAS_LEADERBOARD;
+        if (!injected) return null;
+        try {
+          return await (typeof injected === 'function' ? injected() : injected);
+        } catch (error) {
+          return null;
+        }
+      };
+
+      const bootstrap = async () => {
+        const storedUser = getStoredUser();
+        updateProfile(null, storedUser);
+        try {
+          const injectedPayload = await getInjectedLeaderboard();
+          if (injectedPayload) {
+            const data = normalize(injectedPayload, storedUser);
+            const examId = data.examId || new URLSearchParams(window.location.search).get('exam') || 'current';
+            setExamOptions([{ id: examId, title: data.title }]);
+            setSelectedExam(examId, { updateUrl: false });
+            render(data);
+            return;
+          }
+
+          const payload = await fetchJson(withLanguage(SCHEDULED_EXAMS_ENDPOINT));
+          const list = Array.isArray(payload) ? payload : Array.isArray(payload.results) ? payload.results : [];
+          const participatedExams = list.filter(hasParticipation);
+          if (!participatedExams.length) {
+            setExamOptions([]);
+            examSelect.innerHTML = '<option value="">No event exams available</option>';
+            setScopeMeta('No results', true);
+            boardBody.innerHTML = '<div class="empty-state"><h3>No event exams available</h3><p>Event exam leaderboards appear after you participate in an event exam.</p></div>';
+            board.setAttribute('aria-busy', 'false');
+            return;
+          }
+          setExamOptions(participatedExams);
+          const requestedId = new URLSearchParams(window.location.search).get('exam');
+          const requestedExam = participatedExams.find((exam) => String(exam.id) === String(requestedId));
+          const firstOwnPublished = participatedExams.find(hasOwnPublishedAttempt);
+          const firstPublished = participatedExams.find(hasPublishedResults);
+          const exam = requestedExam || firstOwnPublished || firstPublished || participatedExams[0];
+          setSelectedExam(exam.id);
+          await loadLeaderboard(exam.id, storedUser);
+        } catch (error) {
+          setExamOptions([]);
+          examSelect.innerHTML = '<option value="">Unable to load event exams</option>';
+          setScopeMeta('Unavailable', true);
+          boardBody.innerHTML = '<div class="empty-state"><h3>Event exams unavailable</h3><p>Refresh the page to try again.</p></div>';
+          board.setAttribute('aria-busy', 'false');
+          updateProfile(null, storedUser);
+        }
+      };
+
+      examSelect.addEventListener('change', () => {
+        const examId = examSelect.value;
+        if (!examId) return;
+        setSelectedExam(examId);
+        loadLeaderboard(examId, getStoredUser());
+      });
+
+      const syncTheme = () => {
+        const dark = root.dataset.theme === 'dark';
+        themeToggle.innerHTML = dark ? ICONS.moon : ICONS.sun;
+        themeToggle.setAttribute('aria-pressed', String(dark));
+        themeToggle.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+        themeToggle.setAttribute('title', dark ? 'Switch to light theme' : 'Switch to dark theme');
+      };
+
+      const storedTheme = (() => {
+        try {
+          return window.localStorage.getItem('qiyas-theme') || window.localStorage.getItem('qiyas-preview-theme');
+        } catch (error) {
+          return null;
+        }
+      })();
+      if (storedTheme === 'dark' || storedTheme === 'light') root.dataset.theme = storedTheme;
+      syncTheme();
+
+      themeToggle.addEventListener('click', () => {
+        root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        try {
+          window.localStorage.setItem('qiyas-theme', root.dataset.theme);
+          window.localStorage.setItem('qiyas-preview-theme', root.dataset.theme);
+        } catch (error) {}
+        syncTheme();
+      });
+
+      const setProfileOpen = (open) => {
+        profilePopover.hidden = !open;
+        profileToggle.setAttribute('aria-expanded', String(open));
+      };
+
+      profileToggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        setProfileOpen(profilePopover.hidden);
+      });
+      profilePopover.addEventListener('click', (event) => event.stopPropagation());
+      document.addEventListener('click', () => setProfileOpen(false));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') setProfileOpen(false);
+      });
+      document.querySelectorAll('[data-open-profile]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          setProfileOpen(true);
+        });
+      });
+
+      bootstrap();
+    })();
+  </script>
+</body>
+</html>
