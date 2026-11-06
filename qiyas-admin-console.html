@@ -429,6 +429,7 @@
     .pm-org-logo-box{display:inline-flex;align-items:center;justify-content:center;padding:6px 8px;border:var(--border-width-hairline) solid var(--border-default);border-radius:var(--radius-control);background:var(--primitive-paper)}
     .pm-org-logo{display:block;inline-size:88px;block-size:auto}
     .pm-logo-field{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap}
+    .pm-logo-preview{display:flex;align-items:center;min-inline-size:0}
     .pm-logout{color:var(--state-incorrect-fg)}
     .pm-logout:hover{color:var(--state-incorrect-fg)}
     @media (max-width:480px){ .pm-field{grid-template-columns:minmax(0,1fr);gap:2px} .pm-field dt{font-size:11px} .profile-modal{padding:var(--space-4)} .pm-actions .btn{flex:1 1 100%} }
@@ -1035,7 +1036,7 @@ const session={
 };
 
 /* ===== run state ===== */
-const state={viewState:'nominal',theme:'light',specOpen:false,navOpen:false,navCollapsed:false,profileOpen:false,profileView:'profile',profileReturnFocus:null,list:{},upload:null,studentBulk:null,searchOpen:false,practiceSelect:{},gradeManagement:{tab:'grades',openGroupId:null,difficultySubjectId:DATA.subjects.find(subject=>subject.name==='Mathematics')?.id}};
+const state={viewState:'nominal',theme:'light',specOpen:false,navOpen:false,navCollapsed:false,profileOpen:false,profileView:'profile',profileReturnFocus:null,profilePendingLogo:null,list:{},upload:null,studentBulk:null,searchOpen:false,practiceSelect:{},gradeManagement:{tab:'grades',openGroupId:null,difficultySubjectId:DATA.subjects.find(subject=>subject.name==='Mathematics')?.id}};
 function listState(key){ if(!state.list[key]) state.list[key]={q:'',page:1,size:10,sort:'',dir:1,filters:{},sel:new Set()}; return state.list[key]; }
 function resetList(key){ delete state.list[key]; }
 
@@ -1099,8 +1100,9 @@ function syncAdminIdentity(){
   $$('[data-admin-initials]').forEach(el=>{ el.textContent=ini; });
   $$('[data-admin-name]').forEach(el=>{ el.textContent=session.name; });
 }
-function adminLogoHTML(){
-  if(session.organizationLogo) return '<span class="pm-org-logo-box"><img class="pm-org-logo" src="'+esc(session.organizationLogo)+'" alt="'+esc(session.organizationName||'Organization')+' logo"></span>';
+function adminLogoHTML(src){
+  const logo=src===undefined?session.organizationLogo:src;
+  if(logo) return '<span class="pm-org-logo-box"><img class="pm-org-logo" src="'+esc(logo)+'" alt="'+esc(session.organizationName||'Organization')+' logo"></span>';
   return '<span class="pm-org-logo-box"><svg class="pm-org-logo" viewBox="0 0 1201 349" role="img" aria-label="'+esc(session.organizationName||'Organization')+' logo"><use href="#logo-en"></use></svg></span>';
 }
 function adminProfileFieldsHTML(){
@@ -1130,7 +1132,7 @@ function adminProfileEditHTML(){
     +'</div>'
     +'<div class="pm-section"><h3>Organization Information</h3>'
       +'<div class="field"><label for="admin-profile-org">Organization name <span class="req" aria-hidden="true">*</span></label><input id="admin-profile-org" name="organizationName" type="text" value="'+esc(session.organizationName||'')+'"><span class="err" role="alert"></span></div>'
-      +'<div class="field"><label>Organization logo</label><div class="pm-logo-field">'+adminLogoHTML()+'<span class="help">Managed by your organization.</span></div></div>'
+      +'<div class="field"><label>Organization logo</label><div class="pm-logo-field"><span class="pm-logo-preview" data-profile-logo-preview>'+adminLogoHTML(state.profilePendingLogo===null?session.organizationLogo:state.profilePendingLogo)+'</span><button class="btn primary small" type="button" data-profile-logo-edit aria-controls="admin-profile-logo">Edit Logo</button></div><span class="help" data-profile-logo-note aria-live="polite">'+(state.profilePendingLogo===null?'PNG, JPG, or SVG from your device.':'Preview — save changes to apply.')+'</span><input id="admin-profile-logo" type="file" accept="image/*" class="sr-only" aria-label="Organization logo file" data-profile-logo-input></div>'
     +'</div>'
     +'<div class="pm-actions"><button class="btn ghost" type="button" data-profile-cancel>Cancel</button><button class="btn primary" type="submit">Save changes</button></div>'
     +'</form>';
@@ -1168,12 +1170,31 @@ function renderAdminProfile(){
     +'</section>';
   root.querySelectorAll('[data-profile-modal-close],[data-profile-modal-backdrop]').forEach(el=>el.addEventListener('click',closeAdminProfile));
   const editBtn=root.querySelector('[data-profile-edit]');
-  if(editBtn) editBtn.addEventListener('click',()=>{ state.profileView='edit'; renderAdminProfile(); });
+  if(editBtn) editBtn.addEventListener('click',()=>{ state.profileView='edit'; state.profilePendingLogo=null; renderAdminProfile(); });
   const passBtn=root.querySelector('[data-profile-change-password]');
   if(passBtn) passBtn.addEventListener('click',()=>{ state.profileView='password'; renderAdminProfile(); });
   const logoutBtn=root.querySelector('[data-profile-logout]');
   if(logoutBtn) logoutBtn.addEventListener('click',logoutAdminProfile);
-  root.querySelectorAll('[data-profile-cancel]').forEach(el=>el.addEventListener('click',()=>{ state.profileView='profile'; renderAdminProfile(); const btn=root.querySelector('[data-profile-edit]'); if(btn) btn.focus(); }));
+  root.querySelectorAll('[data-profile-cancel]').forEach(el=>el.addEventListener('click',()=>{ state.profilePendingLogo=null; state.profileView='profile'; renderAdminProfile(); const btn=root.querySelector('[data-profile-edit]'); if(btn) btn.focus(); }));
+  const logoEdit=root.querySelector('[data-profile-logo-edit]');
+  const logoInput=root.querySelector('[data-profile-logo-input]');
+  if(logoEdit&&logoInput) logoEdit.addEventListener('click',()=>logoInput.click());
+  if(logoInput) logoInput.addEventListener('change',ev=>{
+    const file=ev.target.files&&ev.target.files[0];
+    if(!file) return;
+    if(!file.type||!file.type.startsWith('image/')){ toast('bad','Unsupported file','Choose an image file to use as the organization logo.'); logoInput.value=''; return; }
+    const reader=new FileReader();
+    reader.onload=()=>{
+      if(!state.profileOpen||state.profileView!=='edit') return;
+      state.profilePendingLogo=String(reader.result);
+      const preview=root.querySelector('[data-profile-logo-preview]');
+      if(preview) preview.innerHTML=adminLogoHTML(state.profilePendingLogo);
+      const note=root.querySelector('[data-profile-logo-note]');
+      if(note) note.textContent='Preview — save changes to apply.';
+    };
+    reader.onerror=()=>toast('bad','Logo could not be read','Choose another image and try again.');
+    reader.readAsDataURL(file);
+  });
   const form=root.querySelector('[data-profile-form]');
   if(form) form.addEventListener('submit',ev=>{ ev.preventDefault(); saveAdminProfile(form); });
   const passForm=root.querySelector('[data-password-form]');
@@ -1198,6 +1219,8 @@ function saveAdminProfile(form){
   session.phone=(phoneEl.value||'').trim();
   session.designation=(designationEl.value||'').trim();
   session.organizationName=org;
+  if(state.profilePendingLogo!==null) session.organizationLogo=state.profilePendingLogo;
+  state.profilePendingLogo=null;
   state.profileView='profile';
   syncAdminIdentity();
   renderAdminProfile();
@@ -1226,6 +1249,7 @@ function openAdminProfile(){
   if(state.profileOpen) return;
   state.profileOpen=true;
   state.profileView='profile';
+  state.profilePendingLogo=null;
   state.profileReturnFocus=document.activeElement;
   renderAdminProfile();
 }
@@ -1234,6 +1258,7 @@ function closeAdminProfile(){
   const prev=state.profileReturnFocus;
   state.profileOpen=false;
   state.profileView='profile';
+  state.profilePendingLogo=null;
   state.profileReturnFocus=null;
   renderAdminProfile();
   if(prev&&prev.focus) prev.focus();
