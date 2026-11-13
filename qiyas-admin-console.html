@@ -2478,15 +2478,37 @@ function eligibleQuestions(levelId){
   // response for the level; the selection UI only depends on this returned shape.
   return DATA.questions.filter(q=>q.levelId===levelId);
 }
-function practiceSelectState(levelId){
-  if(!state.practiceSelect[levelId]) state.practiceSelect[levelId]={q:'',difficulty:'',type:'',pool:'all',selected:new Set(practiceOf(levelId).questionIds||[])};
-  return state.practiceSelect[levelId];
+function practiceGradeName(gradeId){
+  const grade=GRADE_MODEL.grades.find(item=>item.id===gradeId);
+  return grade?'Grade '+grade.number:'';
+}
+function practiceGradeConfigKey(gradeId,levelId){ return gradeId+'::'+levelId; }
+function practiceOfGrade(gradeId,levelId){
+  if(!gradeId) return practiceOf(levelId);
+  if(!DATA.practiceByGrade) DATA.practiceByGrade={};
+  const key=practiceGradeConfigKey(gradeId,levelId);
+  if(!DATA.practiceByGrade[key]){
+    const base=DATA.practice[levelId];
+    DATA.practiceByGrade[key]={count:base?base.count:10,durationMin:base?base.durationMin:15,questionIds:base?(base.questionIds||[]).slice():[],gradeId:gradeId,levelId:levelId};
+  }
+  return DATA.practiceByGrade[key];
+}
+function practiceConfigFor(levelId,gradeId){ return gradeId?practiceOfGrade(gradeId,levelId):practiceOf(levelId); }
+function practiceGradeConfigured(gradeId,levelId){
+  if(!gradeId) return !!DATA.practice[levelId];
+  if(DATA.practiceByGrade&&DATA.practiceByGrade[practiceGradeConfigKey(gradeId,levelId)]) return true;
+  return !!DATA.practice[levelId];
+}
+function practiceSelectState(levelId,gradeId){
+  const key=(gradeId||'legacy')+'::'+levelId;
+  if(!state.practiceSelect[key]) state.practiceSelect[key]={q:'',difficulty:'',type:'',pool:'all',selected:new Set(practiceConfigFor(levelId,gradeId).questionIds||[])};
+  return state.practiceSelect[key];
 }
 function practiceReadonlyList(pool){
   return pool.length?'<ul class="list-plain">'+pool.map(q=>'<li><span class="a-main">'+esc(q.text)+'</span><span class="a-meta">'+esc(q.id)+' · '+esc(q.difficulty)+' · '+esc(q.status)+'</span></li>').join('')+'</ul>':'<p class="muted">No eligible questions for this level yet. Add questions to this level from the Question Bank first.</p>';
 }
-function practiceFilteredQuestions(levelId){
-  const ps=practiceSelectState(levelId); const q=ps.q.trim().toLowerCase();
+function practiceFilteredQuestions(levelId,gradeId){
+  const ps=practiceSelectState(levelId,gradeId); const q=ps.q.trim().toLowerCase();
   const rows=eligibleQuestions(levelId).filter(item=>{
     if(q&&!(item.text.toLowerCase().includes(q)||item.id.toLowerCase().includes(q))) return false;
     if(ps.difficulty&&item.difficulty!==ps.difficulty) return false;
@@ -2495,87 +2517,90 @@ function practiceFilteredQuestions(levelId){
   });
   return rows;
 }
-function practiceSelectedCount(levelId){
-  const ps=practiceSelectState(levelId); const ids=new Set(eligibleQuestions(levelId).map(q=>q.id));
+function practiceSelectedCount(levelId,gradeId){
+  const ps=practiceSelectState(levelId,gradeId); const ids=new Set(eligibleQuestions(levelId).map(q=>q.id));
   return [...ps.selected].filter(id=>ids.has(id)).length;
 }
-function practiceListRowsHTML(levelId){
-  const ps=practiceSelectState(levelId); const rows=practiceFilteredQuestions(levelId);
+function practiceListRowsHTML(levelId,gradeId){
+  const ps=practiceSelectState(levelId,gradeId); const rows=practiceFilteredQuestions(levelId,gradeId);
   if(!rows.length) return '<p class="muted">No eligible questions match the current search and filters.</p>';
   return '<ul class="list-plain">'+rows.map(q=>'<li><label class="check"><input type="checkbox" data-practice-select value="'+esc(q.id)+'"'+(ps.selected.has(q.id)?' checked':'')+'><span class="c-body"><strong>'+esc(q.text)+'</strong><small class="mono">'+esc(q.id)+' · '+esc(q.difficulty)+' · '+esc(q.status)+'</small></span></label></li>').join('')+'</ul>';
 }
-function updatePracticeSelectedUI(levelId){
-  const cnt=$('#practice-count'); if(cnt) cnt.textContent='Selected questions: '+practiceSelectedCount(levelId);
-  const shown=$('#practice-shown'); if(shown) shown.textContent=practiceFilteredQuestions(levelId).length+' shown';
+function updatePracticeSelectedUI(levelId,gradeId){
+  const cnt=$('#practice-count'); if(cnt) cnt.textContent='Selected questions: '+practiceSelectedCount(levelId,gradeId);
+  const shown=$('#practice-shown'); if(shown) shown.textContent=practiceFilteredQuestions(levelId,gradeId).length+' shown';
 }
-function practiceSelectionControlsHTML(levelId){
-  const ps=practiceSelectState(levelId);
+function practiceSelectionControlsHTML(levelId,gradeId){
+  const ps=practiceSelectState(levelId,gradeId);
   return '<div class="toolbar">'
     +'<div class="search"><label class="sr-only" for="practice-q">Search eligible questions</label><input id="practice-q" type="search" value="'+esc(ps.q)+'" placeholder="Search by question text or ID" data-practice-search autocomplete="off"></div>'
     +'<label class="sr-only" for="practice-difficulty">Difficulty</label><select id="practice-difficulty" data-practice-filter="difficulty">'+optionsHTML([{value:'',label:'All difficulties'},{value:'Easy',label:'Easy'},{value:'Medium',label:'Medium'},{value:'Hard',label:'Hard'}],ps.difficulty)+'</select>'
     +'<label class="sr-only" for="practice-type">Question type</label><select id="practice-type" data-practice-filter="type">'+optionsHTML([{value:'',label:'All types'},{value:'MCQ',label:'MCQ'},{value:'True/False',label:'True/False'},{value:'Short Answer',label:'Short Answer'}],ps.type)+'</select>'
     +'</div>'
-    +'<div class="toolbar"><span class="mono muted" id="practice-count">Selected questions: '+practiceSelectedCount(levelId)+'</span>'
+    +'<div class="toolbar"><span class="mono muted" id="practice-count">Selected questions: '+practiceSelectedCount(levelId,gradeId)+'</span>'
     +'<button class="btn secondary small" type="button" data-practice-selectall>Select all</button>'
     +'<button class="btn ghost small" type="button" data-practice-clearall>Clear all</button>'
-    +'<span class="grow"></span><small class="muted" id="practice-shown">'+practiceFilteredQuestions(levelId).length+' shown</small></div>'
-    +'<div id="practice-list">'+practiceListRowsHTML(levelId)+'</div>';
+    +'<span class="grow"></span><small class="muted" id="practice-shown">'+practiceFilteredQuestions(levelId,gradeId).length+' shown</small></div>'
+    +'<div id="practice-list">'+practiceListRowsHTML(levelId,gradeId)+'</div>';
 }
-function practicePoolPanel(levelId,pool){
-  const ps=practiceSelectState(levelId);
-  const body=ps.pool==='manual'?practiceSelectionControlsHTML(levelId):practiceReadonlyList(pool);
+function practicePoolPanel(levelId,pool,gradeId){
+  const ps=practiceSelectState(levelId,gradeId);
+  const body=ps.pool==='manual'?practiceSelectionControlsHTML(levelId,gradeId):practiceReadonlyList(pool);
   return '<div class="panel pad" id="practice-pool-panel"><div class="panel-head"><h2>Eligible questions</h2><small id="practice-pool-count">'+pool.length+' in the pool</small></div><div id="practice-pool-body">'+body+'</div></div>';
 }
-function wirePracticeSelection(levelId){
+function wirePracticeSelection(levelId,gradeId){
   const panel=$('#practice-pool-panel'); if(!panel) return;
-  const ps=practiceSelectState(levelId); const pool=eligibleQuestions(levelId);
-  const refreshList=()=>{ const list=$('#practice-list'); if(list) list.innerHTML=practiceListRowsHTML(levelId); updatePracticeSelectedUI(levelId); };
-  const renderPoolBody=()=>{ const body=$('#practice-pool-body'); if(!body) return; body.innerHTML=ps.pool==='manual'?practiceSelectionControlsHTML(levelId):practiceReadonlyList(pool); updatePracticeSelectedUI(levelId); };
+  const ps=practiceSelectState(levelId,gradeId); const pool=eligibleQuestions(levelId);
+  const refreshList=()=>{ const list=$('#practice-list'); if(list) list.innerHTML=practiceListRowsHTML(levelId,gradeId); updatePracticeSelectedUI(levelId,gradeId); };
+  const renderPoolBody=()=>{ const body=$('#practice-pool-body'); if(!body) return; body.innerHTML=ps.pool==='manual'?practiceSelectionControlsHTML(levelId,gradeId):practiceReadonlyList(pool); updatePracticeSelectedUI(levelId,gradeId); };
   const form=$('#view form[data-form="practice"]');
   const poolSel=form?form.querySelector('[name="pool"]'):null;
   if(poolSel) poolSel.addEventListener('change',()=>{ ps.pool=poolSel.value==='manual'?'manual':'all'; renderPoolBody(); });
   panel.addEventListener('input',ev=>{ const s=ev.target.closest('[data-practice-search]'); if(s){ ps.q=s.value; refreshList(); } });
   panel.addEventListener('change',ev=>{
     const f=ev.target.closest('[data-practice-filter]'); if(f){ ps[f.dataset.practiceFilter]=f.value; refreshList(); return; }
-    const cb=ev.target.closest('[data-practice-select]'); if(cb){ if(cb.checked) ps.selected.add(cb.value); else ps.selected.delete(cb.value); updatePracticeSelectedUI(levelId); return; }
+    const cb=ev.target.closest('[data-practice-select]'); if(cb){ if(cb.checked) ps.selected.add(cb.value); else ps.selected.delete(cb.value); updatePracticeSelectedUI(levelId,gradeId); return; }
   });
   panel.addEventListener('click',ev=>{
-    if(ev.target.closest('[data-practice-selectall]')){ practiceFilteredQuestions(levelId).forEach(q=>ps.selected.add(q.id)); $$('#practice-list [data-practice-select]').forEach(cb=>{ cb.checked=true; }); updatePracticeSelectedUI(levelId); return; }
-    if(ev.target.closest('[data-practice-clearall]')){ ps.selected.clear(); $$('#practice-list [data-practice-select]').forEach(cb=>{ cb.checked=false; }); updatePracticeSelectedUI(levelId); return; }
+    if(ev.target.closest('[data-practice-selectall]')){ practiceFilteredQuestions(levelId,gradeId).forEach(q=>ps.selected.add(q.id)); $$('#practice-list [data-practice-select]').forEach(cb=>{ cb.checked=true; }); updatePracticeSelectedUI(levelId,gradeId); return; }
+    if(ev.target.closest('[data-practice-clearall]')){ ps.selected.clear(); $$('#practice-list [data-practice-select]').forEach(cb=>{ cb.checked=false; }); updatePracticeSelectedUI(levelId,gradeId); return; }
   });
 }
-function viewPractice(levelId){
+function viewPractice(levelId,gradeId){
+  if(!gradeId){ gradeId=parseHash().qs.get('grade')||''; }
+  if(gradeId) practiceOverviewState().gradeId=gradeId;
   const level=byId(DATA.levels,levelId);
   if(!level) return notFoundView('level',levelId);
   const topic=byId(DATA.topics,level.topicId); const subject=byId(DATA.subjects,topic?topic.subjectId:'');
-  const p=practiceOf(levelId);
+  const gradeLabel=practiceGradeName(gradeId);
+  const p=practiceConfigFor(levelId,gradeId);
   const pool=eligibleQuestions(levelId);
-  const ps=practiceSelectState(levelId);
+  const ps=practiceSelectState(levelId,gradeId);
   ps.pool=(p.questionIds&&p.questionIds.length&&p.questionIds.length<pool.length)?'manual':'all';
   const body=previewState()||(jumpBar('academic',{label:'Academic structure',href:'#/subjects?open='+levelId})+'<div class="stack">'
-    +'<div class="panel pad"><div class="panel-head"><h2>Practice configuration</h2><small>'+esc(level.name)+'</small></div>'
+    +'<div class="panel pad"><div class="panel-head"><h2>Practice configuration</h2><small>'+esc((gradeLabel?gradeLabel+' · ':'')+level.name)+'</small></div>'
     +'<p class="muted">Practice is time-bound per the client call. Students answer, submit, and see feedback only after full completion; progress persists so a session can be resumed.</p><div class="hr"></div>'
     +formHTML({id:'practice',fields:[
       {name:'count',label:'Question count',type:'number',required:true,min:1,max:120,help:'How many questions each attempt draws from the Question Pool'},
       {name:'durationMin',label:'Timer (minutes)',type:'number',required:true,min:1,max:180},
       {name:'pool',label:'Question selection',type:'select',options:[{value:'all',label:'Random selection from eligible questions'},{value:'manual',label:'Select specific questions'}],span2:true,help:'Random draws from the eligible set each attempt; specific selection draws only the questions you choose.'}
     ],values:{count:p.count,durationMin:p.durationMin,pool:ps.pool},submitLabel:'Save practice configuration',cancelHref:'#/practice'})+'</div>'
-    +practicePoolPanel(levelId,pool)
+    +practicePoolPanel(levelId,pool,gradeId)
     +'<div class="panel pad"><div class="panel-head"><h2>Practice activity</h2><span class="chip muted"><span class="cdot" aria-hidden="true"></span>Not confirmed for MVP</span></div>'
     +'<p class="muted">The source document flags an admin-facing practice history (attempts, average time) as worth confirming for MVP or a later reporting addition. It is shown as pending rather than built with invented data.</p></div>'
     +'</div>');
-  return {title:'Practice',subtitle:level.name+' · '+levelId,crumbs:[{label:'Practice Exam Management',href:'#/practice'},{label:level.name}],
+  return {title:'Practice',subtitle:(gradeLabel?gradeLabel+' · ':'')+level.name+' · '+levelId,crumbs:[{label:'Practice Exam Management',href:'#/practice'},{label:level.name}],
     actions:backLink('#/practice','Back to Practice Exam Management'),
     body:body,
-    spec:spec('Configure time-bound practice for one level: question count, timer, and the eligible question pool from the Question Bank.',
+    spec:spec('Configure time-bound practice for one level'+(gradeLabel?' in '+gradeLabel:'')+': question count, timer, and the eligible question pool from the Question Bank.',
       ['Save practice configuration','Select all or clear all eligible questions'],
       ['Choose random selection or specific questions','Search and filter the eligible questions','Select or clear individual eligible questions'],
       ['Question count (1–120, required)','Timer in minutes (1–180, required)','Question selection (random / specific)','Eligible questions with search, difficulty and question-type filters'],
       'Numbers must fall in range; the eligible pool must not be empty before saving.',
-      ['Reached from Practice Exam Management, per level.','Back returns to the Practice overview.'],
+      ['Reached from Practice Exam Management, per grade and level.','Back returns to the Practice overview.'],
       ['Success: toast plus audit entry.','Failure: inline errors; the pending practice-history card stays marked as unconfirmed.'],
       ['Admin role · full access.']),
-    after:()=>{ bindForm({count:{required:true,label:'Question count',number:true,min:1,max:120},durationMin:{required:true,label:'Timer',number:true,min:1,max:180}},values=>{ p.count=Number(values.count); p.durationMin=Number(values.durationMin); const eligible=eligibleQuestions(levelId).map(q=>q.id); if(values.pool==='manual'){ p.questionIds=eligible.filter(id=>practiceSelectState(levelId).selected.has(id)); } else { p.questionIds=eligible.slice(); } logAudit('Updated','Practice',levelId,'Practice set to '+p.count+' questions / '+p.durationMin+' min'+(values.pool==='manual'?' · '+p.questionIds.length+' selected':'')+'.'); toast('good','Practice saved',p.count+' questions · '+p.durationMin+' minutes.'); render(); }); wirePracticeSelection(levelId); }};
+    after:()=>{ bindForm({count:{required:true,label:'Question count',number:true,min:1,max:120},durationMin:{required:true,label:'Timer',number:true,min:1,max:180}},values=>{ p.count=Number(values.count); p.durationMin=Number(values.durationMin); const eligible=eligibleQuestions(levelId).map(q=>q.id); if(values.pool==='manual'){ p.questionIds=eligible.filter(id=>practiceSelectState(levelId,gradeId).selected.has(id)); } else { p.questionIds=eligible.slice(); } logAudit('Updated','Practice',levelId,'Practice set to '+p.count+' questions / '+p.durationMin+' min'+(gradeLabel?' for '+gradeLabel:'')+(values.pool==='manual'?' · '+p.questionIds.length+' selected':'')+'.'); toast('good','Practice saved',p.count+' questions · '+p.durationMin+' minutes.'); render(); }); wirePracticeSelection(levelId,gradeId); }};
 }
 function practiceLevelRows(){
   return DATA.levels.slice().sort((a,b)=>{
@@ -2589,20 +2614,30 @@ function practiceLevelRows(){
   });
 }
 function practiceOverviewState(){
-  if(!state.practiceOverview) state.practiceOverview={q:'',subjectId:'',topicId:'',levelId:'',config:''};
+  if(!state.practiceOverview) state.practiceOverview={q:'',gradeId:'',subjectId:'',topicId:'',levelId:'',config:''};
   return state.practiceOverview;
 }
-function practiceOverviewModel(){
-  return practiceLevelRows().map(lvl=>{
-    const topic=byId(DATA.topics,lvl.topicId);
-    const subject=topic?byId(DATA.subjects,topic.subjectId):null;
-    return {lvl:lvl,subject:subject,topic:topic,configured:!!DATA.practice[lvl.id],pool:DATA.questions.filter(q=>q.levelId===lvl.id).length};
+function practiceGradeRows(gradeId){
+  if(!gradeId) return [];
+  const rows=[];
+  DATA.subjects.slice().sort((a,b)=>a.order-b.order).forEach(subject=>{
+    DATA.topics.filter(t=>t.subjectId===subject.id).slice().sort((a,b)=>a.order-b.order).forEach(topic=>{
+      const tiers=((GRADE_MODEL.gradeLevelMap[topic.id]||{})[gradeId])||[];
+      DATA.levels.filter(l=>l.topicId===topic.id&&tiers.includes(l.name)).slice().sort((a,b)=>a.order-b.order).forEach(lvl=>{
+        rows.push({gradeId:gradeId,lvl:lvl,subject:subject,topic:topic,configured:practiceGradeConfigured(gradeId,lvl.id),pool:eligibleQuestions(lvl.id).length});
+      });
+    });
   });
+  return rows;
+}
+function practiceOverviewModel(gradeId){
+  const ov=practiceOverviewState();
+  return practiceGradeRows(gradeId||ov.gradeId);
 }
 function practiceOverviewRows(){
   const ov=practiceOverviewState(); const q=ov.q.trim().toLowerCase();
-  let rows=practiceOverviewModel();
-  if(q) rows=rows.filter(r=>[r.subject?r.subject.name:'',r.topic?r.topic.name:'',r.lvl.name].some(n=>String(n).toLowerCase().includes(q)));
+  let rows=practiceOverviewModel(ov.gradeId);
+  if(q) rows=rows.filter(r=>[r.subject?r.subject.name:'',r.topic?r.topic.name:'',r.lvl.name,r.lvl.id].some(n=>String(n).toLowerCase().includes(q)));
   if(ov.subjectId) rows=rows.filter(r=>r.subject&&r.subject.id===ov.subjectId);
   if(ov.topicId) rows=rows.filter(r=>r.topic&&r.topic.id===ov.topicId);
   if(ov.levelId) rows=rows.filter(r=>r.lvl.id===ov.levelId);
@@ -2611,10 +2646,12 @@ function practiceOverviewRows(){
 }
 function practiceOverviewToolbarHTML(){
   const ov=practiceOverviewState();
+  const gradeOpts=[{value:'',label:'Select a grade'}].concat(GRADE_MODEL.grades.map(g=>({value:g.id,label:'Grade '+g.number})));
   const subjectOpts=DATA.subjects.slice().sort((a,b)=>a.order-b.order).map(s=>({value:s.id,label:s.name}));
   const topicOpts=ov.subjectId?DATA.topics.filter(t=>t.subjectId===ov.subjectId).slice().sort((a,b)=>a.order-b.order).map(t=>({value:t.id,label:t.name})):[];
   const levelOpts=ov.topicId?DATA.levels.filter(l=>l.topicId===ov.topicId).slice().sort((a,b)=>a.order-b.order).map(l=>({value:l.id,label:l.name})):[];
-  return '<div class="toolbar">'
+  return '<div class="toolbar"><div class="field" style="min-inline-size:200px;max-inline-size:280px"><label for="po-grade">Grade</label><select id="po-grade" data-po-filter="gradeId">'+optionsHTML(gradeOpts,ov.gradeId)+'</select></div><small class="muted">Select a grade to manage the practice configurations mapped to it.</small></div>'
+    +'<div class="toolbar">'
     +'<div class="search"><label class="sr-only" for="po-q">Search practice levels</label><input id="po-q" type="search" value="'+esc(ov.q)+'" placeholder="Search by subject, topic, or level" data-po-search autocomplete="off"></div>'
     +'<label class="sr-only" for="po-subject">Subject</label><select id="po-subject" data-po-filter="subjectId">'+optionsHTML([{value:'',label:'All subjects'}].concat(subjectOpts),ov.subjectId)+'</select>'
     +'<label class="sr-only" for="po-topic">Topic</label><select id="po-topic" data-po-filter="topicId">'+optionsHTML([{value:'',label:'All topics'}].concat(topicOpts),ov.topicId)+'</select>'
@@ -2624,45 +2661,65 @@ function practiceOverviewToolbarHTML(){
     +'</div>';
 }
 function practiceOverviewTableHTML(){
+  const ov=practiceOverviewState();
+  if(!ov.gradeId) return '<p class="muted">Select a grade to view its subjects, topics, levels, and practice configurations.</p>';
   const rows=practiceOverviewRows();
-  if(!DATA.levels.length) return '<p class="muted">No levels exist yet. Add a topic and level in Academic structure first.</p>';
-  if(!rows.length) return '<p class="muted">No levels match the current search and filters.</p>';
-  return '<div class="table-wrap"><table class="data"><caption class="sr-only">Practice configuration by level</caption><thead><tr><th scope="col">Level</th><th scope="col">Eligible Questions</th><th scope="col">Status</th><th class="actions" scope="col">Action</th></tr></thead><tbody>'
-    +rows.map(r=>'<tr data-action="practice" data-id="'+esc(r.lvl.id)+'" style="cursor:pointer"><td><span class="cell-main">'+esc((r.subject?r.subject.name:'—')+' → '+(r.topic?r.topic.name:'—')+' → '+r.lvl.name)+'</span><span class="cell-sub mono">'+esc(r.lvl.id)+'</span></td>'
+  if(!rows.length) return '<p class="muted">No subjects, topics, or levels are mapped to '+esc(practiceGradeName(ov.gradeId))+'. Update the grade-to-level mapping in Grade Management first.</p>';
+  return '<div class="table-wrap"><table class="data"><caption class="sr-only">Practice configuration by grade, subject, topic, and level</caption><thead><tr><th scope="col">Subject</th><th scope="col">Topic</th><th scope="col">Level</th><th scope="col">Eligible Questions</th><th scope="col">Status</th><th class="actions" scope="col">Action</th></tr></thead><tbody>'
+    +rows.map(r=>'<tr data-action="practice" data-id="'+esc(r.lvl.id)+'" data-grade="'+esc(r.gradeId)+'" style="cursor:pointer">'
+      +'<td><span class="cell-main">'+esc(r.subject?r.subject.name:'—')+'</span><span class="cell-sub mono">'+esc(r.subject?r.subject.code||r.subject.id:'')+'</span></td>'
+      +'<td><span class="cell-main">'+esc(r.topic?r.topic.name:'—')+'</span></td>'
+      +'<td><span class="cell-main">'+esc(r.lvl.name)+'</span><span class="cell-sub mono">'+esc(r.lvl.id)+'</span></td>'
       +'<td class="num">'+r.pool+'</td>'
       +'<td>'+(r.configured?'<span class="chip good" style="justify-content:center;min-inline-size:150px"><span class="cdot" aria-hidden="true"></span>Configured</span>':'<span class="chip muted" style="justify-content:center;min-inline-size:150px"><span class="cdot" aria-hidden="true"></span>Not yet configured</span>')+'</td>'
-      +'<td class="actions"><a class="btn ghost small" href="#/levels/'+esc(r.lvl.id)+'/practice">'+ico('clock',14)+'Configure</a></td></tr>').join('')
+      +'<td class="actions"><a class="btn ghost small" href="#/levels/'+esc(r.lvl.id)+'/practice?grade='+encodeURIComponent(r.gradeId)+'">'+ico('clock',14)+'Configure</a></td></tr>').join('')
     +'</tbody></table></div>';
 }
 function wirePracticeOverview(){
   const panel=$('#practice-overview'); if(!panel) return;
   const ov=practiceOverviewState();
-  const refresh=()=>{ const t=$('#practice-overview-table'); if(t) t.innerHTML=practiceOverviewTableHTML(); const c=$('#practice-overview-count'); if(c) c.textContent=practiceOverviewRows().length+' shown'; };
+  const refresh=()=>{
+    const t=$('#practice-overview-table'); if(t) t.innerHTML=practiceOverviewTableHTML();
+    const c=$('#practice-overview-count'); if(c) c.textContent=practiceOverviewRows().length+' shown';
+    const s=$('#practice-overview-summary'); if(s){
+      if(!ov.gradeId) s.textContent='Select a grade to manage its practice exams.';
+      else { const rows=practiceOverviewModel(ov.gradeId); s.textContent=rows.filter(r=>r.configured).length+' of '+rows.length+' configured for '+practiceGradeName(ov.gradeId); }
+    }
+  };
   panel.addEventListener('input',ev=>{ const s=ev.target.closest('[data-po-search]'); if(s){ ov.q=s.value; refresh(); } });
   panel.addEventListener('change',ev=>{
     const f=ev.target.closest('[data-po-filter]');
-    if(f){ ov[f.dataset.poFilter]=f.value; if(f.dataset.poFilter==='subjectId'){ ov.topicId=''; ov.levelId=''; } if(f.dataset.poFilter==='topicId'){ ov.levelId=''; } const tb=$('#practice-overview-toolbar'); if(tb) tb.innerHTML=practiceOverviewToolbarHTML(); refresh(); return; }
+    if(f){
+      ov[f.dataset.poFilter]=f.value;
+      if(f.dataset.poFilter==='gradeId'){ ov.q=''; ov.subjectId=''; ov.topicId=''; ov.levelId=''; ov.config=''; }
+      if(f.dataset.poFilter==='subjectId'){ ov.topicId=''; ov.levelId=''; }
+      if(f.dataset.poFilter==='topicId'){ ov.levelId=''; }
+      const tb=$('#practice-overview-toolbar'); if(tb) tb.innerHTML=practiceOverviewToolbarHTML();
+      refresh(); return;
+    }
   });
 }
 function viewPracticeOverview(){
-  const all=practiceOverviewModel();
+  const ov=practiceOverviewState();
+  const all=practiceOverviewModel(ov.gradeId);
   const configured=all.filter(r=>r.configured).length;
+  const summary=ov.gradeId?(configured+' of '+all.length+' configured for '+esc(practiceGradeName(ov.gradeId))):'Select a grade to manage its practice exams.';
   const body=previewState()||('<div class="stack" id="practice-overview">'
-    +bannerHTML('','One practice configuration per level','Every level across all subjects and topics is listed here. A level is configured once its practice settings have been saved; open a row to configure its practice.')
-    +'<div class="panel"><div class="panel-head" style="padding:var(--space-4) var(--space-4) 0"><h2>Levels</h2><small>'+configured+' of '+all.length+' configured</small></div><div style="padding:0 var(--space-4) var(--space-4)">'
-    +(DATA.levels.length?'<div id="practice-overview-toolbar">'+practiceOverviewToolbarHTML()+'</div>':'')
+    +bannerHTML('','Choose a grade, then configure practice per level','Every subject, topic, and level mapped to the selected grade gets its own practice configuration. Select a grade to view and configure its eligible question pools.')
+    +'<div class="panel"><div class="panel-head" style="padding:var(--space-4) var(--space-4) 0"><h2>Practice configurations</h2><small id="practice-overview-summary">'+summary+'</small></div><div style="padding:0 var(--space-4) var(--space-4)">'
+    +'<div id="practice-overview-toolbar">'+practiceOverviewToolbarHTML()+'</div>'
     +'<div id="practice-overview-table">'+practiceOverviewTableHTML()+'</div>'
     +'</div></div>'
     +'</div>');
-  return {title:'Practice Exam Management',subtitle:'Every level’s practice configuration across all subjects and topics.',crumbs:[{label:'Practice Exam Management'}],
+  return {title:'Practice Exam Management',subtitle:'Grade-based practice configuration across subjects, topics, and levels.',crumbs:[{label:'Practice Exam Management'}],
     body:body,
-    spec:spec('Overview of practice configuration status for every level in the academic structure, linking to the existing per-level practice configuration screen.',
-      ['Open a level’s practice configuration'],
-      ['Search by subject, topic, or level','Filter by subject, topic, level, or configuration status'],
-      ['Level path (Subject → Topic → Level)','Eligible Questions from the Question Bank (read-only)','Status (Configured / Not yet configured)','Action (Configure)'],
-      'Read-only summary; configuration itself happens on the per-level Practice screen.',
-      ['Each row and its Configure action link to the per-level Practice screen at #/levels/{id}/practice.'],
-      ['Empty: no levels shows an explanatory state.','Failure: retry through the prototype bar.'],
+    spec:spec('Overview of practice configuration status for every subject, topic, and level mapped to a grade, linking to the existing per-level practice configuration screen.',
+      ['Select a grade','Open a Subject + Topic + Level practice configuration'],
+      ['Filter by grade, subject, topic, level, or configuration status','Search by subject, topic, or level'],
+      ['Grade selector','Subject','Topic','Level (Foundation / Intermediate / Advanced)','Eligible Questions from the Question Bank (read-only)','Status (Configured / Not yet configured)','Action (Configure)'],
+      'A grade must be selected before its practice configurations are shown.',
+      ['Each row and its Configure action link to the per-level Practice screen at #/levels/{id}/practice with the selected grade.'],
+      ['Empty: no grade selected or no levels mapped to the grade shows an explanatory state.','Failure: retry through the prototype bar.'],
       ['Admin role · full access.']),
     after:()=>wirePracticeOverview()};
 }
@@ -3949,7 +4006,7 @@ document.addEventListener('click',ev=>{
     if(a==='view'){ navigate(entityRoute(act.dataset.entity,act.dataset.id)); return; }
     if(a==='edit'){ navigate(entityEditRoute(act.dataset.entity,act.dataset.id)); return; }
     if(a==='view-result'){ openResultDialog(act.dataset.kind,act.dataset.id); return; }
-    if(a==='practice'){ navigate('#/levels/'+act.dataset.id+'/practice'); return; }
+    if(a==='practice'){ navigate('#/levels/'+act.dataset.id+'/practice'+(act.dataset.grade?'?grade='+encodeURIComponent(act.dataset.grade):'')); return; }
     return;
   }
   const bulk=ev.target.closest('[data-bulk]');
